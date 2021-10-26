@@ -225,6 +225,9 @@
                 "icon": "fa fa-clock-o",
                 "components": [
                     "time"
+                ],
+                "requiredPrivileges": [
+                    "acmListBillingItemsPrivilege"
                 ]
             },
             {
@@ -233,6 +236,9 @@
                 "icon": "fa fa-money",
                 "components": [
                     "cost"
+                ],
+                "requiredPrivileges": [
+                    "acmListBillingItemsPrivilege"
                 ]
             },
             {
@@ -276,7 +282,7 @@
                 ],
                 "requiredPrivileges": [
                     "acmListBillingItemsPrivilege"
-                    ]
+                ]
             },
             {
                 "type": "p/ERROR",

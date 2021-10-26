@@ -10,12 +10,12 @@
  * {@link /acm-standard-applications/arkcase/src/main/webapp/resources/directives/permission/permission.client.directive.js directives/permission/permission.client.directive.js}
  *
  * The permission directive controls User Interface control availability depends on security settings.
- * Action name consists of 2 parts: module name and actionName, for example: 'cases.createCase'
+ * Action name consists of 2 parts: module name and actionName, for example: 't should be applied to disabled UI contrcases.createCase'
  *
  * @param {string} permission Acion name that includes module name, for example: 'cases.createCase'
  * @param {String} permission-object-type Object type to be passed to permission service
  * @param {string} permission-properties Data object that shhould be passed to permissions service
- * @param {string} [permission-action=disable] Defines action that should be applied to disabled UI control ('disable', 'hide')
+ * @param {string} [permission-action=disable] Defines action thaol ('disable', 'hide')
  *
  * @example
  <example>
