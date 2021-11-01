@@ -175,6 +175,9 @@ angular.module('cases').controller(
                     };
 
                     var onObjectInfoRetrieved = function(data) {
+                        console.log("data: " + data);
+                        console.log("data js: " + JSON.stringify(data));
+                        $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
                         $scope.dateInfo = $scope.dateInfo || {};
                         if(!Util.isEmpty($scope.objectInfo.dueDate)){
                             $scope.dateInfo.dueDate = moment.utc($scope.objectInfo.dueDate).local().format(defaultDateTimeUTCFormat);
