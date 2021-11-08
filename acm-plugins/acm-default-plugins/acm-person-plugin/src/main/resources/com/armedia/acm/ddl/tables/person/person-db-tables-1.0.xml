@@ -787,4 +787,58 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="54-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_status" type="VARCHAR(1024)"></column>
+            <column name="cm_id_state" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="55-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_expiration_date" type="DATE"></column>
+            <column name="cm_id_grace_expiration_date" type="DATE"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="56-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_alert_date" type="DATE"></column>
+            <column name="cm_id_grace_expiration_days" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="57-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_qualifier_sanction" type="VARCHAR(1024)"></column>
+            <column name="cm_id_role_code_type" type="VARCHAR(1024)"></column>
+            <column name="cm_id_screening_date" type="DATE"></column>
+            <column name="cm_id_exclusion_type" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="58-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_sanction_date" type="DATE"></column>
+            <column name="cm_id_case_type" type="VARCHAR(1024)"></column>
+            <column name="cm_id_offense_type" type="VARCHAR(1024)"></column>
+            <column name="cm_id_disposition_date" type="DATE"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="59-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_case_number" type="VARCHAR(1024)"></column>
+            <column name="cm_id_court_name" type="VARCHAR(1024)"></column>
+            <column name="cm_id_docket_request_date" type="DATE"></column>
+            <column name="cm_id_docket_response_date" type="DATE"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="60-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_reporting_week" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -23,6 +23,7 @@
                         placeholder="{{ 'people.comp.editPerson.givenName.placeholder' | translate }}">
             </div>
         </div>
+
         <div id="accordion" class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -69,6 +70,48 @@
                                         date-picker-id="person.defaultIdentification.identificationYearIssued"
                                         time-format-disabled="true"></date-time-picker>
                             </div>
+
+                        </div>
+                        <!-- ***  -->
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationStatus</label>
+                                <input type="text" ng-model="person.defaultIdentification.idStatus"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationStatus.placeholder' | translate }}">
+                            </div>
+                            <div class="col-sm-2 form-group" >
+                                <label translate>people.comp.editPerson.locations.state</label>
+                                <select class="form-control" ng-model="person.defaultIdentification.idState" >
+                                    <option ng-repeat="option in idStates" value="{{option.key}}">
+                                        {{option.value | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--
+                             identificationExpirationDateLicense: Expiration Date
+                             identificationGracePeriodExpirationDate: Grace Period Expiration Date
+                            -->
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationExpirationDateLicense</label>
+                                <date-time-picker data="person.defaultIdentification.idExpirationDate"
+                                                  property="person.defaultIdentification.idExpirationDate"
+                                                  date-picker-id="person.defaultIdentification.idExpirationDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationGracePeriodExpirationDate</label>
+                                <date-time-picker data="person.defaultIdentification.idGraceExpirationDate"
+                                                  property="person.defaultIdentification.idGraceExpirationDate"
+                                                  date-picker-id="person.defaultIdentification.idGraceExpirationDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <!-- add button   goes inside last row-->
                             <div class="col-sm-4 form-group">
                                 <div class="pull-left">
                                     <label class="control-label">&nbsp;</label>
@@ -79,8 +122,143 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationAlertDate</label>
+                                <date-time-picker data="person.defaultIdentification.idAlertDate"
+                                                  property="person.defaultIdentification.idAlertDate"
+                                                  date-picker-id="person.defaultIdentification.idAlertDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationGracePeriodDays</label>
+                                <input type="text" ng-model="person.defaultIdentification.idGraceExpirationDays"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationGracePeriodDays.placeholder' | translate }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationQualifierSanction</label>
+                                <input type="text" ng-model="person.defaultIdentification.idQualifierSanction"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationQualifierSanction.placeholder' | translate }}">
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationRoleCodeType</label>
+                                <input type="text" ng-model="person.defaultIdentification.idRoleCodeType"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationRoleCodeType.placeholder' | translate }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationScreeningDate</label>
+                                <date-time-picker data="person.defaultIdentification.idScreeningDate"
+                                                  property="person.defaultIdentification.idScreeningDate"
+                                                  date-picker-id="person.defaultIdentification.idScreeningDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationExclusionType</label>
+                                <input type="text" ng-model="person.defaultIdentification.idExclusionType"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationExclusionType.placeholder' | translate }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationSanctionDate</label>
+                                <date-time-picker data="person.defaultIdentification.idSanctionDate"
+                                                  property="person.defaultIdentification.idSanctionDate"
+                                                  date-picker-id="person.defaultIdentification.idSanctionDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationCaseType</label>
+                                <input type="text" ng-model="person.defaultIdentification.idCaseType"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationCaseType.placeholder' | translate }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationDispositionDate</label>
+                                <date-time-picker data="person.defaultIdentification.idDispositionDate"
+                                                  property="person.defaultIdentification.idDispositionDate"
+                                                  date-picker-id="person.defaultIdentification.idDispositionDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationOffenseType</label>
+                                <input type="text" ng-model="person.defaultIdentification.idOffenseType"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationOffenseType.placeholder' | translate }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationCaseNumber</label>
+                                <input type="text" ng-model="person.defaultIdentification.idCaseNumber"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationCaseNumber.placeholder' | translate }}">
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationCourtName</label>
+                                <input type="text" ng-model="person.defaultIdentification.idCourtName"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationCourtName.placeholder' | translate }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationDocketRequestDate</label>
+                                <date-time-picker data="person.defaultIdentification.idDocketRequestDate"
+                                                  property="person.defaultIdentification.idDocketRequestDate"
+                                                  date-picker-id="person.defaultIdentification.idDocketRequestDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationDocketResponseDate</label>
+                                <date-time-picker data="person.defaultIdentification.idDocketResponseDate"
+                                                  property="person.defaultIdentification.idDocketResponseDate"
+                                                  date-picker-id="person.defaultIdentification.idDocketResponseDate"
+                                                  time-format-disabled="true"></date-time-picker>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationReportingWeek</label>
+                                <input type="text" ng-model="person.defaultIdentification.idReportingWeek"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationReportingWeek.placeholder' | translate }}">
+                            </div>
+
+                        </div>
 
                         <div ng-repeat="identification in person.identifications">
+                            <hr />
                             <div class="row">
                                 <div class="col-sm-4 form-group">
                                     <label translate>
@@ -119,6 +297,185 @@
                                                 time-format-disabled="true"></date-time-picker>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <!-- *** -->
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationStatus</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idStatus"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationStatus.placeholder' | translate }}">
+                                </div>
+                                <div class="col-sm-2 form-group" >
+                                    <label translate>
+                                        people.comp.editPerson.locations.state</label>
+                                    <select class="form-control" ng-model="person.defaultIdentification.idState" >
+                                        <option ng-repeat="option in idStates" value="{{option.key}}">
+                                            {{option.value | translate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--
+                                 identificationExpirationDateLicense: Expiration Date
+                                 identificationGracePeriodExpirationDate: Grace Period Expiration Date
+                                -->
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationExpirationDateLicense</label>
+                                    <date-time-picker data="person.defaultIdentification.idExpirationDate"
+                                                      property="person.defaultIdentification.idExpirationDate"
+                                                      date-picker-id="person.defaultIdentification.idExpirationDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationGracePeriodExpirationDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idGraceExpirationDate"
+                                                      property="person.defaultIdentification.idGraceExpirationDate"
+                                                      date-picker-id="person.defaultIdentification.idGraceExpirationDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationAlertDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idAlertDate"
+                                                      property="person.defaultIdentification.idAlertDate"
+                                                      date-picker-id="person.defaultIdentification.idAlertDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationGracePeriodDays</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idGraceExpirationDays"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationGracePeriodDays.placeholder' | translate }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationQualifierSanction</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idQualifierSanction"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationQualifierSanction.placeholder' | translate }}">
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationRoleCodeType</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idRoleCodeType"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationRoleCodeType.placeholder' | translate }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationScreeningDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idScreeningDate"
+                                                      property="person.defaultIdentification.idScreeningDate"
+                                                      date-picker-id="person.defaultIdentification.idScreeningDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationExclusionType</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idExclusionType"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationExclusionType.placeholder' | translate }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationSanctionDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idSanctionDate"
+                                                      property="person.defaultIdentification.idSanctionDate"
+                                                      date-picker-id="person.defaultIdentification.idSanctionDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationCaseType</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idCaseType"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationCaseType.placeholder' | translate }}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationDispositionDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idDispositionDate"
+                                                      property="person.defaultIdentification.idDispositionDate"
+                                                      date-picker-id="person.defaultIdentification.idDispositionDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationOffenseType</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idOffenseType"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationOffenseType.placeholder' | translate }}">
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationCaseNumber</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idCaseNumber"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationCaseNumber.placeholder' | translate }}">
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationCourtName</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idCourtName"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationCourtName.placeholder' | translate }}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationDocketRequestDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idDocketRequestDate"
+                                                      property="person.defaultIdentification.idDocketRequestDate"
+                                                      date-picker-id="person.defaultIdentification.idDocketRequestDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationDocketResponseDate</label>
+                                    <date-time-picker data="person.defaultIdentification.idDocketResponseDate"
+                                                      property="person.defaultIdentification.idDocketResponseDate"
+                                                      date-picker-id="person.defaultIdentification.idDocketResponseDate"
+                                                      time-format-disabled="true"></date-time-picker>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationReportingWeek</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idReportingWeek"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationReportingWeek.placeholder' | translate }}">
+                                </div>
+                            </div>
+
                                 <div class="col-sm-4 form-group">
                                     <div class="pull-left">
                                         <label class="control-label">&nbsp;</label>
@@ -135,7 +492,7 @@
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

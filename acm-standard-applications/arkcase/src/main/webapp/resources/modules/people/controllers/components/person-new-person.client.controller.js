@@ -8,6 +8,7 @@ angular.module('people').controller(
             $scope.modalParams = modalParams;
             $scope.loading = false;
             $scope.loadingIcon = "fa fa-floppy-o";
+            $scope.idStates = '';
 
             //used for showing/hiding buttons in communication accounts
             var contactMethodsCounts = {
@@ -43,6 +44,10 @@ angular.module('people').controller(
                 },
                 details: ''
             };
+
+            ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+                $scope.idStates = states;
+            });
 
             //contact methods subtypes types
             ObjectLookupService.getContactMethodTypes().then(function (contactMethodTypes) {

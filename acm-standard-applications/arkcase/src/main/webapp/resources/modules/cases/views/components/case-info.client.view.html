@@ -83,21 +83,20 @@
         </div>
         <!--
         #  New Row
-        # todo: create labels
         -->
         <div class="row">
             <!-- Assigned Date -->
             <div class="col-xs-12 col-md-4">
                 <div class="h4 font-bold">
                     <div class="h4 font-bold">{{objectInfo.modified | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
-                    <small class="text-muted"><span>Assigned Date</span></small>
+                    <small class="text-muted"><span translate>cases.comp.info.assignedDate.label</span></small>
                 </div>
             </div>
             <!-- Provider Name -->
             <div class="col-xs-12 col-md-4">
                 <div class="h4 font-bold">
                     <div class="h4 font-bold">{{providerFullName}}</div>
-                    <small class="text-muted"><span>Provider Name</span></small>
+                    <small class="text-muted"><span translate>cases.comp.info.providerName.label</span></small>
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
