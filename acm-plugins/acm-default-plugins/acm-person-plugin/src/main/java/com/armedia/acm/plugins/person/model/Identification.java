@@ -177,12 +177,18 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Temporal(TemporalType.TIMESTAMP)
     private Date idDocketResponseDate;
 
-    //LCM
-    //Reporting Week cm_id_reporting_week
-    @Column(name = "cm_id_reporting_week")
-    private String idReportingWeek;
-
+    //LCM --None
     //CCM --none
+
+    //MED
+    //Provider/Supplier Type cm_id_provider_supplier_type
+    @Column(name = "cm_id_provider_supplier_type")
+    private String idProviderSupplierType;
+
+    //cm_id_provider_tin_type
+    @Column(name = "cm_id_provider_tin_type")
+    private String idProviderTinType;
+
 
     @Override
     public Date getCreated()
@@ -365,12 +371,19 @@ public class Identification implements Serializable, AcmEntity, AcmObject
 
     public void setIdDocketResponseDate(Date idDocketResponseDate) { this.idDocketResponseDate = idDocketResponseDate; }
 
-    public String getIdReportingWeek()
+    public String getIdProviderSupplierType()
     {
-        return idReportingWeek;
+        return idProviderSupplierType;
     }
 
-    public void setIdReportingWeek(String idReportingWeek) { this.idReportingWeek = idReportingWeek; }
+    public void setProviderSupplierType(String idProviderSupplierType) { this.idProviderSupplierType = idProviderSupplierType; }
+
+    public String getIdProviderTinType()
+    {
+        return idProviderTinType;
+    }
+
+    public void setIdProviderTinType(String idProviderTinType) { this.idProviderTinType = idProviderTinType; }
 
 
     public Long getIdentificationID()

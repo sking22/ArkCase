@@ -835,9 +835,34 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="60-add-id_fields" author="sean.king">
+    <!--<changeSet id="60-add-id_fields" author="sean.king">
         <addColumn tableName="acm_identification">
             <column name="cm_id_reporting_week" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>-->
+
+    <changeSet id="61-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_provider_supplier_type" type="VARCHAR(1024)"></column>
+            <column name="cm_id_provider_tin_type" type="VARCHAR(1024)"></column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="63-add-person_fields" author="sean.king">
+        <addColumn tableName="acm_person">
+            <column name="cm_person_legal_business_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_last_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_middle_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_first_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_legal_business_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_enrollment_id" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_npi" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_tin" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_tin_type" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_role" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_sanction_code" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_sanction_date" type="DATE"/>
+            <column name="cm_person_provider_specialty_type" type="VARCHAR(1024)"/>
         </addColumn>
     </changeSet>
 

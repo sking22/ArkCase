@@ -147,6 +147,60 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     private Date modified;
     @Column(name = "cm_person_modifier")
     private String modifier;
+
+    //cm_person_legal_business_name
+    @Column(name = "cm_person_legal_business_name")
+    private String legalBusinessName;
+
+    // cm_person_assc_last_name
+    @Column(name = "cm_person_assc_last_name")
+    private String associateLastName;
+
+    // cm_person_assc_middle_name
+    @Column(name = "cm_person_assc_middle_name")
+    private String associateMiddleName;
+
+    // cm_person_assc_first_name
+    @Column(name = "cm_person_assc_first_name")
+    private String associateFirstName;
+
+    // cm_person_assc_legal_business_name
+    @Column(name = "cm_person_assc_legal_business_name")
+    private String associateLegalBusinessName;
+
+    // cm_person_assc_enrollment_id
+    @Column(name = "cm_person_assc_enrollment_id")
+    private String associateEnrollmentId;
+
+    // cm_person_assc_npi
+    @Column(name = "cm_person_assc_npi")
+    private String associateNPI;
+
+    // cm_person_assc_tin
+    @Column(name = "cm_person_assc_tin")
+    private String associateTIN;
+
+    // cm_person_assc_tin_type
+    @Column(name = "cm_person_assc_tin_type")
+    private String associateTinType;
+
+    // cm_person_assc_role
+    @Column(name = "cm_person_assc_role")
+    private String associateRole;
+
+    // cm_person_assc_sanction_code
+    @Column(name = "cm_person_assc_sanction_code")
+    private String associateSanctionCode;
+
+    // cm_person_assc_sanction_date
+    @Column(name = "cm_person_assc_sanction_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date associateSanctionDate;
+
+    // cm_person_provider_specialty_type
+    @Column(name = "cm_person_provider_specialty_type")
+    private String providerSpecialty;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
             @JoinColumn(name = "cm_person_id", referencedColumnName = "cm_person_id") }, inverseJoinColumns = {
@@ -355,6 +409,72 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     {
         this.familyName = familyName;
     }
+
+    @XmlTransient
+    public String getLegalBusinessName() {return legalBusinessName; }
+
+    public void setLegalBusinessName(String legalBusinessName) { this.legalBusinessName = legalBusinessName; }
+
+    @XmlTransient
+    public String getAssociateLastName() {return associateLastName; }
+
+    public void setAssociateLastName(String idCourtName) { this.associateLastName = associateLastName; }
+
+    @XmlTransient
+    public String getAssociateMiddleName() {return associateMiddleName; }
+
+    public void setAssociateMiddleName(String associateMiddleName) { this.associateMiddleName = associateMiddleName; }
+
+    @XmlTransient
+    public String getAssociateFirstName() {return associateFirstName; }
+
+    public void setAssociateFirstName(String associateFirstName) { this.associateFirstName = associateFirstName; }
+
+    @XmlTransient
+    public String getAssociateLegalBusinessName() {return associateLegalBusinessName; }
+
+    public void setAssociateLegalBusinessName(String associateLegalBusinessName) { this.associateLegalBusinessName = associateLegalBusinessName; }
+
+    @XmlTransient
+    public String getAssociateEnrollmentId() {return associateEnrollmentId; }
+
+    public void setAssociateEnrollmentId(String associateEnrollmentId) { this.associateEnrollmentId = associateEnrollmentId; }
+
+    @XmlTransient
+    public String getAssociateNPI() {return associateNPI; }
+
+    public void setAssociateNPI(String idCourtName) { this.associateNPI = associateNPI; }
+
+    @XmlTransient
+    public String getAssociateTIN() {return associateTIN; }
+
+    public void setAssociateTIN(String associateTIN) { this.associateTIN = associateTIN; }
+
+    @XmlTransient
+    public String getAssociateTinType() {return associateTinType; }
+
+    public void setAssociateTinType(String associateTinType) { this.associateTinType = associateTinType; }
+
+    @XmlTransient
+    public String getAssociateRole() {return associateRole; }
+
+    public void setAssociateRole(String associateRole) { this.associateRole = associateRole; }
+
+    @XmlTransient
+    public String getAssociateSanctionCode() {return associateSanctionCode; }
+
+    public void setAssociateSanctionCode(String associateSanctionCode) { this.associateSanctionCode = associateSanctionCode; }
+
+    @XmlTransient
+    public Date getAssociateSanctionDate() {return associateSanctionDate; }
+
+    public void setAssociateSanctionDate(Date associateSanctionDate) { this.associateSanctionDate = associateSanctionDate; }
+
+    @XmlTransient
+    public String getProviderSpecialty() {return providerSpecialty; }
+
+    public void setProviderSpecialty(String providerSpecialty) { this.providerSpecialty = providerSpecialty; }
+
 
     @Transient
     @JsonIgnore
@@ -823,4 +943,6 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         }
         return getId() == ((Person) obj).getId();
     }
+
+
 }
