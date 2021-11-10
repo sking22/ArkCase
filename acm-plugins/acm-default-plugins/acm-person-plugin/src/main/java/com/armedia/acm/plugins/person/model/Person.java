@@ -188,17 +188,17 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @Column(name = "cm_person_assc_role")
     private String associateRole;
 
-    // cm_person_assc_sanction_code
-    @Column(name = "cm_person_assc_sanction_code")
+    // cm_person_assc_sanc_code
+    @Column(name = "cm_person_assc_sanc_code")
     private String associateSanctionCode;
 
-    // cm_person_assc_sanction_date
-    @Column(name = "cm_person_assc_sanction_date")
+    // cm_person_assc_sanc_date
+    @Column(name = "cm_person_assc_sanc_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date associateSanctionDate;
 
-    // cm_person_provider_specialty_type
-    @Column(name = "cm_person_provider_specialty_type")
+    // cm_person_specialty_type
+    @Column(name = "cm_person_specialty_type")
     private String providerSpecialty;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -418,7 +418,7 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @XmlTransient
     public String getAssociateLastName() {return associateLastName; }
 
-    public void setAssociateLastName(String idCourtName) { this.associateLastName = associateLastName; }
+    public void setAssociateLastName(String associateLastName) { this.associateLastName = associateLastName; }
 
     @XmlTransient
     public String getAssociateMiddleName() {return associateMiddleName; }
@@ -443,7 +443,7 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @XmlTransient
     public String getAssociateNPI() {return associateNPI; }
 
-    public void setAssociateNPI(String idCourtName) { this.associateNPI = associateNPI; }
+    public void setAssociateNPI(String associateNPI) { this.associateNPI = associateNPI; }
 
     @XmlTransient
     public String getAssociateTIN() {return associateTIN; }

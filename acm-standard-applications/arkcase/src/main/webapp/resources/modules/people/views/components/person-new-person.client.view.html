@@ -47,12 +47,12 @@
                        placeholder="{{ 'people.comp.editPerson.associateLastName.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateMiddleName" translate> people.comp.associateMiddleName.providerSpecialty </label>
+                <label for="associateMiddleName" translate> people.comp.editPerson.associateMiddleName </label>
                 <input type="text" id="associateMiddleName" ng-model="person.associateMiddleName" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateMiddleName.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateFirstName" translate> people.comp.associateFirstName.providerSpecialty </label>
+                <label for="associateFirstName" translate> people.comp.editPerson.associateFirstName </label>
                 <input type="text" id="associateFirstName" ng-model="person.associateFirstName" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateFirstName.placeholder' | translate }}" style="background-color: white;">
             </div>
@@ -67,22 +67,22 @@
         </div>
          <div class="row well-sm">
             <div class="col-sm-4 form-group">
-                <label for="associateEnrollmentId" translate> people.comp.associateEnrollmentId.providerSpecialty </label>
+                <label for="associateEnrollmentId" translate> people.comp.editPerson.associateEnrollmentId </label>
                 <input type="text" id="associateEnrollmentId" ng-model="person.associateEnrollmentId" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateEnrollmentId.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateNPI" translate> people.comp.editPerson.providerSpecialty </label>
+                <label for="associateNPI" translate> people.comp.editPerson.associateNPI </label>
                 <input type="text" id="associateNPI" ng-model="person.associateNPI" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateNPI.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateTIN" translate> people.comp.associateTIN.providerSpecialty </label>
+                <label for="associateTIN" translate> people.comp.editPerson.associateTIN </label>
                 <input type="text" id="associateTIN" ng-model="person.associateTIN" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateTIN.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateTinType" translate> people.comp.associateTinType.providerSpecialty </label>
+                <label for="associateTinType" translate> people.comp.editPerson.associateTinType </label>
                 <input type="text" id="associateTinType" ng-model="person.associateTinType" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateTinType.placeholder' | translate }}" style="background-color: white;">
             </div>
@@ -95,7 +95,7 @@
                        placeholder="{{ 'people.comp.editPerson.associateRole.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4 form-group">
-                <label for="associateSanctionCode" translate> people.comp.associateSanctionCode.providerSpecialty </label>
+                <label for="associateSanctionCode" translate> people.comp.editPerson.associateSanctionCode </label>
                 <input type="text" id="associateSanctionCode" ng-model="person.associateSanctionCode" class="input-md form-control"
                        placeholder="{{ 'people.comp.editPerson.associateSanctionCode.placeholder' | translate }}" style="background-color: white;">
             </div>
@@ -155,7 +155,7 @@
                                         date-picker-id="person.defaultIdentification.identificationYearIssued"
                                         time-format-disabled="true"></date-time-picker>
                             </div>
-                            <div class="col-sm-4 form-group">
+                           <div class="col-sm-4 form-group">
                                 <label translate>
                                     people.comp.editPerson.identification.identificationStatus</label>
                                 <input type="text" ng-model="person.defaultIdentification.idStatus"
@@ -172,6 +172,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <label translate>
@@ -289,7 +290,6 @@
                                        class="input-md form-control"
                                        placeholder="{{ 'people.comp.editPerson.identification.identificationOffenseType.placeholder' | translate }}">
                             </div>
-                            <!--  !!!!! -->
                             <div class="col-sm-4 form-group">
                                 <label translate>
                                     people.comp.editPerson.identification.identificationProviderSupplierType</label>
@@ -527,10 +527,10 @@
                                 </div>
                                 <div class="col-sm-4 form-group">
                                     <label translate>
-                                        people.comp.editPerson.identification.identificationRProviderTinType</label>
+                                        people.comp.editPerson.identification.identificationProviderTinType</label>
                                     <input type="text" ng-model="person.defaultIdentification.idProviderTinType"
                                            class="input-md form-control"
-                                           placeholder="{{ 'people.comp.editPerson.identification.identificationRProviderTinType.placeholder' | translate }}">
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationProviderTinType.placeholder' | translate }}">
                                 </div>
                             </div>
 
