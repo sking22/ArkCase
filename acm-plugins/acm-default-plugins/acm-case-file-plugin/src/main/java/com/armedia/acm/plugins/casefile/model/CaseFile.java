@@ -304,6 +304,15 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Transient
     private  String assigneeFullName;
 
+    //cm_case_reporting_week
+    @Column(name = "cm_case_reporting_week")
+    private String caseReportingWeek;
+
+    //cm_case_report_date
+    @Column(name = "cm_case_report_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseReportDate;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1008,4 +1017,18 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public void setAssigneePhone(String assigneePhone) {
         this.assigneePhone = assigneePhone;
     }
+
+    public String getCaseReportingWeek()
+    {
+        return caseReportingWeek;
+    }
+
+    public void setCaseReportingWeek(String caseReportingWeek) { this.caseReportingWeek = caseReportingWeek; }
+
+    public Date getCaseReportDate()
+    {
+        return caseReportDate;
+    }
+
+    public void setCaseReportDate(Date caseReportDate) { this.caseReportDate = caseReportDate; }
 }

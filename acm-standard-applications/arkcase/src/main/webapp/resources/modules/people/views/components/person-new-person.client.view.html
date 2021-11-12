@@ -11,16 +11,16 @@
                         placeholder="{{ 'people.comp.editPerson.familyName.placeholder' | translate }}" style="background-color: white;">
             </div>
             <div class="col-sm-4">
-                <label for="middleName" class="control-label">{{ 'people.comp.editPerson.middleName' | translate}}</label>
-                <input type="text" id="middleName" ng-model="person.middleName" class="input-md form-control"
-                        placeholder="{{ 'people.comp.editPerson.middleName.placeholder' | translate }}" style="background-color: white;">
-            </div>
-            <div class="col-sm-4">
                 <label for="givenName" class="control-label">{{ 'people.comp.editPerson.givenName' |
                     translate}}</label>
                 <span class="required-asterisk">*</span>
                 <input type="text" id="givenName" ng-model="person.givenName" class="input-md form-control" required="required"
                         placeholder="{{ 'people.comp.editPerson.givenName.placeholder' | translate }}">
+            </div>
+            <div class="col-sm-4">
+                <label for="middleName" class="control-label">{{ 'people.comp.editPerson.middleName' | translate}}</label>
+                <input type="text" id="middleName" ng-model="person.middleName" class="input-md form-control"
+                       placeholder="{{ 'people.comp.editPerson.middleName.placeholder' | translate }}" style="background-color: white;">
             </div>
         </div>
 
@@ -39,7 +39,8 @@
                        placeholder="{{ 'people.comp.editPerson.providerSpecialty.placeholder' | translate }}" style="background-color: white;">
             </div>
         </div>
-
+        <br />
+        <hr />
         <div class="row well-sm">
             <div class="col-sm-4 form-group">
                 <label for="associateLastName" translate> people.comp.editPerson.associateLastName </label>
@@ -329,6 +330,15 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <label translate>
+                                    people.comp.editPerson.identification.identificationDocketStatus</label>
+                                <input type="text" ng-model="person.defaultIdentification.idDocketStatus"
+                                       class="input-md form-control"
+                                       placeholder="{{ 'people.comp.editPerson.identification.identificationDocketStatus.placeholder' | translate }}">
+                            </div>
+                        </div>
+                        <div class="row">
 
                             <!-- add button   goes inside last row-->
                             <div class="col-sm-4 form-group">
@@ -556,6 +566,16 @@
                                     <input type="text" ng-model="person.defaultIdentification.idCourtName"
                                            class="input-md form-control"
                                            placeholder="{{ 'people.comp.editPerson.identification.identificationCourtName.placeholder' | translate }}">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label translate>
+                                        people.comp.editPerson.identification.identificationDocketStatus</label>
+                                    <input type="text" ng-model="person.defaultIdentification.idDocketStatus"
+                                           class="input-md form-control"
+                                           placeholder="{{ 'people.comp.editPerson.identification.identificationDocketStatus.placeholder' | translate }}">
                                 </div>
                             </div>
 

@@ -575,4 +575,11 @@
         <modifyDataType tableName="acm_queue" columnName="cm_queue_modified" newDataType="DATETIME"/>
     </changeSet>
 
+    <changeSet id="5000-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_reporting_week" type="VARCHAR(512)"/>
+            <column name="cm_case_report_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -827,4 +827,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5001-acms-add-id-fields2" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_docket_status" type="VARCHAR(512)"/>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>

@@ -177,6 +177,10 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Temporal(TemporalType.TIMESTAMP)
     private Date idDocketResponseDate;
 
+    //cm_id_docket_status
+    @Column(name = "cm_id_docket_status")
+    private String idDocketStatus;
+
     //LCM --None
     //CCM --none
 
@@ -313,8 +317,6 @@ public class Identification implements Serializable, AcmEntity, AcmObject
 
     public void setIdExclusionType(String idExclusionType) { this.idExclusionType = idExclusionType; }
 
-
-
     public Date getIdSanctionDate()
     {
         return idSanctionDate;
@@ -385,6 +387,12 @@ public class Identification implements Serializable, AcmEntity, AcmObject
 
     public void setIdProviderTinType(String idProviderTinType) { this.idProviderTinType = idProviderTinType; }
 
+    public String getIdDocketStatus()
+    {
+        return idDocketStatus;
+    }
+
+    public void setIdDocketStatus(String idDocketStatus) { this.idDocketStatus = idDocketStatus; }
 
     public Long getIdentificationID()
     {
