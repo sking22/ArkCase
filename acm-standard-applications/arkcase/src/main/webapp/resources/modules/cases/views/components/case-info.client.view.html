@@ -100,7 +100,10 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
-                <span> </span>
+                <div ng-if="legalBusinessName !== null" class="h4 font-bold">
+                    <div class="h4 font-bold">{{ legalBusinessName }}</div>
+                    <small class="text-muted"><span translate>common.newPerson.legalBusinessName</span></small>
+                </div>
             </div>
         </div>
     </div>

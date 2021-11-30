@@ -575,11 +575,42 @@
         <modifyDataType tableName="acm_queue" columnName="cm_queue_modified" newDataType="DATETIME"/>
     </changeSet>
 
-    <changeSet id="5000-acms-add-case-fields" author="sean.king">
+    <changeSet id="5010-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_case_file">
-            <column name="cm_case_reporting_week" type="VARCHAR(512)"/>
+            <column name="cm_case_reporting_week" type="VARCHAR(64)"/>
             <column name="cm_case_report_date" type="DATE"/>
+            <column name="cm_case_state_medicaid_agency" type="VARCHAR(64)"/>
+            <column name="cm_case_termination_type" type="VARCHAR(64)"/>
+            <column name="cm_case_termination_eff_date" type="DATE"/>
+            <column name="cm_case_enrollment_bar_exp_date"  type="DATE"/>
+            <column name="cm_case_reins_termination_eff_date" type="DATE"/>
+            <column name="cm_case_recind_termination_eff_date" type="DATE"/>
+            <column name="cm_case_appeals_period_expired" type="VARCHAR(10)"/>
+            <column name="cm_case_termination_reason" type="VARCHAR(64)"/>
+            <column name="cm_case_correspondence_address" type="VARCHAR(128)"/>
+            <column name="cm_case_orig_rev_auth" type="VARCHAR(64)"/>
+            <column name="cm_case_revise_reissue_el" type="VARCHAR(10)"/>
+            <column name="cm_case_orig_rev_letter_date" type="DATE"/>
+            <column name="cm_case_effective_letter_date" type="DATE"/>
+            <column name="cm_case_revise_reissue_outcome" type="VARCHAR(64)"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="5011-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_admin_actions_outcome" type="VARCHAR(64)"/>
+            <column name="cm_case_rev_auth_cited_action_letter" type="VARCHAR(64)"/>
+            <column name="cm_case_length_reenroll_bar" type="VARCHAR(64)"/>
+            <column name="cm_case_rev_eff_action_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5012-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_taxonomy" type="VARCHAR(64)"/>
+            <column name="cm_case_application_type" type="VARCHAR(64)"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

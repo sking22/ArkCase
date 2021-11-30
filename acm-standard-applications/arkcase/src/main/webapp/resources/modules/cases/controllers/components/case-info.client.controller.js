@@ -177,7 +177,11 @@ angular.module('cases').controller(
                     var onObjectInfoRetrieved = function(data) {
                         console.log("data: " + data);
                         console.log("data js: " + JSON.stringify(data));
+                        console.log("$scope.objectInfo : " + $scope.objectInfo);
+                        console.log("$scope.objectInfo : " +  JSON.stringify($scope.objectInfo));
+
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
+                        $scope.legalBusinessName = data.acmObjectOriginator.person.legalBusinessName;
                         $scope.dateInfo = $scope.dateInfo || {};
                         if(!Util.isEmpty($scope.objectInfo.dueDate)){
                             $scope.dateInfo.dueDate = moment.utc($scope.objectInfo.dueDate).local().format(defaultDateTimeUTCFormat);
@@ -219,9 +223,9 @@ angular.module('cases').controller(
                             }
                         });
 
-                        if (data.caseType) {
+                        /*if (data.caseType) {
                             data.caseType = $translate.instant(caseTypeObj[0].value);
-                        }
+                        }*/
                     };
 
                     // Updates the ArkCase database when the user changes a case attribute
@@ -267,7 +271,7 @@ angular.module('cases').controller(
                             $scope.saveCase();
                         }
                     };
-                    
+
                     $scope.suggestedCases = function () {
                         $state.go('cases.suggestedCases',{
                             id: $scope.objectInfo.id
