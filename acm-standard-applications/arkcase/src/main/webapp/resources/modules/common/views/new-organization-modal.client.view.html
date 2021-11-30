@@ -69,10 +69,8 @@
                             <div class="col-sm-4 form-group">
                                 <label translate>
                                     common.newOrganization.identification.identificationYearIssued</label>
-                                <date-time-picker data="organization.defaultIdentification.identificationYearIssued"
-                                        property="organization.defaultIdentification.identificationYearIssued"
-                                        date-picker-id="organization.defaultIdentification.identificationYearIssued"
-                                        time-format-disabled="true"></date-time-picker>
+                                <date-time-picker data="organization.defaultIdentification.identificationYearIssued" no-default-date="true"
+                                                  is-readonly="!organization.defaultIdentification.identificationNumber" disable="!organization.defaultIdentification.identificationNumber"></date-time-picker>
                             </div>
                             <div class="col-sm-4 form-group">
                                 <div class="pull-left">
@@ -118,10 +116,8 @@
                                     <div>
                                         <label translate>
                                             common.newOrganization.identification.identificationYearIssued</label>
-                                        <date-time-picker data="identification.identificationYearIssued"
-                                                property="identification.identificationYearIssued"
-                                                date-picker-id="identification.identificationYearIssued"
-                                                time-format-disabled="true"></date-time-picker>
+                                        <date-time-picker data="identification.identificationYearIssued" is-readonly="!identification.identificationNumber"
+                                                          disable="!identification.identificationNumber" no-default-date="true"></date-time-picker>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 form-group">

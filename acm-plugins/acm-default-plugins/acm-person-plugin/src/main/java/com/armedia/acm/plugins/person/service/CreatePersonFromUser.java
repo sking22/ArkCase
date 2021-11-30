@@ -40,6 +40,7 @@ import com.armedia.acm.services.users.model.event.UserPersistenceEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.solr.common.StringUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -99,8 +100,10 @@ public class CreatePersonFromUser implements ApplicationListener<UserPersistence
                 ((AcmUser) object.getSource()).getFirstName() != null ? ((AcmUser) object.getSource()).getFirstName() : "Unknown");
         person.setFamilyName(
                 ((AcmUser) object.getSource()).getLastName() != null ? ((AcmUser) object.getSource()).getLastName() : "Unknown");
-        person.setTitle("-");
-
+        if (StringUtils.isEmpty(person.getTitle()))
+        {
+            person.setTitle("-");
+        }
         List<ContactMethod> contactMethods = new ArrayList<>();
         ContactMethod contactMethodEmail = new ContactMethod();
         contactMethodEmail.setType("email");

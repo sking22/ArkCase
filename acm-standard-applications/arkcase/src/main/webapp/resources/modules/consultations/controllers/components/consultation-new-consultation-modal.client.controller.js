@@ -15,7 +15,6 @@ angular.module('consultations').controller(
             $scope.isPickExistingPerson = false;
             $scope.uploadFiles = [];
             $scope.primaryAddressIndex = 0;
-
             $scope.config = null;
             
             var moduleConfig = ConfigService.getModuleConfig("consultations");
@@ -28,8 +27,9 @@ angular.module('consultations').controller(
             var japanStates = ObjectLookupService.getLookupByLookupName('japanStates');
             var states = ObjectLookupService.getStates();
             var commonModuleConfig = ConfigService.getModuleConfig("common");
+            var positionLookup = ObjectLookupService.getPersonOrganizationRelationTypes();
 
-            $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig]).then(function (data) {
+            $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig, positionLookup]).then(function (data) {
 
                 var moduleConfig = data[0];
                 var prefixes = data[1];
@@ -50,6 +50,7 @@ angular.module('consultations').controller(
                 $scope.canadaProvinces = canadaProvinces;
                 $scope.japanStates = japanStates;
                 $scope.personTypes = personTypes;
+                $scope.positions = data[10];
 
                 $scope.config = moduleConfig;
                 $scope.organizationTypes = organizationTypes;
@@ -79,8 +80,8 @@ angular.module('consultations').controller(
                 $scope.config.data.originator.person.addresses[0].type = defaultAddressType ? defaultAddressType.key : addressTypes[0].key;
 
                 $scope.config.data.organizationAssociations = [];
-                $scope.config.data.receivedDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss.sss");
-                $scope.config.data.dueDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss.sss");
+                $scope.minDueDate = moment.utc($scope.config.data.receivedDate).local();
+                $scope.maxReceivedDate = moment(new Date());
 
                 $scope.consultationPeopleConfig = _.find(moduleConfig.components, {
                     id: "people"
@@ -116,20 +117,13 @@ angular.module('consultations').controller(
 
             
 
-            $scope.receivedDateChanged = function () {
-                var todayDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss.sss");
-                if (Util.isEmpty($scope.config.data.receivedDate) || moment($scope.config.data.receivedDate).isAfter(todayDate)) {
-                    $scope.config.data.receivedDate = todayDate;
+            $scope.receivedDateChanged = function (data) {
+                if ($scope.config && $scope.config.data &&
+                    moment($scope.config.data.receivedDate).isAfter($scope.config.data.dueDate)) {
+                    $scope.config.data.dueDate = data.dateInPicker;
+                    $scope.dateChangedManually = true;
                 }
-            };
-
-            $scope.dueDateChanged = function() {
-                var todayDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss.sss");
-                if(Util.isEmpty($scope.config.data.dueDate) || moment($scope.config.data.dueDate).isBefore($scope.config.data.receivedDate)) {
-                    $scope.config.data.dueDate = todayDate;
-                } else {
-                    $scope.config.data.dueDate = $scope.config.data.dueDate;
-                }
+                $scope.minDueDate = moment.utc($scope.config.data.receivedDate).local();
             };
 
             $scope.pickExistingUserChange = function () {
@@ -179,6 +173,16 @@ angular.module('consultations').controller(
                     } else {
                         $scope.confirmationEmail = '';
                     }
+
+                    if(person.defaultOrganization != null) {
+                        $scope.organizationValue = person.defaultOrganization.organization.organizationValue;
+                        $scope.personPosition = person.defaultOrganization.organization.personAssociations[0].personToOrganizationAssociationType;
+                    } else {
+                        if(person.organizationAssociations[0] != null) {
+                            $scope.organizationValue = person.organizationAssociations[0].organization.organizationValue;
+                            $scope.personPosition = person.organizationAssociations[0].organization.personAssociations[0].personToOrganizationAssociationType;
+                        }
+                    }
                 }
             };
 
@@ -224,13 +228,20 @@ angular.module('consultations').controller(
                 modalInstance.result.then(function (data) {
                     PersonInfoService.getPersonInfo(data.personId).then(function (person) {
                         $scope.setPerson(person);
+                        if(person.defaultOrganization != null) {
+                            $scope.organizationValue = person.defaultOrganization.organization.organizationValue;
+                            $scope.personPosition = person.defaultOrganization.organization.personAssociations[0].personToOrganizationAssociationType;
+                        } else {
+                            if(person.organizationAssociations[0] != null) {
+                              $scope.organizationValue = person.organizationAssociations[0].organization.organizationValue;
+                              $scope.personPosition = person.organizationAssociations[0].organization.personAssociations[0].personToOrganizationAssociationType;
+                            }
+                        }
                         $scope.existingPerson = angular.copy($scope.config.data.originator.person);
                     });
                 });
 
             };
-
-            
 
             function setOrganizationAssociation(association, data) {
                 association.person = $scope.config.data.originator.person;
@@ -297,12 +308,14 @@ angular.module('consultations').controller(
                         $scope.config.data.originator.person.organizations.push(data.organization);
                         setOrganizationAssociation(association, data);
                         $scope.organizationValue = data.organization.organizationValue;
+                        $scope.personPosition = data.type;
                     } else {
                         OrganizationInfoService.getOrganizationInfo(data.organizationId).then(function (organization) {
                             data.organization = organization;
                             $scope.organizationValue = data.organization.organizationValue;
                             $scope.config.data.originator.person.organizations.push(data.organization);
                             setOrganizationAssociation(association, data);
+                            $scope.personPosition = data.type;
                         });
                     }
                 });
@@ -472,6 +485,10 @@ angular.module('consultations').controller(
                         }
                     });
                 }
+            };
+
+            $scope.checkLocationRules = function (address) {
+                return !_.values(address).every(_.isEmpty)
             };
 
             function openDuplicatePersonPicker(result) {

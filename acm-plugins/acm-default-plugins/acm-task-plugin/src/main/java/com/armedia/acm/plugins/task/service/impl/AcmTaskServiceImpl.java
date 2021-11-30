@@ -592,8 +592,8 @@ public class AcmTaskServiceImpl implements AcmTaskService
         List<String> reviewers = new ArrayList<>();
         reviewers.add(task.getAssignee());
         List<AcmTask> createdAcmTasks = new ArrayList<>();
-        Long parentObjectId = task.getAttachedToObjectId();
-        String parentObjectType = (StringUtils.isNotBlank(task.getAttachedToObjectType())) ? task.getAttachedToObjectType() : null;
+        Long parentObjectId = task.getParentObjectId() != null ? task.getParentObjectId() : task.getAttachedToObjectId();
+        String parentObjectType = task.getAttachedToObjectType() != null ? task.getAttachedToObjectType() : task.getParentObjectType();
 
         if (task.getDocumentsToReview() == null || task.getDocumentsToReview().isEmpty())
         {
@@ -610,6 +610,7 @@ public class AcmTaskServiceImpl implements AcmTaskService
                 pVars.put("assignee", task.getAssignee());
                 pVars.put("taskName", task.getTitle());
                 pVars.put("dueDate", task.getDueDate());
+                pVars.put("taskStartDate", task.getTaskStartDate());
                 pVars.put("documentAuthor", authentication.getName());
                 pVars.put("pdfRenditionId", documentToReview.getFileId());
                 pVars.put("formXmlId", null);
@@ -618,8 +619,10 @@ public class AcmTaskServiceImpl implements AcmTaskService
                 pVars.put("OBJECT_TYPE", "FILE");
                 pVars.put("OBJECT_ID", documentToReview.getFileId());
                 pVars.put("OBJECT_NAME", documentToReview.getFileName());
-                pVars.put("PARENT_OBJECT_TYPE", task.getParentObjectType());
-                pVars.put("PARENT_OBJECT_ID", task.getParentObjectId());
+                pVars.put("PARENT_OBJECT_TYPE", parentObjectType);
+                pVars.put("PARENT_OBJECT_ID", parentObjectId);
+                pVars.put("PARENT_OBJECT_NAME", task.getParentObjectName());
+                pVars.put("PARENT_OBJECT_TITLE", task.getParentObjectTitle());
                 pVars.put("REQUEST_TYPE", "DOCUMENT_REVIEW");
 
                 AcmTask createdAcmTask = getTaskDao().startBusinessProcess(pVars, businessProcessName);
@@ -627,6 +630,7 @@ public class AcmTaskServiceImpl implements AcmTaskService
                 createdAcmTask.setDocumentUnderReview(documentToReview);
                 if (task.getAttachedToObjectId() != null && task.getAttachedToObjectType() != null)
                 {
+                    
                     createdAcmTask.setAttachedToObjectId(task.getAttachedToObjectId());
                     createdAcmTask.setAttachedToObjectType(task.getAttachedToObjectType());
                 }
@@ -666,7 +670,7 @@ public class AcmTaskServiceImpl implements AcmTaskService
 
         if (filesToUpload != null)
         {
-
+ 
             for (MultipartFile file : filesToUpload)
             {
 
@@ -735,8 +739,8 @@ public class AcmTaskServiceImpl implements AcmTaskService
         source.setFileType("file");
         configuration.setEcmFile(source);
 
-        Long parentObjectId = task.getAttachedToObjectId();
-        String parentObjectType = (StringUtils.isNotBlank(task.getAttachedToObjectType())) ? task.getAttachedToObjectType() : null;
+        Long parentObjectId = task.getAttachedToObjectId() != null ? task.getAttachedToObjectId() : task.getParentObjectId();
+        String parentObjectType = task.getAttachedToObjectType() != null ? task.getAttachedToObjectType() : task.getParentObjectType();
 
         configuration = getFileWorkflowBusinessRule().applyRules(configuration);
         if (!configuration.isBuckslipProcess())
@@ -772,8 +776,8 @@ public class AcmTaskServiceImpl implements AcmTaskService
 
             pvars.put("currentTaskName", task.getTitle());
             pvars.put("owningGroup", task.getCandidateGroups());
-            pvars.put("dueDate", configuration.getTaskDueDateExpression());
-
+            pvars.put("dueDate", task.getDueDate() == null ? configuration.getTaskDueDateExpression() : task.getDueDate());
+            pvars.put("taskStartDate", task.getTaskStartDate());
             AcmTask createdAcmTask = getTaskDao().startBusinessProcess(pvars, processName);
             createdAcmTask.setDocumentsToReview(task.getDocumentsToReview());
 
@@ -791,7 +795,7 @@ public class AcmTaskServiceImpl implements AcmTaskService
 
         String taskFolderName = "Task-" + task.getTitle() + "-" + task.getId();
         Long parentObjectId = task.getParentObjectId() == null ? task.getAttachedToObjectId() : task.getParentObjectId();
-        String parentObjectType = task.getParentObjectType() == null ? task.getAttachedToObjectType() : task.getParentObjectType();
+        String parentObjectType = task.getParentObjectType() == null || task.getParentObjectType().isEmpty() ? task.getAttachedToObjectType() : task.getParentObjectType();
 
         if (parentObjectType.equals("BUSINESS_PROCESS"))
         {

@@ -45,6 +45,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -231,6 +233,11 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
 
         file.setFileId(docFile.getString("object_id_s"));
         file.setFileName(docFile.getString("title_parseable") + docFile.getString("ext_s"));
+        if (docFile.has("made_public_date_tdt"))
+        {
+            LocalDateTime date = LocalDateTime.parse(docFile.getString("made_public_date_tdt"), DateTimeFormatter.ISO_DATE_TIME);
+            file.setMadePublicDate(date);
+        }
 
         return file;
     }

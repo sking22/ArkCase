@@ -1,10 +1,10 @@
-package gov.foia.service;
+package gov.foia.service.dataupdate;
 
 /*-
  * #%L
  * ACM Standard Application: Freedom of Information Act
  * %%
- * Copyright (C) 2014 - 2019 ArkCase LLC
+ * Copyright (C) 2014 - 2021 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 
@@ -27,37 +27,45 @@ package gov.foia.service;
  * #L%
  */
 
-import com.armedia.acm.quartz.scheduler.AcmJobDescriptor;
-import org.quartz.DisallowConcurrentExecution;
-import org.quartz.JobExecutionContext;
-import org.quartz.PersistJobDataAfterExecution;
+import com.armedia.acm.services.dataupdate.service.AcmDataUpdateExecutor;
+import gov.foia.dao.FOIARequestDao;
+import gov.foia.model.FOIARequest;
+import org.springframework.scheduling.annotation.Async;
 
-@DisallowConcurrentExecution
-@PersistJobDataAfterExecution
-public class DueDateUpdateJobDescriptor extends AcmJobDescriptor
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+public class UpdateHoldEnterDateForRequestsInHoldQueueUpdateExecutor implements AcmDataUpdateExecutor
 {
-    private HoldedAndAppealedRequestsDueDateUpdate holdedAndAppealedRequestsDueDateUpdate;
+
+    private FOIARequestDao requestDao;
 
     @Override
-    public String getJobName()
+    public String getUpdateId()
     {
-        return "dueDateUpdateJob";
+        return "update_hold_enter_date_for_requests_in_hold_queue_v2";
     }
 
     @Override
-    public void executeJob(JobExecutionContext context)
+    public void execute()
     {
-        holdedAndAppealedRequestsDueDateUpdate.updateDueDate();
+        List<FOIARequest> requestList = getRequestDao().getAllRequestsInHoldBefore(LocalDateTime.now());
+
+        for (FOIARequest request : requestList)
+        {
+            request.setHoldEnterDate(LocalDateTime.now());
+            requestDao.save(request);
+        }
     }
 
-    public HoldedAndAppealedRequestsDueDateUpdate getHoldedAndAppealedRequestsDueDateUpdate()
+    public FOIARequestDao getRequestDao()
     {
-        return holdedAndAppealedRequestsDueDateUpdate;
+        return requestDao;
     }
 
-    public void setHoldedAndAppealedRequestsDueDateUpdate(
-            HoldedAndAppealedRequestsDueDateUpdate holdedAndAppealedRequestsDueDateUpdate)
+    public void setRequestDao(FOIARequestDao requestDao)
     {
-        this.holdedAndAppealedRequestsDueDateUpdate = holdedAndAppealedRequestsDueDateUpdate;
+        this.requestDao = requestDao;
     }
 }

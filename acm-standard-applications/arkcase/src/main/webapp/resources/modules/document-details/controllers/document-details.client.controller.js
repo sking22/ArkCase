@@ -401,7 +401,6 @@ angular.module('document-details').controller(
                         }, function(errorMessage) {
                             MessageService.error(errorMessage.data);
                         });
-
                     };
 
                     // Release editing lock on window unload, if acquired
