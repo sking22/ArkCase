@@ -18,7 +18,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a>Provider Information</a>
-                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVIT.COM'" class="pull-right">
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                         <button class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
@@ -304,7 +304,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseLicense">License Action</a>
-                    <div class="pull-right">
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                         <button class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
@@ -380,7 +380,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpt">OPT Medicaid Action</a>
-                    <div class="pull-right">
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                         <button class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
@@ -449,7 +449,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseRevise">Revise & Reissue Revocation</a>
-                    <div class="pull-right">
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                         <button class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
@@ -494,8 +494,8 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a>Final Outcome</a>
-                    <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button  class="btn btn-default btn-xs" ng-click="saveOptMedicaid()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -530,499 +530,11 @@
             </div>
         </div>
 
-
-    <!-- <div id="accordion{{accordionSuffix}}" class="panel-group">
-         <div class="panel panel-default">
-             <div class="panel-heading">
-                 <h4 class="panel-title">
-                     <a data-toggle="collapse" data-parent="#accordion{{accordionSuffix}}"
-                        href="#collapseIdentification{{accordionSuffix}}" translate>
-                         common.newPerson.identification.title</a>
-                 </h4>
-             </div>
-             <div id="collapseIdentification{{accordionSuffix}}" class="panel-collapse collapse in">
-                 <div class="panel-body">
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationNumber</label>
-                             <input type="text" ng-model="person.defaultIdentification.identificationNumber"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationNumber.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>common.newPerson.identification.identificationType</label>
-                             <span class="required-asterisk" ng-show="person.defaultIdentification.identificationNumber">*</span>
-                             <select class="form-control" ng-required="person.defaultIdentification.identificationNumber"
-                                     ng-disabled="!person.defaultIdentification.identificationNumber"
-                                     ng-model="person.defaultIdentification.identificationType">
-                                 <option ng-repeat="option in identificationTypes" value="{{option.key}}">
-                                     {{option.value | translate}}
-                                 </option>
-                             </select>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationIssuer</label>
-                             <input type="text" ng-model="person.defaultIdentification.identificationIssuer"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationIssuer.placeholder' | translate }}">
-                         </div>
-                     </div>
-                     <div class="row">
-
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationYearIssued</label>
-                             <date-time-picker data="person.defaultIdentification.identificationYearIssued"
-                                               property="person.defaultIdentification.identificationYearIssued"
-                                               date-picker-id="person.defaultIdentification.identificationYearIssued"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationStatus</label>
-                             <input type="text" ng-model="person.defaultIdentification.idStatus"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationStatus.placeholder' | translate }}">
-                         </div>
-
-                         <div class="col-sm-2 form-group" >
-                             <label translate>common.newPerson.locations.state</label>
-                             <select class="form-control" ng-model="person.defaultIdentification.idState" >
-                                 <option ng-repeat="option in idStates" value="{{option.key}}">
-                                     {{option.value | translate}}
-                                 </option>
-                             </select>
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationExpirationDateLicense</label>
-                             <date-time-picker data="person.defaultIdentification.idExpirationDate"
-                                               property="person.defaultIdentification.idExpirationDate"
-                                               date-picker-id="person.defaultIdentification.idExpirationDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationGracePeriodExpirationDate</label>
-                             <date-time-picker data="person.defaultIdentification.idGraceExpirationDate"
-                                               property="person.defaultIdentification.idGraceExpirationDate"
-                                               date-picker-id="person.defaultIdentification.idGraceExpirationDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationGracePeriodDays</label>
-                             <input type="text" ng-model="person.defaultIdentification.idGraceExpirationDays"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationGracePeriodDays.placeholder' | translate }}">
-                         </div>
-                     </div>
-
-
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationAlertDate</label>
-                             <date-time-picker data="person.defaultIdentification.idAlertDate"
-                                               property="person.defaultIdentification.idAlertDate"
-                                               date-picker-id="person.defaultIdentification.idAlertDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationScreeningDate</label>
-                             <date-time-picker data="person.defaultIdentification.idScreeningDate"
-                                               property="person.defaultIdentification.idScreeningDate"
-                                               date-picker-id="person.defaultIdentification.idScreeningDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationSanctionDate</label>
-                             <date-time-picker data="person.defaultIdentification.idSanctionDate"
-                                               property="person.defaultIdentification.idSanctionDate"
-                                               date-picker-id="person.defaultIdentification.idSanctionDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                     </div>
-
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationDispositionDate</label>
-                             <date-time-picker data="person.defaultIdentification.idDispositionDate"
-                                               property="person.defaultIdentification.idDispositionDate"
-                                               date-picker-id="person.defaultIdentification.idDispositionDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationDocketRequestDate</label>
-                             <date-time-picker data="person.defaultIdentification.idDocketRequestDate"
-                                               property="person.defaultIdentification.idDocketRequestDate"
-                                               date-picker-id="person.defaultIdentification.idDocketRequestDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationDocketResponseDate</label>
-                             <date-time-picker data="person.defaultIdentification.idDocketResponseDate"
-                                               property="person.defaultIdentification.idDocketResponseDate"
-                                               date-picker-id="person.defaultIdentification.idDocketResponseDate"
-                                               time-format-disabled="true"></date-time-picker>
-                         </div>
-
-                     </div>
-
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationRoleCodeType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idRoleCodeType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationRoleCodeType.placeholder' | translate }}">
-                         </div>
-
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationExclusionType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idExclusionType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationExclusionType.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationCaseType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idCaseType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationCaseType.placeholder' | translate }}">
-                         </div>
-
-                     </div>
-
-
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationOffenseType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idOffenseType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationOffenseType.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationProviderSupplierType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idProviderSupplierType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationProviderSupplierType.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationProviderTinType</label>
-                             <input type="text" ng-model="person.defaultIdentification.idProviderTinType"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationProviderTinType.placeholder' | translate }}">
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationQualifierSanction</label>
-                             <input type="text" ng-model="person.defaultIdentification.idQualifierSanction"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationQualifierSanction.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationCaseNumber</label>
-                             <input type="text" ng-model="person.defaultIdentification.idCaseNumber"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationCaseNumber.placeholder' | translate }}">
-                         </div>
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationCourtName</label>
-                             <input type="text" ng-model="person.defaultIdentification.idCourtName"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationCourtName.placeholder' | translate }}">
-                         </div>
-                     </div>
-                     <div class="row">
-                         <div class="col-sm-4 form-group">
-                             <label translate>
-                                 common.newPerson.identification.identificationDocketStatus</label>
-                             <input type="text" ng-model="person.defaultIdentification.idDocketStatus"
-                                    class="input-md form-control"
-                                    placeholder="{{ 'common.newPerson.identification.identificationDocketStatus.placeholder' | translate }}">
-                         </div>
-                     </div>
-                     <div class="row">
-                         &lt;!&ndash; add button   goes inside last row&ndash;&gt;
-                         <div class="col-sm-4 form-group">
-                             <div class="pull-left">
-                                 <label class="control-label">&nbsp;</label>
-                                 <button type="button" class="btn btn-link form-control" ng-click="addIdentification();"
-                                         ng-show="person.identifications.length < 1">
-                                     <i class="fa fa-plus text-success"></i><span translate>common.newPerson.addAnother</span>
-                                 </button>
-                             </div>
-                         </div>
-                     </div>
-                     <div ng-repeat="identification in person.identifications">
-                         <hr />
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>common.newPerson.identification.identificationNumber</label>
-                                 <span class="required-asterisk">*</span>
-                                 <input type="text" ng-model="identification.identificationNumber" class="input-md form-control"
-                                        required="required"
-                                        placeholder="{{ 'common.newPerson.identification.identificationNumber.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>common.newPerson.identification.identificationType</label>
-                                 <span class="required-asterisk">*</span>
-                                 <select class="form-control" required="required" ng-disabled="!identification.identificationNumber"
-                                         ng-model="identification.identificationType">
-                                     <option ng-repeat="option in identificationTypes" value="{{option.key}}">
-                                         {{option.value | translate}}
-                                     </option>
-                                 </select>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationIssuer</label>
-                                 <input type="text" ng-model="identification.identificationIssuer" class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationIssuer.placeholder' | translate }}">
-                             </div>
-                         </div>
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <div>
-                                     <label translate>
-                                         common.newPerson.identification.identificationYearIssued</label>
-                                     <date-time-picker data="identification.identificationYearIssued"
-                                                       property="identification.identificationYearIssued"
-                                                       date-picker-id="identification.identificationYearIssued"
-                                                       time-format-disabled="true"></date-time-picker>
-                                 </div>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationStatus</label>
-                                 <input type="text" ng-model="identification.idStatus"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationStatus.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-2 form-group" >
-                                 <label translate>common.newPerson.locations.state</label>
-                                 <select class="form-control" ng-model="identification.idState" >
-                                     <option ng-repeat="option in idStates" value="{{option.key}}">
-                                         {{option.value | translate}}
-                                     </option>
-                                 </select>
-                             </div>
-                         </div>
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationExpirationDateLicense</label>
-                                 <date-time-picker data="identification.idExpirationDate"
-                                                   property="identification.idExpirationDate"
-                                                   date-picker-id="identification.idExpirationDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationGracePeriodExpirationDate</label>
-                                 <date-time-picker data="identification.idGraceExpirationDate"
-                                                   property="identification.idGraceExpirationDate"
-                                                   date-picker-id="identification.idGraceExpirationDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationGracePeriodDays</label>
-                                 <input type="text" ng-model="identification.idGraceExpirationDays"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationGracePeriodDays.placeholder' | translate }}">
-                             </div>
-                         </div>
-
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationAlertDate</label>
-                                 <date-time-picker data="identification.idAlertDate"
-                                                   property="identification.idAlertDate"
-                                                   date-picker-id="identification.idAlertDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationScreeningDate</label>
-                                 <date-time-picker data="identification.idScreeningDate"
-                                                   property="identification.idScreeningDate"
-                                                   date-picker-id="identification.idScreeningDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationSanctionDate</label>
-                                 <date-time-picker data="identification.idSanctionDate"
-                                                   property="identification.idSanctionDate"
-                                                   date-picker-id="identification.idSanctionDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                         </div>
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationDispositionDate</label>
-                                 <date-time-picker data="identification.idDispositionDate"
-                                                   property="identification.idDispositionDate"
-                                                   date-picker-id="identification.idDispositionDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationDocketRequestDate</label>
-                                 <date-time-picker data="identification.idDocketRequestDate"
-                                                   property="identification.idDocketRequestDate"
-                                                   date-picker-id="identification.idDocketRequestDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationDocketResponseDate</label>
-                                 <date-time-picker data="identification.idDocketResponseDate"
-                                                   property="identification.idDocketResponseDate"
-                                                   date-picker-id="identification.idDocketResponseDate"
-                                                   time-format-disabled="true"></date-time-picker>
-                             </div>
-
-                         </div>
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationRoleCodeType</label>
-                                 <input type="text" ng-model="identification.idRoleCodeType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationRoleCodeType.placeholder' | translate }}">
-                             </div>
-
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationExclusionType</label>
-                                 <input type="text" ng-model="identification.idExclusionType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationExclusionType.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationCaseType</label>
-                                 <input type="text" ng-model="identification.idCaseType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationCaseType.placeholder' | translate }}">
-                             </div>
-
-                         </div>
-
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationOffenseType</label>
-                                 <input type="text" ng-model="identification.idOffenseType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationOffenseType.placeholder' | translate }}">
-                             </div>
-                             &lt;!&ndash;  !!!!! &ndash;&gt;
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationProviderSupplierType</label>
-                                 <input type="text" ng-model="identification.idProviderSupplierType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationProviderSupplierType.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationProviderTinType</label>
-                                 <input type="text" ng-model="identification.idProviderTinType"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationProviderTinType.placeholder' | translate }}">
-                             </div>
-                         </div>
-
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationQualifierSanction</label>
-                                 <input type="text" ng-model="identification.idQualifierSanction"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationQualifierSanction.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationCaseNumber</label>
-                                 <input type="text" ng-model="identification.idCaseNumber"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationCaseNumber.placeholder' | translate }}">
-                             </div>
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationCourtName</label>
-                                 <input type="text" ng-model="identification.idCourtName"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationCourtName.placeholder' | translate }}">
-                             </div>
-                         </div>
-
-                         <div class="row">
-                             <div class="col-sm-4 form-group">
-                                 <label translate>
-                                     common.newPerson.identification.identificationDocketStatus</label>
-                                 <input type="text" ng-model="identification.idDocketStatus"
-                                        class="input-md form-control"
-                                        placeholder="{{ 'common.newPerson.identification.identificationDocketStatus.placeholder' | translate }}">
-                             </div>
-                         </div>
-
-                         <div class="col-sm-4 form-group">
-                             <div class="pull-left">
-                                 <label class="control-label">&nbsp;</label>
-                                 <button type="button" class="btn btn-link form-control"
-                                         ng-click="removeIdentification(identification)">
-                                     <i class="fa fa-minus text-danger"></i><span translate>common.newPerson.communicationAccounts.removeContactMethod</span>
-                                 </button>
-                             </div>
-                             <div class="pull-left">
-                                 <label class="control-label">&nbsp;</label>
-                                 <button type="button" class="btn btn-link form-control" ng-click="addIdentification();"
-                                         ng-show="$last">
-                                     <i class="fa fa-plus text-success"></i><span translate>common.newPerson.addAnother</span>
-                                 </button>
-                             </div>
-                         </div>
-
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>-->
-
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
             <div class="panel-title">
                 <span translate>cases.comp.details.caseSummary.title</span>
-                <div class="pull-right">
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveDetailsSummary()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
@@ -1035,7 +547,7 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <span translate>cases.comp.details.title</span>
-                <div class="pull-right">
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
