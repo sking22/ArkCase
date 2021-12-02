@@ -26,8 +26,8 @@ angular.module('cases').config([ '$stateProvider', function($stateProvider) {
     })
 
     .state('cases.main', {
-        url: '/:id/main',
-        templateUrl: 'modules/cases/views/components/case-main.client.view.html',
+        url: '/:id/details',
+        templateUrl: 'modules/cases/views/components/case-details.client.view.html', // modules/cases/views/components/case-main.client.view.html
         params: {
             "type": "CASE_FILE"
         }

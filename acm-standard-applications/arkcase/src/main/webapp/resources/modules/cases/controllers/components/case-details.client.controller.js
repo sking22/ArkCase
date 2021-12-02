@@ -15,7 +15,8 @@ angular.module('cases').controller(
             'Mentions.Service',
             'ObjectService',
             'SuggestedObjectsService',
-                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService,  SuggestedObjectsService) {
+            'Profile.UserInfoService',
+                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService) {
 
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
@@ -61,9 +62,13 @@ angular.module('cases').controller(
                         });
                     };
 
+                    UserInfoService.getUserInfo().then(function(infoData) {
+                        $scope.currentUserProfile = infoData;
+                    });
+
                     var onObjectInfoRetrieved = function(data) {
-                        /*console.log("data: " + data);
-                        console.log("data js: " + JSON.stringify(data));*/
+
+
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
 
                         $scope.caseFileType = data.caseType;
