@@ -237,10 +237,6 @@ Time: 12:44
     </form>
 </div>
 
-<div class="text-center padder">
-    <p><small><a href="http://www.arkcase.com/"><span>ArkCase</span></a></small></p>
-</div>
-
 <footer id="footer">
     <div class="text-center padder">
         <p>Product Version: ${version["Implementation-Version"]}</p>

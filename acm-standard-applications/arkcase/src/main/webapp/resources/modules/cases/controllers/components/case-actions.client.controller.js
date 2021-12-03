@@ -72,6 +72,7 @@ angular.module('cases').controller(
                     });
 
                     var onObjectInfoRetrieved = function(objectInfo) {
+                    console.log();
                         $scope.restricted = objectInfo.restricted;
                         $scope.showBtnChildOutcomes = false;
 

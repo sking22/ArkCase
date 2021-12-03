@@ -1,34 +1,34 @@
 <div ng-controller="Cases.ActionsController">
     <div class="col-xs-4">
-        <div class="checkbox">
+        <!--<div class="checkbox">
             <label>
                 <input type="checkbox" ng-model="restricted" ng-click="onClickRestrict($event)" permission="restrictCase"
                         permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disabled">
                 <span translate>cases.comp.actions.restrict</span>
             </label>
-        </div>
+        </div>-->
     </div>
 
     <div class="pull-right">
         <div class="btn-group">
-            <a class="btn btn-sm btn-default" ui-sref="frevvo.new-case()" ng-show="isFrevvoFormType">
+            <!--<a class="btn btn-sm btn-default" ui-sref="frevvo.new-case()" ng-show="isFrevvoFormType">
                 <i class="fa fa-edit"></i>
                 <span translate>cases.comp.actions.new.button</span>
             </a>
             <a class="btn btn-sm btn-default" ng-click="newCaseFile()" ng-show="isAngularFormType">
                 <i class="fa fa-edit"></i>
                 <span translate>cases.comp.actions.new.button</span>
-            </a>
+            </a>-->
             <a class="btn btn-sm btn-default" ng-click="changeCaseStatus(changeCaseStatusParams)"
                     ng-show="isAngularFormType && showChangeCaseStatus">
                 <i class="fa fa-edit"></i>
                 <span translate>cases.comp.actions.status.button</span>
             </a>
-            <a class="btn btn-sm btn-default" ui-sref="frevvo.change-case-status(changeCaseStatusParams)" ng-show="isFrevvoFormType">
+            <!--<a class="btn btn-sm btn-default" ui-sref="frevvo.change-case-status(changeCaseStatusParams)" ng-show="isFrevvoFormType">
                 <i class="fa fa-edit"></i>
                 <span translate>cases.comp.actions.status.button</span>
-            </a>
-            <button class="btn btn-sm btn-default" ng-click="onClickChildOutcome(outcome.name)"
+            </a>-->
+            <!--<button class="btn btn-sm btn-default" ng-click="onClickChildOutcome(outcome.name)"
                     ng-repeat="outcome in availableChildOutcomes" ng-show="showBtnChildOutcomes">
                 {{outcome.description}}
             </button>
@@ -57,14 +57,14 @@
                     ng-click="unclaim(objectInfo)">
                 <i class="fa fa-edit"></i>
                 <span translate>cases.comp.actions.unclaim.button</span>
-            </button>
+            </button>-->
             <button class="btn btn-sm btn-default" ng-click="refresh()">
                 <i class="fa fa-refresh"></i>
             </button>
-            <button class="btn btn-sm btn-default" ng-click="sendEmail()">
+            <!--<button class="btn btn-sm btn-default" ng-click="sendEmail()">
                 <i class="fa fa-envelope"></i>
                 <span translate>cases.comp.actions.sendEmail.button</span>
-            </button>
+            </button>-->
         </div>
     </div>
 </div>

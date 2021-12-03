@@ -32,6 +32,23 @@
                                 readonly required>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label translate>
+                            cases.comp.newCase.caseReportingWeek</label>
+                        <input type="text" ng-model="casefile.caseReportingWeek"
+                               class="input-md form-control"
+                               placeholder="{{ 'cases.comp.newCase.caseReportingWeek.placeholder' | translate }}">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label translate>
+                            cases.comp.newCase.caseReportDate</label>
+                        <date-time-picker data="casefile.caseReportDate"
+                                      property="casefile.caseReportDate"
+                                      date-picker-id="casefile.caseReportDate"
+                                      time-format-disabled="true"></date-time-picker>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="panel panel-default">

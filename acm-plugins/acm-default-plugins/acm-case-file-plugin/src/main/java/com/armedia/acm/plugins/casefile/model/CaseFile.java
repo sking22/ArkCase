@@ -304,6 +304,108 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Transient
     private  String assigneeFullName;
 
+    //cm_case_reporting_week
+    @Column(name = "cm_case_reporting_week")
+    private String caseReportingWeek;
+
+    //cm_case_report_date
+    @Column(name = "cm_case_report_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseReportDate;
+
+    //cm_case_state_medicaid_agency
+    @Column(name = "cm_case_state_medicaid_agency")
+    private String caseStateMedicaidAgency;
+
+    //cm_case_termination_type
+    @Column(name = "cm_case_termination_type")
+    private String caseTerminationType;
+
+    //cm_case_termination_eff_date
+    @Column(name = "cm_case_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseTerminationEffDate;
+
+   //cm_case_enrollment_bar_exp_date
+    @Column(name = "cm_case_enrollment_bar_exp_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseEnrollmentBarExpDate;
+
+    //cm_case_reins_termination_eff_date
+    @Column(name = "cm_case_reins_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseReinsTerminationEffDate;
+
+    //cm_case_recind_termination_eff_date
+    @Column(name = "cm_case_recind_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseRecindTerminationEffDate;
+
+    //cm_case_appeals_period_expired
+    @Column(name = "cm_case_appeals_period_expired")
+    private String caseAppealsPeriodExpired;
+
+    //cm_case_termination_reason
+    @Column(name = "cm_case_termination_reason")
+    private String caseTerminationReason;
+
+    //cm_case_correspondence_address
+    @Column(name = "cm_case_correspondence_address")
+    private String caseCorrespondenceAddress;
+
+
+    //cm_case_orig_rev_auth
+    @Column(name = "cm_case_orig_rev_auth")
+    private String caseOrigRevAuth;
+
+    //cm_case_revise_reissue_el
+    @Column(name = "cm_case_revise_reissue_el")
+    private String caseReviseReissueEl;
+
+    //cm_case_orig_rev_letter_date
+    @Column(name = "cm_case_orig_rev_letter_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseOrigRevLetterDate;
+
+    //cm_case_revise_reissue_outcome
+    @Column(name = "cm_case_revise_reissue_outcome")
+    private String caseReviseReissueOutcome;
+
+    //cm_case_effective_letter_date
+    @Column(name = "cm_case_effective_letter_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseEffectiveLetterDate;
+
+    //cm_case_admin_actions_outcome
+    @Column(name = "cm_case_admin_actions_outcome")
+    private String caseAdminActionsOutcome;
+
+
+    //cm_case_rev_auth_cited_action_letter
+    @Column(name = "cm_case_rev_auth_cited_action_letter")
+    private String caseRevAuthCitedActionLetter;
+
+
+    //cm_case_length_reenroll_bar
+    @Column(name = "cm_case_length_reenroll_bar")
+    private String caseLengthReEnrollBar;
+
+
+    //cm_case_rev_eff_action_date
+    @Column(name = "cm_case_rev_eff_action_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseRevEffActionDate;
+
+
+    //cm_case_application_type
+    @Column(name = "cm_case_application_type")
+    private String caseApplicationType;
+
+    //cm_case_taxonomy
+    @Column(name = "cm_case_taxonomy")
+    private String caseTaxonomy;
+
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1008,4 +1110,156 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public void setAssigneePhone(String assigneePhone) {
         this.assigneePhone = assigneePhone;
     }
+
+    public String getCaseReportingWeek()
+    {
+        return caseReportingWeek;
+    }
+
+    public void setCaseReportingWeek(String caseReportingWeek) { this.caseReportingWeek = caseReportingWeek; }
+
+    public Date getCaseReportDate()
+    {
+        return caseReportDate;
+    }
+
+    public void setCaseReportDate(Date caseReportDate) { this.caseReportDate = caseReportDate; }
+
+    public String getCaseStateMedicaidAgency()
+    {
+        return caseStateMedicaidAgency;
+    }
+
+    public void setCaseStateMedicaidAgency(String caseStateMedicaidAgency) { this.caseStateMedicaidAgency = caseStateMedicaidAgency; }
+
+
+    public String getCaseTerminationType()
+    {
+        return caseTerminationType;
+    }
+    public void setCaseTerminationType(String caseTerminationType) { this.caseTerminationType = caseTerminationType; }
+
+    public Date getCaseTerminationEffDate()
+    {
+        return caseTerminationEffDate;
+    }
+    public void setCaseTerminationEffDate(Date caseTerminationEffDate) { this.caseTerminationEffDate = caseTerminationEffDate; }
+
+
+
+    public Date getCaseEnrollmentBarExpDate()
+    {
+        return caseEnrollmentBarExpDate;
+    }
+    public void setCaseEnrollmentBarExpDate(Date caseEnrollmentBarExpDate) { this.caseEnrollmentBarExpDate = caseEnrollmentBarExpDate; }
+
+    public Date getCaseReinsTerminationEffDate()
+    {
+        return caseReinsTerminationEffDate;
+    }
+    public void setCaseReinsTerminationEffDate(Date caseReinsTerminationEffDate) { this.caseReinsTerminationEffDate = caseReinsTerminationEffDate; }
+
+    public Date getCaseRecindTerminationEffDate()
+    {
+        return caseRecindTerminationEffDate;
+    }
+    public void setCaseRecindTerminationEffDate(Date caseRecindTerminationEffDate) { this.caseRecindTerminationEffDate = caseRecindTerminationEffDate; }
+
+    public String getCaseAppealsPeriodExpired()
+    {
+        return caseAppealsPeriodExpired;
+    }
+    public void setCaseAppealsPeriodExpired(String caseAppealsPeriodExpired) { this.caseAppealsPeriodExpired = caseAppealsPeriodExpired; }
+
+    public String getCaseTerminationReason()
+    {
+        return caseTerminationReason;
+    }
+    public void setCaseTerminationReason(String caseTerminationReason) { this.caseTerminationReason = caseTerminationReason; }
+
+    public String getCaseCorrespondenceAddress()
+    {
+        return caseCorrespondenceAddress;
+    }
+    public void setCaseCorrespondenceAddress(String caseCorrespondenceAddress) { this.caseCorrespondenceAddress = caseCorrespondenceAddress; }
+
+
+
+    //caseOrigRevAuth;
+    public String getCaseOrigRevAuth()
+    {
+        return caseOrigRevAuth;
+    }
+    public void setCaseOrigRevAuth(String caseOrigRevAuth) { this.caseOrigRevAuth = caseOrigRevAuth; }
+
+
+    //caseReviseReissueEl;
+    public String getCaseReviseReissueEl()
+    {
+        return caseReviseReissueEl;
+    }
+    public void setCaseReviseReissueEl(String caseReviseReissueEl) { this.caseReviseReissueEl = caseReviseReissueEl; }
+
+
+    // caseOrigRevLetterDate;
+    public Date getCaseOrigRevLetterDate()
+    {
+        return caseOrigRevLetterDate;
+    }
+    public void setCaseOrigRevLetterDate(Date caseOrigRevLetterDate) { this.caseOrigRevLetterDate = caseOrigRevLetterDate; }
+
+
+    public String getCaseReviseReissueOutcome()
+    {
+        return caseReviseReissueOutcome;
+    }
+    public void setCaseReviseReissueOutcome(String caseReviseReissueOutcome) { this.caseReviseReissueOutcome = caseReviseReissueOutcome; }
+
+
+    public Date getCaseEffectiveLetterDate()
+    {
+        return caseEffectiveLetterDate;
+    }
+    public void setCaseEffectiveLetterDate(Date caseEffectiveLetterDate) { this.caseEffectiveLetterDate = caseEffectiveLetterDate; }
+
+
+    public String getCaseAdminActionsOutcome()
+    {
+        return caseAdminActionsOutcome;
+    }
+    public void setCaseAdminActionsOutcome(String caseAdminActionsOutcome) { this.caseAdminActionsOutcome = caseAdminActionsOutcome; }
+
+    public String getCaseRevAuthCitedActionLetter()
+    {
+        return caseRevAuthCitedActionLetter;
+    }
+    public void setCaseRevAuthCitedActionLetter(String caseRevAuthCitedActionLetter) { this.caseRevAuthCitedActionLetter = caseRevAuthCitedActionLetter; }
+
+    public String getCaseLengthReEnrollBar()
+    {
+        return caseLengthReEnrollBar;
+    }
+    public void setCaseLengthReEnrollBar(String caseLengthReEnrollBar) { this.caseLengthReEnrollBar = caseLengthReEnrollBar; }
+
+
+    public String getCaseTaxonomy()
+    {
+        return caseTaxonomy;
+    }
+    public void setCaseTaxonomy(String caseTaxonomy) { this.caseTaxonomy = caseTaxonomy; }
+
+    public String getCaseApplicationType()
+    {
+        return caseApplicationType;
+    }
+    public void setCaseApplicationType(String caseApplicationType) { this.caseApplicationType = caseApplicationType; }
+
+    public Date getCaseRevEffActionDate()
+    {
+        return caseRevEffActionDate;
+    }
+    public void setCaseRevEffActionDate(Date caseRevEffActionDate) { this.caseRevEffActionDate = caseRevEffActionDate; }
+
+
+
 }

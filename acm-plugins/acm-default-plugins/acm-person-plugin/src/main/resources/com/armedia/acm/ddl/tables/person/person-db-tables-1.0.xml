@@ -787,16 +787,62 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="54-change-cm-person-alias-datetime" author="marija.blazhevska">
+    <changeSet id="5000-acms-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_status" type="VARCHAR(1024)"/>
+            <column name="cm_id_state" type="VARCHAR(1024)"/>
+            <column name="cm_id_expiration_date" type="DATE"/>
+            <column name="cm_id_grace_expiration_date" type="DATE"/>
+            <column name="cm_id_alert_date" type="DATE"/>
+            <column name="cm_id_grace_expiration_days" type="VARCHAR(1024)"/>
+            <column name="cm_id_qualifier_sanction" type="VARCHAR(1024)"/>
+            <column name="cm_id_role_code_type" type="VARCHAR(1024)"/>
+            <column name="cm_id_screening_date" type="DATE"/>
+            <column name="cm_id_exclusion_type" type="VARCHAR(1024)"/>
+            <column name="cm_id_sanction_date" type="DATE"/>
+            <column name="cm_id_case_type" type="VARCHAR(1024)"/>
+            <column name="cm_id_offense_type" type="VARCHAR(1024)"/>
+            <column name="cm_id_disposition_date" type="DATE"/>
+            <column name="cm_id_case_number" type="VARCHAR(1024)"/>
+            <column name="cm_id_court_name" type="VARCHAR(1024)"/>
+            <column name="cm_id_docket_request_date" type="DATE"/>
+            <column name="cm_id_docket_response_date" type="DATE"/>
+            <column name="cm_id_provider_supplier_type" type="VARCHAR(1024)"/>
+            <column name="cm_id_provider_tin_type" type="VARCHAR(1024)"/>
+        </addColumn>
+        <addColumn tableName="acm_person">
+            <column name="cm_person_legal_business_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_specialty_type" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_last_name" type="VARCHAR(1024)"/>
+            <column name="cm_person_assc_middle_name" type="VARCHAR(512)"/>
+            <column name="cm_person_assc_first_name" type="VARCHAR(512)"/>
+            <column name="cm_person_assc_legal_business_name" type="VARCHAR(512)"/>
+            <column name="cm_person_assc_enrollment_id" type="VARCHAR(255)"/>
+            <column name="cm_person_assc_npi" type="VARCHAR(255)"/>
+            <column name="cm_person_assc_tin" type="VARCHAR(255)"/>
+            <column name="cm_person_assc_tin_type" type="VARCHAR(512)"/>
+            <column name="cm_person_assc_role" type="VARCHAR(512)"/>
+            <column name="cm_person_assc_sanc_code" type="VARCHAR(255)"/>
+            <column name="cm_person_assc_sanc_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5001-acms-add-id-fields2" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_docket_status" type="VARCHAR(512)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5004-change-cm-person-alias-datetime" author="marija.blazhevska">
         <modifyDataType tableName="acm_person_alias" columnName="cm_person_alias_created" newDataType="DATETIME"/>
         <modifyDataType tableName="acm_person_alias" columnName="cm_person_alias_modified" newDataType="DATETIME"/>
     </changeSet>
 
-    <changeSet id="56-identification-add-class-name-column" author="riste.tutureski">
+    <changeSet id="5006-identification-add-class-name-column" author="riste.tutureski">
         <addColumn tableName="acm_identification">
-            <column name="cm_class_name" type="varchar(400)" defaultValue="com.armedia.acm.plugins.person.model.Identification">
-                <constraints nullable="false"/>
-            </column>
+        <column name="cm_class_name" type="varchar(400)" defaultValue="com.armedia.acm.plugins.person.model.Identification">
+            <constraints nullable="false"/>
+        </column>
         </addColumn>
     </changeSet>
 

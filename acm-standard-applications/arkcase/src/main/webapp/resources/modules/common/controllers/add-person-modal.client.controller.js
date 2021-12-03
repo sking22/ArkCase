@@ -32,6 +32,12 @@ angular.module('common').controller('Common.AddPersonModalController', ['$scope'
     $scope.hideNoField = params.isDefault;
     $scope.skipPeopleIdsInSearch = params.skipPeopleIdsInSearch;
     $scope.isInvalid = true;
+    $scope.idStates = '';
+
+    ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+        $scope.idStates = states;
+    });
+
     if ($scope.editMode) {
         $scope.addNewEnabled = false;
     }
@@ -149,4 +155,5 @@ angular.module('common').controller('Common.AddPersonModalController', ['$scope'
             $scope.personImages = data.images;
         });
     };
+
 }]);
