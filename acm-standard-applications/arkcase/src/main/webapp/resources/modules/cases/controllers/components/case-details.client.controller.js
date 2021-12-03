@@ -16,7 +16,8 @@ angular.module('cases').controller(
             'ObjectService',
             'SuggestedObjectsService',
             'Profile.UserInfoService',
-                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService) {
+            'Object.LookupService',
+                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService, ObjectLookupService) {
 
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
@@ -44,13 +45,17 @@ angular.module('cases').controller(
                         });
                     };
 
-                    $scope.saveOptMedicaid = function() {
+                    $scope.saveAll = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                            MessageService.info($translate.instant("cases.comp.details.caseSummary.informSaved"));
+                            MessageService.info("Case Details Saved.");
                             return caseInfo;
                         });
                     };
+
+                    ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+                        $scope.idStates = states;
+                    });
 
 
                     $scope.saveDetails = function() {
@@ -67,13 +72,9 @@ angular.module('cases').controller(
                     });
 
                     var onObjectInfoRetrieved = function(data) {
-
-
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
-
                         $scope.caseFileType = data.caseType;
                         $scope.providerSpecialty = data.acmObjectOriginator.person.providerSpecialty;
-
                         $scope.associateLastName = data.acmObjectOriginator.person.associateLastName;
                         $scope.associateFirstName = data.acmObjectOriginator.person.associateFirstName;
                         $scope.associateLegalBusinessName = data.acmObjectOriginator.person.associateLegalBusinessName;
@@ -84,7 +85,6 @@ angular.module('cases').controller(
                         $scope.associateRole = data.acmObjectOriginator.person.associateRole;
                         $scope.associateSanctionCode = data.acmObjectOriginator.person.associateSanctionCode;
                         $scope.associateSanctionDate = data.acmObjectOriginator.person.associateSanctionDate;
-
                         var idList = data.acmObjectOriginator.person.identifications;
 
                         idList.forEach(function (item) {
@@ -157,8 +157,6 @@ angular.module('cases').controller(
                             if (item.idExclusionType !== null) {
                                 $scope.idExclusionType = item.idExclusionType;
                             }
-
-
 
                         });
 
