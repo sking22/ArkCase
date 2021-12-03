@@ -35,6 +35,11 @@ public class AcmAuthenticationDetails extends WebAuthenticationDetails
 {
     private String userIpAddress;
     private String cmisUserId;
+    private String verificationCode;
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
 
     /**
      * Records the remote address and will also set the session id if a session
@@ -46,6 +51,7 @@ public class AcmAuthenticationDetails extends WebAuthenticationDetails
     public AcmAuthenticationDetails(HttpServletRequest request)
     {
         super(request);
+        verificationCode = request.getParameter("mfa");
     }
 
     /**

@@ -146,6 +146,14 @@ Time: 12:44
                 <div class="alert alert-danger">Bad credentials. Please try again</div>
             </c:when>
 
+
+            <c:when test='${"MFA Expired".equals(sessionScope.login_error)}'>
+                <div class="alert alert-danger">User Code Expired. Please try again</div>
+            </c:when>
+            <c:when test='${"BadCredentialsException: Bad credentials".equals(sessionScope.login_error)}'>
+                <div class="alert alert-danger">Bad credentials. Please try again</div>
+            </c:when>
+
             <c:otherwise>
                 <div class="alert alert-danger">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</div>
             </c:otherwise>
@@ -193,7 +201,7 @@ Time: 12:44
     </div>
 
 
-    <form id="login-form" action="<%= request.getContextPath()%>/login_post" method="post">
+    <form id="login-form" action="<%= request.getContextPath()%>/acm_auth" method="post">
         <div class="list-group">
             <div class="list-group-item">
                 <input id="username_input"

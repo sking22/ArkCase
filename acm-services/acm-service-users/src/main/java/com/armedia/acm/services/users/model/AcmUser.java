@@ -28,11 +28,13 @@ package com.armedia.acm.services.users.model;
  */
 
 import com.armedia.acm.data.converter.LocalDateConverter;
+import com.armedia.acm.data.converter.LocalDateTimeConverter;
 import com.armedia.acm.services.users.model.group.AcmGroup;
 import com.armedia.acm.services.users.model.ldap.AcmLdapConstants;
 import com.armedia.acm.services.users.model.ldap.MapperUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,6 +56,7 @@ import javax.persistence.TemporalType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -140,6 +143,14 @@ public class AcmUser implements Serializable
     @Convert(converter = LocalDateConverter.class)
     private LocalDate passwordExpirationDate;
 
+    @Column(name="cm_mfa_token")
+    private String mfaToken;
+
+    @Column(name="cm_token_created_date_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime mfaCreatedDateTime;
+
     @Embedded
     private PasswordResetToken passwordResetToken;
 
@@ -157,6 +168,22 @@ public class AcmUser implements Serializable
     public Set<AcmGroup> getLdapGroups()
     {
         return groups.stream().filter(AcmGroup::isLdapGroup).collect(Collectors.toSet());
+    }
+
+    public String getMfaToken() {
+        return mfaToken;
+    }
+
+    public void setMfaToken(String mfaToken) {
+        this.mfaToken = mfaToken;
+    }
+
+    public LocalDateTime getMfaCreatedDateTime() {
+        return mfaCreatedDateTime;
+    }
+
+    public void setMfaCreatedDateTime(LocalDateTime mfaCreatedDateTime) {
+        this.mfaCreatedDateTime = mfaCreatedDateTime;
     }
 
     /**
