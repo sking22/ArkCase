@@ -746,10 +746,5 @@
                                columnDataType="VARCHAR(2560)"/>
     </changeSet>
 
-    <changeSet id="5501-add-user-token" author="ylanka">
-        <addColumn tableName="acm_user">
-            <column name="cm_mfa_token" type="VARCHAR(10)"/>
-            <column name="cm_token_created_date_time" type="${timestampType}"/>
-        </addColumn>
-    </changeSet>
+
 </databaseChangeLog>

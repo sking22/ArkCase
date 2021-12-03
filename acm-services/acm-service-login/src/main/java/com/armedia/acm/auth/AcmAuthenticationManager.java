@@ -28,7 +28,6 @@ package com.armedia.acm.auth;
  */
 
 import com.armedia.acm.services.users.dao.UserDao;
-import com.armedia.acm.services.users.model.AcmUser;
 import com.armedia.acm.services.users.service.ldap.AcmActiveDirectoryAuthenticationException;
 import com.armedia.acm.services.users.service.ldap.AcmActiveDirectoryAuthenticationProvider;
 import com.armedia.acm.services.users.service.ldap.AcmLdapAuthenticationProvider;
@@ -47,8 +46,6 @@ import org.springframework.security.authentication.ProviderNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -61,26 +58,6 @@ public class AcmAuthenticationManager implements AuthenticationManager
     private DefaultAuthenticationEventPublisher authenticationEventPublisher;
     private UserDao userDao;
     private final Logger log = LogManager.getLogger(getClass());
-    public static final long MFA_EXPIRY_IN_SECONDS = 900l;
-
-    private boolean isValidMfa(String verificationToken, AcmUser user) throws Exception {
-
-        String mfa = user.getMfaToken();
-        LocalDateTime mfaCreationTime = user.getMfaCreatedDateTime();
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime expiryTime = mfaCreationTime.plusSeconds(MFA_EXPIRY_IN_SECONDS);
-        if(expiryTime.isBefore(now)) {
-            throw new Exception("MFA Expired");
-        }
-        if((mfa == null) || mfa.equals("")) {
-            return false;
-        }
-
-        if (!mfa.equals(verificationToken)) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException
@@ -97,16 +74,6 @@ public class AcmAuthenticationManager implements AuthenticationManager
             {
                 if (providerEntry.getValue() instanceof AcmLdapAuthenticationProvider)
                 {
-                    String verificationCode
-                            = ((com.armedia.acm.auth.AcmAuthenticationDetails) authentication.getDetails())
-                            .getVerificationCode();
-
-                    AcmUser user = getUserDao().findByUserId(authentication.getName());
-                    if(user == null)
-                        throw new BadCredentialsException("Invalid User Name");
-                    if(!isValidMfa(verificationCode, user)) {
-                        throw new BadCredentialsException("Invalid MFA token.");
-                    }
                     if (principal.isEmpty())
                     {
                         throw new BadCredentialsException("Empty Username");
@@ -117,8 +84,6 @@ public class AcmAuthenticationManager implements AuthenticationManager
                     {
                         providerAuthentication = provider.authenticate(authentication);
                     }
-                    user.setMfaToken("");
-                    userDao.save(user);
                 }
                 else if (providerEntry.getValue() instanceof AcmActiveDirectoryAuthenticationProvider)
                 {

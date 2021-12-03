@@ -130,7 +130,6 @@ public interface NotificationConstants
     String NOTIFICATION_FOIA_EXTENSION = "notifications.foia.extension.notification";
     String NOTIFICATION_PRIVACY_EXTENSION = "notifications.privacy.extension.notification";
     String PASSWORD_RESET = "notifications.password.reset";
-    String NEW_OTP = "notifications.new.otp";
     String FORGOT_USERNAME = "notifications.username.forgot";
     String STATUS_TRANSCRIPTION = "notifications.status.transcription";
     String COMPLAINT_INVOICE = "notifications.complaint.invoice";
