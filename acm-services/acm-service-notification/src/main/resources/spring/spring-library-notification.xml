@@ -155,8 +155,19 @@
         <property name="resetPasswordService" ref="resetPassword"/>
     </bean>
 
+    <bean id="onGenerateOtp" class="com.armedia.acm.services.notification.service.OnGenerateOtp">
+        <property name="generateOtpService" ref="generateOtp"/>
+    </bean>
+
     <bean id="onSetPassword" class="com.armedia.acm.services.notification.service.OnSetPasswordEmail">
         <property name="resetPasswordService" ref="resetPassword"/>
+    </bean>
+
+    <bean id="generateOtp" class="com.armedia.acm.services.notification.service.GenerateOtpService">
+        <property name="userDao" ref="userJpaDao"/>
+        <property name="notificationService" ref="notificationService"/>
+        <property name="auditPropertyEntityAdapter" ref="auditPropertyEntityAdapter"/>
+        <property name="templateManager" ref="correspondenceTemplateManager"/>
     </bean>
 
     <bean id="resetPassword" class="com.armedia.acm.services.notification.service.ResetPasswordService">

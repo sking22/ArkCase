@@ -16,4 +16,9 @@
 
     <bean id="getAuthProfileAPIController" class="com.armedia.acm.auth.okta.web.api.GetAuthProfileAPIController"/>
 
+    <bean id="generateOtpUiController" class="com.armedia.acm.auth.web.GenerateOtpUiController">
+        <property name="userDao" ref="userJpaDao"/>
+    </bean>
+
+
 </beans>

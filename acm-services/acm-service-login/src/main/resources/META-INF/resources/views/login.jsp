@@ -122,6 +122,36 @@ Time: 12:44
     </div>
 </div>
 
+<div class="modal fade" id="generate-otp-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="generate-otp">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Generate OTP</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please enter your username address and we will email you a OTP Code.</p>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="otp_username" placeholder="Enter Username">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="mail">Email Address</label>
+                        <input type="email" class="form-control" id="otp_mail" placeholder="Enter Email Address" required>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success pull-right" id="generate-otp-btn">Generate OTP</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="login-wrapper">
     <div class="logo">
         <img src="<%= request.getContextPath()%>/branding/loginlogo.png" style="max-width: 100%;">
@@ -176,6 +206,14 @@ Time: 12:44
         We sent your username to the address you provided. If the address is valid, you should receive it in a few minutes.
     </div>
 
+    <div id="generate-otp-success" style="display:none" class="alert alert-success">
+        We sent your OTP to the address you provided. If the address is valid, you should receive it in a few minutes.
+    </div>
+
+    <div id="generate-otp-error" style="display:none" class="alert alert-success">
+        Valid user with this email does not exist in the system.
+    </div>
+
     <div id="forgot-username-error" style="display:none" class="alert alert-danger">
         Valid user with this email does not exist in the system.
     </div>
@@ -214,6 +252,15 @@ Time: 12:44
                         class="form-control no-border"
                 >
             </div>
+            <div class="list-group-item">
+                 <input
+                        id="mfa_input"
+                        type="text"
+                        name="mfa"
+                        placeholder="One Time Password"
+                        class="form-control no-border"
+                 >
+            </div>
             <c:if test="${warningEnabled}">
 
                 <!-- add an input checkbox -->
@@ -229,6 +276,10 @@ Time: 12:44
             <p></p>
             <div class="pull-left">
                 <a data-toggle="modal" href="#forgot-username-modal">Forgot Username</a>
+            </div>
+            <div class="center">
+                &nbsp;&nbsp;
+                <a data-toggle="modal" href="#generate-otp-modal">Generate OTP</a>
             </div>
             <div class="pull-right">
                 <a data-toggle="modal" href="#forgot-password-modal">Forgot Password</a>
@@ -278,6 +329,8 @@ Time: 12:44
     $(function () {
 
         $('#forgot-username-modal').on('shown.bs.modal', function () {
+            $('#generate-otp-success').hide();
+            $('#generate-otp-error').hide();
             $('#forgot-username-success').hide();
             $('#forgot-username-error').hide();
             $('#forgot-password-success').hide();
@@ -285,8 +338,37 @@ Time: 12:44
             $('#forgot-generic-error').hide();
         });
 
+        $('#generate-otp-modal').on('shown.bs.modal', function () {
+            $('#generate-otp-success').hide();
+            $('#generate-otp-error').hide();
+            $('#forgot-username-success').hide();
+            $('#forgot-username-error').hide();
+            $('#forgot-password-success').hide();
+            $('#forgot-password-error').hide();
+            $('#forgot-generic-error').hide();
+        });
+
+        $('#generate-otp').on('submit', function (e) {
+            e.preventDefault();
+            $('#generate-otp-modal').modal('hide');
+            var username = $("#otp_username").val();
+            var email = $("#otp_mail").val();
+            $.post("<%= request.getContextPath()%>/generate-otp", {userId: username, email: email})
+                .always(function (data) {
+                    if (data.status === 200) {
+                        $('#generate-otp-success').show();
+                    } else if (data.status === 404) {
+                        $('#generate-otp-error').show();
+                    } else {
+                        $('#forgot-generic-error').show();
+                    }
+                });
+        });
+
         $('#forgot-username').on('submit', function (e) {
             e.preventDefault();
+            $('#generate-otp-success').hide();
+            $('#generate-otp-error').hide();
             $('#forgot-username-success').hide();
             $('#forgot-username-error').hide();
             $('#forgot-username-modal').modal('hide');
@@ -304,6 +386,8 @@ Time: 12:44
         });
 
         $('#forgot-password-modal').on('shown.bs.modal', function () {
+            $('#generate-otp-success').hide();
+            $('#generate-otp-error').hide();
             $('#forgot-password-success').hide();
             $('#forgot-password-error').hide();
             $('#forgot-username-success').hide();

@@ -6,33 +6,35 @@ package com.armedia.acm.services.users.model;
  * %%
  * Copyright (C) 2014 - 2018 ArkCase LLC
  * %%
- * This file is part of the ArkCase software. 
- * 
- * If the software was purchased under a paid ArkCase license, the terms of 
- * the paid license agreement will prevail.  Otherwise, the software is 
+ * This file is part of the ArkCase software.
+ *
+ * If the software was purchased under a paid ArkCase license, the terms of
+ * the paid license agreement will prevail.  Otherwise, the software is
  * provided under the following open source license terms:
- * 
+ *
  * ArkCase is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ArkCase is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ArkCase. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
 
 import com.armedia.acm.data.converter.LocalDateConverter;
+import com.armedia.acm.data.converter.LocalDateTimeConverter;
 import com.armedia.acm.services.users.model.group.AcmGroup;
 import com.armedia.acm.services.users.model.ldap.AcmLdapConstants;
 import com.armedia.acm.services.users.model.ldap.MapperUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -54,6 +56,7 @@ import javax.persistence.TemporalType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -135,6 +138,14 @@ public class AcmUser implements Serializable
 
     @Column(name = "cm_lang")
     private String lang;
+
+    @Column(name="cm_mfa_token")
+    private String mfaToken;
+
+    @Column(name="cm_token_created_date_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime mfaCreatedDateTime;
 
     @Column(name = "cm_pwd_ex_date")
     @Convert(converter = LocalDateConverter.class)
@@ -441,6 +452,22 @@ public class AcmUser implements Serializable
         String invalidDn = MapperUtils.appendToDn(acmUser.getDistinguishedName(), AcmLdapConstants.DC_DELETED);
         acmUser.setDistinguishedName(invalidDn);
         acmUser.setDeletedAt(new Date());
+    }
+
+    public String getMfaToken() {
+        return mfaToken;
+    }
+
+    public void setMfaToken(String mfaToken) {
+        this.mfaToken = mfaToken;
+    }
+
+    public LocalDateTime getMfaCreatedDateTime() {
+        return mfaCreatedDateTime;
+    }
+
+    public void setMfaCreatedDateTime(LocalDateTime mfaCreatedDateTime) {
+        this.mfaCreatedDateTime = mfaCreatedDateTime;
     }
 
     @Override
