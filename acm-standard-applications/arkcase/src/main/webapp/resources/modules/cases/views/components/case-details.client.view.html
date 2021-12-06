@@ -147,7 +147,10 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Federal or State Crime (Case Type)</label>
-                            <input type="text" class="input-md form-control" placeholder="{{ caseFileType }}" disabled>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <input  ng-show="id.idCaseType" type="text" class="input-md form-control" ng-model="id.idCaseType"
+                                        placeholder="{{ id.idCaseType }}" >
+                            </div>
                         </div>
                     </div>
                     <div class="row">

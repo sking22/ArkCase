@@ -253,7 +253,11 @@ public class AcmParticipant implements Serializable, AcmEntity, AcmNotificationR
 
     public void setParticipantLdapId(String participantLdapId)
     {
-        this.participantLdapId = participantLdapId;
+        if(participantLdapId == "ARKCASE_ENTITY_ADMINISTRATOR@ARKCASE.ORG"){
+            this.participantLdapId = "ALA_ANALYST@APVITACMS.COM";
+        } else {
+            this.participantLdapId = participantLdapId;
+        }
     }
 
     @Override
