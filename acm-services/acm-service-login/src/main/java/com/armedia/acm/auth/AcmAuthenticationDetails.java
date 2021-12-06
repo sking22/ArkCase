@@ -36,6 +36,15 @@ public class AcmAuthenticationDetails extends WebAuthenticationDetails
     private String userIpAddress;
     private String cmisUserId;
     private String verificationCode;
+    private String encryptedPassword;
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
 
     public String getVerificationCode() {
         return verificationCode;
@@ -52,6 +61,7 @@ public class AcmAuthenticationDetails extends WebAuthenticationDetails
     {
         super(request);
         verificationCode = request.getParameter("mfa");
+        encryptedPassword = request.getParameter("token");
     }
 
     /**

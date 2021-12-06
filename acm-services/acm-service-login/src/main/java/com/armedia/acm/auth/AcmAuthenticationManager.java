@@ -27,6 +27,7 @@ package com.armedia.acm.auth;
  * #L%
  */
 
+import com.armedia.acm.auth.utils.EncryptionUtils;
 import com.armedia.acm.services.users.dao.UserDao;
 import com.armedia.acm.services.users.model.AcmUser;
 import com.armedia.acm.services.users.service.ldap.AcmActiveDirectoryAuthenticationException;
@@ -37,15 +38,12 @@ import com.armedia.acm.spring.SpringContextHolder;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.authentication.ProviderNotFoundException;
+import org.springframework.ldap.core.DirContextOperations;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -88,7 +86,7 @@ public class AcmAuthenticationManager implements AuthenticationManager
         Exception lastException = null;
 
         String principal = authentication.getName();
-
+        SecurityContextHolder.getContext().getAuthentication();
         Map<String, AuthenticationProvider> providerMap = getSpringContextHolder().getAllBeansOfType(AuthenticationProvider.class);
         Authentication providerAuthentication = null;
         for (Map.Entry<String, AuthenticationProvider> providerEntry : providerMap.entrySet())
@@ -97,6 +95,16 @@ public class AcmAuthenticationManager implements AuthenticationManager
             {
                 if (providerEntry.getValue() instanceof AcmLdapAuthenticationProvider)
                 {
+                    Object credentials = authentication.getCredentials();
+                    Object pass = (String)authentication.getCredentials();
+                    if((credentials == null) || credentials.equals("")) {
+                        String encryptedPassword
+                                = ((com.armedia.acm.auth.AcmAuthenticationDetails) authentication.getDetails())
+                                .getEncryptedPassword();
+                        pass = EncryptionUtils.decryptString(encryptedPassword);
+                    }
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), pass, authentication.getAuthorities());
+                    auth.setDetails(authentication.getDetails());
                     String verificationCode
                             = ((com.armedia.acm.auth.AcmAuthenticationDetails) authentication.getDetails())
                             .getVerificationCode();
@@ -111,11 +119,13 @@ public class AcmAuthenticationManager implements AuthenticationManager
                     {
                         throw new BadCredentialsException("Empty Username");
                     }
+
                     AcmLdapAuthenticationProvider provider = (AcmLdapAuthenticationProvider) providerEntry.getValue();
                     String userDomain = provider.getAcmLdapSyncConfig().getUserDomain();
+
                     if (principal.endsWith(userDomain))
                     {
-                        providerAuthentication = provider.authenticate(authentication);
+                        providerAuthentication = provider.authenticate(auth);
                     }
                     user.setMfaToken("");
                     userDao.save(user);
@@ -159,6 +169,9 @@ public class AcmAuthenticationManager implements AuthenticationManager
         }
         if (lastException != null)
         {
+            String s = ExceptionUtils.getStackTrace(lastException);
+            log.error("Last Exception "+s);
+
             AuthenticationException ae;
             if (lastException instanceof ProviderNotFoundException)
             {

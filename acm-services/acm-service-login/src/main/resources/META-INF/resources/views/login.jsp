@@ -142,17 +142,15 @@ Time: 12:44
                 <div class="alert alert-danger">Must enter a password</div>
             </c:when>
 
-            <c:when test='${"BadCredentialsException: Bad credentials".equals(sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message)}'>
-                <div class="alert alert-danger">Bad credentials. Please try again</div>
+            <c:when test='${"BadCredentialsException: Invalid MFA token.".equals(sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message)}'>
+                <div class="alert alert-danger">Invalid MFA Token. Please try again</div>
             </c:when>
 
 
             <c:when test='${"MFA Expired".equals(sessionScope.login_error)}'>
                 <div class="alert alert-danger">User Code Expired. Please try again</div>
             </c:when>
-            <c:when test='${"BadCredentialsException: Bad credentials".equals(sessionScope.login_error)}'>
-                <div class="alert alert-danger">Bad credentials. Please try again</div>
-            </c:when>
+
 
             <c:otherwise>
                 <div class="alert alert-danger">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}</div>
@@ -162,6 +160,16 @@ Time: 12:44
 
         <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
 
+    </c:if>
+
+    <c:if test='${"BadCredentialsException: Bad credentials".equals(sessionScope.login_error)}'>
+                <div class="alert alert-danger">Bad credentials. Please try again</div>
+    </c:if>
+    <c:if test='${"Failed Sending Code. Please try again.".equals(sessionScope.login_error)}'>
+                <div class="alert alert-danger">Failed Sending Code. Please try again</div>
+    </c:if>
+    <c:if test='${"Unknown Exception. Please try again.".equals(sessionScope.login_error)}'>
+                <div class="alert alert-danger">Unknown Exception. Please try again</div>
     </c:if>
 
     <c:if test="${'1'.equals(param.login_error)}">

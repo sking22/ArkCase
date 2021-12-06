@@ -28,6 +28,7 @@ package com.armedia.acm.auth.web;
  */
 
 import com.armedia.acm.auth.*;
+import com.armedia.acm.auth.utils.EncryptionUtils;
 import com.armedia.acm.services.users.dao.UserDao;
 import com.armedia.acm.services.users.model.AcmUser;
 import com.armedia.acm.services.users.model.AcmUserState;
@@ -84,12 +85,14 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
     private AcmAuthenticationManager acmAuthenticationManager;
     private AcmAuthenticationDetailsFactory authenticationDetailsSource;
 
+
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher)
     {
         eventPublisher = applicationEventPublisher;
         this.applicationEventPublisher = applicationEventPublisher;
     }
+
 
     public ApplicationEventPublisher getApplicationEventPublisher()
     {
@@ -175,6 +178,7 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
         AcmAuthentication acmAuthentication = new AcmAuthentication(usernamePasswordAuthenticationToken);
         Authentication authentication = null;
         boolean sentOtp = false;
+        request.getSession().setAttribute("login_error", "");
         for (Map.Entry<String, AuthenticationProvider> providerEntry : providerMap.entrySet()) {
             try {
                 if (providerEntry.getValue() instanceof AcmLdapAuthenticationProvider)
@@ -199,16 +203,25 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
                     //providerAuthentication = providerEntry.getValue().authenticate(acmAuthentication);
                 }
             } catch (Exception e) {
-                String s = ExceptionUtils.getStackTrace(e);
+                request.getSession().setAttribute("login_error", "BadCredentialsException: Bad credentials");
                 return new RedirectView("login");// ModelAndView("redirect:/login.html");
             }
         }
         if(!sentOtp) {
+            request.getSession().setAttribute("login_error", "Failed Sending Code. Please try again.");
             return new RedirectView("login");// ModelAndView("redirect:/login.html");
         }
         redirectAttributes.addFlashAttribute("username", username);
-        redirectAttributes.addFlashAttribute("password", password);
-        return new RedirectView("acm_verify");
+        try {
+            String encryptedPassword = EncryptionUtils.encryptString(password);
+            redirectAttributes.addFlashAttribute("token", encryptedPassword);
+            return new RedirectView("acm_verify");
+        } catch (Exception e) {
+            String s  = ExceptionUtils.getStackTrace(e);
+            log.error(s);
+            request.getSession().setAttribute("login_error", "Unknown Exception. Please try again.");
+            return new RedirectView("login");
+        }
     }
 
     @PostMapping(value = "/generate-otp")

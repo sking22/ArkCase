@@ -98,7 +98,7 @@
                    placeholder="Enter code digits here"
                    class="form-control"/>
             <input id="username" name="username" value="${username}" hidden/>
-            <input id="password" type="password" name="password" value="${password}" hidden/>
+            <input id="token" type="token" name="token" value="${token}" hidden/>
         </div>
         <button id="submit" type="submit" class="btn btn-lg btn-primary btn-block">Verify</button>
         <p></p>
