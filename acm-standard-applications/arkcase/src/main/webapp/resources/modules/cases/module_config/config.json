@@ -485,10 +485,6 @@
                     ]
                 },
                 {
-                    "id": "calendar",
-                    "type": "component"
-                },
-                {
                     "id": "approvalRouting",
                     "type": "component",
                     "columnDefs": [
@@ -1152,14 +1148,6 @@
             ],
             "filters": "\"Object Type\": TAG",
             "filterName": "Object Type"
-        },
-        {
-            "id": "calendar",
-            "title": "cases.comp.calendar.title",
-            "icon": "fa fa-calendar",
-            "enabled": true,
-            "configurable": true,
-            "type": "empty"
         },
         {
             "id": "merge",

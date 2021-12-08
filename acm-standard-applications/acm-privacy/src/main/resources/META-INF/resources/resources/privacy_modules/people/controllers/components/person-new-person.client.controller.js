@@ -137,7 +137,9 @@ angular.module('people').controller(
             $scope.addIdentification = function () {
                 $timeout(function () {
                     //add empty identification
-                    $scope.person.identifications.push({});
+                    $scope.person.identifications.push({
+                        className: $scope.config.identificationClassName
+                    });
                 }, 0);
             };
 
@@ -356,9 +358,17 @@ angular.module('people').controller(
                 } else {
                     person.contactMethods.push(person.defaultUrl);
                 }
+
                 //identifications
                 if (person.defaultIdentification) {
-                    person.identifications.push(person.defaultIdentification);
+                    // this is rare scenario in identifications when user choose only issuer date for example and then remove this date
+                    // we need to delete all properties that are null cause otherwise backend will throw error
+                    person.defaultIdentification = _.pick(person.defaultIdentification, _.identity);
+                    if (_.isEmpty(person.defaultIdentification)) {
+                        person = _.omit(person, ['defaultIdentification']);
+                    } else {
+                        person.identifications.push(person.defaultIdentification);
+                    }
                 }
 
                 //remove empty organizations before save
