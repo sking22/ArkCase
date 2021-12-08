@@ -242,47 +242,6 @@
             }
           },
           {
-            "titleKey": "common.directive.docTree.menu.editWithWebDAV",
-            "cmd": "editWithWebDAV",
-            "uiIcon": "ui-icon-pencil",
-            "disabledExpression": "!(new RegExp(Util.goodMapValue(DocTree.treeConfig, 'fileExtensionRegex', '\\.(doc|docx|pdf|xlsx|xls|ppt)$'), 'i').test(nodes[0].data.ext))"
-          },
-          {
-            "titleKey": "common.directive.docTree.menu.editWithOfficeOnline",
-            "cmd": "collaborate",
-            "uiIcon": "ui-icon-person",
-            "disabledExpression": "!(new RegExp('\\.(docx|xlsx|pptx)$', 'i').test(nodes[0].data.ext))",
-            "plugin": "WOPI"
-          },
-          {
-            "titleKey": "common.directive.docTree.menu.coEdit",
-            "cmd": "co-edit",
-            "uiIcon": "ui-icon-document",
-            "disabledExpression": "!(new RegExp(Util.goodMapValue(DocTree.treeConfig, 'fileExtensionRegex', '\\.(doc|docx|pdf|xlsx|xls|ppt)$'), 'i').test(nodes[0].data.ext))",
-            "plugin": "ONLY_OFFICE"
-          },
-          {
-            "titleKey": "common.directive.docTree.menu.email",
-            "cmd": "email",
-            "uiIcon": "ui-icon-mail-closed",
-            "data": {
-              "readOnly": true
-            }
-          },
-          {
-            "title": "common.directive.docTree.menu.newTask",
-            "cmd": "reviewDocument",
-            "uiIcon": "ui-icon-circle-check",
-            "data": {
-              "readOnly": true
-            }
-          },
-          {
-            "title": "common.directive.docTree.menu.nlpProcess",
-            "cmd": "startNLPProcess",
-            "uiIcon": "ui-icon-arrowstop-1-n"
-          },
-          {
             "title": "----"
           },
           {
@@ -372,12 +331,6 @@
             "data": {
               "uploadFile": true
             }
-          },
-          {
-            "titleKey": "common.directive.docTree.menu.declareRecord",
-            "cmd": "declare",
-            "uiIcon": "ui-icon-locked",
-            "plugin": "RMA"
           }
         ]
       },

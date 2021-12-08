@@ -187,7 +187,43 @@ angular.module('cases').controller(
                         });
 
                         modalInstance.result.then(function(data) {
-                            console.log(data);
+                            console.log("case change modal --- ", JSON.stringify(data));
+
+                           if (data.status === "Submitted to CMS" || data.status === "Resubmitted to CMS"
+                                || data.status === "Submitted To CMS II" || data.status === "CMS Pending- On Hold" ) {
+
+                                console.log('Submitted to cms' + JSON.stringify($scope.objectInfo));
+                                ObjectModelService.setAssignee($scope.objectInfo, 'cms_testaccount@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
+
+                                var caseInfo = Util.omitNg($scope.objectInfo);
+                                CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                                    //success
+                                    $scope.refresh();
+                                });
+                            } else if (data.status === "CMS Requested Edit" || data.status === "CMS Approved") {
+                                console.log('cms re or approved ' + JSON.stringify($scope.objectInfo));
+                                ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+
+                                var caseInfo = Util.omitNg($scope.objectInfo);
+                                CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                                    //success
+                                    $scope.refresh();
+                                });
+
+                            } else if (data.status === "Audit Assigned" || data.status === "Audit N/A" || data.status === "Audit Completed") {
+                                  console.log('QA -audit - ' + JSON.stringify($scope.objectInfo));
+                                  ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
+                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
+
+                                  var caseInfo = Util.omitNg($scope.objectInfo);
+                                  CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                                      //success
+                                      $scope.refresh();
+                                  });
+                              }
+
                             $scope.refresh();
                         }, function() {
                             console.log("error");
