@@ -134,16 +134,14 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Name of Convicted Individual</label>
-                            <input type="text" class="input-md form-control" placeholder="{{ providerFullName}}" disabled>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
+                                   placeholder="{{ objectInfo.caseConvictedIndividual }}" >
+
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual's TIN</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <div ng-if="id.identificationType === 'TIN' ">
-                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
-                                           placeholder="{{ id.identificationNumber }}" >
-                                </div>
-                            </div>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualTin"
+                                   placeholder="{{ objectInfo.caseConvictedIndividualTin }}" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Federal or State Crime (Case Type)</label>
@@ -362,6 +360,20 @@
                             <label>Reporting Week</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReportingWeek"
                                    placeholder="{{ objectInfo.caseReportingWeek }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 form-group">
+                            <label>License State</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number'">
+                                    <select class="form-control" ng-model="id.idState" >
+                                        <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
+                                            {{option.value | translate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

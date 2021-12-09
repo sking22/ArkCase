@@ -612,5 +612,15 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5013-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_conv_ind" type="VARCHAR(64)"/>
+            <column name="cm_case_conv_ind_tin" type="VARCHAR(64)"/>
+            <column name="cm_case_prev_cms" type="VARCHAR(64)"/>
+            <column name="cm_case_prev_analyst" type="VARCHAR(64)"/>
+           <!-- <column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

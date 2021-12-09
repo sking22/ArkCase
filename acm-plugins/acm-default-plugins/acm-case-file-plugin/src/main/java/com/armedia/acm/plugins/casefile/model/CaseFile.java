@@ -405,6 +405,21 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_taxonomy")
     private String caseTaxonomy;
 
+    //cm_case_conv_ind
+    @Column(name = "cm_case_conv_ind")
+    private String caseConvictedIndividual;
+
+    //cm_case_conv_ind_tin
+    @Column(name = "cm_case_conv_ind_tin")
+    private String caseConvictedIndividualTin;
+
+    //cm_case_taxonomy
+    @Column(name = "cm_case_prev_cms")
+    private String casePrevCMSAnalyst;
+
+    //cm_case_prev_analyst
+    @Column(name = "cm_case_prev_analyst")
+    private String casePrevAnalyst;
 
     @PrePersist
     protected void beforeInsert()
@@ -1261,5 +1276,28 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public void setCaseRevEffActionDate(Date caseRevEffActionDate) { this.caseRevEffActionDate = caseRevEffActionDate; }
 
 
+    public String getCaseConvictedIndividual()
+    {
+        return caseConvictedIndividual;
+    }
+    public void setCaseConvictedIndividual(String caseConvictedIndividual) { this.caseConvictedIndividual = caseConvictedIndividual; }
+
+    public String getCaseConvictedIndividualTin()
+    {
+        return caseConvictedIndividualTin;
+    }
+    public void setCaseConvictedIndividualTin(String caseConvictedIndividualTin) { this.caseConvictedIndividualTin = caseConvictedIndividualTin; }
+
+    public String getCasePrevCMSAnalyst()
+    {
+        return casePrevCMSAnalyst;
+    }
+    public void setCasePrevCMSAnalyst(String casePrevCMSAnalyst) { this.casePrevCMSAnalyst = casePrevCMSAnalyst; }
+
+    public String getCasePrevAnalyst()
+    {
+        return casePrevAnalyst;
+    }
+    public void setCasePrevAnalyst(String casePrevAnalyst) { this.casePrevAnalyst = casePrevAnalyst; }
 
 }
