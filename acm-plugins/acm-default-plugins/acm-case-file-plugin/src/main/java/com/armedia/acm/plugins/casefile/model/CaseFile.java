@@ -393,8 +393,7 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
 
     //cm_case_rev_eff_action_date
     @Column(name = "cm_case_rev_eff_action_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date caseRevEffActionDate;
+    private String caseRevEffActionDate;
 
 
     //cm_case_application_type
@@ -420,6 +419,38 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     //cm_case_prev_analyst
     @Column(name = "cm_case_prev_analyst")
     private String casePrevAnalyst;
+
+    @Column(name = "cm_case_enrollment_status_inactive", nullable = false)
+    private Boolean caseEnrollmentStatusInactive = false;
+
+    @Column(name = "cm_case_dea_rev_policy", nullable = false)
+    private Boolean caseDEArevpolicy = false;
+
+    @Column(name = "cm_case_prior_reg_eff_date", nullable = false)
+    private Boolean casePriorRegEffDate = false;
+
+    @Column(name = "cm_case_alert_pop_other_report", nullable = false)
+    private Boolean caseAlertPopOtherReport = false;
+
+    @Column(name = "cm_case_deceased_provider", nullable = false)
+    private Boolean caseDeceasedProvider = false;
+
+    @Column(name = "cm_case_wrong_felon_id", nullable = false)
+    private Boolean caseWrongFelonId = false;
+
+    @Column(name = "cm_case_not_felony_conv", nullable = false)
+    private Boolean caseNotFelonyConv = false;
+
+    @Column(name = "cm_case_pl_inc_less_year", nullable = false)
+    private Boolean casePlIncLessYear = false;
+
+    @Column(name = "cm_case_pl_on_prior_rev", nullable = false)
+    private Boolean casePlOnPriorRev = false;
+
+    @Column(name = "cm_case_not_act_other", nullable = false)
+    private Boolean caseNotActOther = false;
+
+
 
     @PrePersist
     protected void beforeInsert()
@@ -1269,11 +1300,11 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     }
     public void setCaseApplicationType(String caseApplicationType) { this.caseApplicationType = caseApplicationType; }
 
-    public Date getCaseRevEffActionDate()
+    public String getCaseRevEffActionDate()
     {
         return caseRevEffActionDate;
     }
-    public void setCaseRevEffActionDate(Date caseRevEffActionDate) { this.caseRevEffActionDate = caseRevEffActionDate; }
+    public void setCaseRevEffActionDate(String caseRevEffActionDate) { this.caseRevEffActionDate = caseRevEffActionDate; }
 
 
     public String getCaseConvictedIndividual()
@@ -1299,5 +1330,98 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return casePrevAnalyst;
     }
     public void setCasePrevAnalyst(String casePrevAnalyst) { this.casePrevAnalyst = casePrevAnalyst; }
+
+    public Boolean getCaseEnrollmentStatusInactive()
+    {
+        return caseEnrollmentStatusInactive;
+    }
+
+    public void setCaseEnrollmentStatusInactive(Boolean caseEnrollmentStatusInactive)
+    {
+        this.caseEnrollmentStatusInactive = caseEnrollmentStatusInactive;
+    }
+
+    public Boolean getCaseDEArevpolicy()
+    {
+        return caseDEArevpolicy;
+    }
+
+    public void setCaseDEArevpolicy(Boolean caseDEArevpolicy)
+    {
+        this.caseDEArevpolicy = caseDEArevpolicy;
+    }
+
+    public Boolean getCasePriorRegEffDate()
+    {
+        return casePriorRegEffDate;
+    }
+
+    public void setCasePriorRegEffDate(Boolean casePriorRegEffDate)
+    {
+        this.casePriorRegEffDate = casePriorRegEffDate;
+    }
+
+    public Boolean getCaseAlertPopOtherReport()
+    {
+        return caseAlertPopOtherReport;
+    }
+
+    public void setCaseAlertPopOtherReport(Boolean caseAlertPopOtherReport)
+    {
+        this.caseAlertPopOtherReport = caseAlertPopOtherReport;
+    }
+
+    public Boolean getCaseDeceasedProvider()
+    {
+        return caseDeceasedProvider;
+    }
+
+    public void setCaseDeceasedProvider(Boolean caseDeceasedProvider)
+    {
+        this.caseDeceasedProvider = caseDeceasedProvider;
+    }
+
+    public Boolean getCaseWrongFelonId()
+    {
+        return caseWrongFelonId;
+    }
+
+    public void setCaseWrongFelonId(Boolean caseWrongFelonId)
+    {
+        this.caseWrongFelonId = caseWrongFelonId;
+    }
+
+    public Boolean getCaseNotFelonyConv()
+    {
+        return caseNotFelonyConv;
+    }
+
+    public void setCaseNotFelonyConv(Boolean caseNotFelonyConv)
+    {
+        this.caseNotFelonyConv = caseNotFelonyConv;
+    }
+
+    public Boolean getCasePlIncLessYear() { return casePlIncLessYear; }
+
+    public void setCasePlIncLessYear(Boolean casePlIncLessYear)
+    {
+        this.casePlIncLessYear = casePlIncLessYear;
+    }
+
+    public Boolean getCasePlOnPriorRev() { return casePlOnPriorRev; }
+
+    public void setCasePlOnPriorRev(Boolean casePlOnPriorRev)
+    {
+        this.casePlOnPriorRev = casePlOnPriorRev;
+    }
+
+    public Boolean getCaseNotActOther() { return caseNotActOther; }
+
+    public void setCaseNotActOther(Boolean caseNotActOther)
+    {
+        this.caseNotActOther = caseNotActOther;
+    }
+
+
 
 }

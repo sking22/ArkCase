@@ -145,36 +145,34 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Federal or State Crime (Case Type)</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <input  ng-show="id.idCaseType" type="text" class="input-md form-control" ng-model="id.idCaseType"
+                                <input  type="text"
+                                        class="input-md form-control"
+                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
                                         placeholder="{{ id.idCaseType }}" >
-                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Case Number</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <input  ng-show="id.idCaseNumber" type="text" class="input-md form-control" ng-model="id.idCaseNumber"
-                                       placeholder="{{ id.idCaseNumber }}" >
-                            </div>
+                                <input type="text" class="input-md form-control"
+                                       ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber"
+                                       placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber }}" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Offense Type</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                    <input ng-show="id.idOffenseType" type="text" class="input-md form-control" ng-model="id.idOffenseType"
-                                           placeholder="{{ id.idOffenseType }}" >
-                            </div>
+                                    <input type="text"
+                                           class="input-md form-control"
+                                           ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType"
+                                           placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Disposition / Conviction Date:</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <date-time-picker ng-show="id.idDispositionDate" data="id.idDispositionDate"
-                                                  property="id.idDispositionDate"
-                                                  date-picker-id="id.idDispositionDate"
-                                                  time-format-disabled="true">
+                                <date-time-picker
+                                        data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
+                                        property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
+                                        date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
+                                        time-format-disabled="true">
                                 </date-time-picker>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -184,39 +182,36 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Court Name</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <input ng-show="id.idCourtName" type="text" class="input-md form-control" ng-model="id.idCourtName"
-                                       placeholder="{{ id.idCourtName }}" >
-                            </div>
+                                <input type="text"
+                                       class="input-md form-control"
+                                       ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName"
+                                       placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName }}" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Docket Request Date</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <date-time-picker ng-show="id.idDocketRequestDate"  data="id.idDocketRequestDate"
-                                                  property="id.idDocketRequestDate"
-                                                  date-picker-id="id.idDocketRequestDate"
-                                                  time-format-disabled="true">
+                                <date-time-picker
+                                      data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      time-format-disabled="true">
                                 </date-time-picker>
-                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Docket Response Date</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <date-time-picker ng-show="id.idDocketResponseDate"  data="id.idDocketResponseDate"
-                                                  property="id.idDocketResponseDate"
-                                                  date-picker-id="id.idDocketResponseDate"
-                                                  time-format-disabled="true">
+                                <date-time-picker
+                                      data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      time-format-disabled="true">
                                 </date-time-picker>
-                            </div>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Docket Status</label>
-                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <input ng-show="id.idDocketStatus" type="text" class="input-md form-control" ng-model="id.idDocketStatus"
-                                       placeholder="{{ id.idDocketStatus }}" >
-                            </div>
+                                <input  type="text" class="input-md form-control"
+                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus"
+                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus }}" >
                         </div>
                     </div>
                 </div>
@@ -495,6 +490,122 @@
             </div>
         </div>
 
+    <div class="panel panel-success panel-grid">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseNAR">Not Actionable Reasons</a>
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                    <button  class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                </div>
+            </h4>
+        </div>
+        <div id="collapseNAR" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-8 form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          ng-model="objectInfo.caseEnrollmentStatusInactive" />
+                        <label>
+                            PECOS enrollment/enrollment status inactive
+                        </label>
+                    </div>
+                    <div class="col-sm-8 form-check">
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            ng-model="objectInfo.caseDEArevpolicy" />
+                        <label>
+                            Doesn’t fit DEA’s revocation policy
+                        </label>
+                    </div>
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.casePriorRegEffDate" />
+                        <label>
+                            Conduct is prior to reg. effective date
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.caseAlertPopOtherReport" />
+                        <label>
+                            Alert populated on another Report & further action is N/A
+                        </label>
+                    </div>
+
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.caseDeceasedProvider" />
+                        <label>
+                            Provider is deceased
+                        </label>
+                    </div>
+
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.caseWrongFelonId" />
+                        <label>
+                            Wrong identity of felon
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.caseNotFelonyConv" />
+                        <label>
+                            Conv. beyond 10 yrs./not a felony conv./not detrimental
+                        </label>
+                    </div>
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.casePlIncLessYear" />
+                        <label>
+                            PL inclusion is for less than 1 yr.
+                        </label>
+                    </div>
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.casePlOnPriorRev" />
+                        <label>
+                            Already on PL via prior revocation (NPPES only)
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-check">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                ng-model="objectInfo.caseNotActOther" />
+                        <label>
+                            Other
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
         <div class="panel panel-success panel-grid">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -526,8 +637,11 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Revocation Effective Date (Action Date)</label>
-                            <date-time-picker data="objectInfo.caseRevEffActionDate" property="objectInfo.caseRevEffActionDate"
-                                              date-picker-id="objectInfo.caseRevEffActionDate" time-format-disabled="true"></date-time-picker>
+                            <!--<date-time-picker data="objectInfo.caseRevEffActionDate" property="objectInfo.caseRevEffActionDate"
+                                              date-picker-id="objectInfo.caseRevEffActionDate" time-format-disabled="true"></date-time-picker>-->
+
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
+                                   placeholder="{{ objectInfo.caseRevEffActionDate }}" >
 
                         </div>
                     </div>

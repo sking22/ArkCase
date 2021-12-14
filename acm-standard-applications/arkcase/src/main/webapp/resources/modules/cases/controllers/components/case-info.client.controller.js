@@ -184,10 +184,10 @@ angular.module('cases').controller(
                         // angularJS returns an unbind function that will kill the $watch() listener when its called.
                         dueDateWatch();
 
-                        console.log("data: " + data);
-                        console.log("data js: " + JSON.stringify(data));
-                        console.log("$scope.objectInfo : " + $scope.objectInfo);
-                        console.log("$scope.objectInfo : " +  JSON.stringify($scope.objectInfo));
+                       // console.log("data: " + data);
+                       //  console.log("data js: " + JSON.stringify(data));
+                       //   console.log("$scope.objectInfo : " + $scope.objectInfo);
+                       //   console.log("$scope.objectInfo : " +  JSON.stringify($scope.objectInfo));
 
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
                         $scope.legalBusinessName = data.acmObjectOriginator.person.legalBusinessName;
@@ -270,8 +270,8 @@ angular.module('cases').controller(
                                     DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
                                 }else {
                                     $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
-                                    $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local();
-                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).format(defaultDateTimePickerFormat);
+                                    $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
+                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);
                                     $scope.dateInfo.dueDate = $scope.dueDate.dueDateInfoUIPicker;
                                     // unbind due date watcher before case save so that when user switch to different case
                                     // watcher won't be fired before landing on that different case

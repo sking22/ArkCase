@@ -618,9 +618,62 @@
             <column name="cm_case_conv_ind_tin" type="VARCHAR(64)"/>
             <column name="cm_case_prev_cms" type="VARCHAR(64)"/>
             <column name="cm_case_prev_analyst" type="VARCHAR(64)"/>
-           <!-- <column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
+            <!--<column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
         </addColumn>
     </changeSet>
 
+    <changeSet id="5014-acms-add-case-fields" author="sean.king">
+        <dropColumn tableName="acm_case_file" columnName="cm_case_rev_eff_action_date"/>
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_rev_eff_action_date" type="VARCHAR(64)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5015-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_enrollment_status_inactive" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5016-acms-add-case-fields" author="sean.king">
+        <!--<modifyDataType  columnName="cm_refer_ext_org_name"
+                         newDataType="VARCHAR(1024)"
+                         tableName="acm_case_file"/>
+        <modifyDataType  columnName="cm_refer_ext_person_name"
+                         newDataType="VARCHAR(1024)"
+                         tableName="acm_case_file"/>-->
+
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_dea_rev_policy" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_prior_reg_eff_date" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_alert_pop_other_report" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_deceased_provider" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_wrong_felon_id" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_not_felony_conv" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_pl_inc_less_year" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_pl_on_prior_rev" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_not_act_other" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

@@ -77,13 +77,13 @@
             {
                 "desc": "cases.tree.sorters.dateAsc",
                 "name": "sort-date-asc",
-                "value": "create_tdt ASC"
+                "value": "create_tdt ASC",
+                "default": true
             },
             {
                 "desc": "cases.tree.sorters.dateDesc",
                 "name": "sort-date-desc",
-                "value": "create_tdt DESC",
-                "default": true
+                "value": "create_tdt DESC"
             },
             {
                 "desc": "cases.tree.sorters.idAsc",

@@ -234,14 +234,6 @@
         ],
         "file": [
           {
-            "titleKey": "common.directive.docTree.menu.open",
-            "cmd": "open",
-            "uiIcon": "ui-icon-folder-open",
-            "data": {
-              "readOnly": true
-            }
-          },
-          {
             "titleKey": "common.directive.docTree.menu.editWithWebDAV",
             "cmd": "editWithWebDAV",
             "uiIcon": "ui-icon-pencil",

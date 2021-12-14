@@ -57,9 +57,14 @@ angular.module('cases').controller(
                             return CaseListService.resetCasesTreeData();
                         },
                         updateTreeData: function(start, n, sort, filters, query, nodeData) {
+                          //  console.log('filters 1', filters);
+                          //  console.log('filters 1', JSON.stringify(filters));
+
                             return CaseListService.updateCasesTreeData(start, n, sort, filters, query, nodeData);
                         },
                         getTreeData: function(start, n, sort, filters, query) {
+                                // console.log('filters 2', filters);
+                                // console.log('filters 2', JSON.stringify(filters));
                             return CaseListService.queryCasesTreeData(start, n, sort, filters, query);
                         },
                         getNodeData: function(caseId) {

@@ -27,6 +27,8 @@ angular.module('people').controller(
 
                     $scope.idStates = '';
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+                        console.log('idStates: ', $scope.idStates);
+                        console.log('idStates: ', JSON.stringify($scope.idStates));
                         $scope.idStates = states;
                     });
 
@@ -55,6 +57,7 @@ angular.module('people').controller(
                     var onObjectInfoRetrieved = function(objectInfo) {
                         $scope.objectInfo = objectInfo;
                         $scope.gridOptions.data = $scope.objectInfo.identifications;
+                        console.log('$scope.objectInfo.identifications', JSON.stringify($scope.objectInfo.identifications));
                     };
 
                     ObjectLookupService.getIdentificationTypes().then(function(identificationTypes) {
@@ -134,7 +137,7 @@ angular.module('people').controller(
                         if (Util.isEmpty(rowEntity.identificationYearIssued)) {
                             item.identificationYearIssued = '';
                         } else {
-                            item.identificationYearIssued = new Date(rowEntity.identificationYearIssued);
+                           item.identificationYearIssued = rowEntity.identificationYearIssued;
                         }
 
                         showModal(item, true);
