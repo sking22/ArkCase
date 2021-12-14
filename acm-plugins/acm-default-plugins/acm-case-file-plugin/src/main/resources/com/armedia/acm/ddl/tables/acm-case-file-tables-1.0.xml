@@ -618,7 +618,7 @@
             <column name="cm_case_conv_ind_tin" type="VARCHAR(64)"/>
             <column name="cm_case_prev_cms" type="VARCHAR(64)"/>
             <column name="cm_case_prev_analyst" type="VARCHAR(64)"/>
-            <!--<column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
+            <column name="cm_case_reporting_week" type="VARCHAR(64)"/>
         </addColumn>
     </changeSet>
 
