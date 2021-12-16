@@ -111,6 +111,7 @@ angular.module('cases').controller(
                         $scope.changeCaseStatusParams = {
                             caseId: objectInfo.id,
                             caseNumber: objectInfo.caseNumber,
+                            title: objectInfo.title,
                             status: objectInfo.status
                         };
 

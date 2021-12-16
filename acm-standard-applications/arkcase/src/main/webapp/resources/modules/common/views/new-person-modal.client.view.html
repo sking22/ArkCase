@@ -32,6 +32,11 @@
                 <input type="text" id="legalBusinessName" ng-model="person.legalBusinessName" class="input-md form-control"
                        placeholder="{{ 'common.newPerson.legalBusinessName.placeholder' | translate }}" style="background-color: white;">
             </div>
+            <div class="col-sm-4 form-group">
+                <label> Legal Business Name EIN </label>
+                <input type="text" id="legalBusinessNameEin" ng-model="person.providerLbnEin" class="input-md form-control"
+                       placeholder="Legal Business Name EIN" style="background-color: white;">
+            </div>
         </div>
 
         <div class="row well-sm">
@@ -231,10 +236,10 @@
                         <div class="row">
                             <div class="col-sm-4 form-group">
                                 <label translate>
-                                    common.newPerson.identification.identificationDispositionDate</label>
-                                <date-time-picker data="person.defaultIdentification.idDispositionDate"
-                                                  property="person.defaultIdentification.idDispositionDate"
-                                                  date-picker-id="person.defaultIdentification.idDispositionDate"
+                                    common.newPerson.identification.identificationConvictionDate</label>
+                                <date-time-picker data="person.defaultIdentification.idConvictionDate"
+                                                  property="person.defaultIdentification.idConvictionDate"
+                                                  date-picker-id="person.defaultIdentification.idConvictionDate"
                                                   time-format-disabled="true"></date-time-picker>
                             </div>
                             <div class="col-sm-4 form-group">
@@ -459,10 +464,10 @@
                             <div class="row">
                                 <div class="col-sm-4 form-group">
                                     <label translate>
-                                        common.newPerson.identification.identificationDispositionDate</label>
-                                    <date-time-picker data="identification.idDispositionDate"
-                                                      property="identification.idDispositionDate"
-                                                      date-picker-id="identification.idDispositionDate"
+                                        common.newPerson.identification.identificationConvictionDate</label>
+                                    <date-time-picker data="identification.idConvictionDate"
+                                                      property="identification.idConvictionDate"
+                                                      date-picker-id="identification.idConvictionDate"
                                                       time-format-disabled="true"></date-time-picker>
                                 </div>
                                 <div class="col-sm-4 form-group">

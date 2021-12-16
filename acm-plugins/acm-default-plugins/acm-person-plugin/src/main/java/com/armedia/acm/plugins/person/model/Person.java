@@ -201,6 +201,11 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @Column(name = "cm_person_specialty_type")
     private String providerSpecialty;
 
+    //cm_person_lbn_ein
+    @Column(name = "cm_person_lbn_ein")
+    private String providerLbnEin;
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
             @JoinColumn(name = "cm_person_id", referencedColumnName = "cm_person_id") }, inverseJoinColumns = {
@@ -414,6 +419,12 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     public String getLegalBusinessName() {return legalBusinessName; }
 
     public void setLegalBusinessName(String legalBusinessName) { this.legalBusinessName = legalBusinessName; }
+
+
+    @XmlTransient
+    public String getProviderLbnEin() {return providerLbnEin; }
+
+    public void setProviderLbnEin(String providerLbnEin) { this.providerLbnEin = providerLbnEin; }
 
     @XmlTransient
     public String getAssociateLastName() {return associateLastName; }

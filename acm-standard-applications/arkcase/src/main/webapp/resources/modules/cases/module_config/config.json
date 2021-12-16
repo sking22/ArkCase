@@ -58,11 +58,6 @@
                 "value": "fq={!field f=author}${user}"
             },
             {
-                "desc": "cases.tree.filters.iAmFollowing",
-                "name": "my-following-cases",
-                "value": "fq={!join from=parent_object_id_s to=object_id_s}(owner_s:${user} AND object_type_s:SUBSCRIPTION)"
-            },
-            {
                 "desc": "cases.tree.filters.closed",
                 "name": "all-closed-cases",
                 "value": "fq=status_s:CLOSED"
