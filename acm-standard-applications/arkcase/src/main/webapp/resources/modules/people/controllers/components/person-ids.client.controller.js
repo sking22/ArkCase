@@ -85,7 +85,7 @@ angular.module('people').controller(
                             idAlertDate: '',
                             idScreeningDate: '',
                             idSanctionDate: '',
-                            idDispositionDate: '',
+                            idConvictionDate: '',
                             idDocketRequestDate: '',
                             idDocketResponseDate: '',
                             idRoleCodeType: '',
@@ -128,7 +128,7 @@ angular.module('people').controller(
                             idAlertDate: rowEntity.idAlertDate,
                             idScreeningDate: rowEntity.idScreeningDate,
                             idSanctionDate: rowEntity.idSanctionDate,
-                            idDispositionDate: rowEntity.idDispositionDate,
+                            idConvictionDate: rowEntity.idConvictionDate,
                             idDocketRequestDate: rowEntity.idDocketRequestDate,
                             idDocketResponseDate: rowEntity.idDocketResponseDate
 
@@ -203,7 +203,7 @@ angular.module('people').controller(
                             identification.idAlertDate = data.identification.idAlertDate,
                             identification.idScreeningDate = data.identification.idScreeningDate,
                             identification.idSanctionDate = data.identification.idSanctionDate,
-                            identification.idDispositionDate = data.identification.idDispositionDate,
+                            identification.idConvictionDate = data.identification.idConvictionDate,
                             identification.idDocketRequestDate = data.identification.idDocketRequestDate,
                             identification.idDocketResponseDate = data.identification.idDocketResponseDate
 
