@@ -501,7 +501,7 @@
                 10,
                 25
             ],
-            "paginationPageSize": 5,
+            "paginationPageSize": 25,
             "rowHeight": "auto",
             "columnDefs": [
                 {
