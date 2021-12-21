@@ -55,12 +55,12 @@
             {
                 "desc": "All Ready for Review",
                 "name": "all-ready-cases",
-                "value": "fq=status_s:(Ready For Review)"
+                "value": "fq={!term f=status_s}Ready For Review"
             },
             {
                 "desc": "All Ready for Review II",
                 "name": "all-ready-ii-cases",
-                "value": "fq=status_s:(Ready For Review II)"
+                "value": "fq={!term f=status_s}Ready For Review II"
             },
             {
                 "desc": "cases.tree.filters.iHaveCreated",
