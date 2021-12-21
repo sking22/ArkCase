@@ -618,7 +618,7 @@
             <column name="cm_case_conv_ind_tin" type="VARCHAR(64)"/>
             <column name="cm_case_prev_cms" type="VARCHAR(64)"/>
             <column name="cm_case_prev_analyst" type="VARCHAR(64)"/>
-            <column name="cm_case_reporting_week" type="VARCHAR(64)"/>
+            <!--<column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
         </addColumn>
     </changeSet>
 
@@ -680,7 +680,7 @@
         <modifyDataType  columnName="cm_case_disposition"
                           newDataType="VARCHAR(1024)"
                           tableName="acm_case_file"/>
-        <!--<dropColumn tableName="acm_case_file" columnName="cm_case_enrollment_status_inactive"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_enrollment_status_inactive"/>
         <dropColumn tableName="acm_case_file" columnName="cm_case_dea_rev_policy"/>
         <dropColumn tableName="acm_case_file" columnName="cm_case_prior_reg_eff_date"/>
         <dropColumn tableName="acm_case_file" columnName="cm_case_alert_pop_other_report"/>
@@ -689,7 +689,7 @@
         <dropColumn tableName="acm_case_file" columnName="cm_case_not_felony_conv"/>
         <dropColumn tableName="acm_case_file" columnName="cm_case_pl_inc_less_year"/>
         <dropColumn tableName="acm_case_file" columnName="cm_case_pl_on_prior_rev"/>
-        <dropColumn tableName="acm_case_file" columnName="cm_case_not_act_other"/>-->
+        <dropColumn tableName="acm_case_file" columnName="cm_case_not_act_other"/>
 
         <addColumn tableName="acm_case_file">
             <column name="cm_case_not_actionable_reason" type="VARCHAR(128)" />
