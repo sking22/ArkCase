@@ -61,6 +61,10 @@ angular.module('cases').controller(
                         $scope.caseNAR = notActionReasons;
                     });
 
+                    ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                        $scope.caseAAO = caseAdminActionsOutcomes;
+                    });
+
                     $scope.saveDetails = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {

@@ -538,8 +538,13 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Outcome of Admin Actions</label>
-                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseAdminActionsOutcome"
-                                   placeholder="{{ objectInfo.caseAdminActionsOutcome }}" >
+                            <select class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
+                                <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseAdminActionsOutcome}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
+                            <!--<input type="text" class="input-md form-control" ng-model="objectInfo.caseAdminActionsOutcome"
+                                   placeholder="{{ objectInfo.caseAdminActionsOutcome }}" >-->
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Revocation Authorities Cited in Action Letter</label>
