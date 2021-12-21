@@ -128,6 +128,33 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
         solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
 
+        solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
+        solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
+        solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
+        solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
+        solr.setAdditionalProperty("case_termination_eff_date_lcs", in.getCaseTerminationEffDate());
+        solr.setAdditionalProperty("case_enrollment_bar_exp_date_lcs", in.getCaseEnrollmentBarExpDate());
+        solr.setAdditionalProperty("case_reinstated_termination_eff_date_lcs", in.getCaseReinsTerminationEffDate());
+        solr.setAdditionalProperty("case_recind_termination_eff_date_lcs", in.getCaseRecindTerminationEffDate());
+        solr.setAdditionalProperty("case_appeal_period_expired_lcs", in.getCaseAppealsPeriodExpired());
+        solr.setAdditionalProperty("case_termination_reason_lcs", in.getCaseTerminationReason());
+        solr.setAdditionalProperty("case_correspondence_address_lcs", in.getCaseCorrespondenceAddress());
+        solr.setAdditionalProperty("case_original_rev_auth_lcs", in.getCaseOrigRevAuth());
+        solr.setAdditionalProperty("case_revise_reissue_el_lcs", in.getCaseReviseReissueEl());
+        solr.setAdditionalProperty("case_orig_rev_letter_date_lcs", in.getCaseOrigRevLetterDate());
+        solr.setAdditionalProperty("case_revise_reissue_outcome_lcs", in.getCaseReviseReissueOutcome());
+        solr.setAdditionalProperty("case_eff_letter_date_lcs", in.getCaseEffectiveLetterDate());
+        solr.setAdditionalProperty("case_admin_actions_outcome_lcs", in.getCaseAdminActionsOutcome());
+        solr.setAdditionalProperty("case_rev_auth_cited_action_letter_lcs", in.getCaseRevAuthCitedActionLetter());
+        solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
+        solr.setAdditionalProperty("case_taxonomy_lcs", in.getCaseTaxonomy());
+        solr.setAdditionalProperty("case_application_type_lcs", in.getCaseApplicationType());
+        solr.setAdditionalProperty("case_rev_eff_date_lcs", in.getCaseRevEffActionDate());
+        solr.setAdditionalProperty("case_conv_ind_lcs", in.getCaseConvictedIndividual());
+        solr.setAdditionalProperty("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
+        solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
+
+
         return solr;
     }
 
@@ -159,6 +186,36 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
 
         // needed a _lcs property for sorting
         solr.setTitle_parseable_lcs(in.getTitle());
+
+        // This property is used for showin the owning group for the object
+        solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
+        solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
+
+        solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
+        solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
+        solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
+        solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
+        solr.setAdditionalProperty("case_termination_eff_date_lcs", in.getCaseTerminationEffDate());
+        solr.setAdditionalProperty("case_enrollment_bar_exp_date_lcs", in.getCaseEnrollmentBarExpDate());
+        solr.setAdditionalProperty("case_reinstated_termination_eff_date_lcs", in.getCaseReinsTerminationEffDate());
+        solr.setAdditionalProperty("case_recind_termination_eff_date_lcs", in.getCaseRecindTerminationEffDate());
+        solr.setAdditionalProperty("case_appeal_period_expired_lcs", in.getCaseAppealsPeriodExpired());
+        solr.setAdditionalProperty("case_termination_reason_lcs", in.getCaseTerminationReason());
+        solr.setAdditionalProperty("case_correspondence_address_lcs", in.getCaseCorrespondenceAddress());
+        solr.setAdditionalProperty("case_original_rev_auth_lcs", in.getCaseOrigRevAuth());
+        solr.setAdditionalProperty("case_revise_reissue_el_lcs", in.getCaseReviseReissueEl());
+        solr.setAdditionalProperty("case_orig_rev_letter_date_lcs", in.getCaseOrigRevLetterDate());
+        solr.setAdditionalProperty("case_revise_reissue_outcome_lcs", in.getCaseReviseReissueOutcome());
+        solr.setAdditionalProperty("case_eff_letter_date_lcs", in.getCaseEffectiveLetterDate());
+        solr.setAdditionalProperty("case_admin_actions_outcome_lcs", in.getCaseAdminActionsOutcome());
+        solr.setAdditionalProperty("case_rev_auth_cited_action_letter_lcs", in.getCaseRevAuthCitedActionLetter());
+        solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
+        solr.setAdditionalProperty("case_taxonomy_lcs", in.getCaseTaxonomy());
+        solr.setAdditionalProperty("case_application_type_lcs", in.getCaseApplicationType());
+        solr.setAdditionalProperty("case_rev_eff_date_lcs", in.getCaseRevEffActionDate());
+        solr.setAdditionalProperty("case_conv_ind_lcs", in.getCaseConvictedIndividual());
+        solr.setAdditionalProperty("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
+        solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
 
         return solr;
     }

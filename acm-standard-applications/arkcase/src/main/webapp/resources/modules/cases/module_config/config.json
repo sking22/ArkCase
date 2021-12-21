@@ -53,14 +53,19 @@
                 "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CLOSED"
             },
             {
+                "desc": "All Ready for Review",
+                "name": "all-ready-cases",
+                "value": "fq=status_s:(Ready For Review)"
+            },
+            {
+                "desc": "All Ready for Review II",
+                "name": "all-ready-ii-cases",
+                "value": "fq=status_s:(Ready For Review II)"
+            },
+            {
                 "desc": "cases.tree.filters.iHaveCreated",
                 "name": "my-created-cases",
                 "value": "fq={!field f=author}${user}"
-            },
-            {
-                "desc": "cases.tree.filters.iAmFollowing",
-                "name": "my-following-cases",
-                "value": "fq={!join from=parent_object_id_s to=object_id_s}(owner_s:${user} AND object_type_s:SUBSCRIPTION)"
             },
             {
                 "desc": "cases.tree.filters.closed",

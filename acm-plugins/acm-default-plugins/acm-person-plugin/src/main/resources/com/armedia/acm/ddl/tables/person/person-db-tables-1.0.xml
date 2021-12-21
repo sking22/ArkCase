@@ -846,4 +846,11 @@
         </addColumn>
     </changeSet>-->
 
+    <changeSet id="5004-acms-add-id-fields2" author="sean.king">
+        <addColumn tableName="acm_person">
+            <column name="cm_person_lbn_ein" type="VARCHAR(512)"/>
+        </addColumn>
+        <renameColumn columnDataType="DATE"   newColumnName="cm_id_conv_date" oldColumnName="cm_id_disposition_date" tableName="acm_identification" />
+    </changeSet>
+
 </databaseChangeLog>

@@ -114,6 +114,16 @@
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
                                    placeholder="{{ objectInfo.caseApplicationType }}" >
                         </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Legal Business Name</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.legalBusinessName"
+                                   placeholder="{{ objectInfo.acmObjectOriginator.person.legalBusinessName }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Legal Business Name EIN</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerLbnEin"
+                                   placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}" >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,11 +176,11 @@
                                            placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}" >
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Disposition / Conviction Date:</label>
+                            <label>Conviction Date:</label>
                                 <date-time-picker
-                                        data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
-                                        property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
-                                        date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDispositionDate"
+                                        data="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
+                                        property="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
+                                        date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
                                         time-format-disabled="true">
                                 </date-time-picker>
                         </div>
@@ -484,7 +494,7 @@
                             <label>Outcome of Revise & Reissue</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueOutcome"
                                    placeholder="{{ objectInfo.caseReviseReissueOutcome }}" >
-                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -493,7 +503,7 @@
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseNAR">Not Actionable Reasons</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseNAR">Not Actionable Reason</a>
                 <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                     <button  class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
@@ -503,115 +513,23 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-8 form-check">
-                        <input
-                          type="checkbox"
-                          class="form-check-input"
-                          ng-model="objectInfo.caseEnrollmentStatusInactive" />
-                        <label>
-                            PECOS enrollment/enrollment status inactive
-                        </label>
-                    </div>
-                    <div class="col-sm-8 form-check">
-                        <input
-                            type="checkbox"
-                            class="form-check-input"
-                            ng-model="objectInfo.caseDEArevpolicy" />
-                        <label>
-                            Doesn’t fit DEA’s revocation policy
-                        </label>
-                    </div>
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.casePriorRegEffDate" />
-                        <label>
-                            Conduct is prior to reg. effective date
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.caseAlertPopOtherReport" />
-                        <label>
-                            Alert populated on another Report & further action is N/A
-                        </label>
-                    </div>
-
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.caseDeceasedProvider" />
-                        <label>
-                            Provider is deceased
-                        </label>
-                    </div>
-
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.caseWrongFelonId" />
-                        <label>
-                            Wrong identity of felon
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.caseNotFelonyConv" />
-                        <label>
-                            Conv. beyond 10 yrs./not a felony conv./not detrimental
-                        </label>
-                    </div>
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.casePlIncLessYear" />
-                        <label>
-                            PL inclusion is for less than 1 yr.
-                        </label>
-                    </div>
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.casePlOnPriorRev" />
-                        <label>
-                            Already on PL via prior revocation (NPPES only)
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8 form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                ng-model="objectInfo.caseNotActOther" />
-                        <label>
-                            Other
-                        </label>
+                        <select class="form-control" ng-model="objectInfo.caseNotActionableReason" >
+                            <option ng-repeat="option in caseNAR" placeholder="{{objectInfo.caseNotActionableReason}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
         <div class="panel panel-success panel-grid">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a>Final Outcome</a>
                     <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
-                        <button  class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>

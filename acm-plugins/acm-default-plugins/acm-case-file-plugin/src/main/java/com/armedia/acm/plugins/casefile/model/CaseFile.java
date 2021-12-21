@@ -420,7 +420,7 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_prev_analyst")
     private String casePrevAnalyst;
 
-    @Column(name = "cm_case_enrollment_status_inactive", nullable = false)
+    /*@Column(name = "cm_case_enrollment_status_inactive", nullable = false)
     private Boolean caseEnrollmentStatusInactive = false;
 
     @Column(name = "cm_case_dea_rev_policy", nullable = false)
@@ -448,9 +448,11 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     private Boolean casePlOnPriorRev = false;
 
     @Column(name = "cm_case_not_act_other", nullable = false)
-    private Boolean caseNotActOther = false;
+    private Boolean caseNotActOther = false;*/
 
-
+    //cm_case_not_actionable_reason
+    @Column(name = "cm_case_not_actionable_reason")
+    private String caseNotActionableReason;
 
     @PrePersist
     protected void beforeInsert()
@@ -1331,7 +1333,13 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     }
     public void setCasePrevAnalyst(String casePrevAnalyst) { this.casePrevAnalyst = casePrevAnalyst; }
 
-    public Boolean getCaseEnrollmentStatusInactive()
+    public String getCaseNotActionableReason()
+    {
+        return caseNotActionableReason;
+    }
+    public void setCaseNotActionableReason(String caseNotActionableReason) { this.caseNotActionableReason = caseNotActionableReason; }
+
+    /*public Boolean getCaseEnrollmentStatusInactive()
     {
         return caseEnrollmentStatusInactive;
     }
@@ -1422,6 +1430,6 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         this.caseNotActOther = caseNotActOther;
     }
 
-
+*/
 
 }

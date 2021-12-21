@@ -149,10 +149,10 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Column(name = "cm_id_offense_type")
     private String idOffenseType;
 
-    // Disposition Date cm_id_disposition_date
-    @Column(name = "cm_id_disposition_date")
+    // Disposition Date cm_id_conv_date
+    @Column(name = "cm_id_conv_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date idDispositionDate;
+    private Date idConvictionDate;
 
     // Case Number  cm_id_case_number
     @Column(name = "cm_id_case_number")
@@ -335,12 +335,12 @@ public class Identification implements Serializable, AcmEntity, AcmObject
 
     public void setIdOffenseType(String idOffenseType) { this.idOffenseType = idOffenseType; }
 
-    public Date getIdDispositionDate()
+    public Date getIdConvictionDate()
     {
-        return idDispositionDate;
+        return idConvictionDate;
     }
 
-    public void setIdDispositionDate(Date idDispositionDate) { this.idDispositionDate = idDispositionDate; }
+    public void setIdConvictionDate(Date idConvictionDate) { this.idConvictionDate = idConvictionDate; }
 
     public String getIdCaseNumber()
     {
