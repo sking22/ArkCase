@@ -697,4 +697,10 @@
 
     </changeSet>
 
+    <changeSet id="5018-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_ten_years_conv_date" type="VARCHAR(16)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

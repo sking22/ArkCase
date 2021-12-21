@@ -61,6 +61,10 @@ angular.module('cases').controller(
                         $scope.caseNAR = notActionReasons;
                     });
 
+                    ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                        $scope.caseAAO = caseAdminActionsOutcomes;
+                    });
+
                     $scope.saveDetails = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
@@ -124,17 +128,11 @@ angular.module('cases').controller(
                             if (item.idConvictionDate !== null) {
                                 $scope.dispositionDate = item.idConvictionDate;
 
-                                var addDays = function(str, days) {
-                                    var myDate = new Date(str);
-                                    myDate.setDate(myDate.getDate() + parseInt(days));
-                                    return myDate;
-                                }
-
-                                var tycd = addDays(item.idConvictionDate, 3650);
-                                var m = tycd.getMonth();
-                                var d = tycd.getDay();
-                                var y = tycd.getFullYear();
-                                $scope.tenYearsConvDate = m+"/"+ d+"/"+y;
+                               var tycd = moment.utc(new Date(item.idConvictionDate));
+                               var m = moment(tycd).get('month') + 1;
+                               var d = moment(tycd).get('date');
+                               var y = moment(tycd).get('year') + 10;
+                               $scope.objectInfo.caseTenYearsConvDate = m+"/"+ d+"/"+y;
 
                             }
                             if (item.idDocketRequestDate !== null) {
