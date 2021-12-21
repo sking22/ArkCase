@@ -63,6 +63,16 @@
                 "value": "fq={!term f=status_s}Ready For Review II"
             },
             {
+                "desc": "All Submitted to CMS",
+                "name": "all-submitted-cms-cases",
+                "value": "fq={!term f=status_s}Submitted to CMS"
+            },
+            {
+                "desc": "All Resubmitted to CMS",
+                "name": "all-resubmitted-cms-cases",
+                "value": "fq={!term f=status_s}Resubmitted To CMS"
+            },
+            {
                 "desc": "cases.tree.filters.iHaveCreated",
                 "name": "my-created-cases",
                 "value": "fq={!field f=author}${user}"
