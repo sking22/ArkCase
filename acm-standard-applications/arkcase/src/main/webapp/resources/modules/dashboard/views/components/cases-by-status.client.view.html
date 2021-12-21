@@ -1,18 +1,3 @@
 <div>
-    <div ng-if="casesByStatus.showChart">
-        <div class="panel-body">
-            <div>
-                <p class="text-center h2">{{casesByStatus.chartTitle}}</p>
-            </div>
-            <div class="chart-container">
-                <canvas id="pie" class="chart chart-pie" chart-data="casesByStatus.data" chart-labels="casesByStatus.labels"
-                        chart-responsive="true" chart-legend="true"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="alert" ng-if="!casesByStatus.showChart">
-        <p class="text-center">
-            <span translate>dashboard.widgets.casesByStatus.noDataMessage</span>
-        </p>
-    </div>
+    <div ui-grid="casesByStatus.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-pagination class="grid"></div>
 </div>
