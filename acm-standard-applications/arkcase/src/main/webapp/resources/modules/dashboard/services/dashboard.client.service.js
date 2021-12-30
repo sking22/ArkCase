@@ -70,7 +70,7 @@ angular.module('dashboard').factory('Dashboard.DashboardService',
                 },
                 queryActiveCaseFiles : {
                     method: 'GET',
-                    url: 'api/v1/plugin/search/advancedSearch?q=object_type_s\\:CASE_FILE+' + 'AND+NOT+status_lcs\\:CLOSED+AND+NOT+status_lcs\\:DELETED&start=:startWith&n=:pageSize&s=:sortBy :sortDir',
+                    url: 'api/v1/plugin/search/advancedSearch?q=object_type_s\\:CASE_FILE+' + 'AND+NOT+status_lcs\\:"OPT CASE NON-ACTIONABLE"+AND+NOT+status_lcs\\:"NON-OPT CASE - NON-ACTIONABLE"+AND+NOT+status_lcs\\:"CASE CLOSED - COMPLETE"+AND+NOT+status_lcs\\:CLOSED+AND+NOT+status_lcs\\:DELETED&start=:startWith&n=:pageSize&s=:sortBy :sortDir',
                     isArray: false,
                     data: ''
                 },
