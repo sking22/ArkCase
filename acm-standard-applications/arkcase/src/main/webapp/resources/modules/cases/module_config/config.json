@@ -53,6 +53,36 @@
                 "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CLOSED"
             },
             {
+                "desc": "All In Process",
+                "name": "all-in-process-cases",
+                "value": "fq={!term f=status_s}In Process"
+            },
+            {
+                "desc": "All Documentation Requested",
+                "name": "all-documentation-requested-cases",
+                "value": "fq={!term f=status_s}Documentation Requested"
+            },
+            {
+                "desc": "All Review Approved",
+                "name": "all-review-approved-cases",
+                "value": "fq={!term f=status_s}Review Approved"
+            },
+            {
+                "desc": "All Review Approved II",
+                "name": "all-review-approved-ii-cases",
+                "value": "fq={!term f=status_s}Review Approved II"
+            },
+            {
+                "desc": "All Returned For Revision",
+                "name": "all-returned-for-revision-cases",
+                "value": "fq={!term f=status_s}Returned For Revision"
+            },
+            {
+                "desc": "All Returned For Revision II",
+                "name": "all-returned-for-revision-ii-cases",
+                "value": "fq={!term f=status_s}Returned For Revision II"
+            },
+            {
                 "desc": "All Ready for Review",
                 "name": "all-ready-cases",
                 "value": "fq={!term f=status_s}Ready For Review"
@@ -68,9 +98,19 @@
                 "value": "fq={!term f=status_s}Submitted to CMS"
             },
             {
+                "desc": "All CMS Requested Edits",
+                "name": "all-cms-requested-edit-cases",
+                "value": "fq={!term f=status_s}CMS Requested edit"
+            },
+            {
                 "desc": "All Resubmitted to CMS",
                 "name": "all-resubmitted-cms-cases",
                 "value": "fq={!term f=status_s}Resubmitted To CMS"
+            },
+            {
+                "desc": "All CMS Approved",
+                "name": "all-cms-approved-cases",
+                "value": "fq={!term f=status_s}CMS Approved"
             },
             {
                 "desc": "cases.tree.filters.iHaveCreated",
@@ -90,10 +130,15 @@
         ],
         "sorters": [
             {
+                "desc": "cases.tree.sorters.nameAsc",
+                "name": "sort-by-name-asc",
+                "value": "name ASC",
+                "default": true
+            },
+            {
                 "desc": "cases.tree.sorters.dateAsc",
                 "name": "sort-date-asc",
-                "value": "create_tdt ASC",
-                "default": true
+                "value": "create_tdt ASC"
             },
             {
                 "desc": "cases.tree.sorters.dateDesc",
@@ -109,11 +154,6 @@
                 "desc": "cases.tree.sorters.idDesc",
                 "name": "sort-case-id-desc",
                 "value": "object_id_s DESC"
-            },
-            {
-                "desc": "cases.tree.sorters.nameAsc",
-                "name": "sort-by-name-asc",
-                "value": "name ASC"
             },
             {
                 "desc": "cases.tree.sorters.dueDateAsc",
