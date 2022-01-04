@@ -205,6 +205,25 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @Column(name = "cm_person_lbn_ein")
     private String providerLbnEin;
 
+    public String getSsn(){
+        String ssn = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
+               ssn = id.getIdentificationNumber();
+            }
+        }
+        return ssn;
+    }
+
+    public String getNpi(){
+        String npi = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("NPI")) {
+                npi = id.getIdentificationNumber();
+            }
+        }
+        return npi;
+    }
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
