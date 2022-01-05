@@ -31,6 +31,7 @@ import com.armedia.acm.services.search.exception.SolrException;
 import com.armedia.acm.services.search.model.solr.SolrCore;
 import com.armedia.acm.services.search.service.ExecuteSolrQuery;
 import com.armedia.acm.services.search.service.SearchResults;
+import com.armedia.acm.services.suggestion.model.CaseSuggestionsRequest;
 import com.armedia.acm.services.suggestion.model.SuggestedObject;
 import com.armedia.acm.services.suggestion.service.SimilarObjectsService;
 
@@ -81,6 +82,65 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             similarObjects.addAll(findSolrObjectsByFileContent(title, objectType, isPortal, objectId, auth));
             return filterObjectRecordDuplicates(similarObjects);
         }
+    }
+
+    private boolean getSimilarObjectsQueryForCases(StringBuilder query, CaseSuggestionsRequest request) {
+        boolean hasValues = false;
+        String ssn = request.getSsn();
+        String npi = request.getNpi();
+        log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
+        if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
+            query.append("case_provider_ssn_lcs:" + ssn);
+            hasValues = true;
+        }
+        if((npi != null) && (!npi.isEmpty()) && (!npi.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" AND ":"";
+            query.append(prefix + "case_provider_npi_lcs:" + npi);
+            hasValues = true;
+        }
+        return hasValues;
+    }
+
+    @Override
+    public List<SuggestedObject> findSimilarObjects(CaseSuggestionsRequest request, Authentication auth)
+            throws ParseException, SolrException {
+        Boolean isPortal = false;
+        Long objectId = request.getObjectId();
+        String objectType = "CASE_FILE";
+
+        List<SuggestedObject> records = new ArrayList<>();
+        StringBuilder query = new StringBuilder();
+        boolean hasValues = getSimilarObjectsQueryForCases(query, request);
+        if (hasValues )
+        {
+
+            query.append(" AND object_type_s:").append(objectType);
+            if (isPortal)
+            {
+                query.append(" AND queue_name_s:").append("Release");
+            }
+            if (objectId != null)
+            {
+                query.append(" AND -object_id_s:").append(objectId);
+            }
+
+            String results = getExecuteSolrQuery().getResultsByPredefinedQuery(auth, SolrCore.ADVANCED_SEARCH, query.toString(),
+                    0, MAX_SIMILAR_OBJECTS, "", true, "", false, false, "catch_all");
+
+            SearchResults searchResults = new SearchResults();
+            JSONArray docFiles = searchResults.getDocuments(results);
+
+            for (int i = 0; i < docFiles.length(); i++)
+            {
+                JSONObject docFile = docFiles.getJSONObject(i);
+
+                SuggestedObject suggestedObject = populateSuggestedObject(docFile);
+
+                records.add(suggestedObject);
+            }
+        }
+
+        return records;
     }
 
     private List<SuggestedObject> findSolrObjectsByTitle(String title, String objectType, Boolean isPortal, Long objectId,

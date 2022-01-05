@@ -159,7 +159,8 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         for(PersonAssociation pa: in.getPersonAssociations()) {
             if(pa.getPersonType().equalsIgnoreCase("initiator")) {
                 String ssn = pa.getPerson().getSsn();
-                if(!ssn.equalsIgnoreCase("na")) {
+                if((ssn != null) && !ssn.equalsIgnoreCase("na") &&
+                        !ssn.trim().equalsIgnoreCase("")) {
                     solr.setAdditionalProperty("case_provider_ssn_lcs", ssn);
                 }
             }
@@ -168,7 +169,8 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         for(PersonAssociation pa: in.getPersonAssociations()) {
             if(pa.getPersonType().equalsIgnoreCase("initiator")) {
                 String npi = pa.getPerson().getNpi();
-                if(!npi.equalsIgnoreCase("na")) {
+                if((npi != null) && !npi.equalsIgnoreCase("na")
+                 && !npi.trim().equalsIgnoreCase("")) {
                     solr.setAdditionalProperty("case_provider_npi_lcs", npi);
                 }
             }
