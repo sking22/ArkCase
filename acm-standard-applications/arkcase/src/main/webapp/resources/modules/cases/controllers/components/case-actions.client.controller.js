@@ -195,20 +195,27 @@ angular.module('cases').controller(
                                 ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
 
+                            } else if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
+                              $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                              ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                              ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+
                             } else if (data.status === "Ready For Review" || data.status === "Ready For Review II") {
                                  $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                  ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
 
-                            } else if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
-                                $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
-
                             } else if (data.status === "Returned For Revision" || data.status === "OPT Case - Non-Actionable"
-                                || data.status === "NON-OPT Case - Non-Actionable"  || data.status === "Returned For Revision II" ) {
+                                        || data.status === "Returned For Revision II" ) {
                                  ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
 
-                            } else  if (data.status === "Review Approved" || data.status === "Review Approved II" ) {
+                            } else if ( data.status === "NON-OPT Case - Non-Actionable" ) {
+                               //assign to system
+                               ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                               ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                            }
+                            else  if (data.status === "Review Approved" || data.status === "Review Approved II" ) {
                                  ObjectModelService.setAssignee($scope.objectInfo, 'cms_testaccount@apvitacms.com');
                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
 
@@ -229,7 +236,7 @@ angular.module('cases').controller(
                             } else if (data.status === "CMS Requested Edit" || data.status === "CMS Approved") {
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
-                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
 
                             } else if (data.status === "Audit Assigned" || data.status === "Audit N/A" || data.status === "Audit Completed" || data.status === "CLOSED") {
                                   ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
@@ -241,8 +248,11 @@ angular.module('cases').controller(
 
                             }*/
                               //arkcase-admin@apvitacms.com CLOSED
-
-                            $scope.objectInfo.status = data.status;
+                            if ( data.status === "NON-OPT Case - Non-Actionable" ) {
+                                $scope.objectInfo.status = "CLOSED";
+                            } else {
+                                $scope.objectInfo.status = data.status;
+                            }
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
                             CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
