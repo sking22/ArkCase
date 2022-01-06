@@ -46,11 +46,13 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
         };
 
         function retrieveGridData(){
-            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (value) {
+            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (data) {
                 $scope.suggestedCases = data.data;
                 $scope.gridOptions = $scope.gridOptions || {};
                 $scope.gridOptions.data = $scope.suggestedCases;
                 $scope.gridOptions.totalItems = $scope.suggestedCases.length;
+            }, function(error) {
+                console.log(error);
             });
         }
 

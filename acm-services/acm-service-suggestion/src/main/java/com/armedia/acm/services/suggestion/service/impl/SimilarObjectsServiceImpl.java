@@ -90,13 +90,16 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String npi = request.getNpi();
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
-            query.append("case_provider_ssn_lcs:" + ssn);
+            query.append("(case_provider_ssn_lcs:" + ssn);
             hasValues = true;
         }
         if((npi != null) && (!npi.isEmpty()) && (!npi.equalsIgnoreCase("na"))) {
-            String prefix = (hasValues)?" AND ":"";
+            String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_npi_lcs:" + npi);
             hasValues = true;
+        }
+        if(hasValues) {
+            query.append(")");
         }
         return hasValues;
     }
@@ -123,7 +126,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             {
                 query.append(" AND -object_id_s:").append(objectId);
             }
-
             String results = getExecuteSolrQuery().getResultsByPredefinedQuery(auth, SolrCore.ADVANCED_SEARCH, query.toString(),
                     0, MAX_SIMILAR_OBJECTS, "", true, "", false, false, "catch_all");
 

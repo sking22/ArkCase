@@ -9,26 +9,18 @@ angular.module('services').factory('SuggestedObjectsService', ['$resource', '$ht
 
 
     function getSimilarCases(ssn, npi, id) {
-        var Service = $resource('api/latest/service/suggestion/assoc_cases', {}, {
-
-            getAssociatedCases: {
-                method: 'POST',
-                url: 'api/latest/service/suggestion/assoc_cases',
-                cache: false
-            }
-        });
-        return Util.serviceCall({
-            service: Service.getAssociatedCases,
+        return $http({
+            method: 'POST',
+            url: 'api/latest/service/suggestion/assoc_cases',
+            isArray: false,
+            cache: false,
+            headers: {
+                "Content-Type": "application/json"
+            },
             data: {
                 objectId: id,
                 ssn: ssn,
                 npi: npi
-            },
-            onSuccess: function (data) {
-                return data;
-            },
-            onError: function (errorData) {
-                return errorData;
             }
         });
     }
