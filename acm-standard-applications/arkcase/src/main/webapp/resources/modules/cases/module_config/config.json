@@ -1664,7 +1664,7 @@
                     "name": "ssn",
                     "displayName": "cases.comp.suggestedCases.table.columns.ssn",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerSsn | translate }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerSsn }}</div>"
                 },
                 {
                     "name": "npi",
