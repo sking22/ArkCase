@@ -1,10 +1,10 @@
-package com.armedia.acm.services.suggestion.service;
+package com.armedia.acm.services.suggestion.model;
 
 /*-
  * #%L
- * acm-service-suggestion
+ * ACM Service: Suggestion
  * %%
- * Copyright (C) 2014 - 2019 ArkCase LLC
+ * Copyright (C) 2014 - 2022 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 
@@ -27,21 +27,32 @@ package com.armedia.acm.services.suggestion.service;
  * #L%
  */
 
-import com.armedia.acm.services.search.exception.SolrException;
-import com.armedia.acm.services.suggestion.model.CaseSuggestionsRequest;
-import com.armedia.acm.services.suggestion.model.SuggestedObject;
+public class CaseSuggestionsRequest {
+    private String npi;
+    private String ssn;
+    private Long objectId;
 
-import org.springframework.security.core.Authentication;
+    public String getNpi() {
+        return npi;
+    }
 
-import java.text.ParseException;
-import java.util.List;
+    public void setNpi(String npi) {
+        this.npi = npi;
+    }
 
-public interface SimilarObjectsService
-{
+    public String getSsn() {
+        return ssn;
+    }
 
-    List<SuggestedObject> findSimilarObjects(String title, String objectType, Boolean isPortal, Long objectId, Authentication auth)
-            throws ParseException, SolrException;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
 
-    List<SuggestedObject> findSimilarObjects(CaseSuggestionsRequest request, Authentication auth)
-            throws ParseException, SolrException;
+    public Long getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(Long objectId) {
+        this.objectId = objectId;
+    }
 }

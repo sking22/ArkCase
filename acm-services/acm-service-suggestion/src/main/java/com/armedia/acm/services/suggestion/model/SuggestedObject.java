@@ -88,6 +88,32 @@ public class SuggestedObject
 
     private File file;
 
+    private String providerFirstName;
+
+    private String providerLastName;
+
+    private String providerLegalBusinessName;
+
+    private String providerSsn;
+
+    private String providerNpi;
+
+    public String getProviderSsn() {
+        return providerSsn;
+    }
+
+    public void setProviderSsn(String providerSsn) {
+        this.providerSsn = providerSsn;
+    }
+
+    public String getProviderNpi() {
+        return providerNpi;
+    }
+
+    public void setProviderNpi(String providerNpi) {
+        this.providerNpi = providerNpi;
+    }
+
     public Long getId()
     {
         return id;
@@ -166,5 +192,29 @@ public class SuggestedObject
     public void setFile(File file)
     {
         this.file = file;
+    }
+
+    public String getProviderFirstName() {
+        return providerFirstName;
+    }
+
+    public void setProviderFirstName(String providerFirstName) {
+        this.providerFirstName = providerFirstName;
+    }
+
+    public String getProviderLastName() {
+        return providerLastName;
+    }
+
+    public void setProviderLastName(String providerLastName) {
+        this.providerLastName = providerLastName;
+    }
+
+    public String getProviderLegalBusinessName() {
+        return providerLegalBusinessName;
+    }
+
+    public void setProviderLegalBusinessName(String providerLegalBusinessName) {
+        this.providerLegalBusinessName = providerLegalBusinessName;
     }
 }

@@ -221,10 +221,16 @@ angular.module('cases').controller(
                             return approvers;
                         });
 
-                        SuggestedObjectsService.getSuggestedObjects($scope.objectInfo.title, "CASE_FILE", $scope.objectInfo.id).then(function (value) {
-                            $scope.hasSuggestedCases = value.data.length > 0;
-                            $scope.numberOfSuggestedCases = value.data.length;
-                        });
+                        try {
+                            console.log($scope.objectInfo)
+                            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (value) {
+                                $scope.hasSuggestedCases = value.data.length > 0;
+                                $scope.numberOfSuggestedCases = value.data.length;
+                            });
+
+                        } catch(err) {
+                            console.log(err);
+                        }
 
                         var caseTypeObj = _.filter($scope.caseTypes, function(casefileType) {
                             if (data.caseType == casefileType.key) {
