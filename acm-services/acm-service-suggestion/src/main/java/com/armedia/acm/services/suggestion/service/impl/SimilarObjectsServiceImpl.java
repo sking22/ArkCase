@@ -316,6 +316,41 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         suggestedObject.setDescription("");
         suggestedObject.setType(objectDocFile.getString("object_type_s"));
 
+        if(objectDocFile.has("case_provider_firstname_lcs")) {
+            String providerFirstName = objectDocFile.getString("case_provider_firstname_lcs");
+            if((providerFirstName != null) && (!providerFirstName.trim().isEmpty())) {
+                suggestedObject.setProviderFirstName(providerFirstName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_lastname_lcs")) {
+            String providerLastName = objectDocFile.getString("case_provider_lastname_lcs");
+            if((providerLastName != null) && (!providerLastName.trim().isEmpty())) {
+                suggestedObject.setProviderLastName(providerLastName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_legal_business_lcs")) {
+            String providerLegalBusinessName = objectDocFile.getString("case_provider_legal_business_lcs");
+            if((providerLegalBusinessName != null) && (!providerLegalBusinessName.trim().isEmpty())) {
+                suggestedObject.setProviderLegalBusinessName(providerLegalBusinessName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_ssn_lcs")) {
+            String providerSsn = objectDocFile.getString("case_provider_ssn_lcs");
+            if((providerSsn != null) && (!providerSsn.trim().isEmpty())) {
+                suggestedObject.setProviderSsn(providerSsn);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_npi_lcs")) {
+            String providerNpi = objectDocFile.getString("case_provider_npi_lcs");
+            if((providerNpi != null) && (!providerNpi.trim().isEmpty())) {
+                suggestedObject.setProviderNpi(providerNpi);
+            }
+        }
+
         if (!objectDocFile.isNull("description_no_html_tags_parseable"))
         {
             suggestedObject.setDescription(objectDocFile.getString("description_no_html_tags_parseable"));
