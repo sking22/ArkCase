@@ -216,9 +216,8 @@ angular.module('cases').controller(
                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
                             }
                             else  if (data.status === "Review Approved" || data.status === "Review Approved II" ) {
-                                 ObjectModelService.setAssignee($scope.objectInfo, 'cms_testaccount@apvitacms.com');
+                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
-
                             } else if (data.status === "Submitted to CMS" || data.status === "Submitted To CMS II"  ) {
                                 $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, 'cmsassignmentuser@apvitacms.com');
@@ -238,21 +237,12 @@ angular.module('cases').controller(
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
 
-                            } else if (data.status === "Audit Assigned" || data.status === "Audit N/A" || data.status === "Audit Completed" || data.status === "CLOSED") {
+                            } else if (data.status === "Audit Assigned" || data.status === "Audit N/A" || data.status === "Audit Completed" || data.status === "CASE_CLOSED") {
                                   ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
-
-                            } /*else if (data.status === "CLOSED") {
-                                ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
-                                ObjectModelService.setGroup($scope.objectInfo, 'ARKCASE_ADMINISTRATOR@APVITACMS.COM');
-
-                            }*/
-                              //arkcase-admin@apvitacms.com CLOSED
-                            if ( data.status === "NON-OPT Case - Non-Actionable" ) {
-                                $scope.objectInfo.status = "CLOSED";
-                            } else {
-                                $scope.objectInfo.status = data.status;
                             }
+
+                            $scope.objectInfo.status = data.status;
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
                             CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
