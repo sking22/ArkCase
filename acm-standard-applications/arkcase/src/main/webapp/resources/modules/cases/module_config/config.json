@@ -100,7 +100,7 @@
             {
                 "desc": "All CMS Requested Edits",
                 "name": "all-cms-requested-edit-cases",
-                "value": "fq={!term f=status_s}CMS Requested edit"
+                "value": "fq={!term f=status_s}CMS Requested Edits"
             },
             {
                 "desc": "All Resubmitted to CMS",

@@ -223,7 +223,7 @@ angular.module('cases').controller(
                                 ObjectModelService.setAssignee($scope.objectInfo, 'cmsassignmentuser@apvitacms.com');
                                 ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
 
-                            } else if (data.status === "Resubmitted to CMS") {
+                            } else if (data.status === "Resubmitted To CMS") {
                                //The CMS analyst who is assigned the case
                                ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevCMSAnalyst);
                                ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
@@ -232,14 +232,17 @@ angular.module('cases').controller(
                                 ObjectModelService.setAssignee($scope.objectInfo, 'cms_testaccount@apvitacms.com');
                                 ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
 
-                            } else if (data.status === "CMS Requested Edit" || data.status === "CMS Approved") {
+                            } else if (data.status === "CMS Requested Edits" || data.status === "CMS Approved") {
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
 
-                            } else if (data.status === "Audit Assigned" || data.status === "Audit N/A" || data.status === "Audit Completed" || data.status === "CASE_CLOSED") {
+                            } else if (data.status === "CASE_CLOSED" || data.status === "Audit N/A") {
                                   ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+
+                            } else if (data.status === "Audit Assigned"  || data.status === "Audit Completed") {
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
                             }
 
                             $scope.objectInfo.status = data.status;
