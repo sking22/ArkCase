@@ -242,7 +242,7 @@ angular.module('cases').controller(
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
 
                             } else if (data.status === "Audit Assigned"  || data.status === "Audit Completed") {
-                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
                             }
 
                             $scope.objectInfo.status = data.status;
