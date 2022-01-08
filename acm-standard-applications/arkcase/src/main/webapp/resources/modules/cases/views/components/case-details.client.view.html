@@ -125,6 +125,15 @@
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}" >
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Report Alert Date</label>
+                            <date-time-picker
+                                    data="objectInfo.caseReportAlertDate"
+                                    property="objectInfo.caseReportAlertDate"
+                                    date-picker-id="objectInfo.caseReportAlertDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -405,8 +414,11 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Type</label>
-                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationType"
-                                   placeholder="{{ objectInfo.caseTerminationType }}" >
+                                <select class="form-control" ng-model="objectInfo.caseTerminationType" >
+                                    <option ng-repeat="option in caseTerminationTypes" placeholder="{{objectInfo.caseTerminationType}}" value="{{option.key}}">
+                                        {{option.value | translate}}
+                                    </option>
+                                </select>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Effective Date</label>
@@ -448,6 +460,14 @@
                                    placeholder="{{ objectInfo.caseCorrespondenceAddress }}" >
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>CMS Assign Date</label>
+                            <date-time-picker data="objectInfo.caseCmsAssignDate" property="objectInfo.caseCmsAssignDate"
+                                              date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -485,7 +505,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Effective Date of Letter</label>
+                            <label>Effective Date</label>
                             <date-time-picker data="objectInfo.caseEffectiveLetterDate" property="objectInfo.caseEffectiveLetterDate"
                                               date-picker-id="objectInfo.caseEffectiveLetterDate" time-format-disabled="true"></date-time-picker>
 
@@ -494,6 +514,12 @@
                             <label>Outcome of Revise & Reissue</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueOutcome"
                                    placeholder="{{ objectInfo.caseReviseReissueOutcome }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Action Date</label>
+                            <date-time-picker data="objectInfo.caseRevreiActionDate" property="objectInfo.caseRevreiActionDate"
+                                              date-picker-id="objectInfo.caseRevreiActionDate" time-format-disabled="true"></date-time-picker>
+
                         </div>
                     </div>
                 </div>
@@ -535,9 +561,10 @@
             </div>
             <div class="panel-collapse collapse in">
                 <div class="panel-body">
+
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Outcome of Admin Actions</label>
+                            <label>Recommended Outcome of Admin Actions</label>
                             <select class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
                                 <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseAdminActionsOutcome}}" value="{{option.key}}">
                                     {{option.value | translate}}
@@ -545,25 +572,82 @@
                             </select>
                         </div>
                         <div class="col-sm-4 form-group">
+
+                        </div>
+                        <div class="col-sm-4 form-check">
+                            <label>OPT CMS Decision</label>
+                            <select class="form-control" ng-model="objectInfo.caseOptCmsDecision" >
+                                <option ng-repeat="option in caseOptCmsDecisionTypes" placeholder="{{objectInfo.caseOptCmsDecision}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
                             <label>Revocation Authorities Cited in Action Letter</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevAuthCitedActionLetter"
                                    placeholder="{{ objectInfo.caseRevAuthCitedActionLetter }}" >
                         </div>
                         <div class="col-sm-4 form-group">
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
                             <label>Length of Re-Enrollment Bar</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseLengthReEnrollBar"
                                    placeholder="{{ objectInfo.caseLengthReEnrollBar }}" >
                         </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Effective Date</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
+                                   placeholder="{{ objectInfo.caseRevEffActionDate }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Revocation Effective Date (Action Date)</label>
-                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
-                                   placeholder="{{ objectInfo.caseRevEffActionDate }}" >
+                            <label>Action Date</label>
+                            <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
+                                              date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
 
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
