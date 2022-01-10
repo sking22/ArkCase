@@ -65,6 +65,15 @@ angular.module('cases').controller(
                         $scope.caseAAO = caseAdminActionsOutcomes;
                     });
 
+                    ObjectLookupService.getLookupByLookupName('caseTerminationTypes').then(function (caseTerminationTypes) {
+                        $scope.caseTerminationTypes = caseTerminationTypes;
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('caseOptCmsDecisionTypes').then(function (caseOptCmsDecisionTypes) {
+                        $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
+                    });
+
+
                     $scope.saveDetails = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {

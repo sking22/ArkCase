@@ -703,4 +703,30 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5019-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_cms_assign_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5020-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_revrei_action_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5021-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_final_out_action_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5022-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_opt_cms_decision" type="VARCHAR(32)" />
+            <column name="cm_case_report_alert_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>

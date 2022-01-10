@@ -31,6 +31,8 @@ import com.armedia.acm.plugins.businessprocess.dao.BusinessProcessDao;
 import com.armedia.acm.plugins.casefile.dao.CaseFileDao;
 import com.armedia.acm.plugins.casefile.model.CaseFile;
 import com.armedia.acm.plugins.ecm.service.FileAclSolrUpdateHelper;
+import com.armedia.acm.plugins.person.model.Person;
+import com.armedia.acm.plugins.person.model.PersonAssociation;
 import com.armedia.acm.plugins.task.model.TaskConstants;
 import com.armedia.acm.services.dataaccess.service.SearchAccessControlFields;
 import com.armedia.acm.services.participants.utils.ParticipantUtils;
@@ -154,7 +156,36 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         solr.setAdditionalProperty("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
         solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
 
+        for(PersonAssociation pa: in.getPersonAssociations()) {
+            if (pa.getPersonType().equalsIgnoreCase("initiator")) {
+                Person person = pa.getPerson();
+                if(person != null) {
+                    String ssn = person.getSsn();
+                    if ((ssn != null) && !ssn.equalsIgnoreCase("na") &&
+                            !ssn.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_ssn_lcs", ssn);
+                    }
+                    String npi = person.getNpi();
+                    if ((npi != null) && !npi.equalsIgnoreCase("na")
+                            && !npi.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_npi_lcs", npi);
+                    }
 
+                    String firstName = person.getGivenName();
+                    String lastName = person.getFamilyName();
+                    String legalBusinessName = person.getLegalBusinessName();
+                    if ((firstName != null) && !firstName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_firstname_lcs", firstName);
+                    }
+                    if ((lastName != null) && !lastName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_lastname_lcs", lastName);
+                    }
+                    if ((legalBusinessName != null) && !legalBusinessName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_legal_business_lcs", legalBusinessName);
+                    }
+                }
+            }
+        }
         return solr;
     }
 
@@ -216,6 +247,25 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         solr.setAdditionalProperty("case_conv_ind_lcs", in.getCaseConvictedIndividual());
         solr.setAdditionalProperty("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
         solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
+
+
+        for(PersonAssociation pa: in.getPersonAssociations()) {
+            if(pa.getPersonType().equalsIgnoreCase("initiator")) {
+                String ssn = pa.getPerson().getSsn();
+                if(!ssn.equalsIgnoreCase("na")) {
+                    solr.setAdditionalProperty("case_provider_ssn_lcs", ssn);
+                }
+            }
+        }
+
+        for(PersonAssociation pa: in.getPersonAssociations()) {
+            if(pa.getPersonType().equalsIgnoreCase("initiator")) {
+                String npi = pa.getPerson().getNpi();
+                if(!npi.equalsIgnoreCase("na")) {
+                    solr.setAdditionalProperty("case_provider_npi_lcs", npi);
+                }
+            }
+        }
 
         return solr;
     }

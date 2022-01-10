@@ -1,10 +1,29 @@
 'use strict';
 
-angular.module('services').factory('SuggestedObjectsService', ['$http', 'base64', function ($http, base64) {
+angular.module('services').factory('SuggestedObjectsService', ['$resource', '$http', 'UtilService', 'base64', function ($resource, $http, Util, base64) {
 
     return ({
-        getSuggestedObjects: getSuggestedObjects
+        getSuggestedObjects: getSuggestedObjects,
+        getSimilarCases: getSimilarCases
     });
+
+
+    function getSimilarCases(ssn, npi, id) {
+        return $http({
+            method: 'POST',
+            url: 'api/latest/service/suggestion/assoc_cases',
+            isArray: false,
+            cache: false,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                objectId: id,
+                ssn: ssn,
+                npi: npi
+            }
+        });
+    }
 
     function getSuggestedObjects(title, type, id) {
         return $http({

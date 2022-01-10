@@ -50,7 +50,7 @@
             {
                 "desc": "cases.tree.filters.opened",
                 "name": "all-open-cases",
-                "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CLOSED"
+                "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CASE_CLOSED"
             },
             {
                 "desc": "All In Process",
@@ -100,7 +100,7 @@
             {
                 "desc": "All CMS Requested Edits",
                 "name": "all-cms-requested-edit-cases",
-                "value": "fq={!term f=status_s}CMS Requested edit"
+                "value": "fq={!term f=status_s}CMS Requested Edits"
             },
             {
                 "desc": "All Resubmitted to CMS",
@@ -120,7 +120,7 @@
             {
                 "desc": "cases.tree.filters.closed",
                 "name": "all-closed-cases",
-                "value": "fq=status_s:CLOSED"
+                "value": "fq=status_s:CASE_CLOSED"
             },
             {
                 "desc": "cases.tree.filters.noFilter",
@@ -1643,16 +1643,34 @@
                     "headerCellFilter": "translate"
                 },
                 {
-                    "name": "type",
-                    "displayName": "cases.comp.suggestedCases.table.columns.referenceType",
+                    "name": "firstName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.firstName",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ grid.appScope.getObjectTypeValue(row.entity.type) | translate }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerFirstName }}</div>"
                 },
                 {
-                    "name": "modifiedDate",
-                    "displayName": "cases.comp.suggestedCases.table.columns.modified",
+                    "name": "lastName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.lastName",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modifiedDate | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLastName }}</div>"
+                },
+                {
+                    "name": "legalBusinessName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.legalBusinessName",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLegalBusinessName }}</div>"
+                },
+                {
+                    "name": "ssn",
+                    "displayName": "cases.comp.suggestedCases.table.columns.ssn",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerSsn | translate }}</div>"
+                },
+                {
+                    "name": "npi",
+                    "displayName": "cases.comp.suggestedCases.table.columns.npi",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerNpi }}</div>"
                 },
                 {
                     "name": "status",
