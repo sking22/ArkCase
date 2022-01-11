@@ -185,11 +185,11 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     }
                     String associatedTin = person.getAssociateTIN();
                     if ((associatedTin != null) && !associatedTin.trim().equalsIgnoreCase("")) {
-                        solr.setAdditionalProperty("case_provider_associated_tin", associatedTin);
+                        solr.setAdditionalProperty("case_provider_associated_tin_lcs", associatedTin);
                     }
                     String associatedNpi = person.getAssociateNPI();
                     if ((associatedNpi != null) && !associatedNpi.trim().equalsIgnoreCase("")) {
-                        solr.setAdditionalProperty("case_provider_associated_npi", associatedNpi);
+                        solr.setAdditionalProperty("case_provider_associated_npi_lcs", associatedNpi);
                     }
                 }
             }
