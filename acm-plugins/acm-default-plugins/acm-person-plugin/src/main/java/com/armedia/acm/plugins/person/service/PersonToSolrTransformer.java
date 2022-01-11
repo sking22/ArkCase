@@ -30,10 +30,7 @@ package com.armedia.acm.plugins.person.service;
 import com.armedia.acm.plugins.addressable.model.ContactMethod;
 import com.armedia.acm.plugins.addressable.model.PostalAddress;
 import com.armedia.acm.plugins.person.dao.PersonDao;
-import com.armedia.acm.plugins.person.model.Identification;
-import com.armedia.acm.plugins.person.model.Organization;
-import com.armedia.acm.plugins.person.model.Person;
-import com.armedia.acm.plugins.person.model.PersonAlias;
+import com.armedia.acm.plugins.person.model.*;
 import com.armedia.acm.services.dataaccess.service.SearchAccessControlFields;
 import com.armedia.acm.services.participants.utils.ParticipantUtils;
 import com.armedia.acm.services.search.model.solr.SolrAdvancedSearchDocument;
@@ -140,25 +137,43 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
         solrDoc.setAdditionalProperty("provider_specialty_lcs", person.getProviderSpecialty());
 
         List<Identification> ids = person.getIdentifications();
-        for(int i = 0; i < ids.size(); i++){
-            Identification id = ids.get(i);
-            if ( id.getIdentificationType() == "PECOS Enrollment ID"){
+        /*for(int i = 0; i < ids.size(); i++){
+            Identification id = ids.get(i);*/
+        for(Identification id: ids) {
+          /*Identification id = ids.get(i);*/
+          //  PersonAssociation personAssociation: in.getPersonAssociations()
+            log.error("id.getIdentificationType(): " + id.getIdentificationType());
+            if ( id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
                 solrDoc.setAdditionalProperty("provider_pecos_id_lcs", id.getIdentificationID());
                 solrDoc.setAdditionalProperty("provider_pecos_id_state_lcs", id.getIdState());
                 solrDoc.setAdditionalProperty("provider_pecos_id_status_lcs", id.getIdStatus());
-            } else if ( id.getIdentificationType() == "Contractor ID/Contractor Name"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
                 solrDoc.setAdditionalProperty("provider_contractor_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "NPI"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("NPI")) {
                 solrDoc.setAdditionalProperty("provider_npi_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "SSN/EIN"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
                 solrDoc.setAdditionalProperty("provider_ssn_ein_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "PTAN"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("PTAN")) {
                 solrDoc.setAdditionalProperty("provider_ptan_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "TIN"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("TIN")) {
                 solrDoc.setAdditionalProperty("provider_tin_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "Enrollment ID"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
                 solrDoc.setAdditionalProperty("provider_enrollment_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "License Number"){
+            }
+
+            if ( id.getIdentificationType().equalsIgnoreCase("License Number")) {
                 solrDoc.setAdditionalProperty("provider_license_id_lcs", id.getIdentificationID());
                 solrDoc.setAdditionalProperty("provider_license_id_status_lcs", id.getIdStatus());
                 solrDoc.setAdditionalProperty("provider_license_id_expiration_lcs", id.getIdExpirationDate());
@@ -166,6 +181,7 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
                 solrDoc.setAdditionalProperty("provider_license_id_alert_date_lcs", id.getIdAlertDate());
             }
         }
+
         Identification defId = person.getDefaultIdentification();
         solrDoc.setAdditionalProperty("provider_case_type_id_lcs", defId.getIdCaseType());
         solrDoc.setAdditionalProperty("provider_case_number_id_lcs", defId.getIdCaseNumber());
@@ -322,26 +338,35 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
         solrDoc.setAdditionalProperty("associate_sanction_date_lcs", in.getAssociateSanctionDate());
         solrDoc.setAdditionalProperty("provider_specialty_lcs", in.getProviderSpecialty());
 
-        List<Identification> ids = in.getIdentifications();
-        for(int i = 0; i < ids.size(); i++){
-            Identification id = ids.get(i);
-            if ( id.getIdentificationType() == "PECOS Enrollment ID"){
+       List<Identification> ids = in.getIdentifications();
+        /*for(int i = 0; i < ids.size(); i++){
+            Identification id = ids.get(i);*/
+        for(Identification id: ids) {
+            log.error("idtest: " + id.getIdentificationType());
+            if ( id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
                 solrDoc.setAdditionalProperty("provider_pecos_id_lcs", id.getIdentificationID());
                 solrDoc.setAdditionalProperty("provider_pecos_id_state_lcs", id.getIdState());
                 solrDoc.setAdditionalProperty("provider_pecos_id_status_lcs", id.getIdStatus());
-            } else if ( id.getIdentificationType() == "Contractor ID/Contractor Name"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
                 solrDoc.setAdditionalProperty("provider_contractor_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "NPI"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("NPI")) {
                 solrDoc.setAdditionalProperty("provider_npi_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "SSN/EIN"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
                 solrDoc.setAdditionalProperty("provider_ssn_ein_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "PTAN"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("PTAN")) {
                 solrDoc.setAdditionalProperty("provider_ptan_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "TIN"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("TIN")) {
                 solrDoc.setAdditionalProperty("provider_tin_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "Enrollment ID"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
                 solrDoc.setAdditionalProperty("provider_enrollment_id_lcs", id.getIdentificationID());
-            } else if ( id.getIdentificationType() == "License Number"){
+            }
+            if ( id.getIdentificationType().equalsIgnoreCase("License Number")) {
                 solrDoc.setAdditionalProperty("provider_license_id_lcs", id.getIdentificationID());
                 solrDoc.setAdditionalProperty("provider_license_id_status_lcs", id.getIdStatus());
                 solrDoc.setAdditionalProperty("provider_license_id_expiration_lcs", id.getIdExpirationDate());

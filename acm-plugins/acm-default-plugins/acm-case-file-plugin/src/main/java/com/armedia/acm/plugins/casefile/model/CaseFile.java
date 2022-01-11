@@ -428,6 +428,30 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_ten_years_conv_date")
     private String caseTenYearsConvDate;
 
+    //cm_case_cms_assign_date
+    @Column(name = "cm_case_cms_assign_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseCmsAssignDate;
+
+    //cm_case_revrei_action_date
+    @Column(name = "cm_case_revrei_action_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseRevreiActionDate;
+
+    //cm_case_final_out_action_date
+    @Column(name = "cm_case_final_out_action_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseFinalOutActionDate;
+
+     //cm_case_opt_cms_decision
+    @Column(name = "cm_case_opt_cms_decision")
+    private String caseOptCmsDecision;
+
+    //cm_case_report_alert_date
+    @Column(name = "cm_case_report_alert_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseReportAlertDate;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1318,5 +1342,40 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseTenYearsConvDate;
     }
     public void setCaseTenYearsConvDate(String caseTenYearsConvDate) { this.caseTenYearsConvDate = caseTenYearsConvDate; }
+
+    //caseCmsAssignDate
+    public Date getCaseCmsAssignDate()
+    {
+        return caseCmsAssignDate;
+    }
+    public void setCaseCmsAssignDate(Date caseCmsAssignDate) { this.caseCmsAssignDate = caseCmsAssignDate; }
+
+    //caseRevreiActionDate
+    public Date getCaseRevreiActionDate()
+    {
+        return caseRevreiActionDate;
+    }
+    public void setCaseRevreiActionDate(Date caseRevreiActionDate) { this.caseRevreiActionDate = caseRevreiActionDate; }
+
+    //caseFinalOutActionDate
+    public Date getCaseFinalOutActionDate()
+    {
+        return caseFinalOutActionDate;
+    }
+    public void setCaseFinalOutActionDate(Date caseFinalOutActionDate) { this.caseFinalOutActionDate = caseFinalOutActionDate; }
+
+    //caseOptCmsDecision
+    public String getCaseOptCmsDecision()
+    {
+        return caseOptCmsDecision;
+    }
+    public void setCaseOptCmsDecision(String caseOptCmsDecision) { this.caseOptCmsDecision = caseOptCmsDecision; }
+
+   //caseReportAlertDate
+    public Date getCaseReportAlertDate()
+    {
+        return caseReportAlertDate;
+    }
+    public void setCaseReportAlertDate(Date caseReportAlertDate) { this.caseReportAlertDate = caseReportAlertDate; }
 
 }
