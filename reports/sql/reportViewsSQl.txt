@@ -1,0 +1,216 @@
+create or replace view vw_acm_person_identification as select api.cm_person_id, ai.* from acm_identification ai inner join acm_person_identification api on ai.cm_identification_id=api.cm_identification_id;
+
+ create or replace view vw_acm_person_details as select ap.*,apinpi.cm_id_number as "npi", apissn.cm_id_number as ssn, apipei.cm_id_number as "PECOS_Enrollment_ID",apipei.cm_id_state as "PECOS_Enrollment_state",apipei.cm_id_status as "PECOS_Enrollment_status", apiei.cm_id_number as "Enrollment_ID", apiln.cm_id_number as "License_Number", apicid.cm_id_number as "Contractor_ID", apitin.cm_id_number as "TIN", apiptan.cm_id_number as "PTAN",  apdid.cm_id_type as cm_did_type, apdid.cm_id_number as cm_did_number, apdid.cm_id_issuer as cm_did_issuer, apdid.cm_year_issued as cm_did_year_issued, apdid.cm_id_status as cm_did_status , apdid.cm_id_state as cm_did_state, apdid.cm_id_expiration_date as cm_did_expiration_date, apdid.cm_id_grace_expiration_date as cm_did_grace_expiration_date, apdid.cm_id_alert_date as cm_did_alert_date, apdid.cm_id_grace_expiration_days as cm_did_grace_expiration_days, apdid.cm_id_qualifier_sanction as cm_did_qualifier_sanction, apdid.cm_id_role_code_type as cm_did_role_code_type, apdid.cm_id_screening_date as cm_did_screening_date, apdid.cm_id_exclusion_type as cm_did_exclusion_type, apdid.cm_id_sanction_date as cm_did_sanction_date, apdid.cm_id_case_type as cm_did_case_type, apdid.cm_id_offense_type as cm_did_offense_type, apdid.cm_id_conv_date as cm_did_conv_date, apdid.cm_id_case_number cm_did_case_number, apdid.cm_id_court_name as cm_did_court_name, apdid.cm_id_docket_request_date as cm_did_docket_request_date, apdid.cm_id_docket_response_date as cm_did_docket_response_date, apdid.cm_id_provider_supplier_type as cm_did_provider_supplier_type, apdid.cm_id_provider_tin_type as cm_did_provider_tin_type, apdid.cm_id_docket_status as cm_did_docket_status,
+apiln.cm_id_issuer as cm_lid_issuer, apiln.cm_year_issued as cm_lid_year_issued, apiln.cm_id_status as cm_lid_status , apiln.cm_id_state as cm_lid_state, apiln.cm_id_expiration_date as cm_lid_expiration_date, apiln.cm_id_grace_expiration_date as cm_lid_grace_expiration_date, apiln.cm_id_alert_date as cm_lid_alert_date, apiln.cm_id_grace_expiration_days as cm_lid_grace_expiration_days, apiln.cm_id_qualifier_sanction as cm_lid_qualifier_sanction, apiln.cm_id_role_code_type as cm_lid_role_code_type, apiln.cm_id_screening_date as cm_lid_screening_date
+ from acm_person ap left join vw_acm_person_identification apinpi on ap.cm_person_id = apinpi.cm_person_id and apinpi.cm_id_type="NPI"  left join vw_acm_person_identification apissn on ap.cm_person_id = apissn.cm_person_id and apissn.cm_id_type="SSN/EIN" left join vw_acm_person_identification apipei on ap.cm_person_id = apipei.cm_person_id and apipei.cm_id_type="PECOS Enrollment ID" left join vw_acm_person_identification apiei on ap.cm_person_id = apiei.cm_person_id and apiei.cm_id_type="Enrollment ID" left join vw_acm_person_identification apiln on ap.cm_person_id = apiln.cm_person_id and apiln.cm_id_type="License Number" left join vw_acm_person_identification apicid on ap.cm_person_id = apicid.cm_person_id and apicid.cm_id_type="Contractor ID/Contractor Name" left join vw_acm_person_identification apitin on ap.cm_person_id = apitin.cm_person_id and apitin.cm_id_type="TIN" left join vw_acm_person_identification apiptan on ap.cm_person_id = apiptan.cm_person_id and apiptan.cm_id_type="PTAN" left join vw_acm_person_identification apdid on ap.cm_person_id = apdid.cm_person_id and apdid.cm_identification_id= ap.cm_default_identification ;
+
+create or replace view vw_acm_note_content as select cm_parent_object_id, GROUP_CONCAT('Note created by ',cm_note_author, ' on ',cm_note_created, ': ',cm_note_text SEPARATOR '; ') as 'cm_note_content' from  acm_note where cm_parent_object_type='CASE_FILE' Group by cm_parent_object_id;
+
+ create or replace view vw_acm_change_case_status as select cm_case_id,cm_change_case_status_status, max(cm_change_case_status_created) as cm_change_case_status_created from acm_change_case_status group by cm_case_id,cm_change_case_status_status ;
+
+create or replace view vw_acm_min_change_case_status as select cm_case_id,cm_change_case_status_status, min(cm_change_case_status_created) as cm_change_case_status_created from acm_change_case_status group by cm_case_id,cm_change_case_status_status ;
+
+create or replace view vw_acm_max_change_case_status as select cm_case_id,cm_change_case_status_status, max(cm_change_case_status_created) as cm_change_case_status_created from acm_change_case_status group by cm_case_id,cm_change_case_status_status ;
+
+Create or replace view vw_acm_case_details as  
+SELECT ac.cm_case_id, ac.cm_case_number, ac.cm_case_type, ac.cm_case_status, ac.cm_case_title, 
+ac.cm_case_closed, ac.cm_case_disposition, ac.cm_case_created, ac.cm_case_creator, ac.cm_case_modified, 
+ac.cm_case_modifier, ac.cm_case_priority, ac.cm_case_incident_date, ac.cm_case_details, ac.cm_due_date, 
+ac.cm_originator_id, ac.cm_case_restricted_flag,  ac.cm_object_type, ac.cm_courtroom_name, 
+ac.cm_next_court_date, ac.cm_responsible_organization, ac.cm_queue_id, ac.cm_security_field, ac.cm_legacy_system_id, 
+ac.cm_queue_enter_date, ac.cm_response_due_date, ac.cm_previous_queue_id, ac.cm_case_external_flag, ac.cm_case_denied_flag, 
+ac.cm_case_details_summary, ac.cm_case_reporting_week, ac.cm_case_report_date, ac.cm_case_state_medicaid_agency, 
+ac.cm_case_termination_type, ac.cm_case_termination_eff_date, ac.cm_case_enrollment_bar_exp_date, ac.cm_case_reins_termination_eff_date, 
+ac.cm_case_recind_termination_eff_date, ac.cm_case_appeals_period_expired, ac.cm_case_termination_reason, ac.cm_case_correspondence_address, 
+ac.cm_case_orig_rev_auth, ac.cm_case_revise_reissue_el, ac.cm_case_orig_rev_letter_date, ac.cm_case_effective_letter_date, 
+ac.cm_case_revise_reissue_outcome, ac.cm_case_admin_actions_outcome, ac.cm_case_rev_auth_cited_action_letter, ac.cm_case_length_reenroll_bar, 
+ac.cm_case_taxonomy, ac.cm_case_application_type, ac.cm_case_conv_ind, ac.cm_case_conv_ind_tin, ac.cm_case_prev_cms, ac.cm_case_prev_analyst, 
+ac.cm_case_rev_eff_action_date, ac.cm_case_not_actionable_reason, ac.cm_case_ten_years_conv_date, 
+ac.cm_case_cms_assign_date,
+ac.cm_case_revrei_action_date,
+ac.cm_case_final_out_action_date,
+ac.cm_case_opt_cms_decision, ac.cm_case_report_alert_date,
+ap.cm_person_id, ap.cm_person_status, 
+ap.cm_person_created, ap.cm_person_creator, ap.cm_person_modified, ap.cm_person_modifier, ap.cm_given_name, ap.cm_family_name, 
+ap.cm_person_company_name, ap.cm_person_title, ap.cm_person_type_id, ap.cm_person_date_of_birth, ap.cm_person_height_inches, 
+ap.cm_person_weight_pounds, ap.cm_person_hair_color, ap.cm_person_eye_color, ap.cm_person_date_married, ap.cm_place_of_birth, 
+ap.cm_middle_name,  ap.cm_default_picture_id,  ap.cm_default_phone, ap.cm_default_email, 
+ap.cm_default_url, ap.cm_default_address, ap.cm_default_alias, ap.cm_default_identification, ap.cm_details, ap.cm_person_restricted_flag, 
+ap.cm_ldap_user_id, ap.cm_person_legal_business_name, ap.cm_person_specialty_type, ap.cm_person_assc_last_name, ap.cm_person_assc_middle_name, 
+ap.cm_person_assc_first_name, ap.cm_person_assc_legal_business_name, ap.cm_person_assc_enrollment_id, ap.cm_person_assc_npi, ap.cm_person_assc_tin, 
+ap.cm_person_assc_tin_type, ap.cm_person_assc_role, ap.cm_person_assc_sanc_code, ap.cm_person_assc_sanc_date, ap.cm_person_lbn_ein, ap.npi, ap.ssn, 
+ap.PECOS_Enrollment_ID, ap.PECOS_Enrollment_state, ap.PECOS_Enrollment_status, ap.Enrollment_ID, ap.License_Number, ap.Contractor_ID, ap.TIN, ap.PTAN, 
+ap.cm_did_type, ap.cm_did_number, ap.cm_did_issuer, ap.cm_did_year_issued, ap.cm_did_status, ap.cm_did_state, ap.cm_did_expiration_date, 
+ap.cm_did_grace_expiration_date, ap.cm_did_alert_date, ap.cm_did_grace_expiration_days, ap.cm_did_qualifier_sanction, ap.cm_did_role_code_type, 
+ap.cm_did_screening_date, ap.cm_did_exclusion_type, ap.cm_did_sanction_date, ap.cm_did_case_type, ap.cm_did_offense_type, ap.cm_did_conv_date, 
+ap.cm_did_case_number, ap.cm_did_court_name, ap.cm_did_docket_request_date, ap.cm_did_docket_response_date, ap.cm_did_provider_supplier_type, 
+ap.cm_did_provider_tin_type, ap.cm_did_docket_status, ap.cm_lid_issuer, ap.cm_lid_year_issued, ap.cm_lid_status, ap.cm_lid_state, 
+ap.cm_lid_expiration_date, ap.cm_lid_grace_expiration_date, ap.cm_lid_alert_date, ap.cm_lid_grace_expiration_days, ap.cm_lid_qualifier_sanction, 
+ap.cm_lid_role_code_type, ap.cm_lid_screening_date,   
+aap.cm_full_name as cm_case_assigned_to,  
+anc.cm_note_content 
+FROM      acm_case_file ac  
+left join acm_assignment aa on ac.cm_case_id = aa.cm_assignment_object_id and aa.cm_assignment_object_type='CASE_FILE' and cm_assignment_id in (select max(cm_assignment_id) from acm_assignment aas where ac.cm_case_id = aas.cm_assignment_object_id and aa.cm_assignment_object_type='CASE_FILE')  
+left join acm_user aap on  aap.cm_user_id=aa.cm_assignment_new_assignee   
+left join acm_person_assoc apa on ac.cm_case_id = apa.cm_person_assoc_parent_id and cm_person_assoc_parent_type='CASE_FILE' and cm_person_assoc_person_type = 'Initiator'  
+left join vw_acm_person_details ap on apa.cm_person_assoc_person_id=ap.cm_person_id  
+left join vw_acm_note_content anc on ac.cm_case_id= anc.cm_parent_object_id;
+
+SELECT     
+ap.cm_given_name AS "Provider_Supplier_Given_Name",
+ap.cm_family_name AS "Provider_Supplier_Family_Name", 
+ap.NPI as NPI, 
+ap.PECOS_Enrollment_ID as "Enrollment_ID", 
+ap.ssn as TIN, 
+ap.cm_person_specialty_type as "Specialty", 
+ac.cm_case_taxonomy as "Taxonomy", 
+ap.PTAN as "PTAN", 
+ap.PECOS_Enrollment_state as "Enrollment_State", 
+amac.cm_mac_name as "MAC",
+ac.cm_case_application_type as "Application_Type",   
+ap.cm_lid_alert_date as "Population_Date_of_Alert",
+ac.cm_case_status AS "Status_of_Case",   
+(
+   CASE WHEN ac.cm_case_type='MED' THEN "COGNOS"
+	WHEN ac.cm_case_type='OPT' THEN "DEX"
+      ELSE("APS")
+   END) as "Source",
+ ac.cm_case_number AS "CM_CASE_NUMBER",      ac.cm_case_title AS "CM_CASE_TITLE",      ac.cm_case_type AS "CM_CASE_TYPE", ap.cm_person_assc_sanc_date, aap.cm_full_name as "CM_CASE_ASSIGNED_TO", anc.cm_note_content, ac.cm_case_conv_ind,
+ac.cm_case_conv_ind_tin, ap.cm_did_case_type, ap.cm_did_case_number, ap.cm_person_assc_first_name, ap.cm_person_assc_last_name, ap.cm_person_assc_npi, ap.cm_person_assc_tin,ap.cm_person_assc_sanc_date, ac.cm_case_admin_actions_outcome, ac.cm_case_rev_auth_cited_action_letter, ac.cm_case_length_reenroll_bar,ac.cm_case_rev_eff_action_date, ap.cm_did_conv_date, ac.cm_case_effective_letter_date, 
+ac.cm_case_not_actionable_reason,
+ap.PECOS_Enrollment_status, ac.cm_case_revise_reissue_el, ac.cm_case_revise_reissue_outcome, 
+aap.cm_full_name as "CM_CASE_ASSIGNED_TO", ac.cm_case_rev_auth_cited_action_letter, ac.cm_case_length_reenroll_bar,ac.cm_case_rev_eff_action_date
+ FROM      acm_case_file ac 
+left join acm_assignment aa on ac.cm_case_id = aa.cm_assignment_object_id and aa.cm_assignment_object_type='CASE_FILE' and cm_assignment_id in (select max(cm_assignment_id) from acm_assignment aas where ac.cm_case_id = aas.cm_assignment_object_id and aa.cm_assignment_object_type='CASE_FILE') 
+left join acm_user aap on  aap.cm_user_id=aa.cm_assignment_new_assignee  
+left join acm_person_assoc apa on ac.cm_case_id = apa.cm_person_assoc_parent_id and cm_person_assoc_parent_type='CASE_FILE' and cm_person_assoc_person_type = 'Initiator' 
+left join vw_acm_person_details ap on apa.cm_person_assoc_person_id=ap.cm_person_id  
+Left join vw_acm_note_content anc on ac.cm_case_id= anc.cm_parent_object_id
+Left join acm_mac amac on ap.Contractor_ID = amac.cm_contract_number;
+
+CREATE TABLE `acm_mac` (
+  `cm_mac_id` int NOT NULL AUTO_INCREMENT,
+  `cm_contract_number` varchar(50) NOT NULL,
+  `cm_mac_name` varchar(500) NOT NULL,
+  PRIMARY KEY (`cm_mac_id`),
+  UNIQUE KEY `cm_mac_id_UNIQUE` (`cm_mac_id`),
+  UNIQUE KEY `cm_mac_comp_u` (`cm_contract_number`,`cm_mac_name`)
+) ;
+
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10112','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02102','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01212','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03102','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07102','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01112','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01182','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04112','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13102','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12102','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12202','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('09102','First Coast');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10212','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02202','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06102','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('08102','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05102','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05202','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('15102','CGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07202','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14112','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12302','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14212','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('08202','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06202','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07302','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05302','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03202','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05402','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01312','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14312','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12402','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04212','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13202','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13282','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13292','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11502','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03302','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('15202','CGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04312','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02302','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12502','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('09202','First Coast');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14412','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11202','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03402','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10312','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04412','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03502','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14512','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('09302','First Coast');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11302','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02402','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11402','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06302','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03602','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10111','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02101','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03101','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07101','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01111','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04111','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13101','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12101','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12201','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('09101','First Coast');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10211','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01211','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02201','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06101','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('08101','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05101','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01911','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05201','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('15101','CGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07201','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14111','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12301','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14211','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('08201','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06201','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06301','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('07301','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05301','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03201','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05901','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12901','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04911','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('05401','WPS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('01311','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14311','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12401','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04211','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('13201','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11501','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03301','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('15201','CGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04311','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02301','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('12501','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('09201','First Coast');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14411','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11201','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03401','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('10311','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('04411','Novitas');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03501','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14511','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11301','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('02401','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11401','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('03601','Noridian');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('15004','CGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('11004','Palmetto');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('14014','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('06004','NGS');
+insert into acm_mac (cm_contract_number, cm_mac_name) values ('99001','Palmetto');
