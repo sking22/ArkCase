@@ -54,22 +54,32 @@ angular.module('cases').controller(
                     };
 
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        states.unshift(clear);
                         $scope.idStates = states;
                     });
 
                     ObjectLookupService.getLookupByLookupName('notActionReasons').then(function (notActionReasons) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        notActionReasons.unshift(clear);
                         $scope.caseNAR = notActionReasons;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        caseAdminActionsOutcomes.unshift(clear);
                         $scope.caseAAO = caseAdminActionsOutcomes;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseTerminationTypes').then(function (caseTerminationTypes) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        caseTerminationTypes.unshift(clear);
                         $scope.caseTerminationTypes = caseTerminationTypes;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseOptCmsDecisionTypes').then(function (caseOptCmsDecisionTypes) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        caseOptCmsDecisionTypes.unshift(clear);
                         $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
                     });
 
