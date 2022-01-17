@@ -32,11 +32,15 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
                     $scope.dateInPicker = new Date();
                 } else {
                     if ($scope.timeFormatDisabled === "true") {
-                        $scope.today = (date instanceof String || typeof date == 'string') ? moment(date).local().format("MM/DD/YYYY") : moment(date).format("MM/DD/YYYY");
+                       //console.log('date', date);
+                        $scope.today = (date instanceof String || typeof date == 'string') ? moment.utc(date).local(true).format("MM/DD/YYYY") : moment.utc(date).local(true).format("MM/DD/YYYY");
                     } else {
-                        $scope.today = (date instanceof String || typeof date == 'string') ? moment.utc(date).local().format(defaultDateTimePickerFormat) : moment(date).format(defaultDateTimePickerFormat);
+                        $scope.today = (date instanceof String || typeof date == 'string') ? moment.utc(date).local().format(defaultDateTimePickerFormat) : moment(date).local(true).format(defaultDateTimePickerFormat);
                     }
                     $scope.dateInPicker = UtilDateService.isoToDate($scope.today);
+                    //console.log('$scope.today', $scope.today);
+                   // console.log(' $scope.dateInPicker',  $scope.dateInPicker);
+
                 }
                 $scope.minYear = 1900;
                 $scope.maxYear = moment.utc($scope.dateInPicker).year() + 1;
@@ -64,7 +68,7 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
                         value: $scope.dateInPicker
                     });
                     if(!UtilService.isEmpty($scope.data)) {
-                        $scope.today = ($scope.data instanceof String || typeof $scope.data == 'string') ? moment.utc($scope.data).local().format("MM/DD/YYYY") : moment($scope.data).format("MM/DD/YYYY");
+                        $scope.today = ($scope.data instanceof String || typeof $scope.data == 'string') ? moment.utc($scope.data).local(true).format("MM/DD/YYYY") : moment($scope.data).local(true).format("MM/DD/YYYY");
                     } else {
                         $scope.today = "";
                     }
@@ -80,7 +84,7 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
                         value: $scope.dateInPicker
                     });
                     if(!UtilService.isEmpty($scope.data)) {
-                        $scope.today = ($scope.data instanceof String || typeof $scope.data == 'string') ? moment.utc($scope.data).local().format(defaultDateTimePickerFormat) : moment($scope.data).format(defaultDateTimePickerFormat);
+                        $scope.today = ($scope.data instanceof String || typeof $scope.data == 'string') ? moment($scope.data).local().format(defaultDateTimePickerFormat) : moment($scope.data).format(defaultDateTimePickerFormat);
                     } else {
                         $scope.today = "";
                     }
@@ -90,9 +94,12 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
 
             $scope.saveDate = function () {
                 var editedDate = $(comboField).combodate('getValue', null);
+                ///console.log('editedDate: ', editedDate);
                 if ($scope.timeFormatDisabled === "true") {
                     $scope.dateInPicker = moment(editedDate);
+                   // console.log('$scope.dateInPicker: ', $scope.dateInPicker);
                     $scope.data = UtilDateService.localDateToIso($scope.dateInPicker.toDate());
+                   // console.log('$scope.data', $scope.data);
                 } else {
                     $scope.dateInPicker = moment(editedDate);
                     $scope.data = UtilDateService.dateToIsoDateTime($scope.dateInPicker);
@@ -113,3 +120,21 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
         }
     }
 }]);
+
+/*
+
+angular.module('directives').directive('csDateToIso', ['moment', 'Util.DateService', 'UtilService', '$translate', function (moment, UtilDateService, UtilService, $translate) {
+
+	        var linkFunction = function (scope, element, attrs, ngModelCtrl) {
+                ngModelCtrl.$parsers.push(function (datepickerValue) {
+                    return moment(datepickerValue).format("YYYY-MM-DD");
+                });
+            };
+
+            return {
+                restrict: "A",
+                require: "ngModel",
+                link: linkFunction
+            };
+
+	});*/

@@ -28,6 +28,7 @@ package com.armedia.acm.services.suggestion.service;
  */
 
 import com.armedia.acm.services.search.exception.SolrException;
+import com.armedia.acm.services.suggestion.model.CaseSuggestionsRequest;
 import com.armedia.acm.services.suggestion.model.SuggestedObject;
 
 import org.springframework.security.core.Authentication;
@@ -41,4 +42,6 @@ public interface SimilarObjectsService
     List<SuggestedObject> findSimilarObjects(String title, String objectType, Boolean isPortal, Long objectId, Authentication auth)
             throws ParseException, SolrException;
 
+    List<SuggestedObject> findSimilarObjects(CaseSuggestionsRequest request, Authentication auth)
+            throws ParseException, SolrException;
 }

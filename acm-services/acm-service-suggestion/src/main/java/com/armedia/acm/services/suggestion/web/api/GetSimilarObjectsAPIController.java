@@ -28,6 +28,7 @@ package com.armedia.acm.services.suggestion.web.api;
  */
 
 import com.armedia.acm.services.search.exception.SolrException;
+import com.armedia.acm.services.suggestion.model.CaseSuggestionsRequest;
 import com.armedia.acm.services.suggestion.model.SuggestedObject;
 import com.armedia.acm.services.suggestion.service.SimilarObjectsService;
 
@@ -36,10 +37,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Base64;
@@ -50,6 +48,14 @@ public class GetSimilarObjectsAPIController
 {
 
     private SimilarObjectsService similarObjectsService;
+
+    @RequestMapping(value="/assoc_cases", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<SuggestedObject> findSimilarObjects(
+            @RequestBody CaseSuggestionsRequest request,
+            Authentication authentication) throws ParseException, SolrException {
+        return new ResponseEntity(getSimilarObjectsService().findSimilarObjects(request, authentication),
+                HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/{title}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SuggestedObject> findSimilarObjects(

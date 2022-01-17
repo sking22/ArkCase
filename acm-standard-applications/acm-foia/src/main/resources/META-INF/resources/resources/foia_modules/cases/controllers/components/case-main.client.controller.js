@@ -22,6 +22,7 @@ angular.module('cases').controller(
                 $scope.requestAlreadyExtended = objectInfo.extensionFlag;
                 $scope.originalRequestTrack = objectInfo.requestTrack;
                 $scope.wrongDate = false;
+                $scope.minDispositionClosedDate = moment.utc($scope.objectInfo.receivedDate).local();
 
                 ObjectLookupService.getRequestCategories().then(function (requestCategories) {
                     $scope.requestCategories = requestCategories;
@@ -354,9 +355,11 @@ angular.module('cases').controller(
                 }
             }
             $scope.onComboAfterSave = function () {
-                if (moment($scope.objectInfo.dispositionClosedDate).isBefore($scope.objectInfo.receivedDate)) {
-                    $scope.objectInfo.dispositionClosedDate = null;
-                    DialogService.alert($translate.instant('cases.comp.main.dispositionClosedDate.wrongDateMessage ') + " " + moment($scope.objectInfo.receivedDate).format('MM/DD/YYYY h:mm A'));
+                if ($scope.objectInfo) {
+                    if (moment(moment.utc($scope.objectInfo.dispositionClosedDate)).isBefore(moment.utc($scope.objectInfo.receivedDate))) {
+                        $scope.objectInfo.dispositionClosedDate = null;
+                        DialogService.alert($translate.instant('cases.comp.main.dispositionClosedDate.wrongDateMessage ') + " " + moment($scope.objectInfo.receivedDate).format('MM/DD/YYYY h:mm A'));
+                    }
                 }
             };
 

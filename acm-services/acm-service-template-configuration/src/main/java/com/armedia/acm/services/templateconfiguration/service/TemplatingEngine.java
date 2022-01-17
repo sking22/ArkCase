@@ -106,13 +106,14 @@ public class TemplatingEngine
                         DateTimeService.class.getDeclaredMethod("toClientDateTimeTimezone", LocalDateTime.class));
                 stContext.registerFunction("toClientDateTimezone",
                         DateTimeService.class.getDeclaredMethod("toClientDateTimezone", LocalDateTime.class));
-                stContext.registerFunction("toUTCDateTimeTimezone",
-                        DateTimeService.class.getDeclaredMethod("toUTCDateTimeTimezone", LocalDateTime.class));
-                stContext.registerFunction("toUTCDateTimezone",
-                        DateTimeService.class.getDeclaredMethod("toUTCDateTimezone", LocalDateTime.class));
-                stContext.registerFunction("toClientDateDateTimezone",
-                        DateTimeService.class.getDeclaredMethod("toClientDateDateTimezone", Date.class));
-
+                stContext.registerFunction("dateToClientDateTimezone",
+                        DateTimeService.class.getDeclaredMethod("dateToClientDateTimezone", Date.class));
+                stContext.registerFunction("dateToClientDateTimeTimezone",
+                        DateTimeService.class.getDeclaredMethod("dateToClientDateTimeTimezone", Date.class));
+                stContext.registerFunction("currentDateToClientDate",
+                        DateTimeService.class.getDeclaredMethod("currentDateToClientDate"));
+                stContext.registerFunction("currentDateToClientDateTime",
+                        DateTimeService.class.getDeclaredMethod("currentDateToClientDateTime"));
             }
             catch (NoSuchMethodException e)
             {

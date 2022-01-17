@@ -84,6 +84,7 @@ public class CaseFileUpdatedNotifier implements ApplicationListener<AcmEvent>
                 }
                 else
                 {
+
                     template = templateManager.findTemplate("caseStatusChanged.html");
                     if (template != null)
                     {

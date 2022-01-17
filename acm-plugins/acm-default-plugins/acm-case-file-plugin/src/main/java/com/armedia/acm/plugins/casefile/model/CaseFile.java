@@ -313,6 +313,145 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date caseReportDate;
 
+    //cm_case_state_medicaid_agency
+    @Column(name = "cm_case_state_medicaid_agency")
+    private String caseStateMedicaidAgency;
+
+    //cm_case_termination_type
+    @Column(name = "cm_case_termination_type")
+    private String caseTerminationType;
+
+    //cm_case_termination_eff_date
+    @Column(name = "cm_case_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseTerminationEffDate;
+
+   //cm_case_enrollment_bar_exp_date
+    @Column(name = "cm_case_enrollment_bar_exp_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseEnrollmentBarExpDate;
+
+    //cm_case_reins_termination_eff_date
+    @Column(name = "cm_case_reins_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseReinsTerminationEffDate;
+
+    //cm_case_recind_termination_eff_date
+    @Column(name = "cm_case_recind_termination_eff_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseRecindTerminationEffDate;
+
+    //cm_case_appeals_period_expired
+    @Column(name = "cm_case_appeals_period_expired")
+    private String caseAppealsPeriodExpired;
+
+    //cm_case_termination_reason
+    @Column(name = "cm_case_termination_reason")
+    private String caseTerminationReason;
+
+    //cm_case_correspondence_address
+    @Column(name = "cm_case_correspondence_address")
+    private String caseCorrespondenceAddress;
+
+
+    //cm_case_orig_rev_auth
+    @Column(name = "cm_case_orig_rev_auth")
+    private String caseOrigRevAuth;
+
+    //cm_case_revise_reissue_el
+    @Column(name = "cm_case_revise_reissue_el")
+    private String caseReviseReissueEl;
+
+    //cm_case_orig_rev_letter_date
+    @Column(name = "cm_case_orig_rev_letter_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseOrigRevLetterDate;
+
+    //cm_case_revise_reissue_outcome
+    @Column(name = "cm_case_revise_reissue_outcome")
+    private String caseReviseReissueOutcome;
+
+    //cm_case_effective_letter_date
+    @Column(name = "cm_case_effective_letter_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date caseEffectiveLetterDate;
+
+    //cm_case_admin_actions_outcome
+    @Column(name = "cm_case_admin_actions_outcome")
+    private String caseAdminActionsOutcome;
+
+
+    //cm_case_rev_auth_cited_action_letter
+    @Column(name = "cm_case_rev_auth_cited_action_letter")
+    private String caseRevAuthCitedActionLetter;
+
+
+    //cm_case_length_reenroll_bar
+    @Column(name = "cm_case_length_reenroll_bar")
+    private String caseLengthReEnrollBar;
+
+
+    //cm_case_rev_eff_action_date
+    @Column(name = "cm_case_rev_eff_action_date")
+    private String caseRevEffActionDate;
+
+
+    //cm_case_application_type
+    @Column(name = "cm_case_application_type")
+    private String caseApplicationType;
+
+    //cm_case_taxonomy
+    @Column(name = "cm_case_taxonomy")
+    private String caseTaxonomy;
+
+    //cm_case_conv_ind
+    @Column(name = "cm_case_conv_ind")
+    private String caseConvictedIndividual;
+
+    //cm_case_conv_ind_tin
+    @Column(name = "cm_case_conv_ind_tin")
+    private String caseConvictedIndividualTin;
+
+    //cm_case_taxonomy
+    @Column(name = "cm_case_prev_cms")
+    private String casePrevCMSAnalyst;
+
+    //cm_case_prev_analyst
+    @Column(name = "cm_case_prev_analyst")
+    private String casePrevAnalyst;
+
+    //cm_case_not_actionable_reason
+    @Column(name = "cm_case_not_actionable_reason")
+    private String caseNotActionableReason;
+
+    //cm_case_ten_years_conv_date
+    @Column(name = "cm_case_ten_years_conv_date")
+    private String caseTenYearsConvDate;
+
+    //cm_case_cms_assign_date
+    @Column(name = "cm_case_cms_assign_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseCmsAssignDate;
+
+    //cm_case_revrei_action_date
+    @Column(name = "cm_case_revrei_action_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseRevreiActionDate;
+
+    //cm_case_final_out_action_date
+    @Column(name = "cm_case_final_out_action_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseFinalOutActionDate;
+
+     //cm_case_opt_cms_decision
+    @Column(name = "cm_case_opt_cms_decision")
+    private String caseOptCmsDecision;
+
+    //cm_case_report_alert_date
+    @Column(name = "cm_case_report_alert_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseReportAlertDate;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1031,4 +1170,212 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     }
 
     public void setCaseReportDate(Date caseReportDate) { this.caseReportDate = caseReportDate; }
+
+    public String getCaseStateMedicaidAgency()
+    {
+        return caseStateMedicaidAgency;
+    }
+
+    public void setCaseStateMedicaidAgency(String caseStateMedicaidAgency) { this.caseStateMedicaidAgency = caseStateMedicaidAgency; }
+
+
+    public String getCaseTerminationType()
+    {
+        return caseTerminationType;
+    }
+    public void setCaseTerminationType(String caseTerminationType) { this.caseTerminationType = caseTerminationType; }
+
+    public Date getCaseTerminationEffDate()
+    {
+        return caseTerminationEffDate;
+    }
+    public void setCaseTerminationEffDate(Date caseTerminationEffDate) { this.caseTerminationEffDate = caseTerminationEffDate; }
+
+
+
+    public Date getCaseEnrollmentBarExpDate()
+    {
+        return caseEnrollmentBarExpDate;
+    }
+    public void setCaseEnrollmentBarExpDate(Date caseEnrollmentBarExpDate) { this.caseEnrollmentBarExpDate = caseEnrollmentBarExpDate; }
+
+    public Date getCaseReinsTerminationEffDate()
+    {
+        return caseReinsTerminationEffDate;
+    }
+    public void setCaseReinsTerminationEffDate(Date caseReinsTerminationEffDate) { this.caseReinsTerminationEffDate = caseReinsTerminationEffDate; }
+
+    public Date getCaseRecindTerminationEffDate()
+    {
+        return caseRecindTerminationEffDate;
+    }
+    public void setCaseRecindTerminationEffDate(Date caseRecindTerminationEffDate) { this.caseRecindTerminationEffDate = caseRecindTerminationEffDate; }
+
+    public String getCaseAppealsPeriodExpired()
+    {
+        return caseAppealsPeriodExpired;
+    }
+    public void setCaseAppealsPeriodExpired(String caseAppealsPeriodExpired) { this.caseAppealsPeriodExpired = caseAppealsPeriodExpired; }
+
+    public String getCaseTerminationReason()
+    {
+        return caseTerminationReason;
+    }
+    public void setCaseTerminationReason(String caseTerminationReason) { this.caseTerminationReason = caseTerminationReason; }
+
+    public String getCaseCorrespondenceAddress()
+    {
+        return caseCorrespondenceAddress;
+    }
+    public void setCaseCorrespondenceAddress(String caseCorrespondenceAddress) { this.caseCorrespondenceAddress = caseCorrespondenceAddress; }
+
+
+
+    //caseOrigRevAuth;
+    public String getCaseOrigRevAuth()
+    {
+        return caseOrigRevAuth;
+    }
+    public void setCaseOrigRevAuth(String caseOrigRevAuth) { this.caseOrigRevAuth = caseOrigRevAuth; }
+
+
+    //caseReviseReissueEl;
+    public String getCaseReviseReissueEl()
+    {
+        return caseReviseReissueEl;
+    }
+    public void setCaseReviseReissueEl(String caseReviseReissueEl) { this.caseReviseReissueEl = caseReviseReissueEl; }
+
+
+    // caseOrigRevLetterDate;
+    public Date getCaseOrigRevLetterDate()
+    {
+        return caseOrigRevLetterDate;
+    }
+    public void setCaseOrigRevLetterDate(Date caseOrigRevLetterDate) { this.caseOrigRevLetterDate = caseOrigRevLetterDate; }
+
+
+    public String getCaseReviseReissueOutcome()
+    {
+        return caseReviseReissueOutcome;
+    }
+    public void setCaseReviseReissueOutcome(String caseReviseReissueOutcome) { this.caseReviseReissueOutcome = caseReviseReissueOutcome; }
+
+
+    public Date getCaseEffectiveLetterDate()
+    {
+        return caseEffectiveLetterDate;
+    }
+    public void setCaseEffectiveLetterDate(Date caseEffectiveLetterDate) { this.caseEffectiveLetterDate = caseEffectiveLetterDate; }
+
+
+    public String getCaseAdminActionsOutcome()
+    {
+        return caseAdminActionsOutcome;
+    }
+    public void setCaseAdminActionsOutcome(String caseAdminActionsOutcome) { this.caseAdminActionsOutcome = caseAdminActionsOutcome; }
+
+    public String getCaseRevAuthCitedActionLetter()
+    {
+        return caseRevAuthCitedActionLetter;
+    }
+    public void setCaseRevAuthCitedActionLetter(String caseRevAuthCitedActionLetter) { this.caseRevAuthCitedActionLetter = caseRevAuthCitedActionLetter; }
+
+    public String getCaseLengthReEnrollBar()
+    {
+        return caseLengthReEnrollBar;
+    }
+    public void setCaseLengthReEnrollBar(String caseLengthReEnrollBar) { this.caseLengthReEnrollBar = caseLengthReEnrollBar; }
+
+
+    public String getCaseTaxonomy()
+    {
+        return caseTaxonomy;
+    }
+    public void setCaseTaxonomy(String caseTaxonomy) { this.caseTaxonomy = caseTaxonomy; }
+
+    public String getCaseApplicationType()
+    {
+        return caseApplicationType;
+    }
+    public void setCaseApplicationType(String caseApplicationType) { this.caseApplicationType = caseApplicationType; }
+
+    public String getCaseRevEffActionDate()
+    {
+        return caseRevEffActionDate;
+    }
+    public void setCaseRevEffActionDate(String caseRevEffActionDate) { this.caseRevEffActionDate = caseRevEffActionDate; }
+
+
+    public String getCaseConvictedIndividual()
+    {
+        return caseConvictedIndividual;
+    }
+    public void setCaseConvictedIndividual(String caseConvictedIndividual) { this.caseConvictedIndividual = caseConvictedIndividual; }
+
+    public String getCaseConvictedIndividualTin()
+    {
+        return caseConvictedIndividualTin;
+    }
+    public void setCaseConvictedIndividualTin(String caseConvictedIndividualTin) { this.caseConvictedIndividualTin = caseConvictedIndividualTin; }
+
+    public String getCasePrevCMSAnalyst()
+    {
+        return casePrevCMSAnalyst;
+    }
+    public void setCasePrevCMSAnalyst(String casePrevCMSAnalyst) { this.casePrevCMSAnalyst = casePrevCMSAnalyst; }
+
+    public String getCasePrevAnalyst()
+    {
+        return casePrevAnalyst;
+    }
+    public void setCasePrevAnalyst(String casePrevAnalyst) { this.casePrevAnalyst = casePrevAnalyst; }
+
+    public String getCaseNotActionableReason()
+    {
+        return caseNotActionableReason;
+    }
+    public void setCaseNotActionableReason(String caseNotActionableReason) { this.caseNotActionableReason = caseNotActionableReason; }
+
+    public String getCaseTenYearsConvDate()
+    {
+        return caseTenYearsConvDate;
+    }
+    public void setCaseTenYearsConvDate(String caseTenYearsConvDate) { this.caseTenYearsConvDate = caseTenYearsConvDate; }
+
+    //caseCmsAssignDate
+    public Date getCaseCmsAssignDate()
+    {
+        return caseCmsAssignDate;
+    }
+    public void setCaseCmsAssignDate(Date caseCmsAssignDate) { this.caseCmsAssignDate = caseCmsAssignDate; }
+
+    //caseRevreiActionDate
+    public Date getCaseRevreiActionDate()
+    {
+        return caseRevreiActionDate;
+    }
+    public void setCaseRevreiActionDate(Date caseRevreiActionDate) { this.caseRevreiActionDate = caseRevreiActionDate; }
+
+    //caseFinalOutActionDate
+    public Date getCaseFinalOutActionDate()
+    {
+        return caseFinalOutActionDate;
+    }
+    public void setCaseFinalOutActionDate(Date caseFinalOutActionDate) { this.caseFinalOutActionDate = caseFinalOutActionDate; }
+
+    //caseOptCmsDecision
+    public String getCaseOptCmsDecision()
+    {
+        return caseOptCmsDecision;
+    }
+    public void setCaseOptCmsDecision(String caseOptCmsDecision) { this.caseOptCmsDecision = caseOptCmsDecision; }
+
+   //caseReportAlertDate
+    public Date getCaseReportAlertDate()
+    {
+        return caseReportAlertDate;
+    }
+    public void setCaseReportAlertDate(Date caseReportAlertDate) { this.caseReportAlertDate = caseReportAlertDate; }
+
 }

@@ -25,6 +25,13 @@ angular.module('people').controller(
                         }
                     });
 
+                    $scope.idStates = '';
+                    ObjectLookupService.getLookupByLookupName('states').then(function (states) {
+                        console.log('idStates: ', $scope.idStates);
+                        console.log('idStates: ', JSON.stringify($scope.idStates));
+                        $scope.idStates = states;
+                    });
+
                     var gridHelper = new HelperUiGridService.Grid({
                         scope: $scope
                     });
@@ -50,6 +57,7 @@ angular.module('people').controller(
                     var onObjectInfoRetrieved = function(objectInfo) {
                         $scope.objectInfo = objectInfo;
                         $scope.gridOptions.data = $scope.objectInfo.identifications;
+                        console.log('$scope.objectInfo.identifications', JSON.stringify($scope.objectInfo.identifications));
                     };
 
                     ObjectLookupService.getIdentificationTypes().then(function(identificationTypes) {
@@ -68,7 +76,29 @@ angular.module('people').controller(
                             identificationType: '',
                             identificationNumber: '',
                             identificationIssuer: '',
-                            identificationYearIssued: ''
+                            identificationYearIssued: '',
+                            idStatus: '',
+                            idState: '',
+                            idExpirationDate: '',
+                            idGraceExpirationDate: '',
+                            idGraceExpirationDays: '',
+                            idAlertDate: '',
+                            idScreeningDate: '',
+                            idSanctionDate: '',
+                            idConvictionDate: '',
+                            idDocketRequestDate: '',
+                            idDocketResponseDate: '',
+                            idRoleCodeType: '',
+                            idExclusionType: '',
+                            idCaseType: '',
+                            idOffenseType: '',
+                            idProviderSupplierType: '',
+                            idProviderTinType: '',
+                            idQualifierSanction: '',
+                            idCaseNumber: '',
+                            idCourtName: '',
+                            idDocketStatus: ''
+
                         };
                         showModal(item, false);
                     };
@@ -79,14 +109,37 @@ angular.module('people').controller(
                             identificationID: rowEntity.identificationID,
                             identificationType: rowEntity.identificationType,
                             identificationNumber: rowEntity.identificationNumber,
-                            identificationIssuer: rowEntity.identificationIssuer
+                            identificationIssuer: rowEntity.identificationIssuer,
+                            idStatus: rowEntity.idStatus,
+                            idState: rowEntity.idState,
+                            idExpirationDate: rowEntity.idExpirationDate,
+                            idGraceExpirationDays: rowEntity.idGraceExpirationDays,
+                            idRoleCodeType: rowEntity.idRoleCodeType,
+                            idExclusionType: rowEntity.idExclusionType,
+                            idCaseType: rowEntity.idCaseType,
+                            idOffenseType: rowEntity.idOffenseType,
+                            idProviderSupplierType:  rowEntity.idProviderSupplierType,
+                            idProviderTinType:  rowEntity.idProviderTinType,
+                            idQualifierSanction:  rowEntity.idQualifierSanction,
+                            idCaseNumber:  rowEntity.idCaseNumber,
+                            idCourtName:  rowEntity.idCourtName,
+                            idDocketStatus:  rowEntity.idDocketStatus,
+                            idGraceExpirationDate: rowEntity.idGraceExpirationDate,
+                            idAlertDate: rowEntity.idAlertDate,
+                            idScreeningDate: rowEntity.idScreeningDate,
+                            idSanctionDate: rowEntity.idSanctionDate,
+                            idConvictionDate: rowEntity.idConvictionDate,
+                            idDocketRequestDate: rowEntity.idDocketRequestDate,
+                            idDocketResponseDate: rowEntity.idDocketResponseDate
+
                         };
 
                         if (Util.isEmpty(rowEntity.identificationYearIssued)) {
                             item.identificationYearIssued = '';
                         } else {
-                            item.identificationYearIssued = new Date(rowEntity.identificationYearIssued);
+                           item.identificationYearIssued = rowEntity.identificationYearIssued;
                         }
+
                         showModal(item, true);
                     };
 
@@ -105,7 +158,7 @@ angular.module('people').controller(
                         params.identification = identification || {};
                         params.isEdit = isEdit || false;
                         params.isDefault = $scope.isDefault(identification);
-
+                        params.idStates =  $scope.idStates;
                         var modalInstance = $modal.open({
                             animation: true,
                             templateUrl: 'modules/people/views/components/person-ids-modal.client.view.html',
@@ -132,6 +185,27 @@ angular.module('people').controller(
                             identification.identificationNumber = data.identification.identificationNumber;
                             identification.identificationIssuer = data.identification.identificationIssuer;
                             identification.identificationYearIssued = data.identification.identificationYearIssued;
+                            identification.idStatus = data.identification.idStatus,
+                            identification.idState = data.identification.idState,
+                            identification.idExpirationDate = data.identification.idExpirationDate;
+                            identification.idGraceExpirationDays = data.identification.idGraceExpirationDays,
+                            identification.idRoleCodeType = data.identification.idRoleCodeType,
+                            identification.idExclusionType = data.identification.idExclusionType,
+                            identification.idCaseType = data.identification.idCaseType,
+                            identification.idOffenseType = data.identification.idOffenseType,
+                            identification.idProviderSupplierType = data.identification.idProviderSupplierType,
+                            identification.idProviderTinType = data.identification.idProviderTinType,
+                            identification.idQualifierSanction = data.identification.idQualifierSanction,
+                            identification.idCaseNumber = data.identification.idCaseNumber,
+                            identification.idCourtName = data.identification.idCourtName,
+                            identification.idDocketStatus = data.identification.idDocketStatus,
+                            identification.idGraceExpirationDate = data.identification.idGraceExpirationDate,
+                            identification.idAlertDate = data.identification.idAlertDate,
+                            identification.idScreeningDate = data.identification.idScreeningDate,
+                            identification.idSanctionDate = data.identification.idSanctionDate,
+                            identification.idConvictionDate = data.identification.idConvictionDate,
+                            identification.idDocketRequestDate = data.identification.idDocketRequestDate,
+                            identification.idDocketResponseDate = data.identification.idDocketResponseDate
 
                             if (!data.isEdit) {
                                 $scope.objectInfo.identifications.push(identification);

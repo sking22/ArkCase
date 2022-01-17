@@ -19,6 +19,21 @@
                         <!--<small class="text-muted" translate>documentDetails.name</small>-->
                     </div>
                     <div class="col-sm-6 col-md-2">
+                        <div class="h4 font-bold">{{caseInfo.title}}
+                        </div>
+                        <small class="text-muted" translate>Case Number</small>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                        <div class="h4 font-bold">{{caseInfo.acmObjectOriginator.person.givenName}} {{caseInfo.acmObjectOriginator.person.familyName }}
+                        </div>
+                        <small class="text-muted" translate>Provider Name</small>
+                    </div>
+                    <div ng-show="caseInfo.acmObjectOriginator.person.legalBusinessName"  class="col-sm-6 col-md-2">
+                        <div class="h4 font-bold">{{caseInfo.acmObjectOriginator.person.legalBusinessName}}
+                        </div>
+                        <small class="text-muted" translate>Legal Business Name</small>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
                         <div class="h4 font-bold">{{::ecmFile.creator | mapKeyValue: userList:'object_id_s':'name' || 'common.value.unknown'
                             | translate}}
                         </div>

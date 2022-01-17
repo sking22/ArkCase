@@ -14,7 +14,7 @@ angular.module('cases').controller(
             $scope.enableTitle = false;
             $scope.isPickExistingPerson = false;
             $scope.primaryAddressIndex = 0;
-
+            $scope.maxDate = moment.utc(new Date());
             $scope.receivedDate = new Date();
 
             var descriptionDocumentType = "Description Document";
@@ -94,7 +94,7 @@ angular.module('cases').controller(
             var organizationTypeLookup = ObjectLookupService.getPersonOrganizationRelationTypes();
             var promiseConfigTitle = AdminObjectTitleConfigurationService.getObjectTitleConfiguration();
             var personTypesLookup = ObjectLookupService.getPersonTypes(ObjectService.ObjectTypes.CASE_FILE, true);
-            var getPortal = AdminPortalConfigurationService.getPortalConfig();
+            var getPortal = AdminPortalConfigurationService.getPortalConfigUser();
             var getCountries = ObjectLookupService.getCountries();
             var getAddressTypes = ObjectLookupService.getAddressTypes();
             var canadaProvinces = ObjectLookupService.getLookupByLookupName('canadaProvinces');
@@ -280,13 +280,6 @@ angular.module('cases').controller(
                 }
             };
 
-            $scope.receivedDateChanged = function () {
-                var todayDate = moment.utc().format("YYYY-MM-DDTHH:mm:ss.sss");
-                if (Util.isEmpty($scope.config.data.receivedDate) || moment($scope.config.data.receivedDate).isAfter(todayDate)) {
-                    $scope.config.data.receivedDate = todayDate;
-                }
-            };
-
             function openDuplicatePersonPicker(result) {
                 $scope.config.data.originator.person.defaultEmail.value = '';
                 $scope.confirmationEmail = '';
@@ -378,6 +371,15 @@ angular.module('cases').controller(
                 modalInstance.result.then(function (data) {
                     PersonInfoService.getPersonInfo(data.personId).then(function (person) {
                         $scope.setPerson(person);
+                        if(person.defaultOrganization != null) {
+                            $scope.organizationValue = person.defaultOrganization.organization.organizationValue;
+                            $scope.personPosition = person.defaultOrganization.organization.personAssociations[0].personToOrganizationAssociationType;
+                        } else {
+                            if(person.organizationAssociations[0] != null) {
+                                $scope.organizationValue = person.organizationAssociations[0].organization.organizationValue;
+                                $scope.personPosition = person.organizationAssociations[0].organization.personAssociations[0].personToOrganizationAssociationType;
+                            }
+                        }
                         $scope.existingPerson = angular.copy($scope.config.data.originator.person);
                     });
                 });
@@ -542,9 +544,9 @@ angular.module('cases').controller(
 
             };
 
-            function createNewPortalUser(personId) {
+            function createNewPortalUser(personId, requestId) {
 
-                RequestInfoService.saveNewPortalUser(personId, $scope.config.portal.portalId).then(function (response) {
+                RequestInfoService.saveNewPortalUser(personId, $scope.config.portal.portalId, requestId).then(function (response) {
                     if (response.registrationStatus === "REGISTRATION_EXISTS") {
                         MessageService.error($translate.instant('cases.newRequest.portalUser.message.error.exists'));
                     } else if (response.registrationStatus === "REGISTRATION_REJECTED") {
@@ -565,7 +567,7 @@ angular.module('cases').controller(
                     $scope.loadingIcon = "fa fa-floppy-o";
                     ObjectService.showObject(ObjectService.ObjectTypes.CASE_FILE, response.id);
                     if ($scope.config.data.createNewPortalUser) {
-                        createNewPortalUser(response.data.originator.person.id);
+                        createNewPortalUser(response.data.originator.person.id, response.data.id);
                     }
                 }, function (error) {
                     $scope.loading = false;
@@ -635,6 +637,16 @@ angular.module('cases').controller(
                         $scope.confirmationEmail = angular.copy($scope.config.data.originator.person.defaultEmail.value);
                     } else {
                         $scope.confirmationEmail = '';
+                    }
+
+                    if(person.defaultOrganization != null) {
+                        $scope.organizationValue = person.defaultOrganization.organization.organizationValue;
+                        $scope.personPosition = person.defaultOrganization.organization.personAssociations[0].personToOrganizationAssociationType;
+                    } else {
+                        if(person.organizationAssociations[0] != null) {
+                            $scope.organizationValue = person.organizationAssociations[0].organization.organizationValue;
+                            $scope.personPosition = person.organizationAssociations[0].organization.personAssociations[0].personToOrganizationAssociationType;
+                        }
                     }
                 }
             };

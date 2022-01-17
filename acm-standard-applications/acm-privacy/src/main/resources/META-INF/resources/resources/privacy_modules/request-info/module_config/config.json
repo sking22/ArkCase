@@ -791,6 +791,14 @@
                         {
                             "name": "Wyoming",
                             "id": "WY"
+                        },
+                        {
+                            "name": "MP",
+                            "id": "MP"
+                        },
+                        {
+                            "name": "GU",
+                            "id": "GU"
                         }
                     ]
                 },

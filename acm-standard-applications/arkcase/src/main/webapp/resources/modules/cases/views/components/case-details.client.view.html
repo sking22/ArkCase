@@ -1,9 +1,661 @@
 <div ng-controller="Cases.DetailsController">
+
+    <!--<div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+        id num: {{id.identificationNumber }}<br />
+        <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+               placeholder="{{ id.identificationNumber }}" >
+        <br />
+        {{id.identificationType}}<br />
+        <input type="text" class="input-md form-control" ng-model="id.identificationType"
+          placeholder="{{ id.identificationType }}" >
+        <br />
+    </div>-->
+
+<!--    <div>TEST:  {{ currentUserProfile }}</div>-->
+
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a>Provider Information</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div  class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label >SSN/EIN</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'SSN/EIN' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>NPI</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'NPI' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>PTAN</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'PTAN' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>PECOS Enrollment ID</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 form-group">
+                            <label>PECOS Enrollment State</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'PECOS Enrollment ID'">
+                                    <select class="form-control" ng-model="id.idState" >
+                                        <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
+                                            {{option.value | translate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 form-group"></div>
+                        <div class="col-sm-4 form-group">
+                            <label>PECOS Enrollment Status</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.idStatus"
+                                           placeholder="{{ id.idStatus }}" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label >Contractor ID</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'Contractor ID/Contractor Name' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Specialty</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerSpecialty"
+                                   placeholder="{{  objectInfo.acmObjectOriginator.person.providerSpecialty }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Taxonomy</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseTaxonomy"
+                                   placeholder="{{ objectInfo.caseTaxonomy }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Application Type</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
+                                   placeholder="{{ objectInfo.caseApplicationType }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Legal Business Name</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.legalBusinessName"
+                                   placeholder="{{ objectInfo.acmObjectOriginator.person.legalBusinessName }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Legal Business Name EIN</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerLbnEin"
+                                   placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Report Alert Date</label>
+                            <date-time-picker
+                                    data="objectInfo.caseReportAlertDate"
+                                    property="objectInfo.caseReportAlertDate"
+                                    date-picker-id="objectInfo.caseReportAlertDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseCriminal">Criminal Action</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseCriminal" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Name of Convicted Individual</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
+                                   placeholder="{{ objectInfo.caseConvictedIndividual }}" >
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Convicted Individual's TIN</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualTin"
+                                   placeholder="{{ objectInfo.caseConvictedIndividualTin }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Federal or State Crime (Case Type)</label>
+                                <input  type="text"
+                                        class="input-md form-control"
+                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
+                                        placeholder="{{ id.idCaseType }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Case Number</label>
+                                <input type="text" class="input-md form-control"
+                                       ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber"
+                                       placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Offense Type</label>
+                                    <input type="text"
+                                           class="input-md form-control"
+                                           ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType"
+                                           placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Conviction Date:</label>
+                                <date-time-picker
+                                        data="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
+                                        property="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
+                                        date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
+                                        time-format-disabled="true">
+                                </date-time-picker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label >10 Years from Conviction Date</label>
+                            <input type="text" class="input-md form-control" placeholder="{{ objectInfo.caseTenYearsConvDate }}" disabled>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Court Name</label>
+                                <input type="text"
+                                       class="input-md form-control"
+                                       ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName"
+                                       placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Docket Request Date</label>
+                                <date-time-picker
+                                      data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                      time-format-disabled="true">
+                                </date-time-picker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Docket Response Date</label>
+                                <date-time-picker
+                                      data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
+                                      time-format-disabled="true">
+                                </date-time-picker>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Docket Status</label>
+                                <input  type="text" class="input-md form-control"
+                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus"
+                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus }}" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="panel panel-success panel-grid">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSanction">Sanction Action</a>
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                    <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                </div>
+            </h4>
+        </div>
+        <div id="collapseSanction" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associate First Name</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateFirstName"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateFirstName }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associate Last Name</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLastName"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateLastName }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associate Legal Business Name</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associate NPI</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateNPI"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateNPI }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associated TIN</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTIN"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateTIN }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associated TIN Type</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTinType"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateTinType }}" >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label >Exclusion Type/Sanction Code</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateSanctionCode"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionCode }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Associate Role in Affiliated Enrollment</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateRole"
+                               placeholder="{{ objectInfo.acmObjectOriginator.person.associateRole }}" >
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sanctioned Date</label>
+                        <date-time-picker data="objectInfo.acmObjectOriginator.person.associateSanctionDate" property="objectInfo.acmObjectOriginator.person.associateSanctionDate"
+                        date-picker-id="objectInfo.acmObjectOriginator.person.associateSanctionDate" time-format-disabled="true"></date-time-picker>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseLicense">License Action</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseLicense" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>License Number</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                           placeholder="{{ id.identificationNumber }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>License Status</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.idStatus"
+                                           placeholder="{{ id.idStatus }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>License Expiration Date</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number' ">
+                                    <date-time-picker data="id.idExpirationDate"
+                                                      property="id.idExpirationDate"
+                                                      date-picker-id="id.idExpirationDate"
+                                                      time-format-disabled="true">
+                                    </date-time-picker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>License Qualifier/Sanction</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number' ">
+                                    <input type="text" class="input-md form-control" ng-model="id.idQualifierSanction"
+                                           placeholder="{{ id.idQualifierSanction }}" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>License Alert Date</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number' ">
+                                    <date-time-picker data="id.idAlertDate"
+                                                      property="id.idAlertDate"
+                                                      date-picker-id="id.idAlertDate"
+                                                      time-format-disabled="true">
+                                    </date-time-picker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Reporting Week</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseReportingWeek"
+                                   placeholder="{{ objectInfo.caseReportingWeek }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 form-group">
+                            <label>License State</label>
+                            <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
+                                <div ng-if="id.identificationType === 'License Number'">
+                                    <select class="form-control" ng-model="id.idState" >
+                                        <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
+                                            {{option.value | translate}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpt">OPT Medicaid Action</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseOpt" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>State Medicaid Agency</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseStateMedicaidAgency"
+                                   placeholder="{{ objectInfo.caseStateMedicaidAgency }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Termination Type</label>
+                                <select class="form-control" ng-model="objectInfo.caseTerminationType" >
+                                    <option ng-repeat="option in caseTerminationTypes" placeholder="{{objectInfo.caseTerminationType}}" value="{{option.key}}">
+                                        {{option.value | translate}}
+                                    </option>
+                                </select>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Termination Effective Date</label>
+                            <date-time-picker data="objectInfo.caseTerminationEffDate" property="objectInfo.caseTerminationEffDate"
+                                              date-picker-id="objectInfo.caseTerminationEffDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Enrollment Bar Expiration Date</label>
+                            <date-time-picker data="objectInfo.caseEnrollmentBarExpDate" property="objectInfo.caseEnrollmentBarExpDate"
+                                              date-picker-id="objectInfo.caseEnrollmentBarExpDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Reinstated Termination Effective Date</label>
+                            <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
+                                              date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                         <div class="col-sm-4 form-group">
+                             <label>Rescinded Termination Effective Date</label>
+                             <date-time-picker data="objectInfo.caseRecindTerminationEffDate" property="objectInfo.caseRecindTerminationEffDate"
+                                               date-picker-id="objectInfo.caseRecindTerminationEffDate" time-format-disabled="true"></date-time-picker>
+                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Appeals Period Expired?</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseAppealsPeriodExpired"
+                                   placeholder="{{ objectInfo.caseAppealsPeriodExpired }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Termination Reason</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
+                                   placeholder="{{ objectInfo.caseTerminationReason }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Correspondence Address</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseCorrespondenceAddress"
+                                   placeholder="{{ objectInfo.caseCorrespondenceAddress }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>CMS Assign Date</label>
+                            <date-time-picker data="objectInfo.caseCmsAssignDate" property="objectInfo.caseCmsAssignDate"
+                                              date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseRevise">Revise & Reissue Revocation</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseRevise" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Original Revocation Authorities</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseOrigRevAuth"
+                                   placeholder="{{ objectInfo.caseOrigRevAuth }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Date of Original Revocation Letter</label>
+                            <date-time-picker data="objectInfo.caseOrigRevLetterDate" property="objectInfo.caseOrigRevLetterDate"
+                                              date-picker-id="objectInfo.caseOrigRevLetterDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Revise & Reissue Eligible (Y/N)</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueEl"
+                                   placeholder="{{ objectInfo.caseReviseReissueEl }}" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Effective Date</label>
+                            <date-time-picker data="objectInfo.caseEffectiveLetterDate" property="objectInfo.caseEffectiveLetterDate"
+                                              date-picker-id="objectInfo.caseEffectiveLetterDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Outcome of Revise & Reissue</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueOutcome"
+                                   placeholder="{{ objectInfo.caseReviseReissueOutcome }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Action Date</label>
+                            <date-time-picker data="objectInfo.caseRevreiActionDate" property="objectInfo.caseRevreiActionDate"
+                                              date-picker-id="objectInfo.caseRevreiActionDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="panel panel-success panel-grid">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a>Not Actionable Reason</a>
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                    <button  class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                </div>
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-8 form-check">
+                        <select class="form-control" ng-model="objectInfo.caseNotActionableReason" >
+                            <option ng-repeat="option in caseNAR" placeholder="{{objectInfo.caseNotActionableReason}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="panel panel-success panel-grid">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a>Final Outcome</a>
+                    <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
+                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Recommended Outcome of Admin Actions</label>
+                            <select class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
+                                <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseAdminActionsOutcome}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+                        </div>
+                        <div class="col-sm-4 form-check">
+                            <label>OPT CMS Decision</label>
+                            <select class="form-control" ng-model="objectInfo.caseOptCmsDecision" >
+                                <option ng-repeat="option in caseOptCmsDecisionTypes" placeholder="{{objectInfo.caseOptCmsDecision}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Revocation Authorities Cited in Action Letter</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevAuthCitedActionLetter"
+                                   placeholder="{{ objectInfo.caseRevAuthCitedActionLetter }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Length of Re-Enrollment Bar</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseLengthReEnrollBar"
+                                   placeholder="{{ objectInfo.caseLengthReEnrollBar }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Effective Date</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
+                                   placeholder="{{ objectInfo.caseRevEffActionDate }}" >
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Action Date</label>
+                            <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
+                                              date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
             <div class="panel-title">
                 <span translate>cases.comp.details.caseSummary.title</span>
-                <div class="pull-right">
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveDetailsSummary()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
@@ -16,13 +668,15 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <span translate>cases.comp.details.title</span>
-                <div class="pull-right">
+                <div ng-hide="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM'" class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
         </div>
         <div class="panel-body remove-margin-bottom-from-summernote">
-            <mention-summernote ng-model="objectInfo.details" params="paramsSummernote" focus="true"></mention-summernote>
+            <mention-summernote ng-model="objectInfo.details" params="paramsSummernote"></mention-summernote>
         </div>
     </div>
+
+
 </div>

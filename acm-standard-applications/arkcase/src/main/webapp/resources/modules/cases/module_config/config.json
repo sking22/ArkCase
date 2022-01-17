@@ -42,10 +42,75 @@
         "pageSize": 32,
         "filters": [
             {
+                "desc": "cases.tree.filters.iAmAssigned",
+                "name": "my-assigned-cases",
+                "value": "fq=assignee_s:${user}",
+                "default": true
+            },
+            {
                 "desc": "cases.tree.filters.opened",
                 "name": "all-open-cases",
-                "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CLOSED",
-                "default": true
+                "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CASE_CLOSED"
+            },
+            {
+                "desc": "All In Process",
+                "name": "all-in-process-cases",
+                "value": "fq={!term f=status_s}In Process"
+            },
+            {
+                "desc": "All Documentation Requested",
+                "name": "all-documentation-requested-cases",
+                "value": "fq={!term f=status_s}Documentation Requested"
+            },
+            {
+                "desc": "All Review Approved",
+                "name": "all-review-approved-cases",
+                "value": "fq={!term f=status_s}Review Approved"
+            },
+            {
+                "desc": "All Review Approved II",
+                "name": "all-review-approved-ii-cases",
+                "value": "fq={!term f=status_s}Review Approved II"
+            },
+            {
+                "desc": "All Returned For Revision",
+                "name": "all-returned-for-revision-cases",
+                "value": "fq={!term f=status_s}Returned For Revision"
+            },
+            {
+                "desc": "All Returned For Revision II",
+                "name": "all-returned-for-revision-ii-cases",
+                "value": "fq={!term f=status_s}Returned For Revision II"
+            },
+            {
+                "desc": "All Ready for Review",
+                "name": "all-ready-cases",
+                "value": "fq={!term f=status_s}Ready For Review"
+            },
+            {
+                "desc": "All Ready for Review II",
+                "name": "all-ready-ii-cases",
+                "value": "fq={!term f=status_s}Ready For Review II"
+            },
+            {
+                "desc": "All Submitted to CMS",
+                "name": "all-submitted-cms-cases",
+                "value": "fq={!term f=status_s}Submitted to CMS"
+            },
+            {
+                "desc": "All CMS Requested Edits",
+                "name": "all-cms-requested-edit-cases",
+                "value": "fq={!term f=status_s}CMS Requested Edits"
+            },
+            {
+                "desc": "All Resubmitted to CMS",
+                "name": "all-resubmitted-cms-cases",
+                "value": "fq={!term f=status_s}Resubmitted To CMS"
+            },
+            {
+                "desc": "All CMS Approved",
+                "name": "all-cms-approved-cases",
+                "value": "fq={!term f=status_s}CMS Approved"
             },
             {
                 "desc": "cases.tree.filters.iHaveCreated",
@@ -53,19 +118,9 @@
                 "value": "fq={!field f=author}${user}"
             },
             {
-                "desc": "cases.tree.filters.iAmAssigned",
-                "name": "my-assigned-cases",
-                "value": "fq=assignee_s:${user}"
-            },
-            {
-                "desc": "cases.tree.filters.iAmFollowing",
-                "name": "my-following-cases",
-                "value": "fq={!join from=parent_object_id_s to=object_id_s}(owner_s:${user} AND object_type_s:SUBSCRIPTION)"
-            },
-            {
                 "desc": "cases.tree.filters.closed",
                 "name": "all-closed-cases",
-                "value": "fq=status_s:CLOSED"
+                "value": "fq=status_s:CASE_CLOSED"
             },
             {
                 "desc": "cases.tree.filters.noFilter",
@@ -75,6 +130,12 @@
         ],
         "sorters": [
             {
+                "desc": "cases.tree.sorters.nameAsc",
+                "name": "sort-by-name-asc",
+                "value": "name ASC",
+                "default": true
+            },
+            {
                 "desc": "cases.tree.sorters.dateAsc",
                 "name": "sort-date-asc",
                 "value": "create_tdt ASC"
@@ -82,8 +143,7 @@
             {
                 "desc": "cases.tree.sorters.dateDesc",
                 "name": "sort-date-desc",
-                "value": "create_tdt DESC",
-                "default": true
+                "value": "create_tdt DESC"
             },
             {
                 "desc": "cases.tree.sorters.idAsc",
@@ -94,11 +154,6 @@
                 "desc": "cases.tree.sorters.idDesc",
                 "name": "sort-case-id-desc",
                 "value": "object_id_s DESC"
-            },
-            {
-                "desc": "cases.tree.sorters.nameAsc",
-                "name": "sort-by-name-asc",
-                "value": "name ASC"
             },
             {
                 "desc": "cases.tree.sorters.dueDateAsc",
@@ -141,10 +196,7 @@
                     "time",
                     "cost",
                     "tags",
-                    "calendar",
-                    "suggestedCases",
-                    "approvalRouting",
-                    "billing"
+                    "suggestedCases"
                 ]
             },
             {
@@ -169,6 +221,9 @@
                 "icon": "fa fa-building",
                 "components": [
                     "organizations"
+                ],
+                "requiredPrivileges": [
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -185,6 +240,9 @@
                 "icon": "fa fa-users",
                 "components": [
                     "participants"
+                ],
+                "requiredPrivileges": [
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -201,6 +259,9 @@
                 "icon": "fa fa-check-circle",
                 "components": [
                     "tasks"
+                ],
+                "requiredPrivileges": [
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -209,6 +270,9 @@
                 "icon": "fa fa-exchange",
                 "components": [
                     "references"
+                ],
+                "requiredPrivileges": [
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -217,28 +281,9 @@
                 "icon": "fa fa-bell-o",
                 "components": [
                     "history"
-                ]
-            },
-            {
-                "type": "p/CASE_FILE/time",
-                "label": "cases.tree.nodeTypes.time.label",
-                "icon": "fa fa-clock-o",
-                "components": [
-                    "time"
                 ],
                 "requiredPrivileges": [
-                    "acmListBillingItemsPrivilege"
-                ]
-            },
-            {
-                "type": "p/CASE_FILE/cost",
-                "label": "cases.tree.nodeTypes.cost.label",
-                "icon": "fa fa-money",
-                "components": [
-                    "cost"
-                ],
-                "requiredPrivileges": [
-                    "acmListBillingItemsPrivilege"
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -247,14 +292,9 @@
                 "icon": "fa fa-tags",
                 "components": [
                     "tags"
-                ]
-            },
-            {
-                "type": "p/CASE_FILE/calendar",
-                "label": "cases.tree.nodeTypes.calendar.label",
-                "icon": "fa fa-calendar",
-                "components": [
-                    "calendar"
+                ],
+                "requiredPrivileges": [
+                    "splitCaseFilePrivilege"
                 ]
             },
             {
@@ -263,25 +303,6 @@
                 "icon": "fa fa-files-o",
                 "components": [
                     "suggestedCases"
-                ]
-            },
-            {
-                "type": "p/CASE_FILE/apr",
-                "label": "cases.tree.nodeTypes.approvalRouting.label",
-                "icon": "fa fa-sort-amount-desc",
-                "components": [
-                    "approvalRouting"
-                ]
-            },
-            {
-                "type": "p/CASE_FILE/billing",
-                "label": "cases.tree.nodeTypes.billing.label",
-                "icon": "fa fa-pencil-square-o",
-                "components": [
-                    "billing"
-                ],
-                "requiredPrivileges": [
-                    "acmListBillingItemsPrivilege"
                 ]
             },
             {
@@ -517,10 +538,6 @@
                             "lookup": "userFullNames"
                         }
                     ]
-                },
-                {
-                    "id": "calendar",
-                    "type": "component"
                 },
                 {
                     "id": "approvalRouting",
@@ -1188,14 +1205,6 @@
             "filterName": "Object Type"
         },
         {
-            "id": "calendar",
-            "title": "cases.comp.calendar.title",
-            "icon": "fa fa-calendar",
-            "enabled": true,
-            "configurable": true,
-            "type": "empty"
-        },
-        {
             "id": "merge",
             "title": "cases.comp.merge.title",
             "enabled": "true",
@@ -1634,16 +1643,52 @@
                     "headerCellFilter": "translate"
                 },
                 {
-                    "name": "type",
-                    "displayName": "cases.comp.suggestedCases.table.columns.referenceType",
+                    "name": "firstName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.firstName",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ grid.appScope.getObjectTypeValue(row.entity.type) | translate }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerFirstName }}</div>"
                 },
                 {
-                    "name": "modifiedDate",
-                    "displayName": "cases.comp.suggestedCases.table.columns.modified",
+                    "name": "lastName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.lastName",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modifiedDate | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLastName }}</div>"
+                },
+                {
+                    "name": "legalBusinessName",
+                    "displayName": "cases.comp.suggestedCases.table.columns.legalBusinessName",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLegalBusinessName }}</div>"
+                },
+                {
+                    "name": "ssn",
+                    "displayName": "cases.comp.suggestedCases.table.columns.ssn",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerSsn }}</div>"
+                },
+                {
+                    "name": "npi",
+                    "displayName": "cases.comp.suggestedCases.table.columns.npi",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerNpi }}</div>"
+                },
+                {
+                    "name": "convnpi",
+                    "displayName": "cases.comp.suggestedCases.table.columns.convnpi",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_convicted_ind_tin_lcs }}</div>"
+                },
+                {
+                    "name": "sanctin",
+                    "displayName": "cases.comp.suggestedCases.table.columns.sanctin",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_provider_associated_tin }}</div>"
+                },
+                {
+                    "name": "sancnpi",
+                    "displayName": "cases.comp.suggestedCases.table.columns.sancnpi",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_provider_associated_npi }}</div>"
                 },
                 {
                     "name": "status",

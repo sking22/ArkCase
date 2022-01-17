@@ -31,20 +31,13 @@ import com.armedia.acm.core.AcmObject;
 import com.armedia.acm.data.AcmEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -54,6 +47,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "acm_identification")
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "className", defaultImpl = Identification.class)
+@DiscriminatorColumn(name = "cm_class_name", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("com.armedia.acm.plugins.person.model.Identification")
 @JsonIdentityInfo(generator = JSOGGenerator.class)
 public class Identification implements Serializable, AcmEntity, AcmObject
 {
@@ -130,7 +126,6 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Column(name = "cm_id_role_code_type")
     private String idRoleCodeType;
 
-
     // Screening Date cm_id_screening_date
     @Column(name = "cm_id_screening_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -154,10 +149,10 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Column(name = "cm_id_offense_type")
     private String idOffenseType;
 
-    // Disposition Date cm_id_disposition_date
-    @Column(name = "cm_id_disposition_date")
+    // Disposition Date cm_id_conv_date
+    @Column(name = "cm_id_conv_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date idDispositionDate;
+    private Date idConvictionDate;
 
     // Case Number  cm_id_case_number
     @Column(name = "cm_id_case_number")
@@ -193,6 +188,8 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Column(name = "cm_id_provider_tin_type")
     private String idProviderTinType;
 
+    @Column(name = "cm_class_name")
+    private String className = getClass().getName();
 
     @Override
     public Date getCreated()
@@ -338,12 +335,12 @@ public class Identification implements Serializable, AcmEntity, AcmObject
 
     public void setIdOffenseType(String idOffenseType) { this.idOffenseType = idOffenseType; }
 
-    public Date getIdDispositionDate()
+    public Date getIdConvictionDate()
     {
-        return idDispositionDate;
+        return idConvictionDate;
     }
 
-    public void setIdDispositionDate(Date idDispositionDate) { this.idDispositionDate = idDispositionDate; }
+    public void setIdConvictionDate(Date idConvictionDate) { this.idConvictionDate = idConvictionDate; }
 
     public String getIdCaseNumber()
     {
@@ -466,5 +463,15 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     public Long getId()
     {
         return getIdentificationID();
+    }
+
+    public String getClassName()
+    {
+        return className;
+    }
+
+    public void setClassName(String className)
+    {
+        this.className = className;
     }
 }

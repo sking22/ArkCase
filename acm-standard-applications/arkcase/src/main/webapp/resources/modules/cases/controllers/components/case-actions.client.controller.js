@@ -72,6 +72,7 @@ angular.module('cases').controller(
                     });
 
                     var onObjectInfoRetrieved = function(objectInfo) {
+                   // console.log();
                         $scope.restricted = objectInfo.restricted;
                         $scope.showBtnChildOutcomes = false;
 
@@ -110,6 +111,7 @@ angular.module('cases').controller(
                         $scope.changeCaseStatusParams = {
                             caseId: objectInfo.id,
                             caseNumber: objectInfo.caseNumber,
+                            title: objectInfo.title,
                             status: objectInfo.status
                         };
 
@@ -186,8 +188,71 @@ angular.module('cases').controller(
                         });
 
                         modalInstance.result.then(function(data) {
-                            console.log(data);
-                            $scope.refresh();
+                       // $scope.refresh();
+                           // console.log("case change modal --- ", JSON.stringify(data));
+
+                            if (data.status === "New") {
+                                ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+
+                            } else if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
+                              $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                              ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                              ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+
+                            } else if (data.status === "Ready For Review" || data.status === "Ready For Review II") {
+                                 $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                                 ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
+                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+
+                            } else if (data.status === "Returned For Revision" || data.status === "OPT Case - Non-Actionable"
+                                        || data.status === "Returned For Revision II" ) {
+                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+
+                            } else if ( data.status === "NON-OPT Case - Non-Actionable" ) {
+                               //assign to system
+                               ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                               ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                            }
+                            else  if (data.status === "Review Approved" || data.status === "Review Approved II" ) {
+                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                            } else if (data.status === "Submitted to CMS" || data.status === "Submitted To CMS II"  ) {
+                                $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                                ObjectModelService.setAssignee($scope.objectInfo, 'cmsassignmentuser@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
+
+                            } else if (data.status === "Resubmitted To CMS") {
+                               //The CMS analyst who is assigned the case
+                               ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevCMSAnalyst);
+                               ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
+
+                            } else if (data.status === "CMS Pending- On Hold" ){
+                                ObjectModelService.setAssignee($scope.objectInfo, 'cms_testaccount@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
+
+                            } else if (data.status === "CMS Requested Edits" || data.status === "CMS Approved") {
+                                $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                                ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+
+                            } else if (data.status === "CASE_CLOSED" || data.status === "Audit N/A") {
+                                  ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
+                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+
+                            } else if (data.status === "Audit Assigned"  || data.status === "Audit Completed") {
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
+                            }
+
+                            $scope.objectInfo.status = data.status;
+
+                            var caseInfo = Util.omitNg($scope.objectInfo);
+                            CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                                //success
+                                $scope.refresh();
+                            });
+
                         }, function() {
                             console.log("error");
                         });

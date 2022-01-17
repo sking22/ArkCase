@@ -27,10 +27,7 @@ package com.armedia.acm.services.suggestion.model;
  * #L%
  */
 
-import com.armedia.acm.services.suggestion.util.JsonDateSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class SuggestedObject
 {
@@ -40,6 +37,8 @@ public class SuggestedObject
         private String fileId;
 
         private String fileName;
+
+        private LocalDateTime madePublicDate;
 
         public String getFileId()
         {
@@ -60,6 +59,17 @@ public class SuggestedObject
         {
             this.fileName = fileName;
         }
+
+        public LocalDateTime getMadePublicDate()
+        {
+            return madePublicDate;
+        }
+
+        public void setMadePublicDate(LocalDateTime madePublicDate)
+        {
+            this.madePublicDate = madePublicDate;
+        }
+
     }
 
     public Long id;
@@ -77,6 +87,32 @@ public class SuggestedObject
     private String modifiedDate;
 
     private File file;
+
+    private String providerFirstName;
+
+    private String providerLastName;
+
+    private String providerLegalBusinessName;
+
+    private String providerSsn;
+
+    private String providerNpi;
+
+    public String getProviderSsn() {
+        return providerSsn;
+    }
+
+    public void setProviderSsn(String providerSsn) {
+        this.providerSsn = providerSsn;
+    }
+
+    public String getProviderNpi() {
+        return providerNpi;
+    }
+
+    public void setProviderNpi(String providerNpi) {
+        this.providerNpi = providerNpi;
+    }
 
     public Long getId()
     {
@@ -156,5 +192,29 @@ public class SuggestedObject
     public void setFile(File file)
     {
         this.file = file;
+    }
+
+    public String getProviderFirstName() {
+        return providerFirstName;
+    }
+
+    public void setProviderFirstName(String providerFirstName) {
+        this.providerFirstName = providerFirstName;
+    }
+
+    public String getProviderLastName() {
+        return providerLastName;
+    }
+
+    public void setProviderLastName(String providerLastName) {
+        this.providerLastName = providerLastName;
+    }
+
+    public String getProviderLegalBusinessName() {
+        return providerLegalBusinessName;
+    }
+
+    public void setProviderLegalBusinessName(String providerLegalBusinessName) {
+        this.providerLegalBusinessName = providerLegalBusinessName;
     }
 }

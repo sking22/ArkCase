@@ -1,6 +1,6 @@
 <div class="input-group">
     <input class="form-control" ng-click="toggleEditable()"
-            ng-value="today" />
+           ng-value="today" />
 
     <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="toggleEditable()"><i class="fa fa-calendar"></i></button>
@@ -9,6 +9,10 @@
 
 <div ng-show="editable" class="date-picker-popover">
     <input type="text" id="{{datePickerId}}" />
+    <div  ng-if="timeFormatDisabled !== 'true'">
+        <br />
+    </div>
+
     <span>
         <button ng-show="editable" type="button" class="btn btn-primary btn-sm" title="Submit" ng-mouseup="saveDate()"
                 ng-click="afterSave({dateType:property})">
@@ -19,3 +23,17 @@
         </button>
     </span>
 </div>
+
+<!--
+<div ng-if="timeFormatDisabled" ng-show="editable" class="date-picker-popover">
+    <input type="text" id="{{datePickerId}}" />
+    <span>
+        <button ng-show="editable" type="button" class="btn btn-primary btn-sm" title="Submit" ng-mouseup="saveDate()"
+                ng-click="afterSave({dateType:property})">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button ng-show="editable" type="button" class="btn btn-default btn-sm" title="Cancel" ng-click="cancel()">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </span>
+</div>-->

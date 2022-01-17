@@ -1731,11 +1731,10 @@ a.primary {
     padding: 7px;
     width: auto;
     display: block;
-    z-index: 3000;
-    white-space: nowrap;
-    right: 2.5%;
+    z-index: 9999;
+    white-space: normal;
+    left: 25%;
 }
-
 .date-picker-popover:before {
     content: "";
     width: 0;
@@ -1979,4 +1978,7 @@ select[multiple]:hover, select[size]:hover {
 
 .busy-indicator-container .waitPopup_msg {
     text-align: center;
+}
+.moment-picker {
+    z-index: 1080 !important;
 }

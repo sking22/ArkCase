@@ -2,9 +2,15 @@
 
 angular.module('document-details').controller(
         'DocumentDetailsController',
-        [ '$rootScope', '$scope', '$stateParams', '$sce', '$q', '$timeout', '$window', '$modal', 'TicketService', 'ConfigService', 'LookupService', 'SnowboundService', 'Authentication', 'EcmService', 'Helper.LocaleService', 'Admin.TranscriptionManagementService', 'MessageService', 'UtilService', 'Util.TimerService',
-            'Object.LockingService', 'ObjectService', '$log', 'Dialog.BootboxService', '$translate', 'ArkCaseCrossWindowMessagingService', 'Object.LookupService', 'Case.InfoService', 'FileEditingEnabled',
-            function ($rootScope, $scope, $stateParams, $sce, $q, $timeout, $window, $modal, TicketService, ConfigService, LookupService, SnowboundService, Authentication, EcmService, LocaleHelper, TranscriptionManagementService, MessageService, Util, UtilTimerService, ObjectLockingService, ObjectService, $log, DialogService, $translate, ArkCaseCrossWindowMessagingService, ObjectLookupService, CaseInfoService, FileEditingEnabled) {
+        [ '$rootScope', '$scope', '$stateParams', '$sce', '$q', '$timeout', '$window', '$modal', 'TicketService', 'ConfigService', 'LookupService',
+             'SnowboundService', 'Authentication', 'EcmService', 'Helper.LocaleService', 'Admin.TranscriptionManagementService', 'MessageService', 'UtilService', 'Util.TimerService',
+            'Object.LockingService', 'ObjectService', '$log', 'Dialog.BootboxService', '$translate', 'ArkCaseCrossWindowMessagingService', 'Object.LookupService', 'Case.InfoService',
+            'FileEditingEnabled',
+            function (
+            $rootScope, $scope, $stateParams, $sce, $q, $timeout, $window, $modal, TicketService, ConfigService, LookupService,
+            SnowboundService, Authentication, EcmService, LocaleHelper, TranscriptionManagementService, MessageService, Util,
+            UtilTimerService, ObjectLockingService, ObjectService, $log, DialogService, $translate,
+            ArkCaseCrossWindowMessagingService, ObjectLookupService, CaseInfoService, FileEditingEnabled, HelperObjectBrowserService) {
 
                 new LocaleHelper.Locale({
                     scope: $scope
@@ -357,6 +363,8 @@ angular.module('document-details').controller(
 
                         $scope.transcriptionTabActive = $scope.showVideoPlayer && $scope.transcribeEnabled;
                         $scope.transcriptionTabViewEnabled = $scope.transcriptionTabActive;
+                        console.log("$scope.ecmFile ", $scope.ecmFile);
+                        console.log("$scope.objectInfo ",  $scope.objectInfo);
                     });
 
                     $scope.onPlayerReady = function(API) {
@@ -401,7 +409,6 @@ angular.module('document-details').controller(
                         }, function(errorMessage) {
                             MessageService.error(errorMessage.data);
                         });
-
                     };
 
                     // Release editing lock on window unload, if acquired

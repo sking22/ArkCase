@@ -31,6 +31,7 @@ import com.armedia.acm.services.search.exception.SolrException;
 import com.armedia.acm.services.search.model.solr.SolrCore;
 import com.armedia.acm.services.search.service.ExecuteSolrQuery;
 import com.armedia.acm.services.search.service.SearchResults;
+import com.armedia.acm.services.suggestion.model.CaseSuggestionsRequest;
 import com.armedia.acm.services.suggestion.model.SuggestedObject;
 import com.armedia.acm.services.suggestion.service.SimilarObjectsService;
 
@@ -45,6 +46,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +82,67 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             similarObjects.addAll(findSolrObjectsByFileContent(title, objectType, isPortal, objectId, auth));
             return filterObjectRecordDuplicates(similarObjects);
         }
+    }
+
+    private boolean getSimilarObjectsQueryForCases(StringBuilder query, CaseSuggestionsRequest request) {
+        boolean hasValues = false;
+        String ssn = request.getSsn();
+        String npi = request.getNpi();
+        log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
+        if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
+            query.append("(case_provider_ssn_lcs:" + ssn);
+            hasValues = true;
+        }
+        if((npi != null) && (!npi.isEmpty()) && (!npi.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_provider_npi_lcs:" + npi);
+            hasValues = true;
+        }
+        if(hasValues) {
+            query.append(")");
+        }
+        return hasValues;
+    }
+
+    @Override
+    public List<SuggestedObject> findSimilarObjects(CaseSuggestionsRequest request, Authentication auth)
+            throws ParseException, SolrException {
+        Boolean isPortal = false;
+        Long objectId = request.getObjectId();
+        String objectType = "CASE_FILE";
+
+        List<SuggestedObject> records = new ArrayList<>();
+        StringBuilder query = new StringBuilder();
+        boolean hasValues = getSimilarObjectsQueryForCases(query, request);
+        if (hasValues )
+        {
+
+            query.append(" AND object_type_s:").append(objectType);
+            if (isPortal)
+            {
+                query.append(" AND queue_name_s:").append("Release");
+            }
+            if (objectId != null)
+            {
+                query.append(" AND -object_id_s:").append(objectId);
+            }
+            String results = getExecuteSolrQuery().getResultsByPredefinedQuery(auth, SolrCore.ADVANCED_SEARCH, query.toString(),
+                    0, MAX_SIMILAR_OBJECTS, "", true, "", false, false, "catch_all");
+
+            SearchResults searchResults = new SearchResults();
+            JSONArray docFiles = searchResults.getDocuments(results);
+
+            for (int i = 0; i < docFiles.length(); i++)
+            {
+                JSONObject docFile = docFiles.getJSONObject(i);
+
+                SuggestedObject suggestedObject = populateSuggestedObject(docFile);
+
+                records.add(suggestedObject);
+            }
+        }
+
+        return records;
     }
 
     private List<SuggestedObject> findSolrObjectsByTitle(String title, String objectType, Boolean isPortal, Long objectId,
@@ -231,6 +295,11 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
 
         file.setFileId(docFile.getString("object_id_s"));
         file.setFileName(docFile.getString("title_parseable") + docFile.getString("ext_s"));
+        if (docFile.has("made_public_date_tdt"))
+        {
+            LocalDateTime date = LocalDateTime.parse(docFile.getString("made_public_date_tdt"), DateTimeFormatter.ISO_DATE_TIME);
+            file.setMadePublicDate(date);
+        }
 
         return file;
     }
@@ -246,6 +315,41 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         suggestedObject.setStatus(objectDocFile.getString("status_lcs"));
         suggestedObject.setDescription("");
         suggestedObject.setType(objectDocFile.getString("object_type_s"));
+
+        if(objectDocFile.has("case_provider_firstname_lcs")) {
+            String providerFirstName = objectDocFile.getString("case_provider_firstname_lcs");
+            if((providerFirstName != null) && (!providerFirstName.trim().isEmpty())) {
+                suggestedObject.setProviderFirstName(providerFirstName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_lastname_lcs")) {
+            String providerLastName = objectDocFile.getString("case_provider_lastname_lcs");
+            if((providerLastName != null) && (!providerLastName.trim().isEmpty())) {
+                suggestedObject.setProviderLastName(providerLastName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_legal_business_lcs")) {
+            String providerLegalBusinessName = objectDocFile.getString("case_provider_legal_business_lcs");
+            if((providerLegalBusinessName != null) && (!providerLegalBusinessName.trim().isEmpty())) {
+                suggestedObject.setProviderLegalBusinessName(providerLegalBusinessName);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_ssn_lcs")) {
+            String providerSsn = objectDocFile.getString("case_provider_ssn_lcs");
+            if((providerSsn != null) && (!providerSsn.trim().isEmpty())) {
+                suggestedObject.setProviderSsn(providerSsn);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_npi_lcs")) {
+            String providerNpi = objectDocFile.getString("case_provider_npi_lcs");
+            if((providerNpi != null) && (!providerNpi.trim().isEmpty())) {
+                suggestedObject.setProviderNpi(providerNpi);
+            }
+        }
 
         if (!objectDocFile.isNull("description_no_html_tags_parseable"))
         {

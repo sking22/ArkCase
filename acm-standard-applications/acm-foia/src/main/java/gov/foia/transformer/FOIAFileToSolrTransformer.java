@@ -135,7 +135,10 @@ public class FOIAFileToSolrTransformer extends EcmFileToSolrTransformer
     private void mapRequestProperties(FOIAFile file, Map<String, Object> additionalProperties)
     {
         additionalProperties.put("public_flag_b", file.getPublicFlag());
-
+        if (file.getMadePublicDate() != null)
+        {
+            additionalProperties.put("made_public_date_tdt", file.getMadePublicDate());
+        }
         Optional<FOIAEcmFileVersion> activeFileVersion = file.getVersions()
                 .stream()
                 .filter(ecmFileVersion -> ecmFileVersion.getVersionTag().equals(file.getActiveVersionTag()))

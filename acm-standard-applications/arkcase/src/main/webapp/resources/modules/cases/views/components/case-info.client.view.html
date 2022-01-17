@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <h4>
-                    <a href="#" editable-text="objectInfo.title" onaftersave="saveCase()" permission="editCase"
+                    <a href="#" editable-text="objectInfo.title" onaftersave="saveCase()" permission="editCaseOwningGroup"
                             permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable" e-required>
                         {{objectInfo.title || 'common.value.unknown' | translate}}
                     </a>
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-4">
                 <div class="h4 font-bold">
-                    <a href="#" editable-select="objectInfo.caseType" onaftersave="saveCase()" permission="editCase"
+                    <a href="#" editable-select="objectInfo.caseType" onaftersave="saveCase()" permission="editCaseOwningGroup"
                             permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
                             e-ng-options="c.key as (c.value | translate) for c in caseTypes">
                         {{ (objectInfo.caseType | translateData: 'core.lookups.categories' : lang) || ('common.value.unknown' | translate)
@@ -42,7 +42,7 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="h4 font-bold">
-                    <a href="#" editable-select="objectInfo.priority" onaftersave="saveCase()" permission="editCase"
+                    <a href="#" editable-select="objectInfo.priority" onaftersave="saveCase()" permission="editCaseOwningGroup"
                             permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
                             e-ng-options="p.key as (p.key | translateData: 'core.lookups.priorities' : lang) for p in priorities">
                         {{ (objectInfo.priority | translateData: 'core.lookups.priorities' : lang) || ('common.value.unknown' | translate)
@@ -73,10 +73,22 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 <div class="h4 font-bold popup-move-on-left">
-                    <a href="#" editable-combodate="dueDateInfo" e-template="MM/DD/YYYY h:mmA"
+                    <a href="javascript:;"
+                       ng-click="registerWatcher()"
+                       moment-picker="dueDate.dueDateInfoUIPicker"
+                       ng-model="dueDate.dueDateInfo"
+                       format="MM/DD/YYYY h:mmA"
+                       min-date="minDate"
+                       start-view="month"
+                       auto-close="true"
+                       is-open="dueDate.isOpen"
+                       permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">
+                   <!-- <a href="#" editable-combodate="dueDateInfo" e-template="MM/DD/YYYY h:mmA"
                        e-min-year="{{minYear}}" e-max-year="{{maxYear}}" e-minute-step="1" onaftersave="updateDueDate($data, dateInfo.dueDate)"
-                       permission="editCase" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">
-                        {{ (dateInfo.dueDate | date: ('common.defaultDateTimeUIFormat' | translate)) || ('common.value.unknown' | translate) }}</a>
+                       permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">-->
+
+                        {{ (dateInfo.dueDate | date: ('common.defaultDateTimeUIFormat' | translate)) || ('common.value.unknown' | translate) }}
+                    </a>
                 </div>
                 <small class="text-muted"><span translate>cases.comp.info.dueDate.label</span></small>
             </div>
@@ -100,7 +112,10 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-4">
-                <span> </span>
+                <div ng-if="legalBusinessName !== null" class="h4 font-bold">
+                    <div class="h4 font-bold">{{ legalBusinessName }}</div>
+                    <small class="text-muted"><span translate>common.newPerson.legalBusinessName</span></small>
+                </div>
             </div>
         </div>
     </div>

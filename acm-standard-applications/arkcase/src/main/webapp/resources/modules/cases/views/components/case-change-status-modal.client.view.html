@@ -14,33 +14,32 @@
                     <div class="row form-group">
                         <div class="col-sm-6">
                             <span translate>cases.comp.change.status.information.date</span>
-                            <date-time-picker data="changeCaseStatus.changeDate" property="changeCaseStatus.changeDate"
-                                    date-picker-id="changeCaseStatus.changeDate" time-format-disabled="true"></date-time-picker>
+                            <date-time-picker data="changeCaseStatus.changeDate"></date-time-picker>
                         </div>
                         <div class="col-sm-6">
                             <span translate>cases.comp.change.status.information.case.number</span>
-                            <input type="text" ng-model="modalParams.info.caseNumber" class="input-md form-control" disabled>
+                            <input type="text" ng-model="modalParams.info.title" class="input-md form-control" disabled>
                         </div>
                     </div>
                     <div class="row form-group">
-                        <div class="col-sm-6">
-                            <div class="col-sm-4">
-                            <span translate>cases.comp.change.status.information.status.title</span>
-							<span class="required-asterisk">*</span>
-                            <p class="input-group">
-                                <select ng-model="changeCaseStatus.status" ng-change="statusChanged()" class="form-control input-md"
-                                        required>
-                                    <option ng-repeat="option in statuses" ng-value="option.key">
-                                        {{option.value | translate}}
-                                    </option>
-                                </select>
-                            </p>
+                       <!-- <div class="col-sm-6">-->
+                            <div class="col-sm-8">
+                                <span translate>cases.comp.change.status.information.status.title</span>
+                                <span class="required-asterisk">*</span>
+                                <p class="input-group">
+                                    <select ng-model="changeCaseStatus.status" ng-change="statusChanged()" class="form-control input-md"
+                                            required>
+                                        <option ng-repeat="option in statuses" ng-value="option.key">
+                                            {{option.value | translate}}
+                                        </option>
+                                    </select>
+                                </p>
                             </div>
                             <div class="col-sm-8" style="text-align: left; padding-top: 25px">
                                 <span class="h4 font-bold" translate="cases.comp.change.status.information.status.current" />
                                 <span class="h4 font-bold">{{": " + currentStatus}}</span>
                             </div>
-                        </div>
+                        <!--</div>-->
                     </div>
                     <div class="row form-group" ng-if="showCaseCloseStatus">
                         <div class="col-sm-6">

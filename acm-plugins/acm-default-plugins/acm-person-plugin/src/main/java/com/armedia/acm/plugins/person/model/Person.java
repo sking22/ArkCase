@@ -201,6 +201,30 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @Column(name = "cm_person_specialty_type")
     private String providerSpecialty;
 
+    //cm_person_lbn_ein
+    @Column(name = "cm_person_lbn_ein")
+    private String providerLbnEin;
+
+    public String getSsn(){
+        String ssn = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
+               ssn = id.getIdentificationNumber();
+            }
+        }
+        return ssn;
+    }
+
+    public String getNpi(){
+        String npi = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("NPI")) {
+                npi = id.getIdentificationNumber();
+            }
+        }
+        return npi;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
             @JoinColumn(name = "cm_person_id", referencedColumnName = "cm_person_id") }, inverseJoinColumns = {
@@ -415,6 +439,12 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
 
     public void setLegalBusinessName(String legalBusinessName) { this.legalBusinessName = legalBusinessName; }
 
+
+    @XmlTransient
+    public String getProviderLbnEin() {return providerLbnEin; }
+
+    public void setProviderLbnEin(String providerLbnEin) { this.providerLbnEin = providerLbnEin; }
+
     @XmlTransient
     public String getAssociateLastName() {return associateLastName; }
 
@@ -498,7 +528,7 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
 
     public String translatedPersonTitle()
     {
-        if (Strings.isBlank(getTitle()))
+        if (Strings.isBlank(getTitle()) || getTitle().equals("-"))
             return null;
         List<StandardLookupEntry> lookupEntries = (List<StandardLookupEntry>) lookupDao.getLookupByName("personTitles").getEntries();
         String labelKey = lookupEntries.stream()
