@@ -67,7 +67,7 @@ angular.module('dashboard.websites-widget', [ 'adf.provider' ]).config(function(
                 vm.gridOptions.columnDefs = config.columnDefs;
                 vm.gridOptions.enableFiltering = config.enableFiltering;
                 vm.gridOptions.paginationPageSizes = config.paginationPageSizes;
-                vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                vm.gridOptions.paginationPageSize = config.paginationPageSize;
                 vm.gridOptions.enableSorting = false;
                 vm.gridOptions.enableColumnMenus = false;
                 if (!_.find(config.columnDefs, 'name', 'act')) {
@@ -131,6 +131,16 @@ angular.module('dashboard.websites-widget', [ 'adf.provider' ]).config(function(
                     if (data && data[0]) {
                         vm.sitesInfo = data[0];
                         var jsonObj = JSON.parse(data[0].json);
+                        jsonObj.sites.sort(function(a,b){
+                            if(a.name == b.name) {
+                                return 0;
+                            }
+
+                            if(a.name > b.name) {
+                                return 1;
+                            }
+                            return -1;
+                        });
                         vm.sitesList = jsonObj.sites;
                         vm.gridOptions.totalItems = vm.sitesList.length;
                         vm.gridOptions.data = angular.copy(vm.sitesList);
