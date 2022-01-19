@@ -65,7 +65,15 @@ public class AcmAuthenticationManager implements AuthenticationManager
 
         String mfa = user.getMfaToken();
         LocalDateTime mfaCreationTime = user.getMfaCreatedDateTime();
+        LocalDateTime lastMfaValidation = user.getLastMfaAuthentication();
+        long offset = 20 * 60 * 60;
         LocalDateTime now = LocalDateTime.now();
+        if(lastMfaValidation != null) {
+            lastMfaValidation = lastMfaValidation.plusSeconds(offset);
+            if(now.isBefore(lastMfaValidation)) {
+                return true;
+            }
+        }
         LocalDateTime expiryTime = mfaCreationTime.plusSeconds(MFA_EXPIRY_IN_SECONDS);
         if(expiryTime.isBefore(now)) {
             throw new Exception("MFA Expired");
@@ -77,6 +85,7 @@ public class AcmAuthenticationManager implements AuthenticationManager
         if (!mfa.equals(verificationToken)) {
             return false;
         }
+        user.setLastMfaAuthentication(LocalDateTime.now());
         return true;
     }
 
@@ -128,6 +137,7 @@ public class AcmAuthenticationManager implements AuthenticationManager
                         providerAuthentication = provider.authenticate(auth);
                     }
                     user.setMfaToken("");
+                    //user.setLastMfaAuthentication(LocalDateTime.now());
                     userDao.save(user);
                 }
                 else if (providerEntry.getValue() instanceof AcmActiveDirectoryAuthenticationProvider)

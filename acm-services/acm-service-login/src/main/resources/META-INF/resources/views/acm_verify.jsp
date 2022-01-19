@@ -56,14 +56,32 @@
                 }
                 );
         }
+
+        function redirectIfNoOtp() {
+            if($('#opt_required').val() == "false") {
+                if(!$('#login-wrapper').hasClass('hidden')) {
+                    $('#login-wrapper').addClass('hidden');
+                }
+                var val = Math.random().toString().substr(2, 6);
+                $('#mfa').val(val);
+                document.getElementById("mfa").value = val;
+                document.getElementById('login-form').submit();
+            } else {
+                if($('#login-wrapper').hasClass('hidden')) {
+                    $('#login-wrapper').removeClass('hidden');
+                }
+            }
+        }
     </script>
 </head>
 <body>
-
-<div class="login-wrapper">
+<div   class="login-wrapper">
     <div class="logo">
         <img src="<%= request.getContextPath()%>/branding/loginlogo.png" style="max-width: 100%;">
     </div>
+</div>
+
+<div   id="login-wrapper" class="hidden login-wrapper">
     <header class="text-center">
         <strong>Verify</strong>
     </header>
@@ -100,7 +118,7 @@
             <input id="username" name="username" value="${username}" hidden/>
             <input id="token" type="token" name="token" value="${token}" hidden/>
         </div>
-        <button id="submit" type="submit" class="btn btn-lg btn-primary btn-block">Verify</button>
+        <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-lg btn-primary btn-block">Verify</button>
         <p></p>
         <div class="pull-left">
             <a href="<c:url value="/logout"/>">Cancel</a>
@@ -109,6 +127,7 @@
             <a onclick="send();" style="cursor:pointer;">Get New Code?</a>
         </div>
     </form>
+    <input id="opt_required" type="opt_required" name="opt_required" value="${opt_required}" hidden/>
 </div>
 
 <footer id="footer">
@@ -120,5 +139,8 @@
         </p>
     </div>
 </footer>
+<script type="text/javascript">
+    redirectIfNoOtp();
+</script>
 </body>
 </html>

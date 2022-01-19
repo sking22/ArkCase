@@ -151,6 +151,11 @@ public class AcmUser implements Serializable
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime mfaCreatedDateTime;
 
+    @Column(name="cm_last_mfa_authentication")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime lastMfaAuthentication;
+
     @Embedded
     private PasswordResetToken passwordResetToken;
 
@@ -196,6 +201,14 @@ public class AcmUser implements Serializable
     {
         groups.add(group);
         group.getUserMembers(false).add(this);
+    }
+
+    public LocalDateTime getLastMfaAuthentication() {
+        return lastMfaAuthentication;
+    }
+
+    public void setLastMfaAuthentication(LocalDateTime lastMfaAuthentication) {
+        this.lastMfaAuthentication = lastMfaAuthentication;
     }
 
     /**

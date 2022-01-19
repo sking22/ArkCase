@@ -765,4 +765,9 @@
             <column name="cm_token_created_date_time" type="${timestampType}"/>
         </addColumn>
     </changeSet>
+    <changeSet id="5502-add-user-token" author="ylanka">
+        <addColumn tableName="acm_user">
+            <column name="cm_last_mfa_authentication" type="${timestampType}"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

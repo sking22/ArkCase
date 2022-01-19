@@ -177,7 +177,7 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
         //Authentication providerAuthentication = null;
         AcmAuthentication acmAuthentication = new AcmAuthentication(usernamePasswordAuthenticationToken);
         Authentication authentication = null;
-        boolean sentOtp = false;
+        boolean sentOtp = false, isOtpRequired = true;
         request.getSession().setAttribute("login_error", "");
         for (Map.Entry<String, AuthenticationProvider> providerEntry : providerMap.entrySet()) {
             try {
@@ -192,22 +192,37 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                         if((authentication != null) && !sentOtp) {
                             AcmUser user = userDao.findByUserIdAnyCase(username);
-                            MDC.put(MDCConstants.EVENT_MDC_REQUEST_USER_ID_KEY, user.getUserId());
-                            GenerateOtpEvent generateOtpEvent = new GenerateOtpEvent(user, AuthenticationUtils.getUserIpAddress());
-                            generateOtpEvent.setSucceeded(true);
-                            eventPublisher.publishEvent(generateOtpEvent);
-                            sentOtp = true;
+                            long offset = 20 * 60 * 60 - 60;
+                            LocalDateTime lastMfaValidation = user.getLastMfaAuthentication();
+                            if(lastMfaValidation != null) {
+                                lastMfaValidation = lastMfaValidation.plusSeconds(offset);
+                                LocalDateTime now = LocalDateTime.now();
+                                if(now.isBefore(lastMfaValidation)) {
+                                    sentOtp = false;
+                                    isOtpRequired = false;
+                                }
+                            }
+                            if(isOtpRequired) {
+                                MDC.put(MDCConstants.EVENT_MDC_REQUEST_USER_ID_KEY, user.getUserId());
+
+                                GenerateOtpEvent generateOtpEvent = new GenerateOtpEvent(user, AuthenticationUtils.getUserIpAddress());
+                                generateOtpEvent.setSucceeded(true);
+                                eventPublisher.publishEvent(generateOtpEvent);
+                                sentOtp = true;
+                            }
                         }
                     }
                 } else {
                     //providerAuthentication = providerEntry.getValue().authenticate(acmAuthentication);
                 }
             } catch (Exception e) {
+                String s  = ExceptionUtils.getStackTrace(e);
+                log.error(s);
                 request.getSession().setAttribute("login_error", "BadCredentialsException: Bad credentials");
                 return new RedirectView("login");// ModelAndView("redirect:/login.html");
             }
         }
-        if(!sentOtp) {
+        if(!sentOtp && isOtpRequired) {
             request.getSession().setAttribute("login_error", "Failed Sending Code. Please try again.");
             return new RedirectView("login");// ModelAndView("redirect:/login.html");
         }
@@ -215,6 +230,12 @@ public class GenerateOtpUiController implements ApplicationEventPublisherAware {
         try {
             String encryptedPassword = EncryptionUtils.encryptString(password);
             redirectAttributes.addFlashAttribute("token", encryptedPassword);
+            if(isOtpRequired)
+            {
+                redirectAttributes.addFlashAttribute("opt_required", "true");
+            } else {
+                redirectAttributes.addFlashAttribute("opt_required", "false");
+            }
             return new RedirectView("acm_verify");
         } catch (Exception e) {
             String s  = ExceptionUtils.getStackTrace(e);
