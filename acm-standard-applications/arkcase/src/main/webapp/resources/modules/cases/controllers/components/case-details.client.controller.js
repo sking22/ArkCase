@@ -83,7 +83,6 @@ angular.module('cases').controller(
                         $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
                     });
 
-
                     $scope.saveDetails = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {

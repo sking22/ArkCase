@@ -44,7 +44,7 @@
             {
                 "desc": "cases.tree.filters.iAmAssigned",
                 "name": "my-assigned-cases",
-                "value": "fq=assignee_s:${user}",
+                "value": "fq=assignee_s:${user} AND -status_s:CASE_CLOSED",
                 "default": true
             },
             {
