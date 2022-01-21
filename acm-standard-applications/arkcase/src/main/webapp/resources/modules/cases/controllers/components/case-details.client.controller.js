@@ -94,9 +94,17 @@ angular.module('cases').controller(
 
                     UserInfoService.getUserInfo().then(function(infoData) {
                         $scope.currentUserProfile = infoData;
+
+                        $scope.disableField = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
+                                              ($scope.objectInfo.status === "CASE_CLOSED"
+                                            || $scope.objectInfo.status === "Audit Assigned"
+                                            || $scope.objectInfo.status === "Audit N/A"
+                                            || $scope.objectInfo.status === "Audit Completed");
                     });
 
                     var onObjectInfoRetrieved = function(data) {
+
+
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
                         $scope.caseFileType = data.caseType;
                         $scope.providerSpecialty = data.acmObjectOriginator.person.providerSpecialty;
