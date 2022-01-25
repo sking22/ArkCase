@@ -88,6 +88,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         boolean hasValues = false;
         String ssn = request.getSsn();
         String npi = request.getNpi();
+        String associatedTin = request.getSanctionAssociatedTin();
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
             query.append("(case_provider_ssn_lcs:" + ssn);
@@ -96,6 +97,11 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         if((npi != null) && (!npi.isEmpty()) && (!npi.equalsIgnoreCase("na"))) {
             String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_npi_lcs:" + npi);
+            hasValues = true;
+        }
+        if((associatedTin != null) && (!associatedTin.isEmpty()) && (!associatedTin.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_provider_associated_tin_lcs:" + associatedTin);
             hasValues = true;
         }
         if(hasValues) {
@@ -348,6 +354,28 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             String providerNpi = objectDocFile.getString("case_provider_npi_lcs");
             if((providerNpi != null) && (!providerNpi.trim().isEmpty())) {
                 suggestedObject.setProviderNpi(providerNpi);
+            }
+        }
+
+        if(objectDocFile.has("case_convicted_ind_tin_lcs")) {
+            String convictedTin = objectDocFile.getString("case_convicted_ind_tin_lcs");
+            if((convictedTin != null) && (!convictedTin.trim().isEmpty())) {
+                suggestedObject.setConvictedIndTin(convictedTin);
+            }
+        }
+
+        // case_provider_associated_tin_lcs, case_provider_associated_npi_lcs
+        if(objectDocFile.has("case_provider_associated_tin_lcs")) {
+            String associatedTin = objectDocFile.getString("case_provider_associated_tin_lcs");
+            if((associatedTin != null) && (!associatedTin.trim().isEmpty())) {
+                suggestedObject.setSanctionedTin(associatedTin);
+            }
+        }
+
+        if(objectDocFile.has("case_provider_associated_npi_lcs")) {
+            String associatedNpi = objectDocFile.getString("case_provider_associated_npi_lcs");
+            if((associatedNpi != null) && (!associatedNpi.trim().isEmpty())) {
+                suggestedObject.setSanctionedNpi(associatedNpi);
             }
         }
 

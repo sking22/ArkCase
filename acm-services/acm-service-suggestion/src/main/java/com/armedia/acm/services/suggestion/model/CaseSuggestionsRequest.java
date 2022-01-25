@@ -31,6 +31,7 @@ public class CaseSuggestionsRequest {
     private String npi;
     private String ssn;
     private Long objectId;
+    private String sanctionAssociatedTin;
 
     public String getNpi() {
         return npi;
@@ -54,5 +55,13 @@ public class CaseSuggestionsRequest {
 
     public void setObjectId(Long objectId) {
         this.objectId = objectId;
+    }
+
+    public String getSanctionAssociatedTin() {
+        return sanctionAssociatedTin;
+    }
+
+    public void setSanctionAssociatedTin(String sanctionAssociatedTin) {
+        this.sanctionAssociatedTin = sanctionAssociatedTin;
     }
 }
