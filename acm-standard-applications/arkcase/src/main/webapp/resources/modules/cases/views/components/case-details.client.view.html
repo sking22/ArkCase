@@ -140,11 +140,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Report Alert Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Report Alert Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReportAlertDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control" placeholder="{{ objectInfo.caseReportAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField" >
+                            <div style="clear:both;" ng-if="!disableField" >
                                 <date-time-picker
                                         data="objectInfo.caseReportAlertDate"
                                         property="objectInfo.caseReportAlertDate"
@@ -208,12 +209,13 @@
                                            ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Conviction Date:</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;" >Conviction Date:</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
+                            <div  ng-if="disableField" style="clear:both;">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                         data="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
                                         property="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
@@ -237,12 +239,13 @@
                                        ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Docket Request Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Docket Request Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                       data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
                                       property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
@@ -254,12 +257,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Docket Response Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Docket Response Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                       data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
                                       property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
@@ -345,12 +349,13 @@
                                ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label>Sanctioned Date</label>
-                        <div ng-if="disableField">
+                        <label style="display:inline; float:left;">Sanctioned Date</label>
+                        <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.associateSanctionDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div ng-if="!disableField">
+                        <div style="clear:both;" ng-if="!disableField">
                             <date-time-picker data="objectInfo.acmObjectOriginator.person.associateSanctionDate" property="objectInfo.acmObjectOriginator.person.associateSanctionDate"
                             date-picker-id="objectInfo.acmObjectOriginator.person.associateSanctionDate" time-format-disabled="true"></date-time-picker>
                         </div>
@@ -394,15 +399,17 @@
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>License Expiration Date</label>
+                            <label style="display:inline; float:left;">License Expiration Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number' ">
-                                    <div ng-if="disableField">
+                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idExpirationDate = NULL">clear</a>
+                                    <div style="clear:both;"  ng-if="disableField">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idExpirationDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div ng-if="!disableField">
-                                        <date-time-picker data="id.idExpirationDate"
+                                    <div style="clear:both;"  ng-if="!disableField">
+                                        <date-time-picker
+                                                          data="id.idExpirationDate"
                                                           property="id.idExpirationDate"
                                                           date-picker-id="id.idExpirationDate"
                                                           time-format-disabled="true" >
@@ -424,15 +431,17 @@
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>License Alert Date</label>
+                            <label style="display:inline; float:left;">License Alert Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <div ng-if="id.identificationType === 'License Number' ">
-                                    <div ng-if="disableField">
+                                <div ng-if="id.identificationType === 'License Number'">
+                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idAlertDate = NULL">clear</a>
+                                    <div style="clear:both;" ng-if="disableField">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div ng-if="!disableField">
-                                        <date-time-picker data="id.idAlertDate"
+                                    <div style="clear:both;" ng-if="!disableField">
+                                        <date-time-picker
+                                                          data="id.idAlertDate"
                                                           property="id.idAlertDate"
                                                           date-picker-id="id.idAlertDate"
                                                           time-format-disabled="true" >
@@ -496,12 +505,13 @@
                                 </select>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Termination Effective Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Termination Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseTerminationEffDate" property="objectInfo.caseTerminationEffDate"
                                               date-picker-id="objectInfo.caseTerminationEffDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -509,34 +519,37 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Enrollment Bar Expiration Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Enrollment Bar Expiration Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEnrollmentBarExpDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseEnrollmentBarExpDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseEnrollmentBarExpDate" property="objectInfo.caseEnrollmentBarExpDate"
                                               date-picker-id="objectInfo.caseEnrollmentBarExpDate" time-format-disabled="true"></date-time-picker>
-                            </div>
+                                </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Reinstated Termination Effective Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReinsTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseReinsTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
                                               date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true" ></date-time-picker>
                             </div>
                         </div>
                          <div class="col-sm-4 form-group">
-                             <label>Rescinded Termination Effective Date</label>
-                             <div ng-if="disableField">
+                             <label style="display:inline; float:left;">Rescinded Termination Effective Date</label>
+                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRecindTerminationEffDate = NULL">clear</a>
+                             <div style="clear:both;" ng-if="disableField">
                                  <input type="text" class="input-md form-control"
                                         placeholder="{{ objectInfo.caseRecindTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                              </div>
-                             <div ng-if="!disableField">
+                             <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseRecindTerminationEffDate" property="objectInfo.caseRecindTerminationEffDate"
                                                date-picker-id="objectInfo.caseRecindTerminationEffDate" time-format-disabled="true"></date-time-picker>
                              </div>
@@ -564,16 +577,16 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>CMS Assign Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">CMS Assign Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCmsAssignDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseCmsAssignDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseCmsAssignDate" property="objectInfo.caseCmsAssignDate"
                                               date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -602,12 +615,13 @@
                                    ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Date of Original Revocation Letter</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Date of Original Revocation Letter</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseOrigRevLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseOrigRevLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseOrigRevLetterDate" property="objectInfo.caseOrigRevLetterDate"
                                               date-picker-id="objectInfo.caseOrigRevLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -621,12 +635,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Effective Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline; float:left;">Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEffectiveLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseEffectiveLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseEffectiveLetterDate" property="objectInfo.caseEffectiveLetterDate"
                                               date-picker-id="objectInfo.caseEffectiveLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -638,16 +653,16 @@
                                    ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Action Date</label>
-                            <div ng-if="disableField">
+                            <label style="display:inline;">Action Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRevreiActionDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseRevreiActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseRevreiActionDate" property="objectInfo.caseRevreiActionDate"
                                               date-picker-id="objectInfo.caseRevreiActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -761,19 +776,15 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Action Date</label>
-                            <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
+                            <label style="display:inline; float:left;">Action Date</label>
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
+                            <div style="clear:both;">
+                                <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
                                               date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
-
+                            </div>
                         </div>
-                        <div class="col-sm-4 form-group">
-
-
-                        </div>
-                        <div class="col-sm-4 form-group">
-
-
-                        </div>
+                        <div class="col-sm-4 form-group"></div>
+                        <div class="col-sm-4 form-group"></div>
                     </div>
                 </div>
 
