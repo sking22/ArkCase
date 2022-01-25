@@ -83,7 +83,7 @@
 
 <div   id="login-wrapper" class="hidden login-wrapper">
     <header class="text-center">
-        <strong>Verify</strong>
+        <strong>Enter OTP from your email:</strong>
     </header>
 
     <c:if test="${not empty error}">
