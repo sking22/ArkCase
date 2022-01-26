@@ -519,16 +519,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label style="display:inline; float:left;">Enrollment Bar Expiration Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEnrollmentBarExpDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
-                                <input type="text" class="input-md form-control"
-                                       placeholder="{{ objectInfo.caseEnrollmentBarExpDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
-                            </div>
-                            <div style="clear:both;" ng-if="!disableField">
-                                <date-time-picker data="objectInfo.caseEnrollmentBarExpDate" property="objectInfo.caseEnrollmentBarExpDate"
-                                              date-picker-id="objectInfo.caseEnrollmentBarExpDate" time-format-disabled="true"></date-time-picker>
-                                </div>
+                            <label>Enrollment Bar Expiration Date</label>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseEnrollmentBarExpDate"
+                                   placeholder="{{ objectInfo.caseEnrollmentBarExpDate }}"
+                                   ng-disabled="disableField" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
