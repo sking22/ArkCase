@@ -33,7 +33,7 @@
                                     <input type="text" class="input-md form-control"
                                            ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'" >
+                                           ng-disabled="disableField" >
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <div ng-if="id.identificationType === 'NPI' ">
                                     <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <div ng-if="id.identificationType === 'PTAN' ">
                                     <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
                                     <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID'">
                                     <select class="form-control" ng-model="id.idState"
-                                            ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                            ng-disabled="disableField">
                                         <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
                                             {{option.value | translate}}
                                         </option>
@@ -89,7 +89,7 @@
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
                                     <input type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                 <div ng-if="id.identificationType === 'Contractor ID/Contractor Name' ">
                                     <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -109,13 +109,13 @@
                             <label>Specialty</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerSpecialty"
                                    placeholder="{{  objectInfo.acmObjectOriginator.person.providerSpecialty }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Taxonomy</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseTaxonomy"
                                    placeholder="{{ objectInfo.caseTaxonomy }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
@@ -123,34 +123,33 @@
                             <label>Application Type</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
                                    placeholder="{{ objectInfo.caseApplicationType }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.legalBusinessName"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.legalBusinessName }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name EIN</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerLbnEin"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Report Alert Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Report Alert Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReportAlertDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control" placeholder="{{ objectInfo.caseReportAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField" >
                                 <date-time-picker
                                         data="objectInfo.caseReportAlertDate"
                                         property="objectInfo.caseReportAlertDate"
-                                        date-picker-id="objectInfo.caseReportAlertDate" time-format-disabled="true"
-                                        ng-disabled=""></date-time-picker>
+                                        date-picker-id="objectInfo.caseReportAlertDate" time-format-disabled="true"></date-time-picker>
                             </div>
                         </div>
                     </div>
@@ -175,14 +174,14 @@
                             <label>Name of Convicted Individual</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
                                    placeholder="{{ objectInfo.caseConvictedIndividual }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
 
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual's TIN</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualTin"
                                    placeholder="{{ objectInfo.caseConvictedIndividualTin }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Federal or State Crime (Case Type)</label>
@@ -190,7 +189,7 @@
                                         class="input-md form-control"
                                         ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
                                         placeholder="{{ id.idCaseType }}"
-                                        ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                        ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
@@ -199,7 +198,7 @@
                                 <input type="text" class="input-md form-control"
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber }}"
-                                       ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                       ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Offense Type</label>
@@ -207,16 +206,16 @@
                                            class="input-md form-control"
                                            ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType"
                                            placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Conviction Date:</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;" >Conviction Date:</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
+                            <div  ng-if="disableField" style="clear:both;">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                         data="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
                                         property="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
@@ -237,16 +236,16 @@
                                        class="input-md form-control"
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName }}"
-                                       ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                       ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Docket Request Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Docket Request Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                       data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
                                       property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
@@ -258,13 +257,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Docket Response Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Docket Response Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
                                       data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
                                       property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
@@ -278,7 +277,7 @@
                                 <input  type="text" class="input-md form-control"
                                         ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus"
                                         placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus }}"
-                                        ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                        ng-disabled="disableField">
                         </div>
                     </div>
                 </div>
@@ -301,19 +300,19 @@
                         <label>Sanctioned Associate First Name</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateFirstName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateFirstName }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Last Name</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLastName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLastName }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Legal Business Name</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                 </div>
                 <div class="row">
@@ -321,19 +320,19 @@
                         <label>Sanctioned Associate NPI</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateNPI"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateNPI }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associated TIN</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTIN"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTIN }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associated TIN Type</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTinType"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTinType }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                 </div>
                 <div class="row">
@@ -341,22 +340,22 @@
                         <label >Exclusion Type/Sanction Code</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateSanctionCode"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionCode }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Role in Affiliated Enrollment</label>
                         <input type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateRole"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateRole }}"
-                               ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                               ng-disabled="disableField">
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label>Sanctioned Date</label>
-                        <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                        <label style="display:inline; float:left;">Sanctioned Date</label>
+                        <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.associateSanctionDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                        <div style="clear:both;" ng-if="!disableField">
                             <date-time-picker data="objectInfo.acmObjectOriginator.person.associateSanctionDate" property="objectInfo.acmObjectOriginator.person.associateSanctionDate"
                             date-picker-id="objectInfo.acmObjectOriginator.person.associateSanctionDate" time-format-disabled="true"></date-time-picker>
                         </div>
@@ -385,7 +384,7 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
@@ -395,21 +394,22 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>License Expiration Date</label>
+                            <label style="display:inline; float:left;">License Expiration Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number' ">
-                                    <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idExpirationDate = NULL">clear</a>
+                                    <div style="clear:both;"  ng-if="disableField">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idExpirationDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
-                                        <date-time-picker data="id.idExpirationDate"
+                                    <div style="clear:both;"  ng-if="!disableField">
+                                        <date-time-picker
+                                                          data="id.idExpirationDate"
                                                           property="id.idExpirationDate"
                                                           date-picker-id="id.idExpirationDate"
                                                           time-format-disabled="true" >
@@ -426,21 +426,22 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input type="text" class="input-md form-control" ng-model="id.idQualifierSanction"
                                            placeholder="{{ id.idQualifierSanction }}"
-                                           ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                           ng-disabled="disableField">
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>License Alert Date</label>
+                            <label style="display:inline; float:left;">License Alert Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
-                                <div ng-if="id.identificationType === 'License Number' ">
-                                    <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                <div ng-if="id.identificationType === 'License Number'">
+                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idAlertDate = NULL">clear</a>
+                                    <div style="clear:both;" ng-if="disableField">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
-                                        <date-time-picker data="id.idAlertDate"
+                                    <div style="clear:both;" ng-if="!disableField">
+                                        <date-time-picker
+                                                          data="id.idAlertDate"
                                                           property="id.idAlertDate"
                                                           date-picker-id="id.idAlertDate"
                                                           time-format-disabled="true" >
@@ -453,7 +454,7 @@
                             <label>Reporting Week</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReportingWeek"
                                    placeholder="{{ objectInfo.caseReportingWeek }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
@@ -462,7 +463,7 @@
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number'">
                                     <select class="form-control" ng-model="id.idState"
-                                            ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                            ng-disabled="disableField">
                                         <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
                                             {{option.value | translate}}
                                         </option>
@@ -492,25 +493,25 @@
                             <label>State Medicaid Agency</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseStateMedicaidAgency"
                                    placeholder="{{ objectInfo.caseStateMedicaidAgency }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Type</label>
                                 <select class="form-control" ng-model="objectInfo.caseTerminationType"
-                                        ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                        ng-disabled="disableField">
                                     <option ng-repeat="option in caseTerminationTypes" placeholder="{{objectInfo.caseTerminationType}}" value="{{option.key}}">
                                         {{option.value | translate}}
                                     </option>
                                 </select>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Termination Effective Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Termination Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseTerminationEffDate" property="objectInfo.caseTerminationEffDate"
                                               date-picker-id="objectInfo.caseTerminationEffDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -519,36 +520,30 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Enrollment Bar Expiration Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
-                                <input type="text" class="input-md form-control"
-                                       placeholder="{{ objectInfo.caseEnrollmentBarExpDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
-                            </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
-                                <date-time-picker data="objectInfo.caseEnrollmentBarExpDate" property="objectInfo.caseEnrollmentBarExpDate"
-                                              date-picker-id="objectInfo.caseEnrollmentBarExpDate" time-format-disabled="true"></date-time-picker>
-                            </div>
+                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseEnrollmentBarExpDate"
+                                   placeholder="{{ objectInfo.caseEnrollmentBarExpDate }}"
+                                   ng-disabled="disableField" >
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Reinstated Termination Effective Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReinsTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseReinsTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
                                               date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true" ></date-time-picker>
                             </div>
                         </div>
                          <div class="col-sm-4 form-group">
-                             <label>Rescinded Termination Effective Date</label>
-                             <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                             <label style="display:inline; float:left;">Rescinded Termination Effective Date</label>
+                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRecindTerminationEffDate = NULL">clear</a>
+                             <div style="clear:both;" ng-if="disableField">
                                  <input type="text" class="input-md form-control"
                                         placeholder="{{ objectInfo.caseRecindTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                              </div>
-                             <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                             <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseRecindTerminationEffDate" property="objectInfo.caseRecindTerminationEffDate"
                                                date-picker-id="objectInfo.caseRecindTerminationEffDate" time-format-disabled="true"></date-time-picker>
                              </div>
@@ -559,34 +554,33 @@
                             <label>Appeals Period Expired?</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseAppealsPeriodExpired"
                                    placeholder="{{ objectInfo.caseAppealsPeriodExpired }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'" >
+                                   ng-disabled="disableField" >
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Reason</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
                                    placeholder="{{ objectInfo.caseTerminationReason }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Correspondence Address</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseCorrespondenceAddress"
                                    placeholder="{{ objectInfo.caseCorrespondenceAddress }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>CMS Assign Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">CMS Assign Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCmsAssignDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseCmsAssignDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseCmsAssignDate" property="objectInfo.caseCmsAssignDate"
                                               date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -612,16 +606,16 @@
                             <label>Original Revocation Authorities</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseOrigRevAuth"
                                    placeholder="{{ objectInfo.caseOrigRevAuth }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Date of Original Revocation Letter</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Date of Original Revocation Letter</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseOrigRevLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseOrigRevLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseOrigRevLetterDate" property="objectInfo.caseOrigRevLetterDate"
                                               date-picker-id="objectInfo.caseOrigRevLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -630,18 +624,18 @@
                             <label>Revise & Reissue Eligible (Y/N)</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueEl"
                                    placeholder="{{ objectInfo.caseReviseReissueEl }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Effective Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline; float:left;">Effective Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEffectiveLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseEffectiveLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseEffectiveLetterDate" property="objectInfo.caseEffectiveLetterDate"
                                               date-picker-id="objectInfo.caseEffectiveLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -650,20 +644,19 @@
                             <label>Outcome of Revise & Reissue</label>
                             <input type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueOutcome"
                                    placeholder="{{ objectInfo.caseReviseReissueOutcome }}"
-                                   ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                   ng-disabled="disableField">
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Action Date</label>
-                            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                            <label style="display:inline;">Action Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRevreiActionDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseRevreiActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div ng-if="(currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED')
-                                        || (currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM')">
+                            <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker data="objectInfo.caseRevreiActionDate" property="objectInfo.caseRevreiActionDate"
                                               date-picker-id="objectInfo.caseRevreiActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -684,7 +677,7 @@
                 <div class="row">
                     <div class="col-sm-8 form-check">
                         <select class="form-control" ng-model="objectInfo.caseNotActionableReason"
-                                ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+                                ng-disabled="disableField">
                             <option ng-repeat="option in caseNAR" placeholder="{{objectInfo.caseNotActionableReason}}" value="{{option.key}}">
                                 {{option.value | translate}}
                             </option>
@@ -777,19 +770,15 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Action Date</label>
-                            <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
+                            <label style="display:inline; float:left;">Action Date</label>
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
+                            <div style="clear:both;">
+                                <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
                                               date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
-
+                            </div>
                         </div>
-                        <div class="col-sm-4 form-group">
-
-
-                        </div>
-                        <div class="col-sm-4 form-group">
-
-
-                        </div>
+                        <div class="col-sm-4 form-group"></div>
+                        <div class="col-sm-4 form-group"></div>
                     </div>
                 </div>
 
@@ -807,7 +796,7 @@
         </div>
         <div>
             <textarea rows=5 ng-model="objectInfo.caseDetailsSummary" class="input-md form-control"
-                      ng-disabled="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'"></textarea>
+                      ng-disabled="disableField"></textarea>
         </div>
     </div>
     <div class="panel panel-success panel-grid">
@@ -820,7 +809,7 @@
             </div>
         </div>
         <div class="panel-body remove-margin-bottom-from-summernote">
-            <div ng-if="currentUserProfile.groups[0] === 'CMS@APVITACMS.COM' && objectInfo.status === 'CASE_CLOSED'">
+            <div ng-if="disableField">
                 <textarea rows=5 ng-model="objectInfo.details" class="input-md form-control" disabled></textarea>
             </div>
             <div ng-if="currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED'">

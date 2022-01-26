@@ -246,12 +246,17 @@ angular.module('cases').controller(
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
                                 $scope.updateParticipants();
 
-                            } else if (data.status === "CASE_CLOSED" || data.status === "Audit N/A") {
+                            } else if (data.status === "CASE_CLOSED") {
                                   ObjectModelService.setAssignee($scope.objectInfo, 'qaassignmentuser@apvitacms.com');
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                                   $scope.updateParticipants();
 
-                            } else if (data.status === "Audit Assigned"  || data.status === "Audit Completed") {
+                            }  else if (data.status === "Audit Completed" || data.status === "Audit N/A") {
+                                ObjectModelService.setAssignee($scope.objectInfo, 'qacasearchiveuser@apvitacms.com');
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                                $scope.updateParticipants();
+                            }
+                            else if (data.status === "Audit Assigned") {
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
                                 $scope.updateParticipants();
                             }
