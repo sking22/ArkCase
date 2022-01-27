@@ -47,7 +47,8 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
 
         function retrieveGridData(){
             var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
-            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin).then(function (data) {
+            var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
+            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi).then(function (data) {
                 $scope.suggestedCases = data.data;
                 $scope.gridOptions = $scope.gridOptions || {};
                 $scope.gridOptions.data = $scope.suggestedCases;

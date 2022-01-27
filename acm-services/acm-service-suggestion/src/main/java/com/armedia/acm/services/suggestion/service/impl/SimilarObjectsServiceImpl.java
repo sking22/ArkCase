@@ -89,6 +89,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String ssn = request.getSsn();
         String npi = request.getNpi();
         String associatedTin = request.getSanctionAssociatedTin();
+        String associatedNpi = request.getSanctionAssociatedNpi();
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
             query.append("(case_provider_ssn_lcs:" + ssn);
@@ -99,11 +100,19 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             query.append(prefix + "case_provider_npi_lcs:" + npi);
             hasValues = true;
         }
+
         if((associatedTin != null) && (!associatedTin.isEmpty()) && (!associatedTin.equalsIgnoreCase("na"))) {
             String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_associated_tin_lcs:" + associatedTin);
             hasValues = true;
         }
+
+        if((associatedNpi != null) && (!associatedNpi.isEmpty()) && (!associatedNpi.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_provider_associated_npi_lcs:" + associatedNpi);
+            hasValues = true;
+        }
+
         if(hasValues) {
             query.append(")");
         }

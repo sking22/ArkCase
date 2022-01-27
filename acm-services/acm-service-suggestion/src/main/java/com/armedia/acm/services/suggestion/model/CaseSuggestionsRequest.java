@@ -32,6 +32,15 @@ public class CaseSuggestionsRequest {
     private String ssn;
     private Long objectId;
     private String sanctionAssociatedTin;
+    private String sanctionAssociatedNpi;
+
+    public String getSanctionAssociatedNpi() {
+        return sanctionAssociatedNpi;
+    }
+
+    public void setSanctionAssociatedNpi(String sanctionAssociatedNpi) {
+        this.sanctionAssociatedNpi = sanctionAssociatedNpi;
+    }
 
     public String getNpi() {
         return npi;

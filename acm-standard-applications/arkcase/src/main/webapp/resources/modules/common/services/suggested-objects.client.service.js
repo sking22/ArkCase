@@ -8,7 +8,7 @@ angular.module('services').factory('SuggestedObjectsService', ['$resource', '$ht
     });
 
 
-    function getSimilarCases(ssn, npi, id, sanctionAssociatedTin) {
+    function getSimilarCases(ssn, npi, id, sanctionAssociatedTin, sanctionAssociatedNpi) {
         return $http({
             method: 'POST',
             url: 'api/latest/service/suggestion/assoc_cases',
@@ -21,7 +21,8 @@ angular.module('services').factory('SuggestedObjectsService', ['$resource', '$ht
                 objectId: id,
                 ssn: ssn,
                 npi: npi,
-                sanctionAssociatedTin: sanctionAssociatedTin
+                sanctionAssociatedTin: sanctionAssociatedTin,
+                sanctionAssociatedNpi: sanctionAssociatedNpi
             }
         });
     }
