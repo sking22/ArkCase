@@ -728,5 +728,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5023-acms-modify-case-fields" author="sean.king">
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(32)"/>
+    </changeSet>
 
 </databaseChangeLog>

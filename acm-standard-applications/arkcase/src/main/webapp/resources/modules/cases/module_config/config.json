@@ -44,7 +44,7 @@
             {
                 "desc": "cases.tree.filters.iAmAssigned",
                 "name": "my-assigned-cases",
-                "value": "fq=assignee_s:${user}",
+                "value": "fq=assignee_s:${user} AND -status_s:CASE_CLOSED",
                 "default": true
             },
             {
@@ -121,6 +121,11 @@
                 "desc": "cases.tree.filters.closed",
                 "name": "all-closed-cases",
                 "value": "fq=status_s:CASE_CLOSED"
+            },
+            {
+                "desc": "All Closed I'm Assigned",
+                "name": "all-closed-assigned-cases",
+                "value": "fq=assignee_s:${user} AND status_s:CASE_CLOSED"
             },
             {
                 "desc": "cases.tree.filters.noFilter",
