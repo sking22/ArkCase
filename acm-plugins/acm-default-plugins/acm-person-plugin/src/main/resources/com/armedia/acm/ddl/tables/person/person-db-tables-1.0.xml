@@ -827,11 +827,6 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="5001-acms-add-id-fields2" author="sean.king">
-        <addColumn tableName="acm_identification">
-            <column name="cm_id_docket_status" type="VARCHAR(512)"/>
-        </addColumn>
-    </changeSet>
 
     <changeSet id="5002-change-cm-person-alias-datetime" author="marija.blazhevska">
         <modifyDataType tableName="acm_person_alias" columnName="cm_person_alias_created" newDataType="DATETIME"/>
