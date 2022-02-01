@@ -732,4 +732,12 @@
         <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(32)"/>
     </changeSet>
 
+    <changeSet id="5024-acms-modify-case-fields" author="sean.king">
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_opt_cms_decision" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_not_actionable_reason" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_admin_actions_outcome" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_type" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_eff_action_date" newDataType="VARCHAR(32)"/>
+    </changeSet>
+
 </databaseChangeLog>
