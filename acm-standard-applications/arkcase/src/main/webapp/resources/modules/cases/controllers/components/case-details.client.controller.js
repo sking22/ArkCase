@@ -39,6 +39,7 @@ angular.module('cases').controller(
                         }
                     });
 
+                    $scope.maxLen64 = 64;
                     // ---------------------   mention   ---------------------------------
                     $scope.paramsSummernote = {
                         emailAddresses: [],

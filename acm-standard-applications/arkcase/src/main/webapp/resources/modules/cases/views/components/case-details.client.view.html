@@ -557,8 +557,8 @@
                                    ng-disabled="disableField" >
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label>Termination Reason</label>
-                            <input type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
+                            <label>Termination Reason <span style="float:fight;">{{maxLen64 - objectInfo.caseTerminationReason.length}}/64 characters remaining</span></label>
+                            <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
                                    placeholder="{{ objectInfo.caseTerminationReason }}"
                                    ng-disabled="disableField">
                         </div>
