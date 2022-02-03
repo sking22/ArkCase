@@ -39,11 +39,25 @@ angular.module('cases').controller(
                         }
                     });
 
+                    $scope.maxLen300 = 300;
+                    $scope.maxLen280 = 280;
+                    $scope.maxLen150 = 150;
                     $scope.maxLen128 = 128;
                     $scope.maxLen64 = 64;
+                    $scope.maxLen50 = 50;
+                    $scope.maxLen40 = 40;
                     $scope.maxLen32 = 32;
+                    $scope.maxLen30 = 30;
+                    $scope.maxLen25 = 25;
+                    $scope.maxLen20 = 20;
                     $scope.maxLen16 = 16;
+                    $scope.maxLen15 = 15;
+                    $scope.maxLen11 = 11;
                     $scope.maxLen10 = 10;
+                    $scope.maxLen5 = 5;
+                    $scope.maxLen4 = 4;
+
+
 
                     // ---------------------   mention   ---------------------------------
                     $scope.paramsSummernote = {

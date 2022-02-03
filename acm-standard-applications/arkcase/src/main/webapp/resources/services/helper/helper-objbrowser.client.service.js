@@ -689,7 +689,7 @@ angular.module('services').factory(
                                     var found = that.findByNodeId(treeData.docs, treeNode.nodeId);
                                     if (found) {
                                         selectNode = found;
-                                    } /* else {
+                                    } else {
                                         var docs = _.clone(treeData.docs);
                                         docs.unshift(treeNode);
                                         treeData = {
@@ -698,7 +698,7 @@ angular.module('services').factory(
                                             configTitleList: configTitleList
                                         };
                                         selectNode = treeNode;
-                                    } */
+                                    }
                                 }
 
                                 that.scope.treeData = {
