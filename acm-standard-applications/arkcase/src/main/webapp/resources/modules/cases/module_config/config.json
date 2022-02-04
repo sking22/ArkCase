@@ -1684,6 +1684,12 @@
                     "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.convictedIndTin }}</div>"
                 },
                 {
+                    "name": "convname",
+                    "displayName": "cases.comp.suggestedCases.table.columns.convname",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.convictName }}</div>"
+                },
+                {
                     "name": "sanctin",
                     "displayName": "cases.comp.suggestedCases.table.columns.sanctin",
                     "headerCellFilter": "translate",

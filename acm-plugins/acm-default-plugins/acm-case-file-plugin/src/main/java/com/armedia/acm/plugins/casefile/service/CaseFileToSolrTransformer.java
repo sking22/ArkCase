@@ -174,6 +174,10 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     String firstName = person.getGivenName();
                     String lastName = person.getFamilyName();
                     String legalBusinessName = person.getLegalBusinessName();
+                    String associatedLegalBusiness = person.getAssociateLegalBusinessName();
+                    if ((associatedLegalBusiness != null) && !associatedLegalBusiness.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_associated_legal_business_lcs", associatedLegalBusiness);
+                    }
 
                     if ((firstName != null) && !firstName.trim().equalsIgnoreCase("")) {
                         solr.setAdditionalProperty("case_provider_firstname_lcs", firstName);
@@ -200,7 +204,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     if ( ((assocFirstName != null) && !assocFirstName.trim().equalsIgnoreCase(""))
                          && (assoclastName != null) && !assoclastName.trim().equalsIgnoreCase("")) {
 
-                        solr.setAdditionalProperty("case_associate_full_name_lcs", assocFullName);
+                        solr.setAdditionalProperty("case_associate_full_name_lcs", assocFullName.trim());
                     }
 
                 }

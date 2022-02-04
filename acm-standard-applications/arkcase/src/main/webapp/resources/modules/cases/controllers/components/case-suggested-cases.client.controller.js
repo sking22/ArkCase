@@ -45,10 +45,35 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
             };
         };
 
+        var isNullOrEmpty = function(s) {
+            if((s != undefined) && (s != null) && (s != '')) {
+                return false;
+            }
+            return true;
+        }
+        var getSactionAssociateFullName = function() {
+            var firstName = $scope.objectInfo.acmObjectOriginator.person.associateLastName;
+            var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName;
+            var fullName = '', comma = '';
+            if(!isNullOrEmpty(firstName)) {
+                fullName += firstName;
+                comma = ' ';
+            }
+            if(!isNullOrEmpty(lastName)) {
+                fullName += (comma + lastName);
+            }
+            return fullName.trim();
+        }
+
         function retrieveGridData(){
             var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
             var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
-            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi).then(function (data) {
+
+            var sanctionAssociateLegalBusiness = $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
+            var sanctionAssociateFullName = getSactionAssociateFullName();
+            var convictName = $scope.objectInfo.caseConvictedIndividual; // $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
+            var convictTin = $scope.objectInfo.caseConvictedIndividualTin; //
+            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness, sanctionAssociateFullName, convictName, convictTin).then(function (data) {
                 $scope.suggestedCases = data.data;
                 $scope.gridOptions = $scope.gridOptions || {};
                 $scope.gridOptions.data = $scope.suggestedCases;

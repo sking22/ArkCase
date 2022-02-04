@@ -104,6 +104,16 @@ public class SuggestedObject
 
     private String convictedIndTin;
 
+    private String convictName;
+
+    public String getConvictName() {
+        return convictName;
+    }
+
+    public void setConvictName(String convictName) {
+        this.convictName = convictName;
+    }
+
     public String getConvictedIndTin() {
         return convictedIndTin;
     }

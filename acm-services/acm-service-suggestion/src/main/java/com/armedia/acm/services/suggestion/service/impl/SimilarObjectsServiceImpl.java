@@ -90,6 +90,11 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String npi = request.getNpi();
         String associatedTin = request.getSanctionAssociatedTin();
         String associatedNpi = request.getSanctionAssociatedNpi();
+        String convictName = request.getConvictName();
+        String convictTin = request.getConvictTin();
+        String sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
+        String sanctionAssociateFullName = request.getSanctionAssociateFullName();
+
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
             query.append("(case_provider_ssn_lcs:" + ssn);
@@ -110,6 +115,32 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         if((associatedNpi != null) && (!associatedNpi.isEmpty()) && (!associatedNpi.equalsIgnoreCase("na"))) {
             String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_associated_npi_lcs:" + associatedNpi);
+            hasValues = true;
+        }
+
+        // case_associate_full_name_lcs, sanctionAssociateFullName
+        if((sanctionAssociateFullName != null) && (!sanctionAssociateFullName.isEmpty()) && (!sanctionAssociateFullName.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_associate_full_name_lcs:" + sanctionAssociateFullName);
+            hasValues = true;
+        }
+
+        if((sanctionAssociateLegalBusiness != null) && (!sanctionAssociateLegalBusiness.isEmpty()) && (!sanctionAssociateLegalBusiness.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_provider_associated_legal_business_lcs:" + sanctionAssociateLegalBusiness);
+            hasValues = true;
+        }
+
+        if((convictName != null) && (!convictName.isEmpty()) && (!convictName.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_conv_ind_lcs:" + convictName);
+            hasValues = true;
+        }
+
+
+        if((convictTin != null) && (!convictTin.isEmpty()) && (!convictTin.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_convicted_ind_tin_lcs:" + convictTin);
             hasValues = true;
         }
 
@@ -385,6 +416,13 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             String associatedNpi = objectDocFile.getString("case_provider_associated_npi_lcs");
             if((associatedNpi != null) && (!associatedNpi.trim().isEmpty())) {
                 suggestedObject.setSanctionedNpi(associatedNpi);
+            }
+        }
+
+        if(objectDocFile.has("case_conv_ind_lcs")) {
+            String convictName = objectDocFile.getString("case_conv_ind_lcs");
+            if((convictName != null) && (!convictName.trim().isEmpty())) {
+                suggestedObject.setConvictName(convictName);
             }
         }
 

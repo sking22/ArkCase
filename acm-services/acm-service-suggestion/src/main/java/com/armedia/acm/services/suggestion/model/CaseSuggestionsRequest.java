@@ -33,6 +33,43 @@ public class CaseSuggestionsRequest {
     private Long objectId;
     private String sanctionAssociatedTin;
     private String sanctionAssociatedNpi;
+    private String sanctionAssociateLegalBusiness;
+    private String sanctionAssociateFullName;
+
+    private String convictName;
+    private String convictTin;
+
+    public String getSanctionAssociateFullName() {
+        return sanctionAssociateFullName;
+    }
+
+    public void setSanctionAssociateFullName(String sanctionAssociateFullName) {
+        this.sanctionAssociateFullName = sanctionAssociateFullName;
+    }
+
+    public String getSanctionAssociateLegalBusiness() {
+        return sanctionAssociateLegalBusiness;
+    }
+
+    public void setSanctionAssociateLegalBusiness(String sanctionAssociateLegalBusinees) {
+        this.sanctionAssociateLegalBusiness = sanctionAssociateLegalBusinees;
+    }
+
+    public String getConvictName() {
+        return convictName;
+    }
+
+    public void setConvictName(String convictName) {
+        this.convictName = convictName;
+    }
+
+    public String getConvictTin() {
+        return convictTin;
+    }
+
+    public void setConvictTin(String convictTin) {
+        this.convictTin = convictTin;
+    }
 
     public String getSanctionAssociatedNpi() {
         return sanctionAssociatedNpi;
