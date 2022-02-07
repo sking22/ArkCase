@@ -894,4 +894,11 @@
         <modifyDataType tableName="acm_identification" columnName="cm_id_offense_type" newDataType="VARCHAR(300)"/>
     </changeSet>
 
+    <changeSet id="5007-acms-modify-id-fields" author="sean.king">
+
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(11)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(35)"/>
+
+    </changeSet>
+
 </databaseChangeLog>
