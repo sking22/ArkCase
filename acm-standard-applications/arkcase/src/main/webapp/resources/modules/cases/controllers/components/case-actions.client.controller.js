@@ -191,12 +191,13 @@ angular.module('cases').controller(
                        // $scope.refresh();
                            // console.log("case change modal --- ", JSON.stringify(data));
 
-                            if (data.status === "New") {
-                                ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
-                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                           /* if (data.status === "New") {
+                                //ObjectModelService.setAssignee($scope.objectInfo, 'supervisor@apvitacms.com');
+                                //ObjectModelService.setGroup($scope.objectInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                                 $scope.updateParticipants();
 
-                            } else if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
+                            } else */
+                            if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
                                   $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                   ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');

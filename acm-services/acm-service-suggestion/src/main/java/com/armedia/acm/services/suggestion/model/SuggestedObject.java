@@ -98,6 +98,36 @@ public class SuggestedObject
 
     private String providerNpi;
 
+    private String sanctionedTin;
+
+    private String sanctionedNpi;
+
+    private String convictedIndTin;
+
+    public String getConvictedIndTin() {
+        return convictedIndTin;
+    }
+
+    public void setConvictedIndTin(String convictedIndTin) {
+        this.convictedIndTin = convictedIndTin;
+    }
+
+    public String getSanctionedTin() {
+        return sanctionedTin;
+    }
+
+    public void setSanctionedTin(String sanctionedTin) {
+        this.sanctionedTin = sanctionedTin;
+    }
+
+    public String getSanctionedNpi() {
+        return sanctionedNpi;
+    }
+
+    public void setSanctionedNpi(String sanctionedNpi) {
+        this.sanctionedNpi = sanctionedNpi;
+    }
+
     public String getProviderSsn() {
         return providerSsn;
     }

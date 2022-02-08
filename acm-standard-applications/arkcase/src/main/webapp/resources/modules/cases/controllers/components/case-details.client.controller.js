@@ -39,6 +39,25 @@ angular.module('cases').controller(
                         }
                     });
 
+                    $scope.maxLen300 = 300;
+                    $scope.maxLen280 = 280;
+                    $scope.maxLen150 = 150;
+                    $scope.maxLen128 = 128;
+                    $scope.maxLen64 = 64;
+                    $scope.maxLen50 = 50;
+                    $scope.maxLen40 = 40;
+                    $scope.maxLen35 = 35;
+                    $scope.maxLen32 = 32;
+                    $scope.maxLen30 = 30;
+                    $scope.maxLen25 = 25;
+                    $scope.maxLen20 = 20;
+                    $scope.maxLen16 = 16;
+                    $scope.maxLen15 = 15;
+                    $scope.maxLen11 = 11;
+                    $scope.maxLen10 = 10;
+                    $scope.maxLen5 = 5;
+                    $scope.maxLen4 = 4;
+
                     // ---------------------   mention   ---------------------------------
                     $scope.paramsSummernote = {
                         emailAddresses: [],
@@ -71,6 +90,12 @@ angular.module('cases').controller(
                         var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
                         notActionReasons.unshift(clear);
                         $scope.caseNAR = notActionReasons;
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('outcomeRevRei').then(function (outcomeRevRei) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        outcomeRevRei.unshift(clear);
+                        $scope.caseORR = outcomeRevRei;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {

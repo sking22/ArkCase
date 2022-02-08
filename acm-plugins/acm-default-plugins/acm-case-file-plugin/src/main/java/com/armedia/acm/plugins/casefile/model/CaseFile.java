@@ -451,6 +451,22 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date  caseReportAlertDate;
 
+    // cm_case_final_out_admin_act
+    @Column(name = "cm_case_final_out_admin_act")
+    private String caseFinalOutAdminAct;
+
+    // cm_case_rec_length_enroll_bar
+    @Column(name = "cm_case_rec_length_enroll_bar")
+    private String caseRecLengthEnrollBar;
+
+    // cm_case_rec_auth_cited_action_letter
+    @Column(name = "cm_case_rec_auth_cited_action_letter")
+    private String caseRecAuthCitedActionLetter;
+
+    // cm_case_rec_eff_date
+    @Column(name = "cm_case_rec_eff_date")
+    private String caseRecEffDate;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1376,5 +1392,34 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseReportAlertDate;
     }
     public void setCaseReportAlertDate(Date caseReportAlertDate) { this.caseReportAlertDate = caseReportAlertDate; }
+
+
+    // caseFinalOutAdminAct
+    public String getCaseFinalOutAdminAct()
+    {
+        return caseFinalOutAdminAct;
+    }
+    public void setCaseFinalOutAdminAct(String caseFinalOutAdminAct) { this.caseFinalOutAdminAct = caseFinalOutAdminAct; }
+
+    // caseRecLengthEnrollBar
+    public String getCaseRecLengthEnrollBar()
+    {
+        return caseRecLengthEnrollBar;
+    }
+    public void setCaseRecLengthEnrollBar(String caseRecLengthEnrollBar) { this.caseRecLengthEnrollBar = caseRecLengthEnrollBar; }
+
+    // caseRecAuthCitedActionLetter
+    public String getCaseRecAuthCitedActionLetter()
+    {
+        return caseRecAuthCitedActionLetter;
+    }
+    public void setCaseRecAuthCitedActionLetter(String caseRecAuthCitedActionLetter) { this.caseRecAuthCitedActionLetter = caseRecAuthCitedActionLetter; }
+
+    // caseRecEffDate
+    public String getCaseRecEffDate()
+    {
+        return caseRecEffDate;
+    }
+    public void setCaseRecEffDate(String caseRecEffDate) { this.caseRecEffDate = caseRecEffDate; }
 
 }

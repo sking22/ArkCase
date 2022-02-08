@@ -1681,19 +1681,19 @@
                     "name": "convnpi",
                     "displayName": "cases.comp.suggestedCases.table.columns.convnpi",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_convicted_ind_tin_lcs }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.convictedIndTin }}</div>"
                 },
                 {
                     "name": "sanctin",
                     "displayName": "cases.comp.suggestedCases.table.columns.sanctin",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_provider_associated_tin }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.sanctionedTin }}</div>"
                 },
                 {
                     "name": "sancnpi",
                     "displayName": "cases.comp.suggestedCases.table.columns.sancnpi",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.case_provider_associated_npi }}</div>"
+                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.sanctionedNpi }}</div>"
                 },
                 {
                     "name": "status",

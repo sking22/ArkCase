@@ -49,6 +49,13 @@
                     "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
+                    "name": "incident_type_lcs",
+                    "sortField": "incident_type_lcs",
+                    "displayName": "dashboard.widgets.myCases.table.header.caseType",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
                     "name": "title_parseable",
                     "sortField": "title_parseable_lcs",
                     "displayName": "dashboard.widgets.myCases.table.header.title",
