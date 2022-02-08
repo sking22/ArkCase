@@ -46,7 +46,7 @@ angular.module('cases').controller(
                     $scope.maxLen64 = 64;
                     $scope.maxLen50 = 50;
                     $scope.maxLen40 = 40;
-                    $scope.maxLen32 = 35;
+                    $scope.maxLen35 = 35;
                     $scope.maxLen32 = 32;
                     $scope.maxLen30 = 30;
                     $scope.maxLen25 = 25;
