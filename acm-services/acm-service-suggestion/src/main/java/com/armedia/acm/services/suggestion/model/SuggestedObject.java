@@ -106,6 +106,26 @@ public class SuggestedObject
 
     private String convictName;
 
+    private String associatedLegalBusinessName;
+
+    private String matches;
+
+    public String getMatches() {
+        return matches;
+    }
+
+    public void setMatches(String matches) {
+        this.matches = matches;
+    }
+
+    public String getAssociatedLegalBusinessName() {
+        return associatedLegalBusinessName;
+    }
+
+    public void setAssociatedLegalBusinessName(String associatedLegalBusinessName) {
+        this.associatedLegalBusinessName = associatedLegalBusinessName;
+    }
+
     public String getConvictName() {
         return convictName;
     }

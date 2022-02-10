@@ -1982,3 +1982,7 @@ select[multiple]:hover, select[size]:hover {
 .moment-picker {
     z-index: 1080 !important;
 }
+
+.height-auto {
+    height: auto !important;
+}

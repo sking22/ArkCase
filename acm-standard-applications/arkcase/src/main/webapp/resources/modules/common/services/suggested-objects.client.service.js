@@ -8,7 +8,7 @@ angular.module('services').factory('SuggestedObjectsService', ['$resource', '$ht
     });
 
 
-    function getSimilarCases(ssn, npi, id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness, sanctionAssociateFullName, convictName, convictTin) {
+    function getSimilarCases(ssn, npi, id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness, sanctionAssociateFullName, convictName, convictTin, providerLegalBusiness) {
         return $http({
             method: 'POST',
             url: 'api/latest/service/suggestion/assoc_cases',
@@ -26,7 +26,8 @@ angular.module('services').factory('SuggestedObjectsService', ['$resource', '$ht
                 sanctionAssociateLegalBusiness: sanctionAssociateLegalBusiness,
                 sanctionAssociateFullName: sanctionAssociateFullName,
                 convictName: convictName,
-                convictTin: convictTin
+                convictTin: convictTin,
+                providerLegalBusiness: providerLegalBusiness
             }
         });
     }

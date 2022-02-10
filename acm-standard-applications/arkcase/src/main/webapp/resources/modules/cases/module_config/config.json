@@ -1640,12 +1640,7 @@
                     "name": "name",
                     "displayName": "cases.comp.suggestedCases.table.columns.number",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<a href='#' ng-click='grid.appScope.onClickObjLink($event, row.entity, true)'>{{row.entity.name}}</a>"
-                },
-                {
-                    "name": "title",
-                    "displayName": "cases.comp.suggestedCases.table.columns.title",
-                    "headerCellFilter": "translate"
+                    "cellTemplate": "<a href='#' ng-click='grid.appScope.onClickObjLink($event, row.entity, true)'>{{row.entity.title}}</a>"
                 },
                 {
                     "name": "firstName",
@@ -1660,51 +1655,11 @@
                     "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLastName }}</div>"
                 },
                 {
-                    "name": "legalBusinessName",
-                    "displayName": "cases.comp.suggestedCases.table.columns.legalBusinessName",
+                    "name": "matches",
+                    "displayName": "cases.comp.suggestedCases.table.columns.matches",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerLegalBusinessName }}</div>"
-                },
-                {
-                    "name": "ssn",
-                    "displayName": "cases.comp.suggestedCases.table.columns.ssn",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerSsn }}</div>"
-                },
-                {
-                    "name": "npi",
-                    "displayName": "cases.comp.suggestedCases.table.columns.npi",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.providerNpi }}</div>"
-                },
-                {
-                    "name": "convnpi",
-                    "displayName": "cases.comp.suggestedCases.table.columns.convnpi",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.convictedIndTin }}</div>"
-                },
-                {
-                    "name": "convname",
-                    "displayName": "cases.comp.suggestedCases.table.columns.convname",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.convictName }}</div>"
-                },
-                {
-                    "name": "sanctin",
-                    "displayName": "cases.comp.suggestedCases.table.columns.sanctin",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.sanctionedTin }}</div>"
-                },
-                {
-                    "name": "sancnpi",
-                    "displayName": "cases.comp.suggestedCases.table.columns.sancnpi",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div class='ui-grid-cell-contents'>{{ row.entity.sanctionedNpi }}</div>"
-                },
-                {
-                    "name": "status",
-                    "displayName": "cases.comp.suggestedCases.table.columns.status",
-                    "headerCellFilter": "translate"
+                    "cellClass": "height-auto",
+                    "cellTemplate": "<div class='ui-grid-cell-contents height-auto' ng-bind-html='row.entity.matches'></div>"
                 }
 
             ],

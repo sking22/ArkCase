@@ -93,6 +93,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String convictName = request.getConvictName();
         String convictTin = request.getConvictTin();
         String sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
+        String providerLegalBusiness = request.getProviderLegalBusiness();
         String sanctionAssociateFullName = request.getSanctionAssociateFullName();
 
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
@@ -128,6 +129,12 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         if((sanctionAssociateLegalBusiness != null) && (!sanctionAssociateLegalBusiness.isEmpty()) && (!sanctionAssociateLegalBusiness.equalsIgnoreCase("na"))) {
             String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_associated_legal_business_lcs:" + sanctionAssociateLegalBusiness);
+            hasValues = true;
+        }
+
+        if((providerLegalBusiness != null) && (!providerLegalBusiness.isEmpty()) && (!providerLegalBusiness.equalsIgnoreCase("na"))) {
+            String prefix = (hasValues)?" OR ":"(";
+            query.append(prefix + "case_provider_legal_business_lcs:" + providerLegalBusiness);
             hasValues = true;
         }
 
@@ -182,7 +189,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             {
                 JSONObject docFile = docFiles.getJSONObject(i);
 
-                SuggestedObject suggestedObject = populateSuggestedObject(docFile);
+                SuggestedObject suggestedObject = populateCaseSuggestedObject(docFile, request);
 
                 records.add(suggestedObject);
             }
@@ -350,8 +357,29 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         return file;
     }
 
-    private SuggestedObject populateSuggestedObject(JSONObject objectDocFile) throws ParseException
+    private String updateMatches(JSONObject objectDocFile, String solrKey, String requestValue, String header, String currentMatches) {
+        String output = currentMatches;
+        if(objectDocFile.has(solrKey)) {
+            String responseValue = objectDocFile.getString(solrKey);
+            if ((responseValue != null) && (!responseValue.trim().isEmpty()) && (responseValue.equalsIgnoreCase(requestValue))) {
+                output += ("<br><b>"+header+"</b>: " +requestValue);
+            }
+        }
+        return output;
+    }
+
+    private SuggestedObject populateCaseSuggestedObject(JSONObject objectDocFile, CaseSuggestionsRequest request) throws ParseException
     {
+        String ssn = request.getSsn();
+        String npi = request.getNpi();
+        String associateTin = request.getSanctionAssociatedTin();
+        String associateNpi = request.getSanctionAssociatedNpi();
+        String convictFullName = request.getConvictName();
+        String convictTin = request.getConvictTin();
+        String sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
+        String providerLegalBusiness = request.getProviderLegalBusiness();
+        String sanctionAssociateFullName = request.getSanctionAssociateFullName();
+
         SuggestedObject suggestedObject = new SuggestedObject();
 
         suggestedObject.setId(Long.valueOf(objectDocFile.getString("object_id_s")));
@@ -362,13 +390,13 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         suggestedObject.setDescription("");
         suggestedObject.setType(objectDocFile.getString("object_type_s"));
 
+        String matches = "";
         if(objectDocFile.has("case_provider_firstname_lcs")) {
             String providerFirstName = objectDocFile.getString("case_provider_firstname_lcs");
-            if((providerFirstName != null) && (!providerFirstName.trim().isEmpty())) {
+            if ((providerFirstName != null) && (!providerFirstName.trim().isEmpty())) {
                 suggestedObject.setProviderFirstName(providerFirstName);
             }
         }
-
         if(objectDocFile.has("case_provider_lastname_lcs")) {
             String providerLastName = objectDocFile.getString("case_provider_lastname_lcs");
             if((providerLastName != null) && (!providerLastName.trim().isEmpty())) {
@@ -383,13 +411,29 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             }
         }
 
+        if(objectDocFile.has("case_provider_associated_legal_business_lcs")) {
+            String associateLegalBusinessName = objectDocFile.getString("case_provider_associated_legal_business_lcs");
+            if((associateLegalBusinessName != null) && (!associateLegalBusinessName.trim().isEmpty())) {
+                suggestedObject.setAssociatedLegalBusinessName(associateLegalBusinessName);
+            }
+        }
+
         if(objectDocFile.has("case_provider_ssn_lcs")) {
             String providerSsn = objectDocFile.getString("case_provider_ssn_lcs");
             if((providerSsn != null) && (!providerSsn.trim().isEmpty())) {
                 suggestedObject.setProviderSsn(providerSsn);
             }
         }
-
+        matches = this.updateMatches(objectDocFile, "case_provider_ssn_lcs", ssn, "Provider SSN", matches);
+        matches = this.updateMatches(objectDocFile, "case_provider_npi_lcs", npi, "Provider NPI", matches);
+        matches = this.updateMatches(objectDocFile, "case_provider_legal_business_lcs", providerLegalBusiness, "Provider Legal Business", matches);
+        matches = this.updateMatches(objectDocFile, "case_conv_ind_lcs", convictFullName, "Convict Full", matches);
+        matches = this.updateMatches(objectDocFile, "case_convicted_ind_tin_lcs", convictTin, "Convict Tin", matches);
+        matches = this.updateMatches(objectDocFile, "case_associate_full_name_lcs", sanctionAssociateFullName, "Sanction Associate Full Name", matches);
+        matches = this.updateMatches(objectDocFile, "case_provider_associated_npi_lcs", associateNpi, "Sanction Associate NPI", matches);
+        matches = this.updateMatches(objectDocFile, "case_provider_associated_tin_lcs", associateTin, "Sanction Associate Tin", matches);
+        matches = this.updateMatches(objectDocFile, "case_provider_associated_legal_business_lcs", sanctionAssociateLegalBusiness, "Sanction Associate Legal Business", matches);
+        suggestedObject.setMatches(matches);
         if(objectDocFile.has("case_provider_npi_lcs")) {
             String providerNpi = objectDocFile.getString("case_provider_npi_lcs");
             if((providerNpi != null) && (!providerNpi.trim().isEmpty())) {
@@ -425,6 +469,25 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
                 suggestedObject.setConvictName(convictName);
             }
         }
+
+        if (!objectDocFile.isNull("description_no_html_tags_parseable"))
+        {
+            suggestedObject.setDescription(objectDocFile.getString("description_no_html_tags_parseable"));
+        }
+        return suggestedObject;
+    }
+
+    private SuggestedObject populateSuggestedObject(JSONObject objectDocFile) throws ParseException
+    {
+        SuggestedObject suggestedObject = new SuggestedObject();
+
+        suggestedObject.setId(Long.valueOf(objectDocFile.getString("object_id_s")));
+        suggestedObject.setName(objectDocFile.getString("name"));
+        suggestedObject.setTitle(objectDocFile.getString("title_parseable"));
+        suggestedObject.setModifiedDate(objectDocFile.getString("modified_date_tdt"));
+        suggestedObject.setStatus(objectDocFile.getString("status_lcs"));
+        suggestedObject.setDescription("");
+        suggestedObject.setType(objectDocFile.getString("object_type_s"));
 
         if (!objectDocFile.isNull("description_no_html_tags_parseable"))
         {

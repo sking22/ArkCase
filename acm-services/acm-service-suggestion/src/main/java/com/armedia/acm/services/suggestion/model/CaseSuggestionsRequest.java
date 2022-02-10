@@ -31,6 +31,7 @@ public class CaseSuggestionsRequest {
     private String npi;
     private String ssn;
     private Long objectId;
+    private String providerLegalBusiness;
     private String sanctionAssociatedTin;
     private String sanctionAssociatedNpi;
     private String sanctionAssociateLegalBusiness;
@@ -41,6 +42,14 @@ public class CaseSuggestionsRequest {
 
     public String getSanctionAssociateFullName() {
         return sanctionAssociateFullName;
+    }
+
+    public String getProviderLegalBusiness() {
+        return providerLegalBusiness;
+    }
+
+    public void setProviderLegalBusiness(String providerLegalBusiness) {
+        this.providerLegalBusiness = providerLegalBusiness;
     }
 
     public void setSanctionAssociateFullName(String sanctionAssociateFullName) {

@@ -66,6 +66,7 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
         }
 
         function retrieveGridData(){
+            console.log($scope.objectInfo);
             var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
             var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
 
