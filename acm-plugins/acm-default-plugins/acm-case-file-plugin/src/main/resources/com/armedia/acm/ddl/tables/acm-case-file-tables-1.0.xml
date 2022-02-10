@@ -768,5 +768,12 @@
         <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_reason" newDataType="VARCHAR(300)"/>
     </changeSet>
 
+    <changeSet id="5027-acms-add-case-fields" author="sean.king">
+
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(33)"/>
+
+
+    </changeSet>
+
 
 </databaseChangeLog>

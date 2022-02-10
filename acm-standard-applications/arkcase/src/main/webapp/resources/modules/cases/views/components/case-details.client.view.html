@@ -76,10 +76,10 @@
                             <label>PECOS Enrollment Status</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
-                                    <input maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="id.idStatus"
+                                    <input maxlength="{{maxLen35}}" type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.idStatus.length > 0" style="color:red;float:right;">{{maxLen30 - id.idStatus.length}}/30 characters remaining</span>
+                                    <span ng-if="id.idStatus.length > 0" style="color:red;float:right;">{{maxLen35 - id.idStatus.length}}/35 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -665,12 +665,12 @@
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <!-- TODO  Make Dropdown select-->
                             <label>Outcome of Revise & Reissue</label>
-                            <input maxlength="{{maxLen8}}" type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueOutcome"
-                                   placeholder="{{ objectInfo.caseReviseReissueOutcome }}"
-                                   ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseReviseReissueOutcome.length > 0" style="color:red;float:right;">{{maxLen8 - objectInfo.caseReviseReissueOutcome.length}}/8 characters remaining</span>
+                            <select class="form-control" ng-model="objectInfo.caseReviseReissueOutcome"  ng-disabled="disableField">
+                                <option ng-repeat="option in caseORR" placeholder="{{objectInfo.caseReviseReissueOutcome}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline;">Action Date</label>
