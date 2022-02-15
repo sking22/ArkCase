@@ -19,7 +19,7 @@
                                            ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField" >
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen11 - id.identificationNumber.length}}/11 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - id.identificationNumber.length}}/11 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                     <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen10 - id.identificationNumber.length}}/10 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - id.identificationNumber.length}}/10 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                     <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <input maxlength="{{maxLen16}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen16 - id.identificationNumber.length}}/16 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen16 - id.identificationNumber.length}}/16 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     <input maxlength="{{maxLen35}}" type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.idStatus.length > 0" style="color:red;float:right;">{{maxLen35 - id.idStatus.length}}/35 characters remaining</span>
+                                    <span ng-if="id.idStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen35 - id.idStatus.length}}/35 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                     <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -101,14 +101,14 @@
                             <input maxlength="{{maxLen50}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerSpecialty"
                                    placeholder="{{  objectInfo.acmObjectOriginator.person.providerSpecialty }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.providerSpecialty.length > 0" style="color:red;float:right;">{{maxLen50 - objectInfo.acmObjectOriginator.person.providerSpecialty.length}}/50 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.providerSpecialty.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen50 - objectInfo.acmObjectOriginator.person.providerSpecialty.length}}/50 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Taxonomy</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseTaxonomy"
                                    placeholder="{{ objectInfo.caseTaxonomy }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseTaxonomy.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.caseTaxonomy.length}}/64 characters remaining</span>
+                            <span ng-if="objectInfo.caseTaxonomy.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseTaxonomy.length}}/64 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -117,21 +117,21 @@
                             <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
                                    placeholder="{{ objectInfo.caseApplicationType }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseApplicationType.length > 0" style="color:red;float:right;">{{maxLen10 - objectInfo.caseApplicationType.length}}/10 characters remaining</span>
+                            <span ng-if="objectInfo.caseApplicationType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseApplicationType.length}}/10 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name</label>
                             <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.legalBusinessName"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.legalBusinessName }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.legalBusinessName.length > 0" style="color:red;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.legalBusinessName.length}}/128 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.legalBusinessName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.legalBusinessName.length}}/128 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name EIN</label>
                             <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerLbnEin"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.providerLbnEin.length > 0" style="color:red;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.providerLbnEin.length}}/11 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.providerLbnEin.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.providerLbnEin.length}}/11 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -171,14 +171,14 @@
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
                                    placeholder="{{ objectInfo.caseConvictedIndividual }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseConvictedIndividual.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.caseConvictedIndividual.length}}/64 characters remaining</span>
+                            <span ng-if="objectInfo.caseConvictedIndividual.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseConvictedIndividual.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual's TIN</label>
                             <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualTin"
                                    placeholder="{{ objectInfo.caseConvictedIndividualTin }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseConvictedIndividualTin.length > 0" style="color:red;float:right;">{{maxLen11 - objectInfo.caseConvictedIndividualTin.length}}/11 characters remaining</span>
+                            <span ng-if="objectInfo.caseConvictedIndividualTin.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.caseConvictedIndividualTin.length}}/11 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Federal or State Crime (Case Type)</label>
@@ -188,7 +188,7 @@
                                         ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
                                         placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType }}"
                                         ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length > 0" style="color:red;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length}}/11 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length}}/11 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -198,7 +198,7 @@
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber }}"
                                        ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length > 0" style="color:red;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length}}/128 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length}}/128 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Offense Type</label>
@@ -208,7 +208,7 @@
                                            ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType"
                                            placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}"
                                            ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length > 0" style="color:red;float:right;">{{maxLen300 - objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length}}/300 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen300 - objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length}}/300 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;" >Conviction Date:</label>
@@ -240,7 +240,7 @@
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName }}"
                                        ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length > 0" style="color:red;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length}}/128 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length}}/128 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Docket Request Date</label>
@@ -282,7 +282,7 @@
                                         ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus"
                                         placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus }}"
                                         ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length > 0" style="color:red;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length}}/10 characters remaining</span>
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length}}/10 characters remaining</span>
                         </div>
                     </div>
                 </div>
@@ -306,21 +306,21 @@
                         <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateFirstName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateFirstName }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateFirstName.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateFirstName.length}}/64 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateFirstName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateFirstName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Last Name</label>
                         <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLastName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLastName }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateLastName.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateLastName.length}}/64 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateLastName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Legal Business Name</label>
                         <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length > 0" style="color:red;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length}}/128 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length}}/128 characters remaining</span>
                     </div>
                 </div>
                 <div class="row">
@@ -329,21 +329,21 @@
                         <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateNPI"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateNPI }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateNPI.length > 0" style="color:red;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.associateNPI.length}}/10 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateNPI.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.associateNPI.length}}/10 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate TIN</label>
                         <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTIN"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTIN }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateTIN.length > 0" style="color:red;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.associateTIN.length}}/11 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateTIN.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.associateTIN.length}}/11 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate TIN Type</label>
                         <input maxlength="{{maxLen4}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTinType"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTinType }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateTinType.length > 0" style="color:red;float:right;">{{maxLen4 - objectInfo.acmObjectOriginator.person.associateTinType.length}}/4 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateTinType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen4 - objectInfo.acmObjectOriginator.person.associateTinType.length}}/4 characters remaining</span>
                     </div>
                 </div>
                 <div class="row">
@@ -352,14 +352,14 @@
                         <input maxlength="{{maxLen280}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateSanctionCode"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionCode }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateSanctionCode.length > 0" style="color:red;float:right;">{{maxLen280 - objectInfo.acmObjectOriginator.person.associateSanctionCode.length}}/280 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateSanctionCode.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen280 - objectInfo.acmObjectOriginator.person.associateSanctionCode.length}}/280 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Role in Affiliated Enrollment</label>
                         <input maxlength="{{maxLen150}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateRole"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateRole }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.acmObjectOriginator.person.associateRole.length > 0" style="color:red;float:right;">{{maxLen150 - objectInfo.acmObjectOriginator.person.associateRole.length}}/150 characters remaining</span>
+                        <span ng-if="objectInfo.acmObjectOriginator.person.associateRole.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen150 - objectInfo.acmObjectOriginator.person.associateRole.length}}/150 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Sanctioned Date</label>
@@ -398,7 +398,7 @@
                                     <input maxlength="{{maxLen20}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.identificationNumber.length > 0" style="color:red;float:right;">{{maxLen20 - id.identificationNumber.length}}/20 characters remaining</span>
+                                    <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen20 - id.identificationNumber.length}}/20 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -409,7 +409,7 @@
                                     <input maxlength="{{maxLen20}}" type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.idStatus.length > 0" style="color:red;float:right;">{{maxLen20 - id.idStatus.length}}/20 characters remaining</span>
+                                    <span ng-if="id.idStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen20 - id.idStatus.length}}/20 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -442,7 +442,7 @@
                                     <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="id.idQualifierSanction"
                                            placeholder="{{ id.idQualifierSanction }}"
                                            ng-disabled="disableField">
-                                    <span ng-if="id.idQualifierSanction.length > 0" style="color:red;float:right;">{{maxLen128 - id.idQualifierSanction.length}}/128 characters remaining</span>
+                                    <span ng-if="id.idQualifierSanction.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - id.idQualifierSanction.length}}/128 characters remaining</span>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +471,7 @@
                             <input maxlength="{{maxLen25}}" type="text" class="input-md form-control" ng-model="objectInfo.caseReportingWeek"
                                    placeholder="{{ objectInfo.caseReportingWeek }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseReportingWeek.length > 0" style="color:red;float:right;">{{maxLen25 - objectInfo.caseReportingWeek.length}}/25 characters remaining</span>
+                            <span ng-if="objectInfo.caseReportingWeek.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen25 - objectInfo.caseReportingWeek.length}}/25 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -511,7 +511,7 @@
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseStateMedicaidAgency"
                                    placeholder="{{ objectInfo.caseStateMedicaidAgency }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseStateMedicaidAgency.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.caseStateMedicaidAgency.length}}/64 characters remaining</span>
+                            <span ng-if="objectInfo.caseStateMedicaidAgency.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseStateMedicaidAgency.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Type</label>
@@ -541,7 +541,7 @@
                             <input maxlength="{{maxLen15}}" type="text" class="input-md form-control" ng-model="objectInfo.caseEnrollmentBarExpDate"
                                    placeholder="{{ objectInfo.caseEnrollmentBarExpDate }}"
                                    ng-disabled="disableField" >
-                            <span ng-if="objectInfo.caseEnrollmentBarExpDate.length > 0" style="color:red;float:right;">{{maxLen15 - objectInfo.caseEnrollmentBarExpDate.length}}/15 characters remaining</span>
+                            <span ng-if="objectInfo.caseEnrollmentBarExpDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen15 - objectInfo.caseEnrollmentBarExpDate.length}}/15 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
@@ -574,21 +574,21 @@
                             <input maxlength="{{maxLen5}}" type="text" class="input-md form-control" ng-model="objectInfo.caseAppealsPeriodExpired"
                                    placeholder="{{ objectInfo.caseAppealsPeriodExpired }}"
                                    ng-disabled="disableField" >
-                            <span ng-if="objectInfo.caseAppealsPeriodExpired.length > 0" style="color:red;float:right;">{{maxLen5 - objectInfo.caseAppealsPeriodExpired.length}}/5 characters remaining</span>
+                            <span ng-if="objectInfo.caseAppealsPeriodExpired.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen5 - objectInfo.caseAppealsPeriodExpired.length}}/5 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Reason</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
                                    placeholder="{{ objectInfo.caseTerminationReason }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseTerminationReason.length > 0" style="color:red;float:right;">{{maxLen64 - objectInfo.caseTerminationReason.length}}/64 characters remaining</span>
+                            <span ng-if="objectInfo.caseTerminationReason.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseTerminationReason.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Correspondence Address</label>
                             <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.caseCorrespondenceAddress"
                                    placeholder="{{ objectInfo.caseCorrespondenceAddress }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseCorrespondenceAddress.length > 0" style="color:red;float:right;">{{maxLen128 - objectInfo.caseCorrespondenceAddress.length}}/128 characters remaining</span>
+                            <span ng-if="objectInfo.caseCorrespondenceAddress.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.caseCorrespondenceAddress.length}}/128 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -629,7 +629,7 @@
                             <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseOrigRevAuth"
                                    placeholder="{{ objectInfo.caseOrigRevAuth }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseOrigRevAuth.length > 0" style="color:red;float:right;">{{maxLen40 - objectInfo.caseOrigRevAuth.length}}/40 characters remaining</span>
+                            <span ng-if="objectInfo.caseOrigRevAuth.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseOrigRevAuth.length}}/40 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Date of Original Revocation Letter</label>
@@ -648,7 +648,7 @@
                             <input maxlength="{{maxLen5}}" type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueEl"
                                    placeholder="{{ objectInfo.caseReviseReissueEl }}"
                                    ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseReviseReissueEl.length > 0" style="color:red;float:right;">{{maxLen5 - objectInfo.caseReviseReissueEl.length}}/5 characters remaining</span>
+                            <span ng-if="objectInfo.caseReviseReissueEl.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen5 - objectInfo.caseReviseReissueEl.length}}/5 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
@@ -740,7 +740,7 @@
                         <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecLengthEnrollBar"
                                placeholder="{{ objectInfo.caseRecLengthEnrollBar }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.caseRecLengthEnrollBar.length > 0" style="color:red;float:right;">{{maxLen10 - objectInfo.caseRecLengthEnrollBar.length}}/10 characters remaining</span>
+                        <span ng-if="objectInfo.caseRecLengthEnrollBar.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseRecLengthEnrollBar.length}}/10 characters remaining</span>
                     </div>
                 </div>
                 <div class="row">
@@ -749,14 +749,14 @@
                         <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecAuthCitedActionLetter"
                                placeholder="{{ objectInfo.caseRecAuthCitedActionLetter }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.caseRecAuthCitedActionLetter.length > 0" style="color:red;float:right;">{{maxLen40 - objectInfo.caseRecAuthCitedActionLetter.length}}/40 characters remaining</span>
+                        <span ng-if="objectInfo.caseRecAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRecAuthCitedActionLetter.length}}/40 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Recommended Effective Date</label>
                         <input maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecEffDate"
                                placeholder="{{ objectInfo.caseRecEffDate }}"
                                ng-disabled="disableField">
-                        <span ng-if="objectInfo.caseRecEffDate.length > 0" style="color:red;float:right;">{{maxLen30 - objectInfo.caseRecEffDate.length}}/30 characters remaining</span>
+                        <span ng-if="objectInfo.caseRecEffDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen30 - objectInfo.caseRecEffDate.length}}/30 characters remaining</span>
                     </div>
 
                 </div>
@@ -803,7 +803,7 @@
                             <label>Authorities Cited in Final Letter</label>
                             <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevAuthCitedActionLetter"
                                    placeholder="{{ objectInfo.caseRevAuthCitedActionLetter }}" >
-                            <span ng-if="objectInfo.caseRevAuthCitedActionLetter.length > 0" style="color:red;float:right;">{{maxLen40 - objectInfo.caseRevAuthCitedActionLetter.length}}/40 characters remaining</span>
+                            <span ng-if="objectInfo.caseRevAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRevAuthCitedActionLetter.length}}/40 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
 
@@ -819,7 +819,7 @@
                             <label>Length of Re-Enrollment Bar</label>
                             <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseLengthReEnrollBar"
                                    placeholder="{{ objectInfo.caseLengthReEnrollBar }}" >
-                            <span ng-if="objectInfo.caseLengthReEnrollBar.length > 0" style="color:red;float:right;">{{maxLen10 - objectInfo.caseLengthReEnrollBar.length}}/10 characters remaining</span>
+                            <span ng-if="objectInfo.caseLengthReEnrollBar.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseLengthReEnrollBar.length}}/10 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
 
@@ -836,7 +836,7 @@
                             <label>Effective Date</label>
                             <input maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
                                    placeholder="{{ objectInfo.caseRevEffActionDate }}" >
-                            <span ng-if="objectInfo.caseRevEffActionDate.length > 0" style="color:red;float:right;">{{maxLen30 - objectInfo.caseRevEffActionDate.length}}/30 characters remaining</span>
+                            <span ng-if="objectInfo.caseRevEffActionDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen30 - objectInfo.caseRevEffActionDate.length}}/30 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
 
@@ -863,6 +863,33 @@
 
             </div>
         </div>
+
+    <div class="panel panel-success panel-grid">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory">Case History</a>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                </div>
+            </h4>
+        </div>
+        <div id="collapseHistory" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Resubmission Due Date</label>
+                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                        <div style="clear:both;">
+                            <date-time-picker data="objectInfo.caseResubDueDate" property="objectInfo.caseResubDueDate"
+                                              date-picker-id="objectInfo.caseResubDueDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">

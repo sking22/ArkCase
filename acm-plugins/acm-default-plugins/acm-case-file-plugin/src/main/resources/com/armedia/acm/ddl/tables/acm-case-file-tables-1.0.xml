@@ -775,5 +775,11 @@
 
     </changeSet>
 
+    <changeSet id="5028-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_resub_due_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

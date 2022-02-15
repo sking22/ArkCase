@@ -467,6 +467,11 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_rec_eff_date")
     private String caseRecEffDate;
 
+    //cm_case_resub_due_date
+    @Column(name = "cm_case_resub_due_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseResubDueDate;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1421,5 +1426,12 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseRecEffDate;
     }
     public void setCaseRecEffDate(String caseRecEffDate) { this.caseRecEffDate = caseRecEffDate; }
+
+    //caseResubDueDate
+    public Date getCaseResubDueDate()
+    {
+        return caseResubDueDate;
+    }
+    public void setCaseResubDueDate(Date caseResubDueDate) { this.caseResubDueDate = caseResubDueDate; }
 
 }
