@@ -31,39 +31,36 @@
                 },
                 {
                     "name": "name",
-                    "displayName": "search.comp.grid.columns.name",
+                    "displayName": "search.comp.grid.columns.casenumber",
+                    "sortField": "title_parseable",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<a arkcase-href object-data='row.entity' is-parent='false' data-toggle='tooltip' data-placement='bottom' ng-class='{\"no-link\": row.entity.object_type_s == \"NOTE\" || row.entity.object_type_s == \"PERSON-ASSOCIATION\"}' title={{row.entity.name}} target='_blank'>{{row.entity.name}}</a>"
+                    "cellTemplate": "<a arkcase-href ng-click='grid.appScope.onClick(row.entity.object_type_s, row.entity.title_parseable)' object-data='row.entity' is-parent='false' is-viewer-link='true' data-toggle='tooltip' data-placement='bottom'  title={{row.entity.title_parseable}} target='_blank'>{{row.entity.title_parseable}}</a>"
                 },
                 {
-                    "name": "object_type_s",
-                    "displayName": "search.comp.grid.columns.type",
-                    "headerCellFilter": "translate",
-                    "cellFilter": "mapKeyValue: grid.appScope.customization.labels"
-                },
-                {
-                    "name": "title_parseable",
-                    "sortField": "title_parseable_lcs",
-                    "displayName": "search.comp.grid.columns.title",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<a arkcase-href ng-click='grid.appScope.onClick(row.entity.object_type_s, row.entity.title_parseable)' object-data='row.entity' is-parent='false' is-viewer-link='true' data-toggle='tooltip' data-placement='bottom' ng-class='{\"no-link\": row.entity.object_type_s == \"NOTE\" || row.entity.object_type_s == \"PERSON-ASSOCIATION\"}' title={{row.entity.title_parseable}} target='_blank'>{{row.entity.title_parseable}}</a>"
-                },
-                {
-                    "name": "parent_number_lcs",
-                    "displayName": "search.comp.grid.columns.parent",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<a arkcase-href object-data='row.entity' is-parent='true' data-toggle='tooltip' data-placement='bottom' ng-class='{\"no-link\": row.entity.object_type_s == \"ASSOCIATED_TAG\"}' title={{row.entity.parent_number_lcs}} target='_blank'>{{row.entity.parent_number_lcs}}</a>"
-                },
-                {
-                    "name": "assignee_full_name_lcs",
-                    "displayName": "search.comp.grid.columns.assignee",
+                    "name": "incident_type_lcs",
+                    "sortField": "incident_type_lcs",
+                    "displayName": "search.comp.grid.columns.casetype",
                     "headerCellFilter": "translate"
                 },
                 {
-                    "name": "modified_date_tdt",
-                    "displayName": "search.comp.grid.columns.modified",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "name": "assignee_full_name_lcs",
+                    "displayName": "search.comp.grid.columns.providername",
+                    "headerCellFilter": "translate"
+                },
+                {
+                    "name": "case_provider_legal_business_lcs",
+                    "displayName": "search.comp.grid.columns.legalbusinessname",
+                    "headerCellFilter": "translate"
+                },
+                {
+                    "name": "status_lcs",
+                    "displayName": "search.comp.grid.columns.currentstatus",
+                    "headerCellFilter": "translate"
+                },
+                {
+                    "name": "case_admin_actions_outcome_lcs",
+                    "displayName": "search.comp.grid.columns.adminactionslcs",
+                    "headerCellFilter": "translate"
                 }
             ],
             "paginationPageSizes": [

@@ -90,11 +90,11 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String npi = request.getNpi();
         String associatedTin = request.getSanctionAssociatedTin();
         String associatedNpi = request.getSanctionAssociatedNpi();
-        String convictName = request.getConvictName();
+        String convictName = "\"" + request.getConvictName() + "\"";
         String convictTin = request.getConvictTin();
-        String sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
-        String providerLegalBusiness = request.getProviderLegalBusiness();
-        String sanctionAssociateFullName = request.getSanctionAssociateFullName();
+        String sanctionAssociateLegalBusiness = "\"" + request.getSanctionAssociateLegalBusiness() + "\"";
+        String providerLegalBusiness = "\"" + request.getProviderLegalBusiness() + "\"";
+        String sanctionAssociateFullName = "\"" + request.getSanctionAssociateFullName() + "\"";
 
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na"))) {
@@ -169,7 +169,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         boolean hasValues = getSimilarObjectsQueryForCases(query, request);
         if (hasValues )
         {
-
             query.append(" AND object_type_s:").append(objectType);
             if (isPortal)
             {
@@ -184,7 +183,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
 
             SearchResults searchResults = new SearchResults();
             JSONArray docFiles = searchResults.getDocuments(results);
-
             for (int i = 0; i < docFiles.length(); i++)
             {
                 JSONObject docFile = docFiles.getJSONObject(i);
