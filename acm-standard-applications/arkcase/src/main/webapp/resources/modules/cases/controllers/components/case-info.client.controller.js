@@ -25,8 +25,9 @@ angular.module('cases').controller(
             'Dialog.BootboxService',
             '$filter',
             'SuggestedObjectsService',
+            'LookupService',
             function ($scope, $state, $stateParams, $translate, $modal, Util, UtilDateService, ConfigService, ObjectLookupService, CaseLookupService, CaseInfoService, ObjectModelService, MessageService, ObjectService, ObjectParticipantService, SearchService, SearchQueryBuilder,
-                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService) {
+                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService, LookupService) {
 
                 new HelperObjectBrowserService.Component({
                     scope: $scope,
@@ -57,6 +58,8 @@ angular.module('cases').controller(
                             id: "userOrGroupSearch"
                         });
                     });
+
+
 
                     ObjectLookupService.getGroups().then(function(groups) {
                         var options = [];
@@ -183,6 +186,12 @@ angular.module('cases').controller(
                         // unbind watcher when user switch between tasks. When we call $watch() method,
                         // angularJS returns an unbind function that will kill the $watch() listener when its called.
                         dueDateWatch();
+
+                        if ($scope.objectInfo.casePrevAnalyst) {
+                            LookupService.getUserFullName($scope.objectInfo.casePrevAnalyst).then(function(userName) {
+                                $scope.analystFullName = userName;
+                            });
+                        }
 
                        // console.log("data: " + data);
                        //  console.log("data js: " + JSON.stringify(data));

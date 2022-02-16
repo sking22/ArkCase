@@ -225,10 +225,15 @@ angular.module('cases').controller(
                                  ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
                                  $scope.updateParticipants();
                             } else if (data.status === "Submitted to CMS" || data.status === "Submitted To CMS II"  ) {
-                                $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                                //$scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, 'cmsassignmentuser@apvitacms.com');
                                 ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
                                 $scope.updateParticipants();
+
+                            } else if (data.status === "OPT - DEX SENT - Docket Requested") {
+                               ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                               ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                               $scope.updateParticipants();
 
                             } else if (data.status === "Resubmitted To CMS") {
                                //The CMS analyst who is assigned the case
@@ -241,7 +246,21 @@ angular.module('cases').controller(
                                 ObjectModelService.setGroup($scope.objectInfo, 'CMS@APVITACMS.COM');
                                 $scope.updateParticipants();
 
-                            } else if (data.status === "CMS Requested Edits" || data.status === "CMS Approved") {
+                            } else if (data.status === "CMS Requested Edits") {
+                                if($scope.objectInfo.caseType === "OPT" || $scope.objectInfo.caseType === "MED"){
+                                    var numberOfDaysToAdd = 3;
+                                } else {
+                                    var numberOfDaysToAdd = 5;
+                                }
+                                var someDate = new Date();
+                                var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+                                $scope.objectInfo.caseResubDueDate = result;
+                                $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
+                                ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
+                                ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                $scope.updateParticipants();
+
+                            } else if (data.status === "CMS Approved") {
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
