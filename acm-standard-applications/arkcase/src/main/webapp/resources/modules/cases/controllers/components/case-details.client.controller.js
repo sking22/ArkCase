@@ -75,6 +75,7 @@ angular.module('cases').controller(
                     $scope.saveAll = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+                           // console.log("case-info-save", caseInfo);
                             MessageService.info("Case Details Saved.");
                             return caseInfo;
                         });

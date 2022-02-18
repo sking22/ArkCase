@@ -74,7 +74,8 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
             var sanctionAssociateFullName = getSactionAssociateFullName();
             var convictName = $scope.objectInfo.caseConvictedIndividual; // $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
             var convictTin = $scope.objectInfo.caseConvictedIndividualTin; //
-            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness, sanctionAssociateFullName, convictName, convictTin).then(function (data) {
+            var legalBusinessName = $scope.objectInfo.acmObjectOriginator.person.legalBusinessName;
+            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness, sanctionAssociateFullName, convictName, convictTin, legalBusinessName).then(function (data) {
                 $scope.suggestedCases = data.data;
                 $scope.gridOptions = $scope.gridOptions || {};
                 $scope.gridOptions.data = $scope.suggestedCases;

@@ -44,9 +44,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
@@ -110,12 +115,15 @@ public class SearchResultsPDFReportGenerator extends ReportGenerator
         Document document = null;
         try
         {
-            document = buildXmlForPdfDocument(jsonDocs, requestedFields, timeZone);
+            document = buildXmlForPdfDocument(jsonDocs, titles, requestedFields, timeZone);
         }
         catch (ParserConfigurationException e)
         {
             log.warn("Unable to generate pdf document for Search Result");
         }
+
+
+
         Source source = new DOMSource(document);
         String filename = null;
 
@@ -134,6 +142,14 @@ public class SearchResultsPDFReportGenerator extends ReportGenerator
         return filename;
     }
 
+    public void addSearchElementsFromData(JSONObject data, String[] requestedFields, Document document, Element resultElement) {
+        for(String field: requestedFields) {
+            if(data.has(field)){
+                String typeValue = data.getString(field);
+                addElement(document, resultElement, field, typeValue, true);
+            }
+        }
+    }
     /**
      *
      * @param jsonDocs
@@ -142,7 +158,7 @@ public class SearchResultsPDFReportGenerator extends ReportGenerator
      * @return
      * @throws ParserConfigurationException
      */
-    public Document buildXmlForPdfDocument(JSONArray jsonDocs, String[] requestedFields, int timeZoneOffsetinMinutes) throws ParserConfigurationException
+    public Document buildXmlForPdfDocument(JSONArray jsonDocs, String[] titles, String[] requestedFields, int timeZoneOffsetinMinutes) throws ParserConfigurationException
     {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = dbf.newDocumentBuilder();
@@ -161,59 +177,56 @@ public class SearchResultsPDFReportGenerator extends ReportGenerator
             resultsElement.appendChild(resultElement);
 
             JSONObject data = jsonDocs.getJSONObject(i);
-
-            if(data.has("object_type_s")){
-                String typeValue = data.getString("object_type_s");
-                if (typeValue.equals(OBJECT_TYPE_CASE_FILE) && data.has("object_sub_type_s"))
-                {
-                    typeValue = data.getString("object_sub_type_s");
-                }
-                addElement(document, resultElement, "type", typeValue, true);
-
-            }
-            if(data.has("name")){
-                String nameValue = data.getString("name");
-
-                addElement(document, resultElement, "name", nameValue, true);
-            }
-
-            if(data.has("title_parseable")){
-                String titleValue = data.getString("title_parseable");
-
-                addElement(document, resultElement, "title", titleValue, true);
-            }
-
-            if(data.has("parent_number_lcs")){
-                String parentValue = data.getString("parent_number_lcs");
-                if(data.has("related_object_number_s")){
-                    parentValue = data.getString("related_object_number_s");
-                }
-                addElement(document, resultElement, "parent", parentValue, true);
-            }
-
-            if(data.has("assignee_full_name_lcs")){
-                String assigneeValue = data.getString("assignee_full_name_lcs");
-                addElement(document, resultElement, "assignee", assigneeValue.toString(), true);
-            }
-
-            if( data.has("modified_date_tdt")){
-                String modifiedValue = data.getString("modified_date_tdt");
-                if (modifiedValue.matches(ISO8601_PATTERN))
-                {
-                    // transform into Excel-recognizable format
-                    try
-                    {
-                        LocalDateTime localDateTime = LocalDateTime.parse(modifiedValue, SOLR_DATE_TIME_PATTERN);
-                        modifiedValue = timeZoneAdjust(localDateTime, timeZoneOffsetinMinutes);
+            if((titles != null) && (requestedFields != null) && (requestedFields.length > 0) && (requestedFields.length == titles.length)) {
+                this.addSearchElementsFromData(data, requestedFields, document, resultElement);
+            } else {
+                if (data.has("object_type_s")) {
+                    String typeValue = data.getString("object_type_s");
+                    if (typeValue.equals(OBJECT_TYPE_CASE_FILE) && data.has("object_sub_type_s")) {
+                        typeValue = data.getString("object_sub_type_s");
                     }
-                    catch (DateTimeException e)
-                    {
-                        log.warn("[{}] cannot be parsed as Solr date/time value, exporting as it is", modifiedValue);
-                    }
-                }
-                addElement(document, resultElement, "modified", modifiedValue, true);
-            }
+                    addElement(document, resultElement, "type", typeValue, true);
 
+                }
+                if (data.has("name")) {
+                    String nameValue = data.getString("name");
+
+                    addElement(document, resultElement, "name", nameValue, true);
+                }
+
+                if (data.has("title_parseable")) {
+                    String titleValue = data.getString("title_parseable");
+
+                    addElement(document, resultElement, "title", titleValue, true);
+                }
+
+                if (data.has("parent_number_lcs")) {
+                    String parentValue = data.getString("parent_number_lcs");
+                    if (data.has("related_object_number_s")) {
+                        parentValue = data.getString("related_object_number_s");
+                    }
+                    addElement(document, resultElement, "parent", parentValue, true);
+                }
+
+                if (data.has("assignee_full_name_lcs")) {
+                    String assigneeValue = data.getString("assignee_full_name_lcs");
+                    addElement(document, resultElement, "assignee", assigneeValue.toString(), true);
+                }
+
+                if (data.has("modified_date_tdt")) {
+                    String modifiedValue = data.getString("modified_date_tdt");
+                    if (modifiedValue.matches(ISO8601_PATTERN)) {
+                        // transform into Excel-recognizable format
+                        try {
+                            LocalDateTime localDateTime = LocalDateTime.parse(modifiedValue, SOLR_DATE_TIME_PATTERN);
+                            modifiedValue = timeZoneAdjust(localDateTime, timeZoneOffsetinMinutes);
+                        } catch (DateTimeException e) {
+                            log.warn("[{}] cannot be parsed as Solr date/time value, exporting as it is", modifiedValue);
+                        }
+                    }
+                    addElement(document, resultElement, "modified", modifiedValue, true);
+                }
+            }
         }
 
         return document;

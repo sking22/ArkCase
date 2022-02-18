@@ -124,6 +124,8 @@ angular.module('directives').directive(
                             };
 
                             scope.queryExistingItems = function(start) {
+                                scope.filter='"Object Type":CASE_FILE';
+                                scope.filters = 'fq="Object Type":CASE_FILE';
                                 scope.start = Util.goodNumber(start, 0);
                                 scope.searchQuery = searchObject.searchQuery;
                                 if (!scope.searchQuery || scope.searchQuery.length === 0) {
@@ -292,7 +294,6 @@ angular.module('directives').directive(
                                         titles.push($translate.instant(value.displayName));
                                     }
                                 });
-
                                 var absUrl = $location.absUrl();
                                 var baseHref = $browser.baseHref();
                                 var appUrl = absUrl.substring(0, absUrl.indexOf(baseHref) + baseHref.length);
@@ -353,6 +354,7 @@ angular.module('directives').directive(
                                     if (scope.facets.length) {
                                         scope.facets.splice(0, scope.facets.length)
                                     }
+
                                     _.forEach(facets, function(value, key) {
                                         //check if facet key is in hidden facets
                                         //and if it is we will ignore it
