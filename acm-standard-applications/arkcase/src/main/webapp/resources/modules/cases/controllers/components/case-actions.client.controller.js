@@ -284,8 +284,11 @@ angular.module('cases').controller(
                             $scope.objectInfo.status = data.status;
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
+                            // console.log("case-info-save-status", caseInfo);
+
                             CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
                                 //success
+                                //console.log("case-response-save-status", response);
                                 $scope.refresh();
                             });
 
