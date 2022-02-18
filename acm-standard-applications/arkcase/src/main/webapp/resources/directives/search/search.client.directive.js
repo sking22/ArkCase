@@ -115,7 +115,6 @@ angular.module('directives').directive(
                                 scope.selectedRows = [];
 
                                 //reapply default filter if it exists
-                                console.log(scope.filter);
                                 if (scope.filter) {
                                     scope.filters += 'fq=' + scope.filter;
                                 }
@@ -125,7 +124,6 @@ angular.module('directives').directive(
                             };
 
                             scope.queryExistingItems = function(start) {
-                                console.log(scope.filter);
                                 scope.filter='"Object Type":CASE_FILE';
                                 scope.filters = 'fq="Object Type":CASE_FILE';
                                 scope.start = Util.goodNumber(start, 0);
@@ -173,7 +171,6 @@ angular.module('directives').directive(
                             };
 
                             scope.checkTag = function(tagSelected) {
-                                console.log(scope.filter);
                                 scope.searchQuery = tagSelected.title_parseable;
                                 scope.queryExistingItems();
                                 if (!tagSelected.title_parseable) {
@@ -183,7 +180,6 @@ angular.module('directives').directive(
                             };
 
                             scope.loadTags = function loadTags(query) {
-                                console.log(scope.filter);
                                 var deferred = $q.defer();
                                 var autoSuggestObjectType = scope.objectType;
                                 AutoSuggestService.autoSuggest(query, "QUICK", autoSuggestObjectType).then(function(tags) {
@@ -193,7 +189,6 @@ angular.module('directives').directive(
                             };
 
                             scope.queryTypeahead = function(typeaheadQuery) {
-                                console.log(scope.filter);
                                 if (!scope.hideTypeahead) {
                                     if (scope.filters && scope.filters.indexOf("USER") >= 0) {
                                         return scope.queryTypeaheadForUser(typeaheadQuery);
@@ -220,7 +215,6 @@ angular.module('directives').directive(
                             };
 
                             scope.queryTypeaheadForUser = function(typeaheadQuery) {
-                                console.log(scope.filter);
                                 typeaheadQuery = 'first_name_lcs:' + typeaheadQuery + ' OR last_name_lcs:' + typeaheadQuery;
                                 var deferred = $q.defer();
                                 if (typeaheadQuery) {
@@ -259,7 +253,7 @@ angular.module('directives').directive(
                                 if (Util.isEmpty(scope.query)) {
                                     return;
                                 }
-                                console.log(scope.filter);
+
                                 var fields = [];
                                 var titles = [];
                                 var columns = scope.config.columnDefs;
@@ -300,7 +294,6 @@ angular.module('directives').directive(
                                         titles.push($translate.instant(value.displayName));
                                     }
                                 });
-
                                 var absUrl = $location.absUrl();
                                 var baseHref = $browser.baseHref();
                                 var appUrl = absUrl.substring(0, absUrl.indexOf(baseHref) + baseHref.length);
@@ -361,7 +354,7 @@ angular.module('directives').directive(
                                     if (scope.facets.length) {
                                         scope.facets.splice(0, scope.facets.length)
                                     }
-                                    console.log(scope.filter);
+
                                     _.forEach(facets, function(value, key) {
                                         //check if facet key is in hidden facets
                                         //and if it is we will ignore it
