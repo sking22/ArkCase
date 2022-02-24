@@ -48,6 +48,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,7 +94,19 @@ public class SearchObjectByTypeAPIController
         String sortParams = null;
         String params = "";
         String query = "object_type_s:" + objectType;
+        String groupConcatinatedSolrString = "";
         String user = authentication.getName();
+
+        if((authentication.getAuthorities() != null) && (authentication.getAuthorities().size() > 0)) {
+            groupConcatinatedSolrString += "(";
+            String comma = "";
+            for(GrantedAuthority a: authentication.getAuthorities()) {
+                groupConcatinatedSolrString += (comma + a.getAuthority());
+                comma = " OR ";
+            }
+            groupConcatinatedSolrString += ")";
+        }
+
         if (!objectSubTypes.isEmpty())
         {
             query += " AND object_sub_type_s:(" + String.join(" OR ", objectSubTypes) + ")";
@@ -128,6 +141,10 @@ public class SearchObjectByTypeAPIController
                 else if (filter.contains(SearchConstants.USER))
                 {
                     filter = filter.replace(SearchConstants.USER, user);
+                }
+                else if (filter.contains(SearchConstants.GROUP))
+                {
+                    filter = filter.replace(SearchConstants.GROUP, groupConcatinatedSolrString);
                 }
 
                 if (i > 0)
