@@ -225,6 +225,70 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         return npi;
     }
 
+    public String getPecosEnrollmentID(){
+        String peid = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
+                peid = id.getIdentificationNumber();
+            }
+        }
+        return peid;
+    }
+
+    public String getEnrollmentID(){
+        String enrollId = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
+                enrollId = id.getIdentificationNumber();
+            }
+        }
+        return enrollId;
+    }
+
+    //License Number
+    public String getLicenseNumber(){
+        String licenseNum = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                licenseNum = id.getIdentificationNumber();
+            }
+        }
+        return licenseNum;
+    }
+
+    //Contractor ID/Contractor Name
+    public String geContractorID(){
+        String contractorID = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
+                contractorID = id.getIdentificationNumber();
+            }
+        }
+        return contractorID;
+    }
+
+    //TIN
+    public String getTIN(){
+        String proTIN = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("TIN")) {
+                proTIN = id.getIdentificationNumber();
+            }
+        }
+        return proTIN;
+    }
+
+    //PTAN
+    public String getPTAN(){
+        String proPTAN = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("PTAN")) {
+                proPTAN = id.getIdentificationNumber();
+            }
+        }
+        return proPTAN;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
             @JoinColumn(name = "cm_person_id", referencedColumnName = "cm_person_id") }, inverseJoinColumns = {
