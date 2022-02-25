@@ -159,6 +159,10 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         //solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
         //solr.setAdditionalProperty("case_rev_eff_date_lcs", in.getCaseRevEffActionDate());
        // solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
+               solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
+                       solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
+
+
 
         */
 
@@ -166,8 +170,6 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
         solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
 
-        solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
-        solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
         solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
         solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
 
@@ -317,10 +319,9 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         // needed a _lcs property for sorting
         solr.setTitle_parseable_lcs(in.getTitle());
 
-        // This property is used for showin the owning group for the object
+        // This property is used for showing the owning group for the object
         solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
         solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
-
 
         solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
         solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
