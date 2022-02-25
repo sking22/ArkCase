@@ -65,6 +65,28 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         return getCaseFileDao().findModifiedSince(lastModified, start, pageSize);
     }
 
+    private String getFullName(String firstName, String middleName, String lastName) {
+        String fullName = "";
+        String comma = "";
+        if((firstName != null) && (firstName.trim().equals(""))) {
+            fullName = fullName + firstName;
+            comma = " ";
+        }
+        if((middleName != null) && (middleName.trim().equals(""))) {
+            fullName = fullName + comma + middleName;
+            comma = " ";
+        }
+        if((lastName != null) && (lastName.trim().equals(""))) {
+            fullName = fullName + comma + lastName;
+        }
+
+        if(fullName.equals(""))
+        {
+            return null;
+        }
+        return fullName;
+    }
+
     @Override
     public SolrAdvancedSearchDocument toSolrAdvancedSearch(CaseFile in)
     {
@@ -125,7 +147,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         // The property "assignee_group_id_lcs" is used only for showing/hiding claim/unclaim buttons
         solr.setAdditionalProperty("assignee_group_id_lcs", in.getAssigneeGroup());
         /*
-             //solr.setAdditionalProperty("case_termination_eff_date_lcs", in.getCaseTerminationEffDate());
+        //solr.setAdditionalProperty("case_termination_eff_date_lcs", in.getCaseTerminationEffDate());
         //solr.setAdditionalProperty("case_enrollment_bar_exp_date_lcs", in.getCaseEnrollmentBarExpDate());
         //solr.setAdditionalProperty("case_reinstated_termination_eff_date_lcs", in.getCaseReinsTerminationEffDate());
         //solr.setAdditionalProperty("case_recind_termination_eff_date_lcs", in.getCaseRecindTerminationEffDate());
@@ -134,7 +156,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         //solr.setAdditionalProperty("case_orig_rev_letter_date_lcs", in.getCaseOrigRevLetterDate());
         //solr.setAdditionalProperty("case_revise_reissue_outcome_lcs", in.getCaseReviseReissueOutcome());
         //solr.setAdditionalProperty("case_eff_letter_date_lcs", in.getCaseEffectiveLetterDate());
-                //solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
+        //solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
         //solr.setAdditionalProperty("case_rev_eff_date_lcs", in.getCaseRevEffActionDate());
        // solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
 
@@ -214,7 +236,10 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
 
                     String firstName = person.getGivenName();
                     String lastName = person.getFamilyName();
-                    String pFullName = firstName + " " + lastName;
+                    String middleName = person.getMiddleName();
+                    String pFirstLastName = firstName + " " + lastName;
+                    String fullName = this.getFullName(firstName, middleName, lastName);
+
                     String legalBusinessName = person.getLegalBusinessName();
                     String associatedLegalBusiness = person.getAssociateLegalBusinessName();
                     if ((associatedLegalBusiness != null) && !associatedLegalBusiness.trim().equalsIgnoreCase("")) {
@@ -227,8 +252,11 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     if ((lastName != null) && !lastName.trim().equalsIgnoreCase("")) {
                         solr.setAdditionalProperty("case_provider_lastname_lcs", lastName);
                     }
-                    if ((pFullName != null) && !pFullName.trim().equalsIgnoreCase("")) {
-                        solr.setAdditionalProperty("case_provider_fullname_lcs", pFullName);
+                    if ((pFirstLastName != null) && !pFirstLastName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_first_last_name_lcs", pFirstLastName);
+                    }
+                    if ((fullName != null) && !fullName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_fullname_lcs", fullName);
                     }
 
                     if ((legalBusinessName != null) && !legalBusinessName.trim().equalsIgnoreCase("")) {

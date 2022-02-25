@@ -43,7 +43,7 @@
                     "headerCellFilter": "translate"
                 },
                 {
-                    "name": "assignee_full_name_lcs",
+                    "name": "case_provider_fullname_lcs",
                     "displayName": "search.comp.grid.columns.providername",
                     "headerCellFilter": "translate"
                 },

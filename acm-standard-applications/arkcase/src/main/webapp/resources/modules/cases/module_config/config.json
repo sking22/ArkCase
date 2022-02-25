@@ -118,6 +118,16 @@
                 "value": "fq={!field f=author}${user}"
             },
             {
+                "desc": "cases.tree.filters.myGroupOpenCases",
+                "name": "my-group-open-cases",
+                "value": "fq=-status_s:COMPLETE AND -status_s:DELETE AND -status_s:CASE_CLOSED and owning_group_id_lcs:$[group]"
+            },
+            {
+                "desc": "cases.tree.filters.myGroupClosedCases",
+                "name": "my-group-closed-cases",
+                "value": "fq=status_s: (COMPLETE OR DELETE  OR CASE_CLOSED) AND owning_group_id_lcs:$[group]"
+            },
+            {
                 "desc": "cases.tree.filters.closed",
                 "name": "all-closed-cases",
                 "value": "fq=status_s:CASE_CLOSED"

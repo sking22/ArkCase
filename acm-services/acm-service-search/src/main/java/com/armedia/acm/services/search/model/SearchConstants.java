@@ -92,6 +92,7 @@ public interface SearchConstants
     String PROPERTY_MADE_PUBLIC_DATE = "made_public_date_tdt";
 
     String USER = "$[user]";
+    String GROUP = "$[group]";
     /**
      * The date format SOLR expects. Any other date format causes SOLR to throw an exception.
      */
