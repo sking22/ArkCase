@@ -118,13 +118,13 @@
                 "value": "fq={!field f=author}${user}"
             },
             {
-                "desc": "cases.tree.filters.myGroupCases",
-                "name": "my-group-cases",
+                "desc": "cases.tree.filters.myGroupOpenCases",
+                "name": "my-group-open-cases",
                 "value": "fq={!field f=author}${user}"
             },
             {
-                "desc": "cases.tree.filters.myGroupOpenCases",
-                "name": "my-group-open-cases",
+                "desc": "cases.tree.filters.myGroupClosedCases",
+                "name": "my-group-closed-cases",
                 "value": "fq={!field f=author}${user}"
             },
             {

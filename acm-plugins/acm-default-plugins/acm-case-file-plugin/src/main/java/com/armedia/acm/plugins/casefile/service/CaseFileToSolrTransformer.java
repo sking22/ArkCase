@@ -65,6 +65,27 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         return getCaseFileDao().findModifiedSince(lastModified, start, pageSize);
     }
 
+    private String getFullName(String firstName, String middleName, String lastName) {
+        String fullName = "", comma = "";
+        if((firstName != null) && (firstName.trim().equals(""))) {
+            fullName = fullName + firstName;
+            comma = " ";
+        }
+        if((middleName != null) && (middleName.trim().equals(""))) {
+            fullName = fullName + comma + middleName;
+            comma = " ";
+        }
+        if((lastName != null) && (lastName.trim().equals(""))) {
+            fullName = fullName + comma + lastName;
+        }
+
+        if(fullName.equals(""))
+        {
+            return null;
+        }
+        return fullName;
+    }
+
     @Override
     public SolrAdvancedSearchDocument toSolrAdvancedSearch(CaseFile in)
     {
@@ -173,6 +194,8 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
 
                     String firstName = person.getGivenName();
                     String lastName = person.getFamilyName();
+                    String middleName = person.getMiddleName();
+                    String fullName = this.getFullName(firstName, middleName, lastName);
                     String legalBusinessName = person.getLegalBusinessName();
                     String associatedLegalBusiness = person.getAssociateLegalBusinessName();
                     if ((associatedLegalBusiness != null) && !associatedLegalBusiness.trim().equalsIgnoreCase("")) {
@@ -185,6 +208,11 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     if ((lastName != null) && !lastName.trim().equalsIgnoreCase("")) {
                         solr.setAdditionalProperty("case_provider_lastname_lcs", lastName);
                     }
+
+                    if ((fullName != null) && !fullName.trim().equalsIgnoreCase("")) {
+                        solr.setAdditionalProperty("case_provider_fullname_lcs", fullName);
+                    }
+
                     if ((legalBusinessName != null) && !legalBusinessName.trim().equalsIgnoreCase("")) {
                         solr.setAdditionalProperty("case_provider_legal_business_lcs", legalBusinessName);
                     }
