@@ -6,22 +6,22 @@ package com.armedia.acm.plugins.casefile.service;
  * %%
  * Copyright (C) 2014 - 2018 ArkCase LLC
  * %%
- * This file is part of the ArkCase software. 
- * 
- * If the software was purchased under a paid ArkCase license, the terms of 
- * the paid license agreement will prevail.  Otherwise, the software is 
+ * This file is part of the ArkCase software.
+ *
+ * If the software was purchased under a paid ArkCase license, the terms of
+ * the paid license agreement will prevail.  Otherwise, the software is
  * provided under the following open source license terms:
- * 
+ *
  * ArkCase is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * ArkCase is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with ArkCase. If not, see <http://www.gnu.org/licenses/>.
  * #L%
@@ -159,6 +159,10 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         //solr.setAdditionalProperty("case_reenroll_bar_length_lcs", in.getCaseLengthReEnrollBar());
         //solr.setAdditionalProperty("case_rev_eff_date_lcs", in.getCaseRevEffActionDate());
        // solr.setAdditionalProperty("case_not_action_reason_lcs", in.getCaseNotActionableReason());
+               solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
+                       solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
+
+
 
         */
 
@@ -166,8 +170,6 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
         solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
 
-        solr.setAdditionalProperty("case_reporting_week_lcs", in.getCaseReportingWeek());
-        solr.setAdditionalProperty("case_report_date_lcs", in.getCaseReportDate());
         solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
         solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
 
@@ -277,7 +279,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     String assocFullName = assocFirstName + ' ' + assoclastName;
 
                     if ( ((assocFirstName != null) && !assocFirstName.trim().equalsIgnoreCase(""))
-                         && (assoclastName != null) && !assoclastName.trim().equalsIgnoreCase("")) {
+                            && (assoclastName != null) && !assoclastName.trim().equalsIgnoreCase("")) {
 
                         solr.setAdditionalProperty("case_associate_full_name_lcs", assocFullName.trim());
                     }
@@ -317,10 +319,9 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         // needed a _lcs property for sorting
         solr.setTitle_parseable_lcs(in.getTitle());
 
-        // This property is used for showin the owning group for the object
+        // This property is used for showing the owning group for the object
         solr.setAdditionalProperty("owning_group_id_lcs", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
         solr.setAdditionalProperty("owning_group_id_s", ParticipantUtils.getOwningGroupIdFromParticipants(in.getParticipants()));
-
 
         solr.setAdditionalProperty("case_state_medicaid_agency_lcs", in.getCaseStateMedicaidAgency());
         solr.setAdditionalProperty("case_termination_type_lcs", in.getCaseTerminationType());
@@ -470,12 +471,12 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         this.fileAclSolrUpdateHelper = fileAclSolrUpdateHelper;
     }
 
-    public BusinessProcessDao getBusinessProcessDao() 
+    public BusinessProcessDao getBusinessProcessDao()
     {
         return businessProcessDao;
     }
 
-    public void setBusinessProcessDao(BusinessProcessDao businessProcessDao) 
+    public void setBusinessProcessDao(BusinessProcessDao businessProcessDao)
     {
         this.businessProcessDao = businessProcessDao;
     }
