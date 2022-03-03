@@ -35,6 +35,8 @@ angular.module('cases').controller(
                                                     || $scope.objectInfo.status === "Audit Assigned"
                                                     || $scope.objectInfo.status === "Audit N/A"
                                                     || $scope.objectInfo.status === "Audit Completed");
+                                $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+                                $scope.disableDexVer = $scope.disableField || $scope.isAnalyst;
                             });
                         }
                     });
