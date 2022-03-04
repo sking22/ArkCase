@@ -107,12 +107,14 @@
                 <input type="text" id="associateSanctionCode" ng-model="person.associateSanctionCode" class="input-md form-control"
                        placeholder="{{ 'common.newPerson.associateSanctionCode.placeholder' | translate }}" style="background-color: white;">
             </div>
-            <label translate>
-                common.newPerson.associateSanctionDate</label>
-            <date-time-picker data="person.associateSanctionDate"
-                              property="person.associateSanctionDate"
-                              date-picker-id="person.associateSanctionDate"
-                              time-format-disabled="true"></date-time-picker>
+            <div class="col-sm-4 form-group">
+                <label translate>
+                    common.newPerson.associateSanctionDate</label>
+                <date-time-picker data="person.associateSanctionDate"
+                                  property="person.associateSanctionDate"
+                                  date-picker-id="person.associateSanctionDate"
+                                  time-format-disabled="true"></date-time-picker>
+            </div>
         </div>
 
         <div id="accordion{{accordionSuffix}}" class="panel-group">
