@@ -604,6 +604,21 @@
                                               date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
                             </div>
                         </div>
+                        <div class="col-sm-4 form-group">
+
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label style="display:inline; float:left;">DEX Verified Date</label>
+                            <a ng-if="!disableDexVer" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableDexVer">
+                                <input type="text" class="input-md form-control"
+                                       placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                            </div>
+                            <div style="clear:both;" ng-if="!disableDexVer">
+                                <date-time-picker data="objectInfo.caseDexVerifiedDate" property="objectInfo.caseDexVerifiedDate"
+                                                  date-picker-id="objectInfo.caseDexVerifiedDate" time-format-disabled="true"></date-time-picker>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
