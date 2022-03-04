@@ -27,6 +27,17 @@ angular.module('cases').controller(
                 function($scope, $state, $stateParams, $translate, $q, $modal, Util, ConfigService, ObjectService, Authentication, CaseLookupService, ObjectSubscriptionService, ObjectModelService, CaseInfoService, MergeSplitService, HelperObjectBrowserService, UserInfoService, $timeout,
                         FormsTypeService, AdminFormWorkflowsLinkService, EcmEmailService) {
 
+                    var moment = require('moment-business-days');
+
+                    var july4th = '07-04-2022';
+                    var laborDay = '09-07-2022';
+
+                    moment.updateLocale('us', {
+                       holidays: [july4th, laborDay],
+                       holidayFormat: 'MM-DD-YYYY',
+                       workingWeekdays: [1, 2, 3, 4, 5, 6]
+                    });
+
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
                         stateParams: $stateParams,
@@ -253,7 +264,10 @@ angular.module('cases').controller(
                                     var numberOfDaysToAdd = 5;
                                 }
                                 var someDate = new Date();
-                                var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+                                var result = moment(someDate, 'MM-DD-YYYY').businessAdd(numberOfDaysToAdd)._d;
+
+                                //var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+
                                 $scope.objectInfo.caseResubDueDate = result;
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
