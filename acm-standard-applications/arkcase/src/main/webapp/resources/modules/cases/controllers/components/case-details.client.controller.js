@@ -4,6 +4,7 @@ angular.module('cases').controller(
         'Cases.DetailsController',
         [
             '$scope',
+            '$modal',
             '$stateParams',
             '$translate',
             'UtilService',
@@ -17,7 +18,7 @@ angular.module('cases').controller(
             'SuggestedObjectsService',
             'Profile.UserInfoService',
             'Object.LookupService',
-                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService, ObjectLookupService) {
+                function($scope, $modal, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService, ObjectLookupService) {
 
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
@@ -75,11 +76,35 @@ angular.module('cases').controller(
                     };
 
                     $scope.saveAll = function() {
-                        var caseInfo = Util.omitNg($scope.objectInfo);
+                        var params = {
+                            "info": $scope.objectInfo,
+                        };
+                        var modalInstance = $modal.open({
+                            animation: true,
+                            templateUrl: 'modules/cases/views/components/case-save-modal.client.view.html',
+                            controller: 'Cases.CaseSaveModalController',
+                            size: 'sm',
+                            backdrop: 'static',
+                            resolve: {
+                                modalParams: function() {
+                                    return params;
+                                }
+                            }
+                        });
+
+                        modalInstance.result.then(function(data) {
+                            $scope.refresh();
+                        }, function() {
+                            console.log("error");
+                        });
+
+
+                       /* var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                             MessageService.info("Case Details Saved.");
                             return caseInfo;
-                        });
+                        });*/
+
                     };
 
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {

@@ -307,11 +307,11 @@ angular.module('cases').controller(
                             $scope.objectInfo.status = data.status;
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
-                            CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
-                                $scope.refresh();
+                               // $scope.refresh();
+                                return caseInfo;
                             });
-
                         }, function() {
                             console.log("error");
                         });
