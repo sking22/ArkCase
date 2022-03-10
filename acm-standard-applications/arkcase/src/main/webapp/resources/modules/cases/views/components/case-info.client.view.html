@@ -123,7 +123,7 @@
             </div>
 
             <div ng-if="objectInfo.caseResubDueDate !== null"  class="col-xs-12 col-md-3">
-                <div class="h4 font-bold">{{ objectInfo.caseResubDueDate.split('T')[0] | date : 'MM/dd/yyyy' }}</div>
+                <div class="h4 font-bold">{{ formatDate(objectInfo.caseResubDueDate) | date:"MM/dd/yyyy" }}</div>
                 <small class="text-muted"><span>Resubmission Due Date</span></small>
             </div>
         </div>

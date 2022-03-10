@@ -182,6 +182,12 @@ angular.module('cases').controller(
                         dueDateInfo: null
                     };
 
+                    $scope.formatDate = function(date){
+                          var dateOut = new Date(date);
+                          dateOut.setHours( dateOut.getHours() + 7 );
+                          return dateOut;
+                    };
+
                     var onObjectInfoRetrieved = function(data) {
                         // unbind watcher when user switch between tasks. When we call $watch() method,
                         // angularJS returns an unbind function that will kill the $watch() listener when its called.
@@ -192,6 +198,9 @@ angular.module('cases').controller(
                                 $scope.analystFullName = userName;
                             });
                         }
+
+                        $scope.resub = moment.utc($scope.objectInfo.caseResubDueDate).local();
+
 
                        // console.log("data: " + data);
                        //  console.log("data js: " + JSON.stringify(data));

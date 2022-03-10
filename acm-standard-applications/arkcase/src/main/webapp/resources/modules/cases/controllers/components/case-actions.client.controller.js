@@ -27,17 +27,6 @@ angular.module('cases').controller(
                 function($scope, $state, $stateParams, $translate, $q, $modal, Util, ConfigService, ObjectService, Authentication, CaseLookupService, ObjectSubscriptionService, ObjectModelService, CaseInfoService, MergeSplitService, HelperObjectBrowserService, UserInfoService, $timeout,
                         FormsTypeService, AdminFormWorkflowsLinkService, EcmEmailService) {
 
-                    var moment = require('moment-business-days');
-
-                    var july4th = '07-04-2022';
-                    var laborDay = '09-07-2022';
-
-                    moment.updateLocale('us', {
-                       holidays: [july4th, laborDay],
-                       holidayFormat: 'MM-DD-YYYY',
-                       workingWeekdays: [1, 2, 3, 4, 5, 6]
-                    });
-
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
                         stateParams: $stateParams,
@@ -258,17 +247,37 @@ angular.module('cases').controller(
                                 $scope.updateParticipants();
 
                             } else if (data.status === "CMS Requested Edits") {
+
+                                var holidays = ["12/31", "1/17", "2/21", "5/30", "6/20","7/4", "9/15", "10/10", "11/11", "11/24", "12/25"];
+
                                 if($scope.objectInfo.caseType === "OPT" || $scope.objectInfo.caseType === "MED"){
                                     var numberOfDaysToAdd = 3;
                                 } else {
                                     var numberOfDaysToAdd = 5;
                                 }
-                                var someDate = new Date();
-                                var result = moment(someDate, 'MM-DD-YYYY').businessAdd(numberOfDaysToAdd)._d;
+                                var newDate = new Date();
+                                var Sunday = 0;
+                                var Saturday = 6;
+                                var daysRemaining = numberOfDaysToAdd;
+                                var counter = 0;
 
-                                //var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+                                while (daysRemaining > 0) {
+                                     var someDate = new Date();
+                                     someDate.setDate(someDate.getDate() + counter);
+                                     var month = someDate.getUTCMonth() + 1;
+                                     var day = someDate.getUTCDate();
+                                     var test = month +  "/" + day;
+                                     var dayOfWeek = someDate.getDay();
+                                     var isWeekend = (dayOfWeek === 6) || (dayOfWeek  === 0);
+                                     if (!isWeekend && !holidays.includes(test)) {
+                                           daysRemaining--;
+                                     }
+                                     counter++;
+                                }
 
-                                $scope.objectInfo.caseResubDueDate = result;
+                                var result = newDate.setDate(newDate.getDate() + counter);
+
+                                $scope.objectInfo.caseResubDueDate = newDate;
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
