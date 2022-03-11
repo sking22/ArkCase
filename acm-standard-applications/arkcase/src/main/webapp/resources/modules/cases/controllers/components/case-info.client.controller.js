@@ -289,10 +289,10 @@ angular.module('cases').controller(
                             if (UtilDateService.compareDatesForUpdate(data, $scope.objectInfo.dueDate)) {
                                 var correctedDueDate = new Date(data);
                                 var startDate = new Date($scope.objectInfo.created);
-                                if(correctedDueDate < startDate){
+                                /*if(correctedDueDate < startDate){
                                     $scope.dateInfo.dueDate = $scope.dueDateBeforeChange;
                                     DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
-                                }else {
+                                }else {*/
                                     $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
                                     $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
                                     $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);
@@ -301,7 +301,7 @@ angular.module('cases').controller(
                                     // watcher won't be fired before landing on that different case
                                     dueDateWatch();
                                     $scope.saveCase();
-                                }
+                                //}
                             }
                         }else {
                             if (!oldDate) {
