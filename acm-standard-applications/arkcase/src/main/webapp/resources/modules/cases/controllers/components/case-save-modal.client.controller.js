@@ -19,18 +19,18 @@ angular.module('cases').controller(
         'Case.InfoService',
         'Object.ParticipantService',
         'Admin.FormWorkflowsLinkService',
-                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService) {
+        function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService) {
 
 
-                    console.log('modalParams: ' + JSON.stringify(modalParams));
-                    $scope.modalParams = modalParams;
+            console.log('modalParams: ' + JSON.stringify(modalParams));
+            $scope.modalParams = modalParams;
 
-                    var caseInfo = Util.omitNg($scope.modalParams.info);
-                    CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                        MessageService.info("Case Details Saved.");
-                        $modalInstance.close(caseInfo);
-                    });
+            var caseInfo = Util.omitNg($scope.modalParams.info);
+            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+                MessageService.info("Case Details Saved.");
+                $modalInstance.close(caseInfo);
+            });
 
 
 
-                } ]);
+        } ]);
