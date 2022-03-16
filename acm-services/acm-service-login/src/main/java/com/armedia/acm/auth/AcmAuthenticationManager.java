@@ -111,6 +111,7 @@ public class AcmAuthenticationManager implements AuthenticationManager
                                 = ((com.armedia.acm.auth.AcmAuthenticationDetails) authentication.getDetails())
                                 .getEncryptedPassword();
                         pass = EncryptionUtils.decryptString(encryptedPassword);
+                        //pass = encryptedPassword;
                     }
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), pass, authentication.getAuthorities());
                     auth.setDetails(authentication.getDetails());

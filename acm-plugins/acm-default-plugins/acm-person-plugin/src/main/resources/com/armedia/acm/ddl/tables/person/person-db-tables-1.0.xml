@@ -833,14 +833,6 @@
         <modifyDataType tableName="acm_person_alias" columnName="cm_person_alias_modified" newDataType="DATETIME"/>
     </changeSet>
 
-    <!--<changeSet id="5003-identification-add-class-name-column" author="riste.tutureski">
-        <addColumn tableName="acm_identification">
-            <column name="cm_class_name" type="varchar(128)" defaultValue="com.armedia.acm.plugins.person.model.Identification">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
-    </changeSet>-->
-
     <changeSet id="5004-acms-add-id-fields2" author="sean.king">
         <addColumn tableName="acm_person">
             <column name="cm_person_lbn_ein" type="VARCHAR(512)"/>
@@ -879,9 +871,14 @@
 
 
     <changeSet id="5006-acms-modify-id-fields" author="sean.king">
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin_type" newDataType="VARCHAR(4)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(10)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_docket_status" newDataType="VARCHAR(10)"/>
+        <!--<modifyDataType tableName="acm_person" columnName="cm_person_assc_tin_type" newDataType="VARCHAR(4)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(10)"/>-->
+
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_docket_status" type="VARCHAR(5)"/>
+        </addColumn>
+
+
         <modifyDataType tableName="acm_person" columnName="cm_person_lbn_ein" newDataType="VARCHAR(11)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_case_type" newDataType="VARCHAR(11)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin" newDataType="VARCHAR(11)"/>
@@ -899,6 +896,14 @@
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(11)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(35)"/>
 
+    </changeSet>
+
+    <changeSet id="5008-identification-add-class-name-column" author="riste.tutureski">
+        <addColumn tableName="acm_identification">
+            <column name="cm_class_name" type="varchar(128)" defaultValue="com.armedia.acm.plugins.person.model.Identification">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
