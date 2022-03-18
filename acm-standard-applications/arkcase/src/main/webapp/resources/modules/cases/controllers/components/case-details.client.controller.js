@@ -4,6 +4,7 @@ angular.module('cases').controller(
         'Cases.DetailsController',
         [
             '$scope',
+            '$modal',
             '$stateParams',
             '$translate',
             'UtilService',
@@ -17,7 +18,7 @@ angular.module('cases').controller(
             'SuggestedObjectsService',
             'Profile.UserInfoService',
             'Object.LookupService',
-                function($scope, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService, ObjectLookupService) {
+                function($scope, $modal, $stateParams, $translate, Util, ConfigService, CaseInfoService, CaseLookupService, MessageService, HelperObjectBrowserService, MentionsService, ObjectService, SuggestedObjectsService, UserInfoService, ObjectLookupService) {
 
                     new HelperObjectBrowserService.Component({
                         scope: $scope,
@@ -66,6 +67,30 @@ angular.module('cases').controller(
                         usersMentioned: []
                     };
 
+                    $scope.refresh = function() {
+                        $scope.$emit('report-object-refreshed', $stateParams.id);
+                    };
+
+                     $scope.updateContractName = function() {
+                        var idList = $scope.objectInfo.acmObjectOriginator.person.identifications;
+                         idList.forEach(function (item) {
+                             if (item.identificationType === "Contractor ID/Contractor Name") {
+                                 $scope.ContractortID = item.identificationNumber;
+                             }
+                        });
+
+                        for(var i=0; i< $scope.contractTypes.length; i++) {
+                             for (var key in  $scope.contractTypes[i]) {
+                                 if($scope.contractTypes[i][key]) {
+                                      if($scope.ContractortID === $scope.contractTypes[i][key].toString().substring(0, $scope.contractTypes[i][key].toString().indexOf('-'))) {
+                                          $scope.objectInfo.acmObjectOriginator.person.providerContractorName = $scope.contractTypes[i][key].toString();
+                                      }
+                                 }
+                             }
+                        }
+                     };
+
+
                     $scope.saveDetailsSummary = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
@@ -75,47 +100,69 @@ angular.module('cases').controller(
                     };
 
                     $scope.saveAll = function() {
-                        var caseInfo = Util.omitNg($scope.objectInfo);
-                        CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                            MessageService.info("Case Details Saved.");
-                            return caseInfo;
+                        var params = {
+                            "info": $scope.objectInfo,
+                        };
+                        var modalInstance = $modal.open({
+                            animation: true,
+                            templateUrl: 'modules/cases/views/components/case-save-modal.client.view.html',
+                            controller: 'Cases.CaseSaveModalController',
+                            size: 'sm',
+                            backdrop: 'static',
+                            resolve: {
+                                modalParams: function() {
+                                    return params;
+                                }
+                            }
+                        });
+
+                        modalInstance.result.then(function(data) {
+                            $scope.refresh();
+                        }, function() {
+                            console.log("error");
                         });
                     };
 
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         states.unshift(clear);
                         $scope.idStates = states;
                     });
 
                     ObjectLookupService.getLookupByLookupName('notActionReasons').then(function (notActionReasons) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         notActionReasons.unshift(clear);
                         $scope.caseNAR = notActionReasons;
                     });
 
                     ObjectLookupService.getLookupByLookupName('outcomeRevRei').then(function (outcomeRevRei) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         outcomeRevRei.unshift(clear);
                         $scope.caseORR = outcomeRevRei;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         caseAdminActionsOutcomes.unshift(clear);
                         $scope.caseAAO = caseAdminActionsOutcomes;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseTerminationTypes').then(function (caseTerminationTypes) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key": "","primary":null,"order":0} ;
                         caseTerminationTypes.unshift(clear);
                         $scope.caseTerminationTypes = caseTerminationTypes;
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseOptCmsDecisionTypes').then(function (caseOptCmsDecisionTypes) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"NULL","primary":null,"order":0} ;
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         caseOptCmsDecisionTypes.unshift(clear);
                         $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('contractTypes').then(function (contractTypes) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        contractTypes.unshift(clear);
+                        $scope.contractTypes = contractTypes;
                     });
 
                     $scope.saveDetails = function() {
@@ -132,8 +179,6 @@ angular.module('cases').controller(
                     });
 
                     var onObjectInfoRetrieved = function(data) {
-
-
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
                         $scope.caseFileType = data.caseType;
                         $scope.providerSpecialty = data.acmObjectOriginator.person.providerSpecialty;
@@ -215,6 +260,7 @@ angular.module('cases').controller(
                             }
 
                         });
+
 
                     };
 

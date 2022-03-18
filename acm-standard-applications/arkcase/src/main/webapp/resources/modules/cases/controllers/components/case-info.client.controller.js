@@ -182,6 +182,12 @@ angular.module('cases').controller(
                         dueDateInfo: null
                     };
 
+                    $scope.formatDate = function(date){
+                          var dateOut = new Date(date);
+                          dateOut.setHours( dateOut.getHours() + 7 );
+                          return dateOut;
+                    };
+
                     var onObjectInfoRetrieved = function(data) {
                         // unbind watcher when user switch between tasks. When we call $watch() method,
                         // angularJS returns an unbind function that will kill the $watch() listener when its called.
@@ -192,6 +198,9 @@ angular.module('cases').controller(
                                 $scope.analystFullName = userName;
                             });
                         }
+
+                        $scope.resub = moment.utc($scope.objectInfo.caseResubDueDate).local();
+
 
                        // console.log("data: " + data);
                        //  console.log("data js: " + JSON.stringify(data));
@@ -280,10 +289,10 @@ angular.module('cases').controller(
                             if (UtilDateService.compareDatesForUpdate(data, $scope.objectInfo.dueDate)) {
                                 var correctedDueDate = new Date(data);
                                 var startDate = new Date($scope.objectInfo.created);
-                                if(correctedDueDate < startDate){
+                                /*if(correctedDueDate < startDate){
                                     $scope.dateInfo.dueDate = $scope.dueDateBeforeChange;
                                     DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
-                                }else {
+                                }else {*/
                                     $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
                                     $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
                                     $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);
@@ -292,7 +301,7 @@ angular.module('cases').controller(
                                     // watcher won't be fired before landing on that different case
                                     dueDateWatch();
                                     $scope.saveCase();
-                                }
+                                //}
                             }
                         }else {
                             if (!oldDate) {

@@ -68,20 +68,19 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
     private String getFullName(String firstName, String middleName, String lastName) {
         String fullName = "";
         String comma = "";
-        if((firstName != null) && (firstName.trim().equals(""))) {
+        if((firstName != null) && !firstName.trim().equals("")) {
             fullName = fullName + firstName;
             comma = " ";
         }
-        if((middleName != null) && (middleName.trim().equals(""))) {
+        if((middleName != null) && !middleName.trim().equals("")) {
             fullName = fullName + comma + middleName;
             comma = " ";
         }
-        if((lastName != null) && (lastName.trim().equals(""))) {
+        if((lastName != null) && !lastName.trim().equals("")) {
             fullName = fullName + comma + lastName;
         }
 
-        if(fullName.equals(""))
-        {
+        if(fullName.equals("")) {
             return null;
         }
         return fullName;

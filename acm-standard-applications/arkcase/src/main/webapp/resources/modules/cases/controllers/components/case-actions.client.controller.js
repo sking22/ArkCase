@@ -172,6 +172,7 @@ angular.module('cases').controller(
                     $scope.changeCaseStatus = function(caseInfo) {
                         var params = {
                             "info": caseInfo,
+                            "objectInfo": $scope.objectInfo,
                             "showApprover": $scope.showApprover
                         };
                         var modalInstance = $modal.open({
@@ -188,7 +189,9 @@ angular.module('cases').controller(
                         });
 
                         modalInstance.result.then(function(data) {
-                       // $scope.refresh();
+                           $scope.refresh();
+                            var caseInfo = data;
+                            return caseInfo;
                            // console.log("case change modal --- ", JSON.stringify(data));
 
                            /* if (data.status === "New") {
@@ -197,7 +200,7 @@ angular.module('cases').controller(
                                 $scope.updateParticipants();
 
                             } else */
-                            if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
+                            /*if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
                                   $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                   ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
@@ -247,14 +250,37 @@ angular.module('cases').controller(
                                 $scope.updateParticipants();
 
                             } else if (data.status === "CMS Requested Edits") {
+
+                                var holidays = ["12/31", "1/17", "2/21", "5/30", "6/20","7/4", "9/15", "10/10", "11/11", "11/24", "12/25"];
+
                                 if($scope.objectInfo.caseType === "OPT" || $scope.objectInfo.caseType === "MED"){
                                     var numberOfDaysToAdd = 3;
                                 } else {
                                     var numberOfDaysToAdd = 5;
                                 }
-                                var someDate = new Date();
-                                var result = someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-                                $scope.objectInfo.caseResubDueDate = result;
+                                var newDate = new Date();
+                                var Sunday = 0;
+                                var Saturday = 6;
+                                var daysRemaining = numberOfDaysToAdd;
+                                var counter = 0;
+
+                                while (daysRemaining > 0) {
+                                     var someDate = new Date();
+                                     someDate.setDate(someDate.getDate() + counter);
+                                     var month = someDate.getUTCMonth() + 1;
+                                     var day = someDate.getUTCDate();
+                                     var test = month +  "/" + day;
+                                     var dayOfWeek = someDate.getDay();
+                                     var isWeekend = (dayOfWeek === 6) || (dayOfWeek  === 0);
+                                     if (!isWeekend && !holidays.includes(test)) {
+                                           daysRemaining--;
+                                     }
+                                     counter++;
+                                }
+
+                                var result = newDate.setDate(newDate.getDate() + counter);
+
+                                $scope.objectInfo.caseResubDueDate = newDate;
                                 $scope.objectInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                 ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
@@ -284,11 +310,11 @@ angular.module('cases').controller(
                             $scope.objectInfo.status = data.status;
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
-                            CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
-                                $scope.refresh();
-                            });
-
+                               // $scope.refresh();
+                                return caseInfo;
+                            });*/
                         }, function() {
                             console.log("error");
                         });
