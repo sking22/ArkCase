@@ -172,6 +172,7 @@ angular.module('cases').controller(
                     $scope.changeCaseStatus = function(caseInfo) {
                         var params = {
                             "info": caseInfo,
+                            "objectInfo": $scope.objectInfo,
                             "showApprover": $scope.showApprover
                         };
                         var modalInstance = $modal.open({
@@ -188,7 +189,9 @@ angular.module('cases').controller(
                         });
 
                         modalInstance.result.then(function(data) {
-                       // $scope.refresh();
+                           $scope.refresh();
+                            var caseInfo = data;
+                            return caseInfo;
                            // console.log("case change modal --- ", JSON.stringify(data));
 
                            /* if (data.status === "New") {
@@ -197,7 +200,7 @@ angular.module('cases').controller(
                                 $scope.updateParticipants();
 
                             } else */
-                            if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
+                            /*if (data.status === "Assigned" || data.status === "In Process" || data.status === "Documentation Requested" ) {
                                   $scope.objectInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.objectInfo);
                                   ObjectModelService.setAssignee($scope.objectInfo, $scope.objectInfo.casePrevAnalyst);
                                   ObjectModelService.setGroup($scope.objectInfo, 'ALA_ANALYST@APVITACMS.COM');
@@ -307,14 +310,12 @@ angular.module('cases').controller(
                             $scope.objectInfo.status = data.status;
 
                             var caseInfo = Util.omitNg($scope.objectInfo);
-                            // console.log("case-info-save-status", caseInfo);
 
-                            CaseInfoService.saveCaseInfo(caseInfo).then(function(response) {
+                            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
-                                //console.log("case-response-save-status", response);
-                                $scope.refresh();
-                            });
-
+                               // $scope.refresh();
+                                return caseInfo;
+                            });*/
                         }, function() {
                             console.log("error");
                         });

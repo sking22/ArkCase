@@ -89,7 +89,7 @@
                             <label >Contractor ID</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'Contractor ID/Contractor Name' ">
-                                    <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
+                                    <input ng-change="updateContractName()" maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
                                            ng-disabled="disableField">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
@@ -112,12 +112,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 form-group">
-                            <label>Application Type</label>
-                            <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
-                                   placeholder="{{ objectInfo.caseApplicationType }}"
-                                   ng-disabled="disableField">
-                            <span ng-if="objectInfo.caseApplicationType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseApplicationType.length}}/10 characters remaining</span>
+                        <div class="col-sm-4 form-check">
+                            <label>Contractor Name</label>
+                            <select class="form-control" ng-model="objectInfo.acmObjectOriginator.person.providerContractorName" >
+                                <option ng-repeat="option in contractTypes" placeholder="{{ objectInfo.acmObjectOriginator.person.providerContractorName }}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name</label>
@@ -135,6 +136,13 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Application Type</label>
+                            <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
+                                   placeholder="{{ objectInfo.caseApplicationType }}"
+                                   ng-disabled="disableField">
+                            <span ng-if="objectInfo.caseApplicationType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseApplicationType.length}}/10 characters remaining</span>
+                        </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Report Alert Date</label>
                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReportAlertDate = NULL">clear</a>
@@ -609,12 +617,12 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">DEX Verified Date</label>
-                            <a ng-if="!disableDexVer" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableDexVer">
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
+                            <!--<div style="clear:both;" ng-if="disableDexVer">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
-                            </div>
-                            <div style="clear:both;" ng-if="!disableDexVer">
+                            </div>-->
+                            <div style="clear:both;">
                                 <date-time-picker data="objectInfo.caseDexVerifiedDate" property="objectInfo.caseDexVerifiedDate"
                                                   date-picker-id="objectInfo.caseDexVerifiedDate" time-format-disabled="true"></date-time-picker>
                             </div>

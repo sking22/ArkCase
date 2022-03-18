@@ -205,6 +205,10 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     @Column(name = "cm_person_lbn_ein")
     private String providerLbnEin;
 
+    //cm_person_contractor_name
+    @Column(name = "cm_person_contractor_name")
+    private String providerContractorName;
+
     public String getSsn(){
         String ssn = "";
         for(Identification id: getIdentifications()) {
@@ -569,6 +573,10 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
 
     public void setProviderSpecialty(String providerSpecialty) { this.providerSpecialty = providerSpecialty; }
 
+    @XmlTransient
+    public String getProviderContractorName() {return providerContractorName; }
+
+    public void setProviderContractorName(String providerContractorName) { this.providerContractorName = providerContractorName; }
 
     @Transient
     @JsonIgnore
