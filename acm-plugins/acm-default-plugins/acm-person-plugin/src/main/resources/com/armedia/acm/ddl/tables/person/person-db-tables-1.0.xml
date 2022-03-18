@@ -901,4 +901,13 @@
 
     </changeSet>
 
+    <changeSet id="5008-acms-modify-id-fields" author="sean.king">
+        <modifyDataType tableName="acm_person" columnName="cm_middle_name" newDataType="VARCHAR(256)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_given_name" newDataType="VARCHAR(256)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_family_name" newDataType="VARCHAR(256)"/>
+        <addColumn tableName="acm_person">
+            <column name="cm_person_contractor_name" type="VARCHAR(32)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

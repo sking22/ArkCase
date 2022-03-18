@@ -67,6 +67,30 @@ angular.module('cases').controller(
                         usersMentioned: []
                     };
 
+                    $scope.refresh = function() {
+                        $scope.$emit('report-object-refreshed', $stateParams.id);
+                    };
+
+                     $scope.updateContractName = function() {
+                        var idList = $scope.objectInfo.acmObjectOriginator.person.identifications;
+                         idList.forEach(function (item) {
+                             if (item.identificationType === "Contractor ID/Contractor Name") {
+                                 $scope.ContractortID = item.identificationNumber;
+                             }
+                        });
+
+                        for(var i=0; i< $scope.contractTypes.length; i++) {
+                             for (var key in  $scope.contractTypes[i]) {
+                                 if($scope.contractTypes[i][key]) {
+                                      if($scope.ContractortID === $scope.contractTypes[i][key].toString().substring(0, $scope.contractTypes[i][key].toString().indexOf('-'))) {
+                                          $scope.objectInfo.acmObjectOriginator.person.providerContractorName = $scope.contractTypes[i][key].toString();
+                                      }
+                                 }
+                             }
+                        }
+                     };
+
+
                     $scope.saveDetailsSummary = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
@@ -97,14 +121,6 @@ angular.module('cases').controller(
                         }, function() {
                             console.log("error");
                         });
-
-
-                       /* var caseInfo = Util.omitNg($scope.objectInfo);
-                        CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                            MessageService.info("Case Details Saved.");
-                            return caseInfo;
-                        });*/
-
                     };
 
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {
@@ -143,6 +159,12 @@ angular.module('cases').controller(
                         $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
                     });
 
+                    ObjectLookupService.getLookupByLookupName('contractTypes').then(function (contractTypes) {
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        contractTypes.unshift(clear);
+                        $scope.contractTypes = contractTypes;
+                    });
+
                     $scope.saveDetails = function() {
                         var caseInfo = Util.omitNg($scope.objectInfo);
                         CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
@@ -157,8 +179,6 @@ angular.module('cases').controller(
                     });
 
                     var onObjectInfoRetrieved = function(data) {
-
-
                         $scope.providerFullName = data.acmObjectOriginator.person.givenName + " " + data.acmObjectOriginator.person.familyName;
                         $scope.caseFileType = data.caseType;
                         $scope.providerSpecialty = data.acmObjectOriginator.person.providerSpecialty;
@@ -240,6 +260,7 @@ angular.module('cases').controller(
                             }
 
                         });
+
 
                     };
 
