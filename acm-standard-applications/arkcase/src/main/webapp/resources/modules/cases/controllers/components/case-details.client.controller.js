@@ -262,6 +262,9 @@ angular.module('cases').controller(
 
                         });
 
+                        if(data.acmObjectOriginator.person.providerContractorName == null || data.acmObjectOriginator.person.providerContractorName == '') {
+                           $scope.updateContractName();
+                        }
 
                     };
 
