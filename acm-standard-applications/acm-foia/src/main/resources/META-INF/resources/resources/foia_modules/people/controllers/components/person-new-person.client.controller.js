@@ -2,12 +2,14 @@
 
 angular.module('people').controller(
     'People.NewPersonController',
-    ['$scope', '$stateParams', '$translate', '$q', 'Person.InfoService', '$state', 'Object.LookupService', 'MessageService', '$timeout', 'UtilService', '$modal', 'ConfigService', 'Organization.InfoService', 'ObjectService', 'modalParams', 'Mentions.Service', 'PhoneValidationService',
-        function ($scope, $stateParams, $translate, $q, PersonInfoService, $state, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, OrganizationInfoService, ObjectService, modalParams, MentionsService, PhoneValidationService) {
+    ['$scope', '$stateParams', '$translate', '$q', 'Person.InfoService', '$state', 'Object.LookupService', 'MessageService', '$timeout', 'UtilService', '$modal', 'ConfigService', 'Organization.InfoService', 'ObjectService', 'modalParams', 'Mentions.Service', 'PhoneValidationService', 'EmailValidationService',
+        function ($scope, $stateParams, $translate, $q, PersonInfoService, $state, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, OrganizationInfoService, ObjectService, modalParams, MentionsService, PhoneValidationService, EmailValidationService) {
 
             $scope.modalParams = modalParams;
             $scope.loading = false;
             $scope.loadingIcon = "fa fa-floppy-o";
+
+            var assocTypeLabel = $translate.instant("people.comp.organizations.type.label");
 
             //used for showing/hiding buttons in communication accounts
             var contactMethodsCounts = {
@@ -255,7 +257,8 @@ angular.module('people').controller(
                     showSetPrimary: true,
                     isDefault: false,
                     types: $scope.organizationTypes,
-                    isFirstOrganization: Util.isEmpty(associationFound) ? true : false
+                    isFirstOrganization: Util.isEmpty(associationFound) ? true : false,
+                    assocTypeLabel: assocTypeLabel
                 };
                 //set this params for editing
                 if (association.organization) {
@@ -464,15 +467,29 @@ angular.module('people').controller(
                 });
             };
 
-            $scope.validateInput = function (caType, caValue) {
+            $scope.validateInput = function (caType, caValue, isDefaultValue) {
                 var inputType = caType;
                 if (inputType === 'phone') {
-                    var validateObject = PhoneValidationService.validateInput(caValue, regEx);
-                    $scope.person.defaultPhone.value = validateObject.inputValue;
-                    $scope.showPhoneError = validateObject.showPhoneError;
-                } else if (inputType === 'email' && caValue) {
+                    var validateObject = PhoneValidationService.validateInput(caValue.value, regEx);
+                    caValue.value = validateObject.inputValue;
+                    if(isDefaultValue) {
+                        $scope['show' + $scope.capitalizeFirstLetter(caType) + 'Error'] = validateObject.showPhoneError;
+                    } else
+                        caValue['show' + $scope.capitalizeFirstLetter(caType) + 'Error'] = validateObject.showPhoneError;
+                } else if (inputType === 'email') {
                     $scope.checkExistingEmail(caValue);
+                    EmailValidationService.validateInput(caValue.value).then(function (response){
+                        caValue.value = response.inputValue;
+                        if(isDefaultValue) {
+                            $scope['show' + $scope.capitalizeFirstLetter(caType) + 'Error'] = response.showEmailError;
+                        } else
+                            caValue['show' + $scope.capitalizeFirstLetter(caType) + 'Error'] = response.showEmailError;
+                    });
                 }
             };
+
+            $scope.checkLocationRules = function (location) {
+                return !_.values(location).every(_.isEmpty)
+            }
         }])
 ;

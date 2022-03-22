@@ -20,5 +20,9 @@ holidayConfiguration:
     "2021-11-11": "Veterans Day"
     "2021-11-25": "Thanksgiving Day"
     "2021-11-26": "Native American Heritage Day"
+<<<<<<< HEAD
     "2021-12-24": "Christmas Day"
+=======
+    "2021-12-24": "Christmas Eve"
+>>>>>>> main
     "2021-12-31": "New Year's Day"

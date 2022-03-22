@@ -1,10 +1,10 @@
-package com.armedia.acm.plugins.task.model;
+package com.armedia.acm.plugins.addressable.service;
 
 /*-
  * #%L
- * ACM Default Plugin: Tasks
+ * ACM Default Plugin: Addressable
  * %%
- * Copyright (C) 2014 - 2018 ArkCase LLC
+ * Copyright (C) 2014 - 2021 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 
@@ -27,36 +27,17 @@ package com.armedia.acm.plugins.task.model;
  * #L%
  */
 
-public class SolrResponse
-{
-    private ResponseHeader responseHeader;
-    private Response response;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Value;
 
-    public ResponseHeader getResponseHeader()
+public class EmailRegexConfig {
+    @JsonProperty("email.email_regex")
+    @Value("${email.email_regex}")
+    private String emailRegex;
+
+    //.substring is put here because Yaml is parsing the string and can't accept ^ sign at the beginning
+    public String getEmailRegex()
     {
-        return responseHeader;
+        return emailRegex.substring(1, emailRegex.length() - 1);
     }
-
-    public void setResponseHeader(ResponseHeader responseHeader)
-    {
-        this.responseHeader = responseHeader;
-    }
-
-    public Response getResponse()
-    {
-        return response;
-    }
-
-    public void setResponse(Response response)
-    {
-        this.response = response;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "SolrResponse [responseHeader=" + responseHeader + ", response="
-                + response + "]";
-    }
-
 }

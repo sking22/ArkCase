@@ -33,16 +33,12 @@ package gov.foia.service;
 import com.armedia.acm.activiti.services.AcmBpmnService;
 import com.armedia.acm.data.AuditPropertyEntityAdapter;
 import com.armedia.acm.web.api.MDCConstants;
-
 import org.apache.logging.log4j.Logger;
 import org.slf4j.MDC;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import gov.foia.dao.FOIARequestDao;
 import gov.foia.model.FOIARequest;
 
@@ -59,7 +55,6 @@ public abstract class AbstractScheduledQueuePurger
     private AuditPropertyEntityAdapter auditPropertyEntityAdapter;
 
     private FoiaConfigurationService foiaConfigurationService;
-
 
     /**
      * @return the log
@@ -91,7 +86,11 @@ public abstract class AbstractScheduledQueuePurger
             }
             try
             {
-                List<FOIARequest> requestsForPurging = getAllRequestsInQueueBefore(LocalDateTime.now().minusDays(getMaxDaysInQueueProperty()));
+                LocalDateTime now = LocalDateTime.now();
+                now = now.minusHours(now.getHour()).minusMinutes(now.getMinute()).minusSeconds(now.getSecond()).minusNanos(now.getNano());
+
+                List<FOIARequest> requestsForPurging = getAllRequestsInQueueBefore(
+                        now.minusDays(getMaxDaysInQueueProperty()));
 
                 auditPropertyEntityAdapter.setUserId(getProcessUser());
                 MDC.put(MDCConstants.EVENT_MDC_REQUEST_USER_ID_KEY, getProcessUser());
@@ -118,6 +117,7 @@ public abstract class AbstractScheduledQueuePurger
         Map<String, Object> processVariables = new HashMap<>();
         processVariables.put("OBJECT_TYPE", "CASE_FILE");
         processVariables.put("OBJECT_ID", request.getId());
+        processVariables.put("OBJECT_STATUS", request.getStatus());
         return processVariables;
     }
 

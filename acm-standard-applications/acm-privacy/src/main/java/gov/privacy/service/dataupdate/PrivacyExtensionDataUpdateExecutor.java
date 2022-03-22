@@ -1,8 +1,8 @@
-package com.armedia.acm.plugins.task.model;
+package gov.privacy.service.dataupdate;
 
 /*-
  * #%L
- * ACM Default Plugin: Tasks
+ * ACM Standard Application: Freedom of Information Act
  * %%
  * Copyright (C) 2014 - 2018 ArkCase LLC
  * %%
@@ -27,39 +27,26 @@ package com.armedia.acm.plugins.task.model;
  * #L%
  */
 
+import com.armedia.acm.services.dataupdate.service.AcmDataUpdateExecutor;
+import com.armedia.acm.services.dataupdate.service.CoreExtensionDataUpdateExecutors;
+
 import java.util.List;
 import com.armedia.acm.auth.AuthenticationUtils;
 import com.armedia.acm.core.model.AcmEvent;
 
-public class Response
+public class PrivacyExtensionDataUpdateExecutor implements CoreExtensionDataUpdateExecutors
 {
-    private Integer numFound;
-    private List<AcmTaskSolr> docs;
 
-    public Integer getNumFound()
-    {
-        return numFound;
-    }
-
-    public void setNumFound(Integer numFound)
-    {
-        this.numFound = numFound;
-    }
-
-    public List<AcmTaskSolr> getDocs()
-    {
-        return docs;
-    }
-
-    public void setDocs(List<AcmTaskSolr> docs)
-    {
-        this.docs = docs;
-    }
+    private List<AcmDataUpdateExecutor> privacyDataUpdateExecutors;
 
     @Override
-    public String toString()
+    public List<AcmDataUpdateExecutor> getExecutors()
     {
-        return "Response [numFound=" + numFound + ", docs=" + docs + "]";
+        return privacyDataUpdateExecutors;
     }
 
+    public void setPrivacyDataUpdateExecutors(List<AcmDataUpdateExecutor> privacyDataUpdateExecutors)
+    {
+        this.privacyDataUpdateExecutors = privacyDataUpdateExecutors;
+    }
 }

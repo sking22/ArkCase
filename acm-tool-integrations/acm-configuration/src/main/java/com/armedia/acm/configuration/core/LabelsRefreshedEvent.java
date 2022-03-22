@@ -27,9 +27,7 @@ package com.armedia.acm.configuration.core;
  * #L%
  */
 
-
 import com.armedia.acm.core.model.AcmEvent;
-
 import java.util.Date;
 
 public class LabelsRefreshedEvent extends AcmEvent {

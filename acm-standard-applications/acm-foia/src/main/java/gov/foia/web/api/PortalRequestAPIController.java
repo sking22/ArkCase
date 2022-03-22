@@ -60,6 +60,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import java.io.IOException;
@@ -185,6 +186,19 @@ public class PortalRequestAPIController
         throw new Exception(translationService.translate(NotificationConstants.PORTAL_RESPONSE_EXPIRY));
     }
 
+
+    @RequestMapping(value = "/external/anonymous/status/{portalRequestTrackingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity getExternalAnonymousRequests(@PathVariable("portalRequestTrackingId") String portalRequestTrackingId)
+    {
+        try {
+            return ResponseEntity.ok(getPortalRequestService().getExternalAnonymousRequests(portalRequestTrackingId));
+        } catch (NoResultException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    "FOIA Requests not found for the request tracking id  [" + portalRequestTrackingId + "]"
+            );
+        }
+    }
     /**
      * @return the portalRequestService
      */

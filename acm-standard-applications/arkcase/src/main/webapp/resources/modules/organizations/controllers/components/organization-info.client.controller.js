@@ -39,6 +39,10 @@ angular.module('organizations').controller(
                         }
                     });
 
+                    ObjectLookupService.getOrganizationIdTypes().then(function(identificationTypes) {
+                        $scope.identificationTypes = identificationTypes;
+                    });
+
                     $scope.organizationId = null;
                     var onObjectInfoRetrieved = function(objectInfo) {
                         $scope.organizationId = objectInfo.organizationId;

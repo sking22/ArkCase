@@ -273,6 +273,10 @@ angular.module('services').factory(
                                 return "";
                             };
 
+                            that.getObjectNumberFromInfo = (arg.getObjectNumberFromInfo) ? arg.getObjectNumberFromInfo : function(objectInfo) {
+                                return Util.goodMapValue(objectInfo, "acmObjectNumber");
+                            }; 
+
                             that.scope.activeLinkId = Service.getComponentByState(that.state);
                             Service.updateObjectSetting(that.moduleId, that.scope.activeLinkId); //don't update objectId/Type; only set linkId
 
@@ -406,6 +410,7 @@ angular.module('services').factory(
                                     //when object is loaded we want to subscribe to change events
                                     var objectId = id;
                                     var objectType = that.getObjectTypeFromInfo(that.scope.objectInfo);
+                                    var objectNumber = that.getObjectNumberFromInfo(that.scope.objectInfo);
 
                                     //objectType fix for task
                                     if (objectType === 'ADHOC') {
