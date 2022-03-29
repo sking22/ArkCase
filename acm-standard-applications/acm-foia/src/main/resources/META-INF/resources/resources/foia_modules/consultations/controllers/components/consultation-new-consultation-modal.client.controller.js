@@ -3,13 +3,8 @@
 angular.module('consultations').controller(
     'Consultations.NewConsultationController',
     [ '$scope', '$stateParams', '$q', '$translate', '$modalInstance', 'Consultation.InfoService', 'Object.LookupService', 'MessageService', '$timeout', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Person.InfoService', 'Object.ModelService', 'Object.ParticipantService',
-<<<<<<< HEAD
-        'Profile.UserInfoService', 'Mentions.Service', 'Organization.InfoService', '$location', '$anchorScroll',
-        function($scope, $stateParams, $q, $translate, $modalInstance, ConsultationInfoService, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, ObjectService, modalParams, PersonInfoService, ObjectModelService, ObjectParticipantService, UserInfoService, MentionsService, OrganizationInfoService, $location, $anchorScroll) {
-=======
         'Profile.UserInfoService', 'Mentions.Service', 'Organization.InfoService', '$location', '$anchorScroll', 'Admin.ObjectTitleConfigurationService',
         function($scope, $stateParams, $q, $translate, $modalInstance, ConsultationInfoService, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, ObjectService, modalParams, PersonInfoService, ObjectModelService, ObjectParticipantService, UserInfoService, MentionsService, OrganizationInfoService, $location, $anchorScroll, AdminObjectTitleConfigurationService) {
->>>>>>> main
 
             $scope.modalParams = modalParams;
             $scope.loading = false;
@@ -20,11 +15,7 @@ angular.module('consultations').controller(
             $scope.isPickExistingPerson = false;
             $scope.uploadFiles = [];
             $scope.primaryAddressIndex = 0;
-<<<<<<< HEAD
-=======
-            $scope.enableTitle = false
->>>>>>> main
-
+            $scope.enableTitle = false;
             $scope.config = null;
             
             var moduleConfig = ConfigService.getModuleConfig("consultations");
@@ -38,15 +29,9 @@ angular.module('consultations').controller(
             var states = ObjectLookupService.getStates();
             var commonModuleConfig = ConfigService.getModuleConfig("common");
             var positionLookup = ObjectLookupService.getPersonOrganizationRelationTypes();
-<<<<<<< HEAD
-
-            $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig, positionLookup]).then(function (data) {
-=======
             var promiseConfigTitle = AdminObjectTitleConfigurationService.getObjectTitleConfiguration();
 
             $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig, positionLookup, promiseConfigTitle]).then(function (data) {
->>>>>>> main
-
                 var moduleConfig = data[0];
                 var prefixes = data[1];
                 var countries = data[2];
@@ -56,10 +41,7 @@ angular.module('consultations').controller(
                 var usaStates = data[6];
                 var personTypes = data[7];
                 var organizationTypes = data[8];
-<<<<<<< HEAD
-=======
-                var configTitle = data[11]
->>>>>>> main
+                var configTitle = data[11];
                 $scope.commonModuleConfig = data[9];
 
                 $scope.config = moduleConfig;
@@ -94,13 +76,10 @@ angular.module('consultations').controller(
                     externalRequestingAgency: ''
                 };
 
-<<<<<<< HEAD
-=======
                 if (!Util.isEmpty(configTitle)) {
                     $scope.enableTitle = configTitle.data.CONSULTATION.enableTitleField;
                 }
 
->>>>>>> main
                 var defaultAddressType = ObjectLookupService.getPrimaryLookup($scope.addressTypes);
                 var defaultCountry = ObjectLookupService.getPrimaryLookup($scope.countries);
 

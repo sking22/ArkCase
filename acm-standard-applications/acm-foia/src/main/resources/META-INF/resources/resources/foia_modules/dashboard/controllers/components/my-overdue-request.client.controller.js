@@ -7,15 +7,11 @@ angular.module('dashboard.my-overdue-requests').controller('Dashboard.MyOverdueR
             vm.config = null;
             var userInfo = null;
             var requestQueue = "Release OR Hold";
-<<<<<<< HEAD
-=======
-
             if(!Util.isEmpty(params.description)){
                 $scope.$parent.model.description = " - " + params.description;
             }else{
                 $scope.$parent.model.description = "";
             }
->>>>>>> main
 
             var paginationOptions = {
                 pageNumber: 1,

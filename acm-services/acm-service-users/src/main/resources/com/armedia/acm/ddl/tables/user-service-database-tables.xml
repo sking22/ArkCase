@@ -754,19 +754,12 @@
     <changeSet id="09-change-cm-user-access-datetime" author="marija.blazhevska">
         <modifyDataType tableName="acm_user_access_token" columnName="cm_created_date_time" newDataType="DATETIME"/>
     </changeSet>
-<<<<<<< HEAD
-=======
 
     <changeSet id="10-change-cm-user-action-datetime" author="marija.blazhevska">
         <modifyDataType tableName="acm_user_action" columnName="cm_user_action_created" newDataType="DATETIME"/>
         <modifyDataType tableName="acm_user_action" columnName="cm_user_action_modified" newDataType="DATETIME"/>
     </changeSet>
->>>>>>> main
 
-    <changeSet id="10-change-cm-user-action-datetime" author="marija.blazhevska">
-        <modifyDataType tableName="acm_user_action" columnName="cm_user_action_created" newDataType="DATETIME"/>
-        <modifyDataType tableName="acm_user_action" columnName="cm_user_action_modified" newDataType="DATETIME"/>
-    </changeSet>
     <changeSet id="5501-add-user-token" author="ylanka">
         <addColumn tableName="acm_user">
             <column name="cm_mfa_token" type="VARCHAR(10)"/>

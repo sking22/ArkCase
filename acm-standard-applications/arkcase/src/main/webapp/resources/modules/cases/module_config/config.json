@@ -93,6 +93,11 @@
                 "value": "fq={!term f=status_s}Ready For Review II"
             },
             {
+                "desc": "All OPT - DEX SENT - Docket Requested",
+                "name": "all-opt-dex-docket-req-cases",
+                "value": "fq={!term f=status_s}OPT - DEX SENT - Docket Requested"
+            },
+            {
                 "desc": "All Submitted to CMS",
                 "name": "all-submitted-cms-cases",
                 "value": "fq={!term f=status_s}Submitted to CMS"

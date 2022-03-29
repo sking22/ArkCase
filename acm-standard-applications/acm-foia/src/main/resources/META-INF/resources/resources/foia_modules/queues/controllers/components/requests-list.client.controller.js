@@ -210,81 +210,9 @@ angular.module('queues').controller(
                                 var requests = queueRequest.response.docs;
                                 var personIds = "";
 
-<<<<<<< HEAD
-                                $scope.timeToComplete = queuesConfig.data;
-
-                                var requestsChanged = _.map(requests, function(request) {
-                                    var name = request.queue_name_s.toLowerCase();
-                                    var numDays;
-                                    var queuesTotal;
-                                    var dueDateTotal;
-                                    if (request.request_type_lcs === "Appeal") {
-                                        queuesTotal = $scope.timeToComplete.appeal.totalTimeToComplete;
-                                        if (request.queue_name_s === 'General Counsel') {
-                                            numDays = $scope.timeToComplete.appeal.generalCounsel;
-
-                                        } else {
-                                            numDays = $scope.timeToComplete.appeal[name];
-                                        }
-
-                                    } else {
-                                        queuesTotal = $scope.timeToComplete.request.totalTimeToComplete;
-                                        if (request.queue_name_s === 'General Counsel') {
-                                            numDays = $scope.timeToComplete.request.generalCounsel;
-                                        } else {
-                                            numDays = $scope.timeToComplete.request[name];
-                                        }
-                                    }
-
-                                    if (holidaySchedule.data.includeWeekends) {
-                                        dueDateTotal = DueDateService.dueDateWithWeekends(request.create_date_tdt.toUTCString(), queuesTotal, holidaySchedule.data.holidays);
-
-                                        request.queueDueDate = DueDateService.dueDateWithWeekends(request.queue_enter_date_tdt.toUTCString(), numDays, holidaySchedule.data.holidays);
-                                        //calculate to show the due date on the entered queue with working days and weekends without holidays
-                                        request.queueDueDate = moment(request.queueDueDate).format('YYYY-MM-DD h:mm A');
-
-                                        request.daysInQueue = DueDateService.workingDaysWithWeekends(request.queue_enter_date_tdt.toUTCString(), holidaySchedule.data.holidays);
-                                        //calculate how many days the request is in the queue
-
-                                        var totalDaysLeft = request.queue_name_s !== "Hold" ?
-                                            DueDateService.daysLeftWithWeekends(holidaySchedule.data.holidays, dueDateTotal) :
-                                            DueDateService.daysLeftWithWeekends(holidaySchedule.data.holidays, dueDateTotal, request.hold_enter_date_tdt);
-                                        var queueDaysLeft = request.queue_name_s !== "Hold" ?
-                                            DueDateService.daysLeftWithWeekends(holidaySchedule.data.holidays, request.queueDueDate) :
-                                            DueDateService.daysLeftWithWeekends(holidaySchedule.data.holidays, request.queueDueDate, request.hold_enter_date_tdt);
-                                        request.daysToComplete = queueDaysLeft.days + '/' + totalDaysLeft.days;
-                                        //calculate to show how many days until time to complete per queue / per request
-                                    } else {
-                                        dueDateTotal = DueDateService.dueDateWorkingDays(request.create_date_tdt.toUTCString(), queuesTotal, holidaySchedule.data.holidays);
-                                        request.queueDueDate = DueDateService.dueDateWorkingDays(request.queue_enter_date_tdt.toUTCString(), numDays, holidaySchedule.data.holidays);
-                                        //calculate to show the due date on the entered queue with working days without holidays and weekends
-                                        request.queueDueDate = moment(request.queueDueDate).format('YYYY-MM-DD h:mm A');
-
-                                        request.daysInQueue = DueDateService.workingDays(request.queue_enter_date_tdt.toUTCString(), holidaySchedule.data.holidays);
-                                        //calculate how many days the request is in the queue
-
-                                        var totalDaysLeft = request.queue_name_s !== "Hold" ?
-                                            DueDateService.daysLeft(holidaySchedule.data.holidays, dueDateTotal) :
-                                            DueDateService.daysLeft(holidaySchedule.data.holidays, dueDateTotal, request.hold_enter_date_tdt);
-                                        var queueDaysLeft = request.queue_name_s !== "Hold" ?
-                                            DueDateService.daysLeft(holidaySchedule.data.holidays, request.queueDueDate) :
-                                            DueDateService.daysLeft(holidaySchedule.data.holidays, request.queueDueDate, request.hold_enter_date_tdt);
-                                        request.daysToComplete = queueDaysLeft.days + '/' + totalDaysLeft.days;
-                                        //calculate to show how many days until time to complete per queue / per request
-                                    }
-
-                                    if (request.queue_name_s !== "Release") {
-                                        request.isOverdue = TaskAlertsService.calculateOverdue(new Date(request.queueDueDate));
-                                        request.isDeadline = TaskAlertsService.deadlineCalculate(new Date(request.queueDueDate), $scope.timeToComplete.request.deadlineIndicator);
-                                        //calculate to show alert icons if task is in overdue or deadline is approaching
-                                    } else {
-                                        request.isOverdue = false;
-                                        request.isDeadline = false;
-=======
                                 for (var i = 0; i < requests.length; i++){
                                     if(requests[i].initiator_person_id_i != undefined){
                                         personIds += (requests[i].initiator_person_id_i) + ",";
->>>>>>> main
                                     }
                                 }
                                 var personIds = personIds.slice(0,-1);

@@ -841,6 +841,7 @@
         </addColumn>
     </changeSet>
 
+
     <changeSet id="5005-acms-modify-id-fields" author="sean.king">
 
         <modifyDataType tableName="acm_identification" columnName="cm_id_state" newDataType="VARCHAR(8)"/>
