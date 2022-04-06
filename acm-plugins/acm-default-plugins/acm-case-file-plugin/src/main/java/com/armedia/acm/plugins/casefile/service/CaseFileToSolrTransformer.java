@@ -180,6 +180,18 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
             additionalProperties.put("initiator_person_id_i", person.getId());
         }
 
+        System.out.println("!!!!!!!!!!!!!: " + in.getStatus());
+
+        if( in.getStatus() == "Review Approved"
+         /*|| in.getStatus() == "Review Approved II"
+         || in.getStatus() == "Return for Revision"
+         || in.getStatus() == "Return for Revision II"
+         || in.getStatus() == "CMS Requested Edits"*/ ){
+            additionalProperties.put("acm_caseaction_lcs", "ACTION");
+        } else {
+            additionalProperties.put("acm_caseaction_lcs", "!!!!!!");
+        }
+
 
         additionalProperties.put("acm_participants_lcs", participantsListJson);
         // The property "assignee_group_id_lcs" is used only for showing/hiding claim/unclaim buttons

@@ -25,7 +25,7 @@
             "id": "myCases",
             "title": "dashboard.comp.myCases.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -66,6 +66,12 @@
                 {
                     "name": "priority_lcs",
                     "displayName": "dashboard.widgets.myCases.table.header.priority",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
+                    "name": "acm_caseaction_lcs",
+                    "displayName": "ACTION",
                     "headerCellFilter": "translate",
                     "enableSorting": true
                 },
