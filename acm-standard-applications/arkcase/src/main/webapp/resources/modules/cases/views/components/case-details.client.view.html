@@ -324,7 +324,7 @@
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateLastName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label>Sanctioned Associate Legal Business Name</label>
+                        <label>OIG Sanctioned Business Name</label>
                         <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}"
                                ng-disabled="disableField">
