@@ -66,6 +66,7 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by marjan.stefanoski on 08.11.2014.
@@ -180,16 +181,18 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
             additionalProperties.put("initiator_person_id_i", person.getId());
         }
 
-        System.out.println("!!!!!!!!!!!!!: " + in.getStatus());
+        String ac = "ACTION";
+        String blank = "";
+        String acm_ac = "acm_case_action_lcs";
 
-        if( in.getStatus() == "Review Approved"
-         /*|| in.getStatus() == "Review Approved II"
+        if(in.getStatus() == "Review Approved"
+         || in.getStatus() == "Review Approved II"
          || in.getStatus() == "Return for Revision"
          || in.getStatus() == "Return for Revision II"
-         || in.getStatus() == "CMS Requested Edits"*/ ){
-            additionalProperties.put("acm_caseaction_lcs", "ACTION");
+         || in.getStatus() == "CMS Requested Edits" ){
+            additionalProperties.put(acm_ac, ac);
         } else {
-            additionalProperties.put("acm_caseaction_lcs", "!!!!!!");
+            additionalProperties.put(acm_ac, blank);
         }
 
 

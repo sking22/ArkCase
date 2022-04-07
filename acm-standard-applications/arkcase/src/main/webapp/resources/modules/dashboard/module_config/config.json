@@ -70,9 +70,9 @@
                     "enableSorting": true
                 },
                 {
-                    "name": "acm_caseaction_lcs",
+                    "name": "acm_case_action_lcs",
+                    "field": "acm_case_action_lcs",
                     "displayName": "ACTION",
-                    "headerCellFilter": "translate",
                     "enableSorting": true
                 },
                 {
@@ -106,7 +106,7 @@
             "id": "activeCaseFiles",
             "title": "dashboard.comp.activeCaseFiles.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -174,7 +174,7 @@
             "id": "myConsultations",
             "title": "dashboard.comp.myConsultations.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -242,7 +242,7 @@
             "id": "myTasks",
             "title": "dashboard.comp.myTasks.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -302,7 +302,7 @@
             "id": "myComplaints",
             "title": "dashboard.comp.myComplaints.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -365,7 +365,7 @@
             "id": "workflowReport",
             "title": "dashboard.comp.workflowReport.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -440,7 +440,7 @@
             "id": "casesByStatus",
             "title": "dashboard.comp.casesByStatus.title",
             "configurable": true,
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
@@ -508,7 +508,7 @@
         {
             "id": "userWebsites",
             "title": "dashboard.widgets.userWebsites.title",
-            "enableFiltering": false,
+            "enableFiltering": true,
             "paginationPageSizes": [
                 5,
                 10,
