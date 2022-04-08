@@ -187,8 +187,8 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
 
         if(in.getStatus() == "Review Approved"
          || in.getStatus() == "Review Approved II"
-         || in.getStatus() == "Return for Revision"
-         || in.getStatus() == "Return for Revision II"
+         || in.getStatus() == "Returned for Revision"
+         || in.getStatus() == "Returned for Revision II"
          || in.getStatus() == "CMS Requested Edits" ){
             additionalProperties.put(acm_ac, ac);
         } else {
