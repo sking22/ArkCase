@@ -265,12 +265,12 @@ angular.module('cases').controller(
                         } else if ($scope.changeCaseStatus.status === "Audit Assigned") {
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
                             $scope.updateParticipants();
-                        } else if ($scope.changeCaseStatus.status === "Audit Assigned") {
-                              ObjectModelService.setGroup($scope.oInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
+                        } else if ($scope.changeCaseStatus.status === "Case Deleted/Canceled") {
+                              ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
+                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                               $scope.updateParticipants();
                          }
 
-                       // Case Deleted/Canceled
 
                         $scope.oInfo.status = $scope.changeCaseStatus.status;
 
