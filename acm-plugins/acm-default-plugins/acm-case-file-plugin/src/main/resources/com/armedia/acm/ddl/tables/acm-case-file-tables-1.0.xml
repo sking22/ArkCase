@@ -799,4 +799,22 @@
         </sql>
     </changeSet>
 
+    <changeSet id="5030-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_documentation_received_date" type="DATE"/>
+            <column name="cm_case_req_documentation_date" type="DATE"/>
+            <column name="cm_case_selected_for_inline_review" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="5031-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_agency_requested" type="VARCHAR(64)"/>
+        </addColumn>
+    </changeSet>
+
+
+
 </databaseChangeLog>

@@ -907,6 +907,39 @@
                                               date-picker-id="objectInfo.caseResubDueDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date Requested Documentation</label>
+                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
+                        <div style="clear:both;">
+                            <date-time-picker data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
+                                              date-picker-id="objectInfo.caseReqDocumentationDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date Documentation Received</label>
+                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                        <div style="clear:both;">
+                            <date-time-picker data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
+                                              date-picker-id="objectInfo.caseDocumentationRecDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Agency Requested</label>
+                        <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseAgencyRequested"
+                               placeholder="{{ objectInfo.caseAgencyRequested }}"
+                               ng-disabled="disableField">
+                        <span ng-if="objectInfo.caseAgencyRequested.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseAgencyRequested.length}}/64 characters remaining</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline;float:left;">Selected for In-Line Review&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
+                        </div>
+                    </div>
                 </div>
             </div>
 

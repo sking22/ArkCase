@@ -477,6 +477,24 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date caseDexVerifiedDate;
 
+    //cm_case_req_documentation_date
+    @Column(name = "cm_case_req_documentation_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseReqDocumentationDate;
+
+    //cm_case_documentation_received_date
+    @Column(name = "cm_case_documentation_received_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseDocumentationRecDate;
+
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_selected_for_inline_review")
+    private boolean caseSelectedForInlineReview = false;
+
+    //cm_case_agency_requested
+    @Column(name = "cm_case_agency_requested")
+    private String caseAgencyRequested;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1445,5 +1463,38 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseDexVerifiedDate;
     }
     public void setCaseDexVerifiedDate(Date caseDexVerifiedDate) { this.caseDexVerifiedDate = caseDexVerifiedDate; }
+
+    //caseDexVerifiedDate
+    public Date getCaseReqDocumentationDate()
+    {
+        return caseReqDocumentationDate;
+    }
+    public void setCaseReqDocumentationDate(Date caseReqDocumentationDate) { this.caseReqDocumentationDate = caseReqDocumentationDate; }
+
+    //caseDexVerifiedDate
+    public Date getCaseDocumentationRecDate()
+    {
+        return caseDocumentationRecDate;
+    }
+    public void setCaseDocumentationRecDate(Date caseDocumentationRecDate) { this.caseDocumentationRecDate = caseDocumentationRecDate; }
+
+
+    public boolean getCaseSelectedForInlineReview()
+    {
+        return caseSelectedForInlineReview;
+    }
+
+    public void setCaseSelectedForInlineReview(boolean caseSelectedForInlineReview)
+    {
+        this.caseSelectedForInlineReview = caseSelectedForInlineReview;
+    }
+
+
+    //cm_case_agency_requested
+    public String getCaseAgencyRequested()
+    {
+        return caseAgencyRequested;
+    }
+    public void setCaseAgencyRequested(String caseAgencyRequested) { this.caseAgencyRequested = caseAgencyRequested; }
 
 }
