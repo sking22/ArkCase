@@ -59,7 +59,7 @@
                     "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
-                    "name": "acm_case_action_lcs",
+                    "name": "case_provider_first_last_name_lcs",
                     "field": "case_provider_first_last_name_lcs",
                     "displayName": "Provider Name",
                     "enableSorting": true
@@ -127,7 +127,7 @@
                     "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
-                    "name": "acm_case_action_lcs",
+                    "name": "case_provider_first_last_name_lcs",
                     "field": "case_provider_first_last_name_lcs",
                     "displayName": "Provider Name",
                     "enableSorting": true
