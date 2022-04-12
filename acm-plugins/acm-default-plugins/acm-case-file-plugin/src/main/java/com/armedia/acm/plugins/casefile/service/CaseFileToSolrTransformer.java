@@ -185,15 +185,17 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         String blank = "";
         String acm_ac = "acm_case_action_lcs";
 
-        if(in.getStatus() == "Review Approved"
-         || in.getStatus() == "Review Approved II"
-         || in.getStatus() == "Returned for Revision"
-         || in.getStatus() == "Returned for Revision II"
-         || in.getStatus() == "CMS Requested Edits" ){
+        if( in.getStatus().equalsIgnoreCase("Review Approved")
+         || in.getStatus().equalsIgnoreCase("Review Approved II")
+         || in.getStatus().equalsIgnoreCase("Returned for Revision")
+         || in.getStatus().equalsIgnoreCase("Returned for Revision II")
+         || in.getStatus().equalsIgnoreCase("CMS Requested Edits" )){
             additionalProperties.put(acm_ac, ac);
         } else {
             additionalProperties.put(acm_ac, blank);
         }
+
+        additionalProperties.put("acm_case_analyst_lcs", in.getCasePrevAnalyst());
 
 
         additionalProperties.put("acm_participants_lcs", participantsListJson);

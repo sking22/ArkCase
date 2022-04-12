@@ -59,6 +59,12 @@
                     "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
+                    "name": "acm_case_action_lcs",
+                    "field": "case_provider_first_last_name_lcs",
+                    "displayName": "Provider Name",
+                    "enableSorting": true
+                },
+                {
                     "name": "priority_lcs",
                     "displayName": "dashboard.widgets.myCases.table.header.priority",
                     "headerCellFilter": "translate",
@@ -121,6 +127,12 @@
                     "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
+                    "name": "acm_case_action_lcs",
+                    "field": "case_provider_first_last_name_lcs",
+                    "displayName": "Provider Name",
+                    "enableSorting": true
+                },
+                {
                     "name": "priority_lcs",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.priority",
                     "headerCellFilter": "translate",
@@ -137,6 +149,12 @@
                     "field": "assignee_full_name_lcs",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.assignee",
                     "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
+                    "name": "acm_case_analyst_lcs",
+                    "field": "acm_case_analyst_lcs",
+                    "displayName": "Analyst",
                     "enableSorting": true
                 },
                 {
