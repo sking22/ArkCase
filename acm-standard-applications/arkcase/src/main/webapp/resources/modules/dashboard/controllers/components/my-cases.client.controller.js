@@ -52,7 +52,8 @@ angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
 
     //Get the user's defined options from the Config.
     if (config.paginationPageSize) {
-        paginationOptions.pageSize = parseInt(config.paginationPageSize);
+        paginationOptions.pageSize = 25;
+        //paginationOptions.pageSize = parseInt(config.paginationPageSize);
     } else {
         //defaults the dropdown value on edit UI to the default pagination options
         config.paginationPageSize = "" + paginationOptions.pageSize + "";
