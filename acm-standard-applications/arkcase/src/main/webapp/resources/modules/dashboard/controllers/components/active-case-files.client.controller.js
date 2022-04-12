@@ -27,7 +27,7 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
         vm.gridOptions.columnDefs = config.columnDefs;
         vm.gridOptions.enableFiltering = config.enableFiltering;
         vm.gridOptions.paginationPageSizes = config.paginationPageSizes;
-        vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+        vm.gridOptions.paginationPageSize = config.paginationPageSize;
 
         Authentication.queryUserInfo().then(function(responseUserInfo) {
             userInfo = responseUserInfo;
@@ -45,7 +45,7 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
 
     var paginationOptions = {
         pageNumber: 1,
-        pageSize: 5,
+        pageSize: 25,
         sortBy: 'id',
         sortDir: 'desc'
     };

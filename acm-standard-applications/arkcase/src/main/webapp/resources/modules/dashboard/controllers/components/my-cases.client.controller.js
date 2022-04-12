@@ -45,7 +45,7 @@ angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
 
     var paginationOptions = {
         pageNumber: 1,
-        pageSize: 5,
+        pageSize: 25,
         sortBy: 'id',
         sortDir: 'desc'
     };

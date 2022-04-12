@@ -29,9 +29,11 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
-            "paginationPageSize": 5,
+            "paginationPageSize": 25,
             "columnDefs": [
                 {
                     "field": "alerts",
@@ -40,13 +42,6 @@
                     "width": 40,
                     "enableSorting": false,
                     "enableColumnMenu": false
-                },
-                {
-                    "name": "name",
-                    "displayName": "dashboard.widgets.myCases.table.header.caseNumber",
-                    "headerCellFilter": "translate",
-                    "enableSorting": true,
-                    "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
                     "name": "incident_type_lcs",
@@ -82,13 +77,6 @@
                     "enableSorting": true
                 },
                 {
-                    "name": "assignee_id_lcs",
-                    "field": "assignee_full_name_lcs",
-                    "displayName": "dashboard.widgets.myCases.table.header.assignee",
-                    "headerCellFilter": "translate",
-                    "enableSorting": true
-                },
-                {
                     "name": "dueDate_tdt",
                     "displayName": "dashboard.widgets.myCases.table.header.dueDate",
                     "headerCellFilter": "translate",
@@ -110,9 +98,11 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
-            "paginationPageSize": 5,
+            "paginationPageSize": 25,
             "columnDefs": [
                 {
                     "field": "alerts",
@@ -121,13 +111,6 @@
                     "width": 40,
                     "enableSorting": false,
                     "enableColumnMenu": false
-                },
-                {
-                    "name": "name",
-                    "displayName": "dashboard.widgets.activeCaseFiles.table.header.caseNumber",
-                    "headerCellFilter": "translate",
-                    "enableSorting": true,
-                    "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
                     "name": "title_parseable",
@@ -178,7 +161,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 5,
             "columnDefs": [
@@ -189,13 +174,6 @@
                     "width": 40,
                     "enableSorting": false,
                     "enableColumnMenu": false
-                },
-                {
-                    "name": "name",
-                    "displayName": "dashboard.widgets.myConsultations.table.header.consultationNumber",
-                    "headerCellFilter": "translate",
-                    "enableSorting": true,
-                    "cellTemplate": "<a data-ui-sref=\"consultations.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
                     "name": "title_parseable",
@@ -246,7 +224,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 5,
             "columnDefs": [
@@ -306,7 +286,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 5,
             "columnDefs": [
@@ -317,12 +299,6 @@
                     "width": 40,
                     "enableSorting": false,
                     "enableColumnMenu": false
-                },
-                {
-                    "name": "name",
-                    "displayName": "dashboard.widgets.myComplaints.table.header.number",
-                    "headerCellFilter": "translate",
-                    "cellTemplate": "<a data-ui-sref=\"complaints.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
                     "name": "title_parseable",
@@ -369,7 +345,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 5,
             "columnDefs": [
@@ -444,7 +422,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 5,
             "columnDefs": [
@@ -455,13 +435,6 @@
                     "width": 40,
                     "enableSorting": false,
                     "enableColumnMenu": false
-                },
-                {
-                    "name": "name",
-                    "displayName": "dashboard.widgets.activeCaseFiles.table.header.caseNumber",
-                    "headerCellFilter": "translate",
-                    "enableSorting": true,
-                    "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
                 },
                 {
                     "name": "title_parseable",
@@ -512,7 +485,9 @@
             "paginationPageSizes": [
                 5,
                 10,
-                25
+                25,
+                50,
+                100
             ],
             "paginationPageSize": 25,
             "rowHeight": "auto",
