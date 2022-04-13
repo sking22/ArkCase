@@ -188,7 +188,9 @@ angular.module('cases').controller(
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                              $scope.updateParticipants();
-                        } else if ($scope.changeCaseStatus.status === "Submitted to CMS" || $scope.changeCaseStatus.status === "Submitted To CMS II"  ) {
+                        } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
+                                || $scope.changeCaseStatus.status === "Submitted To CMS II"
+                                || $scope.changeCaseStatus.status === "Submitted to CMS-Documentation Pending" ) {
                             //$scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
@@ -247,7 +249,7 @@ angular.module('cases').controller(
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                             $scope.updateParticipants();
 
-                        } else if ($scope.changeCaseStatus.status === "CMS Approved") {
+                        } else if ($scope.changeCaseStatus.status === "CMS Approved" && $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
