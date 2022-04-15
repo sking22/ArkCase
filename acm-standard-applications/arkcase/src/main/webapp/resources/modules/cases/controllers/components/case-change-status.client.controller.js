@@ -28,6 +28,7 @@ angular.module('cases').controller(
                         creator: null,
                         modified: null,
                         modifier: null,
+                        assignee: null,
                         description: "",
                         changeCaseStatusFlow: $scope.showApprover == 'true'
                     };
@@ -272,6 +273,8 @@ angular.module('cases').controller(
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                               $scope.updateParticipants();
                          }
+
+                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
 
 
                         $scope.oInfo.status = $scope.changeCaseStatus.status;

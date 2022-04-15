@@ -803,6 +803,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5032-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_change_case_status">
+            <column name="cm_change_case_status_assignee" type="VARCHAR(512)" />
+        </addColumn>
+    </changeSet>
 
 
 </databaseChangeLog>
