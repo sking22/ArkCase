@@ -25,12 +25,16 @@
             "title": "reports.comp.reportselection.title",
             "enabled": true,
             "configurable": true,
-            "resetCaseStateValue": "COMPLAINT_DISPOSITION_COUNT"
+            "resetCaseStateValue": [
+                "COMPLAINT_DISPOSITION_COUNT",
+                "CASE_SUMMARY"
+            ]
         },
         {
             "id": "caseStates",
             "resetCaseStateValues": [
-                "COMPLAINT_DISPOSITION_COUNT"
+                "COMPLAINT_DISPOSITION_COUNT",
+                "CASE_SUMMARY"
             ]
         }
     ]
