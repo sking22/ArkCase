@@ -9,7 +9,11 @@
  *
  * Loads cases in the "Active Case Files" widget.
  */
-angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFilesController', [ '$scope', '$translate', 'config', 'Authentication', 'Dashboard.DashboardService', 'Task.AlertsService', 'Util.DateService', 'ConfigService', 'params', 'UtilService', '$timeout', 'uiGridConstants', function($scope, $translate, config, Authentication, DashboardService, TaskAlertsService, UtilDateService, ConfigService, params, Util, $timeout, uiGridConstants) {
+angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFilesController', [
+ '$scope', '$translate', 'config', 'Authentication', 'Dashboard.DashboardService', 'Task.AlertsService',
+ 'Util.DateService', 'ConfigService', 'params', 'UtilService', '$timeout', 'uiGridConstants',
+ function($scope, $translate, config, Authentication, DashboardService, TaskAlertsService, UtilDateService,
+          ConfigService, params, Util, $timeout, uiGridConstants) {
     var vm = this;
     vm.config = null;
     var userInfo = null;
@@ -115,8 +119,8 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
                 // Find filter
                 _.forEach(context.grid.columns, function(column) {
                     _.forEach(column.filters, function(columnFilter) {
-                        console.log("!!!! column: ", column);
-                        console.log("!!!! columnFilter: ", columnFilter);
+                        /*console.log("!!!! column: ", column);
+                        console.log("!!!! columnFilter: ", columnFilter);*/
 
                         if (!_.isUndefined(columnFilter.term)) {
                             var filterOption = {
@@ -125,33 +129,28 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
 
                             // Parese date filter and try to create Date object.
                             // If error happens then don't add it to the filter
-                            if (column.name == 'dueDate_tdt' || column.name == 'queue_enter_date_tdt') {
+                            /*if (column.name == 'dueDate_tdt' || column.name == 'queue_enter_date_tdt') {
                                 var dateObj = moment(columnFilter.term, $scope.config['dateFormat']);
                                 if (dateObj.isValid()) {
                                     filterOption.value = dateObj.toDate();
                                 } else {
                                     return;
                                 }
-                            } else {
-                                filterOption.value = columnFilter.term
-                            }
+                            } else {*/
 
-                            if (columnFilter.condition == uiGridConstants.filter.GREATER_THAN_OR_EQUAL) {
-                                filterOption.condition = 'from';
-                            } else if (columnFilter.condition == uiGridConstants.filter.LESS_THAN_OR_EQUAL) {
-                                filterOption.condition = 'to';
-                            }
+                            filterOption.value = columnFilter.term
+
                             if(filterOption.value !== ""){
                                 filters.push(filterOption);
                             }
 
-                            console.log("!!!! filterOption: ", filterOption);
+                            /*console.log("!!!! filterOption: ", filterOption);*/
 
                         }
                     })
                 });
                 paginationOptions.filters = filters;
-                console.log("!!!! paginationOptions.filters: ", paginationOptions.filters);
+                /*console.log("!!!! paginationOptions.filters: ", paginationOptions.filters);*/
                 if(paginationOptions.filters){
                     if(paginationOptions.filters.length === 0) {
                         for( var i = 0; i <  vm.gridOptions.paginationPageSizes.length; i++){
@@ -162,9 +161,11 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
                         paginationOptions.pageSize = 25;
                         vm.gridOptions.paginationPageSize = 25;
                     } else {
-                        paginationOptions.pageSize = vm.gridOptions.totalItems;
-                        vm.gridOptions.paginationPageSizes.push(paginationOptions.pageSize);
-                        vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                        if(!vm.gridOptions.paginationPageSizes.includes(vm.gridOptions.totalItems)) {
+                            paginationOptions.pageSize = vm.gridOptions.totalItems;
+                            vm.gridOptions.paginationPageSizes.push(paginationOptions.pageSize);
+                            vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                        }
                     }
                 }
             }, 500);
@@ -215,11 +216,9 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
                 }
 
                 vm.gridOptions.data.push(value);
-                console.log("!!! data: ", data);
+                /*console.log("!!! data: ", data);
                 console.log("!!! value: ", value);
-                console.log("!!! paginationOptions.filters: ", paginationOptions.filters);
-               // console.log("!!! filters: ", filters);
-
+                console.log("!!! paginationOptions.filters: ", paginationOptions.filters);*/
 
             });
 

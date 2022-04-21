@@ -9,7 +9,11 @@
  *
  * Loads cases in the "My Cases" widget.
  */
-angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [ '$scope', '$translate', 'config','Authentication', 'Dashboard.DashboardService', 'Task.AlertsService', 'Util.DateService', 'ConfigService', 'params', 'UtilService', function($scope, $translate, config, Authentication, DashboardService, TaskAlertsService, UtilDateService, ConfigService, params, Util) {
+angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
+ '$scope', '$translate', 'config','Authentication', 'Dashboard.DashboardService', 'Task.AlertsService',
+ 'Util.DateService', 'ConfigService', 'params', 'UtilService', '$timeout', 'uiGridConstants',
+ function($scope, $translate, config, Authentication, DashboardService, TaskAlertsService, UtilDateService,
+          ConfigService, params, Util, $timeout, uiGridConstants) {
     var vm = this;
     vm.config = null;
     var userInfo = null;
@@ -21,6 +25,16 @@ angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
     } else {
         $scope.$parent.model.description = "";
     }
+
+    // Timeout id. Used to prevent too frequent filter requests
+    var filterTimeout = null;
+
+    // Be sure that filterTimeout is canceled on destroy
+    $scope.$on('$destroy', function() {
+        if (angular.isDefined(filterTimeout)) {
+            $timeout.cancel(filterTimeout);
+        }
+    });
 
     ConfigService.getComponentConfig("dashboard", "myCases").then(function(config) {
         vm.config = config;
@@ -90,6 +104,73 @@ angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
         rowTemplate: rowTmpl,
         onRegisterApi: function(gridApi) {
             vm.gridApi = gridApi;
+
+            gridApi.core.on.filterChanged($scope, function() {
+                var context = this;
+
+                // Prevent frequent filters requests
+                if (angular.isDefined(filterTimeout)) {
+                    $timeout.cancel(filterTimeout);
+                }
+
+                filterTimeout = $timeout(function() {
+                var filters = [];
+
+                // Find filter
+                _.forEach(context.grid.columns, function(column) {
+                    _.forEach(column.filters, function(columnFilter) {
+                        /*console.log("!!!! column: ", column);
+                        console.log("!!!! columnFilter: ", columnFilter);*/
+
+                        if (!_.isUndefined(columnFilter.term)) {
+                            var filterOption = {
+                                column: column.name
+                            };
+
+                            // Parese date filter and try to create Date object.
+                            // If error happens then don't add it to the filter
+                            /*if (column.name == 'dueDate_tdt' || column.name == 'queue_enter_date_tdt') {
+                                var dateObj = moment(columnFilter.term, $scope.config['dateFormat']);
+                                if (dateObj.isValid()) {
+                                    filterOption.value = dateObj.toDate();
+                                } else {
+                                    return;
+                                }
+                            } else {*/
+
+                            filterOption.value = columnFilter.term
+
+                            if(filterOption.value !== ""){
+                                filters.push(filterOption);
+                            }
+
+                            /*console.log("!!!! filterOption: ", filterOption);*/
+
+                        }
+                    })
+                });
+                paginationOptions.filters = filters;
+                /*console.log("!!!! paginationOptions.filters: ", paginationOptions.filters);*/
+                if(paginationOptions.filters){
+                    if(paginationOptions.filters.length === 0) {
+                        for( var i = 0; i <  vm.gridOptions.paginationPageSizes.length; i++){
+                            if ( vm.gridOptions.paginationPageSizes[i] === vm.gridOptions.totalItems) {
+                                vm.gridOptions.paginationPageSizes.splice(i, 1);
+                            }
+                        }
+                        paginationOptions.pageSize = 25;
+                        vm.gridOptions.paginationPageSize = 25;
+                    } else {
+                        if(!vm.gridOptions.paginationPageSizes.includes(vm.gridOptions.totalItems)) {
+                            paginationOptions.pageSize = vm.gridOptions.totalItems;
+                            vm.gridOptions.paginationPageSizes.push(paginationOptions.pageSize);
+                            vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                        }
+                    }
+                }
+            }, 500);
+        });
+
             gridApi.core.on.sortChanged($scope, function(grid, sortColumns) {
                 if (sortColumns.length == 0) {
                     paginationOptions.sort = null;
@@ -114,7 +195,8 @@ angular.module('dashboard.my-cases').controller('Dashboard.MyCasesController', [
             sortBy: paginationOptions.sortBy,
             sortDir: paginationOptions.sortDir,
             startWith: (paginationOptions.pageNumber - 1) * paginationOptions.pageSize,
-            pageSize: paginationOptions.pageSize
+            pageSize: paginationOptions.pageSize,
+            filters: paginationOptions.filters
         }, function(data) {
             vm.gridOptions.data = [];
             vm.gridOptions.totalItems = data.response.numFound;
