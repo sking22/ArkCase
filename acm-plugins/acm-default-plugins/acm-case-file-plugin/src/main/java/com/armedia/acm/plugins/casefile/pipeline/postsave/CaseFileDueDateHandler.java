@@ -51,9 +51,12 @@ public class CaseFileDueDateHandler implements PipelineHandler<CaseFile, CaseFil
 
         if (caseFile.getId() != null && ctx.isNewCase())
         {
-            caseFile.setDueDate(holidayConfigurationService.addWorkingDaysToDateAndSetTimeToBusinessHours(
-                    Optional.ofNullable(caseFile.getDueDate()).orElse(new Date()),
-                    holidayConfigurationService.getBusinessHoursConfig().getDefaultDueDateGap()));
+            if(caseFile.getDueDate() == null){
+                caseFile.setDueDate(holidayConfigurationService.addWorkingDaysToDateAndSetTimeToBusinessHours(
+                        Optional.ofNullable(caseFile.getDueDate()).orElse(new Date()),
+                        holidayConfigurationService.getBusinessHoursConfig().getDefaultDueDateGap()));
+
+            }
 
             log.debug("Updated CaseFile DueDate to : [{}]", caseFile.getDueDate());
         }
