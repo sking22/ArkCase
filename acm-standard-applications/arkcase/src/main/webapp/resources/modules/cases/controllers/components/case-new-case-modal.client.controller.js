@@ -514,5 +514,4 @@ angular.module('cases').controller(
                     $scope.cancelModal = function() {
                         $modalInstance.dismiss();
                     };
-
                 } ]);

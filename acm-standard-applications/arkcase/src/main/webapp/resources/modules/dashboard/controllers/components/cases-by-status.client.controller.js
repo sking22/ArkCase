@@ -2,11 +2,11 @@
 
 angular.module('dashboard.cases-by-status').controller('Dashboard.CasesByStatusController', [
     '$scope', 'config', '$translate', '$modal', 'Authentication', 'Dashboard.DashboardService', 'Case.InfoService',
-    'Object.LookupService', 'Object.ModelService',
-    'Task.AlertsService', 'Util.DateService',
-    'ConfigService', 'params', 'UtilService', function ($scope, config, $translate, $modal, Authentication, DashboardService, CaseInfoService,
-        ObjectLookupService, ObjectModelService,
-        TaskAlertsService, UtilDateService, ConfigService, params, Util) {
+    'Object.LookupService', 'Object.ModelService', 'Task.AlertsService', 'Util.DateService', 'ConfigService',
+    'params', 'UtilService', '$timeout', 'uiGridConstants',
+    function ($scope, config, $translate, $modal, Authentication, DashboardService, CaseInfoService,
+        ObjectLookupService, ObjectModelService, TaskAlertsService, UtilDateService, ConfigService,
+        params, Util,  $timeout, uiGridConstants) {
 
         var vm = this;
         vm.config = null;
@@ -42,6 +42,17 @@ angular.module('dashboard.cases-by-status').controller('Dashboard.CasesByStatusC
             $scope.owningGroups = options;
             return groups;
         });
+
+        // Timeout id. Used to prevent too frequent filter requests
+        var filterTimeout = null;
+
+        // Be sure that filterTimeout is canceled on destroy
+        $scope.$on('$destroy', function() {
+            if (angular.isDefined(filterTimeout)) {
+                $timeout.cancel(filterTimeout);
+            }
+        });
+
         ConfigService.getComponentConfig("dashboard", "casesByStatus").then(function (config) {
             // Load Cases info and render chart
             vm.config = config;
@@ -102,6 +113,73 @@ angular.module('dashboard.cases-by-status').controller('Dashboard.CasesByStatusC
             rowTemplate: rowTmpl,
             onRegisterApi: function (gridApi) {
                 vm.gridApi = gridApi;
+
+                gridApi.core.on.filterChanged($scope, function() {
+                    var context = this;
+
+                    // Prevent frequent filters requests
+                    if (angular.isDefined(filterTimeout)) {
+                        $timeout.cancel(filterTimeout);
+                    }
+
+                    filterTimeout = $timeout(function() {
+                        var filters = [];
+
+                        // Find filter
+                        _.forEach(context.grid.columns, function(column) {
+                            _.forEach(column.filters, function(columnFilter) {
+                                /*console.log("!!!! column: ", column);
+                                console.log("!!!! columnFilter: ", columnFilter);*/
+
+                                if (!_.isUndefined(columnFilter.term)) {
+                                    var filterOption = {
+                                        column: column.name
+                                    };
+
+                                    // Parese date filter and try to create Date object.
+                                    // If error happens then don't add it to the filter
+                                    /*if (column.name == 'dueDate_tdt' || column.name == 'queue_enter_date_tdt') {
+                                        var dateObj = moment(columnFilter.term, $scope.config['dateFormat']);
+                                        if (dateObj.isValid()) {
+                                            filterOption.value = dateObj.toDate();
+                                        } else {
+                                            return;
+                                        }
+                                    } else {*/
+
+                                    filterOption.value = columnFilter.term
+
+                                    if(filterOption.value !== ""){
+                                        filters.push(filterOption);
+                                    }
+
+                                    /*console.log("!!!! filterOption: ", filterOption);*/
+
+                                }
+                            })
+                        });
+                        paginationOptions.filters = filters;
+                        /*console.log("!!!! paginationOptions.filters: ", paginationOptions.filters);*/
+                        if(paginationOptions.filters){
+                            if(paginationOptions.filters.length === 0) {
+                                for( var i = 0; i <  vm.gridOptions.paginationPageSizes.length; i++){
+                                    if ( vm.gridOptions.paginationPageSizes[i] === vm.gridOptions.totalItems) {
+                                        vm.gridOptions.paginationPageSizes.splice(i, 1);
+                                    }
+                                }
+                                paginationOptions.pageSize = 25;
+                                vm.gridOptions.paginationPageSize = 25;
+                            } else {
+                                if(!vm.gridOptions.paginationPageSizes.includes(vm.gridOptions.totalItems)) {
+                                    paginationOptions.pageSize = vm.gridOptions.totalItems;
+                                    vm.gridOptions.paginationPageSizes.push(paginationOptions.pageSize);
+                                    vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                                }
+                            }
+                        }
+                    }, 500);
+                });
+
                 gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
                     if (sortColumns.length == 0) {
                         paginationOptions.sort = null;

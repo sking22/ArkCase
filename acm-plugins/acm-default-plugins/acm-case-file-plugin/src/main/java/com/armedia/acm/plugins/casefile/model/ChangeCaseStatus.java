@@ -121,6 +121,10 @@ public class ChangeCaseStatus implements Serializable, AcmObject, AcmEntity, Acm
     @Transient
     private boolean changeCaseStatusFlow;
 
+    //cm_change_case_status_assignee
+    @Column(name = "cm_change_case_status_assignee")
+    private String assignee;
+
     @PrePersist
     public void beforeInsert()
     {
@@ -279,4 +283,15 @@ public class ChangeCaseStatus implements Serializable, AcmObject, AcmEntity, Acm
     public void setChangeCaseStatusFlow(boolean changeCaseStatusFlow) {
         this.changeCaseStatusFlow = changeCaseStatusFlow;
     }
+
+    public String getAssignee()
+    {
+        return assignee;
+    }
+
+    public void setAssignee(String assignee)
+    {
+        this.assignee = assignee;
+    }
+
 }
