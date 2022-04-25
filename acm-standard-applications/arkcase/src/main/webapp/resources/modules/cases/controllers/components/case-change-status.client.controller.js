@@ -2,8 +2,8 @@
 
 angular.module('cases').controller(
         'Cases.ChangeStatusController',
-        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService',
-                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService) {
+        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService',
+                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService) {
                     console.log('modalParams: ' + JSON.stringify(modalParams));
                     $scope.modalParams = modalParams;
                     $scope.currentStatus = modalParams.info.status;
@@ -47,11 +47,29 @@ angular.module('cases').controller(
                     });
 
                     ObjectLookupService.getLookupByLookupName("changeCaseStatuses").then(function(caseStatuses) {
-                        $scope.statuses = caseStatuses;
+                        $scope.statuses = [];
                         var defaultChangeCaseStatus = ObjectLookupService.getPrimaryLookup($scope.statuses);
                         if (defaultChangeCaseStatus && !$scope.changeCaseStatus.status) {
                             $scope.changeCaseStatus.status = defaultChangeCaseStatus.key;
                         }
+                        console.log("!!!! caseStatuses: ", caseStatuses);
+                        UserInfoService.getUserInfo().then(function(infoData) {
+                            $scope.currentUserProfile = infoData;
+                            $scope.isCms = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM";
+                            if($scope.isCms){
+                                for(var i = 0; i < caseStatuses.length; i++){
+                                    if(caseStatuses[i].key === 'CMS Approved'
+                                        || caseStatuses[i].key === 'CMS Approved-Documentation Pending'
+                                        || caseStatuses[i].key === 'CMS Pending- On Hold'
+                                        || caseStatuses[i].key === 'CMS Requested Edits'){
+                                        $scope.statuses.push(caseStatuses[i]);
+                                    }
+                                }
+                            } else {
+                                $scope.statuses = caseStatuses;
+                            }
+                            console.log("!!!! $scope.statuses: ", $scope.statuses);
+                        });
                     });
 
                     function statusChanged() {

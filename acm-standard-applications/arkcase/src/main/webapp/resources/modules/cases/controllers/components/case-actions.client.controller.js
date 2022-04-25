@@ -120,6 +120,15 @@ angular.module('cases').controller(
                             casefile: objectInfo
                         };
 
+                        UserInfoService.getUserInfo().then(function(infoData) {
+                            $scope.currentUserProfile = infoData;
+                            $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+
+                            $scope.hideChangeStatus = $scope.isAnalyst &&
+                                ($scope.objectInfo.status === "Submitted To CMS"
+                                    || $scope.objectInfo.status === "Submitted to CMS-Documentation Pending");
+                        });
+
                         $scope.showChangeCaseStatus = objectInfo.status !== 'IN APPROVAL';
                     };
 
