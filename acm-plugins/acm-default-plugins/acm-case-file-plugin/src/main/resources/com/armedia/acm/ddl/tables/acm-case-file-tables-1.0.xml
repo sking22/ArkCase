@@ -575,7 +575,7 @@
         <modifyDataType tableName="acm_queue" columnName="cm_queue_modified" newDataType="DATETIME"/>
     </changeSet>
 
-    <!-- <changeSet id="5010-acms-add-case-fields" author="sean.king">
+    <changeSet id="5010-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_case_file">
             <column name="cm_case_reporting_week" type="VARCHAR(64)"/>
             <column name="cm_case_report_date" type="DATE"/>
@@ -618,8 +618,8 @@
             <column name="cm_case_conv_ind_tin" type="VARCHAR(64)"/>
             <column name="cm_case_prev_cms" type="VARCHAR(64)"/>
             <column name="cm_case_prev_analyst" type="VARCHAR(64)"/>
-            <column name="cm_case_reporting_week" type="VARCHAR(64)"/>-->
-    <!--    </addColumn>
+            <column name="cm_case_reporting_week" type="VARCHAR(64)"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="5014-acms-add-case-fields" author="sean.king">
@@ -638,162 +638,153 @@
     </changeSet>
 
     <changeSet id="5016-acms-add-case-fields" author="sean.king">
-        <modifyDataType  columnName="cm_refer_ext_org_name"
+        <!--<modifyDataType  columnName="cm_refer_ext_org_name"
                          newDataType="VARCHAR(1024)"
                          tableName="acm_case_file"/>
         <modifyDataType  columnName="cm_refer_ext_person_name"
                          newDataType="VARCHAR(1024)"
                          tableName="acm_case_file"/>-->
-    <!--
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_dea_rev_policy" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_prior_reg_eff_date" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_alert_pop_other_report" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_deceased_provider" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_wrong_felon_id" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_not_felony_conv" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_pl_inc_less_year" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_pl_on_prior_rev" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-                <column name="cm_case_not_act_other" type="BOOLEAN" defaultValueBoolean="false">
-                    <constraints nullable="false"/>
-                </column>
-            </addColumn>
-        </changeSet>
 
-        <changeSet id="5017-acms-add-case-fields" author="sean.king">
-            <modifyDataType  columnName="cm_case_disposition"
-                              newDataType="VARCHAR(1024)"
-                              tableName="acm_case_file"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_enrollment_status_inactive"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_dea_rev_policy"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_prior_reg_eff_date"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_alert_pop_other_report"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_deceased_provider"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_wrong_felon_id"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_not_felony_conv"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_pl_inc_less_year"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_pl_on_prior_rev"/>
-            <dropColumn tableName="acm_case_file" columnName="cm_case_not_act_other"/>
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_dea_rev_policy" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_prior_reg_eff_date" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_alert_pop_other_report" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_deceased_provider" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_wrong_felon_id" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_not_felony_conv" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_pl_inc_less_year" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_pl_on_prior_rev" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cm_case_not_act_other" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_not_actionable_reason" type="VARCHAR(128)" />
-            </addColumn>
+    <changeSet id="5017-acms-add-case-fields" author="sean.king">
+        <modifyDataType  columnName="cm_case_disposition"
+                         newDataType="VARCHAR(1024)"
+                         tableName="acm_case_file"/>
+        <!--<dropColumn tableName="acm_case_file" columnName="cm_case_enrollment_status_inactive"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_dea_rev_policy"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_prior_reg_eff_date"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_alert_pop_other_report"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_deceased_provider"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_wrong_felon_id"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_not_felony_conv"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_pl_inc_less_year"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_pl_on_prior_rev"/>
+        <dropColumn tableName="acm_case_file" columnName="cm_case_not_act_other"/>-->
 
-        </changeSet>
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_not_actionable_reason" type="VARCHAR(128)" />
+        </addColumn>
 
-        <changeSet id="5018-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_ten_years_conv_date" type="VARCHAR(16)" />
-            </addColumn>
-        </changeSet>
+    </changeSet>
 
-        <changeSet id="5019-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_cms_assign_date" type="DATE"/>
-            </addColumn>
-        </changeSet>
+    <changeSet id="5018-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_ten_years_conv_date" type="VARCHAR(16)" />
+        </addColumn>
+    </changeSet>
 
-        <changeSet id="5020-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_revrei_action_date" type="DATE"/>
-            </addColumn>
-        </changeSet>
+    <changeSet id="5019-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_cms_assign_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
-        <changeSet id="5021-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_final_out_action_date" type="DATE"/>
-            </addColumn>
-        </changeSet>
+    <changeSet id="5020-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_revrei_action_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
-        <changeSet id="5022-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_opt_cms_decision" type="VARCHAR(32)" />
-                <column name="cm_case_report_alert_date" type="DATE"/>
-            </addColumn>
-        </changeSet>
+    <changeSet id="5021-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_final_out_action_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
-        <changeSet id="5023-acms-modify-case-fields" author="sean.king">
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(32)"/>
-        </changeSet>
+    <changeSet id="5022-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_opt_cms_decision" type="VARCHAR(32)" />
+            <column name="cm_case_report_alert_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
-        <changeSet id="5024-acms-modify-case-fields" author="sean.king">
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_opt_cms_decision" newDataType="VARCHAR(8)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_not_actionable_reason" newDataType="VARCHAR(8)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_admin_actions_outcome" newDataType="VARCHAR(8)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_type" newDataType="VARCHAR(8)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_eff_action_date" newDataType="VARCHAR(32)"/>
-        </changeSet>
+    <changeSet id="5023-acms-modify-case-fields" author="sean.king">
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(32)"/>
+    </changeSet>
 
-        <changeSet id="5025-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_final_out_admin_act" type="VARCHAR(8)"/>
-                <column name="cm_case_rec_length_enroll_bar" type="VARCHAR(64)"/>
-                <column name="cm_case_rec_auth_cited_action_letter" type="VARCHAR(64)"/>
-                <column name="cm_case_rec_eff_date" type="VARCHAR(64)"/>
-            </addColumn>
-        </changeSet>
+    <changeSet id="5024-acms-modify-case-fields" author="sean.king">
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_opt_cms_decision" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_not_actionable_reason" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_admin_actions_outcome" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_type" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_eff_action_date" newDataType="VARCHAR(32)"/>
+    </changeSet>
+
+    <changeSet id="5025-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_final_out_admin_act" type="VARCHAR(8)"/>
+            <column name="cm_case_rec_length_enroll_bar" type="VARCHAR(64)"/>
+            <column name="cm_case_rec_auth_cited_action_letter" type="VARCHAR(64)"/>
+            <column name="cm_case_rec_eff_date" type="VARCHAR(64)"/>
+        </addColumn>
+    </changeSet>
 
 
-        <changeSet id="5026-acms-add-case-fields" author="sean.king">
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_el" newDataType="VARCHAR(5)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_appeals_period_expired" newDataType="VARCHAR(10)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(33)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_application_type" newDataType="VARCHAR(10)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_length_enroll_bar" newDataType="VARCHAR(10)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_length_reenroll_bar" newDataType="VARCHAR(10)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_conv_ind_tin" newDataType="VARCHAR(11)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(15)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_reporting_week" newDataType="VARCHAR(25)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_eff_date" newDataType="VARCHAR(30)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_eff_action_date" newDataType="VARCHAR(35)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_auth_cited_action_letter" newDataType="VARCHAR(40)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_auth_cited_action_letter" newDataType="VARCHAR(40)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_orig_rev_auth" newDataType="VARCHAR(40)"/>
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_reason" newDataType="VARCHAR(300)"/>
-        </changeSet>
+    <changeSet id="5026-acms-add-case-fields" author="sean.king">
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_el" newDataType="VARCHAR(5)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_appeals_period_expired" newDataType="VARCHAR(5)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_application_type" newDataType="VARCHAR(10)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_length_enroll_bar" newDataType="VARCHAR(10)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_length_reenroll_bar" newDataType="VARCHAR(10)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_conv_ind_tin" newDataType="VARCHAR(11)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(15)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_reporting_week" newDataType="VARCHAR(25)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_eff_date" newDataType="VARCHAR(30)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_eff_action_date" newDataType="VARCHAR(30)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rev_auth_cited_action_letter" newDataType="VARCHAR(40)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_rec_auth_cited_action_letter" newDataType="VARCHAR(40)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_orig_rev_auth" newDataType="VARCHAR(40)"/>
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_termination_reason" newDataType="VARCHAR(300)"/>
+    </changeSet>
 
-        <changeSet id="5027-acms-add-case-fields" author="sean.king">
-            <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(33)"/>
-        </changeSet>
+    <changeSet id="5027-acms-add-case-fields" author="sean.king">
 
-        <changeSet id="5028-acms-add-case-fields" author="sean.king">
-            <addColumn tableName="acm_case_file">
-                <column name="cm_case_resub_due_date" type="DATE"/>
-            </addColumn>
-        </changeSet> -->
+        <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(33)"/>
+
+
+    </changeSet>
+
+    <changeSet id="5028-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_resub_due_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
 
     <changeSet id="5029-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_case_file">
             <column name="cm_case_dex_verified_date" type="DATE"/>
         </addColumn>
-    </changeSet>
-
-    <changeSet id="41-create-index-on-creator" author="bojan.milenkoski">
-        <createIndex tableName="acm_case_file" indexName="idx_acm_case_file_case_creator">
-            <column name="cm_case_creator"/>
-        </createIndex>
-    </changeSet>
-
-    <changeSet id="42-change-character-set-to-case-description" author="konstantin.cepas" dbms="mysql">
-        <sql>
-            ALTER IGNORE TABLE acm_case_file MODIFY COLUMN cm_case_details LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-        </sql>
     </changeSet>
 
     <changeSet id="5030-acms-add-case-fields" author="sean.king">
@@ -811,7 +802,6 @@
             <column name="cm_case_agency_requested" type="VARCHAR(64)"/>
         </addColumn>
     </changeSet>
-
 
     <changeSet id="5032-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_change_case_status">
