@@ -125,8 +125,8 @@ angular.module('cases').controller(
                             $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
 
                             $scope.hideChangeStatus = $scope.isAnalyst &&
-                                ($scope.objectInfo.status === "Submitted To CMS"
-                                    || $scope.objectInfo.status === "Submitted to CMS-Documentation Pending");
+                                ($scope.objectInfo.status.toLowerCase() === "submitted to cms"
+                                    || $scope.objectInfo.status.toLowerCase() === "submitted to cms-documentation pending");
                         });
 
                         $scope.showChangeCaseStatus = objectInfo.status !== 'IN APPROVAL';
