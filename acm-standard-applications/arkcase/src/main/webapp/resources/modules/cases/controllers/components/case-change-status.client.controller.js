@@ -273,7 +273,7 @@ angular.module('cases').controller(
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                             $scope.updateParticipants();
 
-                        } else if ($scope.changeCaseStatus.status === "CMS Approved" && $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
+                        } else if ($scope.changeCaseStatus.status === "CMS Approved" || $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
