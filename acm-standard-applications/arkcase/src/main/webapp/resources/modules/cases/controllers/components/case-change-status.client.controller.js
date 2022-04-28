@@ -179,9 +179,16 @@ angular.module('cases').controller(
                         $scope.loading = true;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
                        // $modalInstance.close($scope.changeCaseStatus);
-                        
+                        /* analysttest@apvitacms.com  , supervisor@apvitacms.com ,
+                        cmsassignmentuser@apvitacms.com , cms_testaccount@apvitacms.com,
+                        qaassignmentuser@apvitacms.com, qacasearchiveuser@apvitacms.com */
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com' ) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
@@ -189,7 +196,12 @@ angular.module('cases').controller(
                             }
 
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
-                             if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com' ) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
                                  $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                  ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
                                  ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
