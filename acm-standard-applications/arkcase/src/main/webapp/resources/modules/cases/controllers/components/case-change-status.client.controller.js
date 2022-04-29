@@ -201,10 +201,10 @@ angular.module('cases').controller(
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
                                  $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
-                                 ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
-                                 ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
-                                 $scope.updateParticipants();
-                             }
+                            }
+                              ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
+                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                              $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "Returned For Revision" || $scope.changeCaseStatus.status === "OPT Case - Non-Actionable"
                                     || $scope.changeCaseStatus.status === "Returned For Revision II" ) {
