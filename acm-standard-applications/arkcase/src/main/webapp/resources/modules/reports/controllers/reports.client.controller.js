@@ -47,8 +47,8 @@ angular.module('reports').controller('ReportsController',
             }
 
             $q.all([ promiseServerConfig, promiseReportConfig, promiseModuleConfig, fiscalYearPropertiesPromise ]).then(function(data) {
-                console.log("!!!!! q.all data : ", data);
-                console.log("!!!!! q.all data : ", JSON.stringify(data));
+                //console.log("!!!!! q.all data : ", data);
+                //console.log("!!!!! q.all data : ", JSON.stringify(data));
 
                 var reportsConfig = data[0];
                 $scope.data.reports = data[1].data;

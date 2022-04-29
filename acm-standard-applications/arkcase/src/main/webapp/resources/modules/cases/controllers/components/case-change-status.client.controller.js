@@ -4,7 +4,7 @@ angular.module('cases').controller(
         'Cases.ChangeStatusController',
         [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService',
                 function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService) {
-                    console.log('modalParams: ' + JSON.stringify(modalParams));
+                    //console.log('modalParams: ' + JSON.stringify(modalParams));
                     $scope.modalParams = modalParams;
                     $scope.currentStatus = modalParams.info.status;
                     $scope.oInfo = modalParams.objectInfo;
@@ -52,7 +52,7 @@ angular.module('cases').controller(
                         if (defaultChangeCaseStatus && !$scope.changeCaseStatus.status) {
                             $scope.changeCaseStatus.status = defaultChangeCaseStatus.key;
                         }
-                        console.log("!!!! caseStatuses: ", caseStatuses);
+                        //console.log("!!!! caseStatuses: ", caseStatuses);
                         UserInfoService.getUserInfo().then(function(infoData) {
                             $scope.currentUserProfile = infoData;
                             $scope.isCms = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM";
@@ -68,7 +68,7 @@ angular.module('cases').controller(
                             } else {
                                 $scope.statuses = caseStatuses;
                             }
-                            console.log("!!!! $scope.statuses: ", $scope.statuses);
+                           // console.log("!!!! $scope.statuses: ", $scope.statuses);
                         });
                     });
 

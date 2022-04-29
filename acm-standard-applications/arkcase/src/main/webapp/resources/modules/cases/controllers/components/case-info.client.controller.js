@@ -240,7 +240,7 @@ angular.module('cases').controller(
                         });
 
                         try {
-                            console.log($scope.objectInfo)
+                            //console.log($scope.objectInfo)
                             SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (value) {
                                 $scope.hasSuggestedCases = value.data.length > 0;
                                 $scope.numberOfSuggestedCases = value.data.length;
