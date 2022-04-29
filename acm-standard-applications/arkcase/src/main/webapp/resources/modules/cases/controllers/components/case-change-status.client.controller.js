@@ -179,9 +179,7 @@ angular.module('cases').controller(
                         $scope.loading = true;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
                        // $modalInstance.close($scope.changeCaseStatus);
-                        /* analysttest@apvitacms.com  , supervisor@apvitacms.com ,
-                        cmsassignmentuser@apvitacms.com , cms_testaccount@apvitacms.com,
-                        qaassignmentuser@apvitacms.com, qacasearchiveuser@apvitacms.com */
+
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
                             if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
