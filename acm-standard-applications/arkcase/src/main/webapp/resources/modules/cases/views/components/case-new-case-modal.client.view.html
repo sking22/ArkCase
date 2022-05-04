@@ -40,6 +40,15 @@
                                               date-picker-id="casefile.dueDate"
                                               time-format-disabled="false"></date-time-picker>
                     </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Multiple Alert</label>
+                        <select class="form-control" ng-model="casefile.caseMultipleAlert"
+                                ng-disabled="disableField">
+                            <option ng-repeat="option in caseMultipleAlertTypes" placeholder="{{casefile.caseMultipleAlert}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row">

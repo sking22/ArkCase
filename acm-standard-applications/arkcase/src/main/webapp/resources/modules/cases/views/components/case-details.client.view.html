@@ -956,7 +956,13 @@
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
-
+                        <label>Multiple Alert</label>
+                        <select class="form-control" ng-model="objectInfo.caseMultipleAlert"
+                                ng-disabled="disableField">
+                            <option ng-repeat="option in caseMultipleAlertTypes" placeholder="{{objectInfo.caseMultipleAlert}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>CMS Analyst</label>
@@ -965,7 +971,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
