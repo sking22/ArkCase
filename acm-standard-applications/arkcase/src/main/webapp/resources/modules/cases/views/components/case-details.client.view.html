@@ -890,13 +890,13 @@
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory">Case History</a>
+                <a>Case History</a>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
-        <div id="collapseHistory" class="panel-collapse collapse">
+        <div class="panel-collapse collapse in">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4 form-group">
@@ -932,13 +932,36 @@
                                ng-disabled="disableField">
                         <span ng-if="objectInfo.caseAgencyRequested.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseAgencyRequested.length}}/64 characters remaining</span>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Board Documents&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Court Documents&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label style="display:inline;float:left;font-weight:bold;font-size: 12px;">Selected for In-Line Review&nbsp;&nbsp;</label>
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Selected for In-Line Review&nbsp;&nbsp;</label>
                         <div style="display:inline;">
                             <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
                         </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>CMS Analyst</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.casePrevCMSAnalyst"
+                               placeholder="{{ objectInfo.casePrevCMSAnalyst }}" ng-disabled="true" >
                     </div>
                 </div>
             </div>

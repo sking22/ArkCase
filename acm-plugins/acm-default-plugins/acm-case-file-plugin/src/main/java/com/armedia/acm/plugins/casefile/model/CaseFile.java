@@ -495,6 +495,14 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_agency_requested")
     private String caseAgencyRequested;
 
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_board_document")
+    private boolean caseBoardDocument = false;
+
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_court_document")
+    private boolean caseCourtDocument = false;
+
     @PrePersist
     protected void beforeInsert()
     {
