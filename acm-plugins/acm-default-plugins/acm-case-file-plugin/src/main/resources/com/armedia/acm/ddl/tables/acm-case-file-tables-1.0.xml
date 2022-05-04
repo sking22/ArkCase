@@ -809,5 +809,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5033-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_multiple_alert" type="VARCHAR(8)" />
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

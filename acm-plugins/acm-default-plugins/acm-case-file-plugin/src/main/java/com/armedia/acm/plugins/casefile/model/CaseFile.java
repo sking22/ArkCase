@@ -495,6 +495,10 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_agency_requested")
     private String caseAgencyRequested;
 
+    //cm_case_multiple_alert
+    @Column(name = "cm_case_multiple_alert")
+    private String caseMultipleAlert;
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1489,12 +1493,16 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         this.caseSelectedForInlineReview = caseSelectedForInlineReview;
     }
 
-
-    //cm_case_agency_requested
     public String getCaseAgencyRequested()
     {
         return caseAgencyRequested;
     }
     public void setCaseAgencyRequested(String caseAgencyRequested) { this.caseAgencyRequested = caseAgencyRequested; }
+
+    public String getCaseMultipleAlert()
+    {
+        return caseMultipleAlert;
+    }
+    public void setCaseMultipleAlert(String caseMultipleAlert) { this.caseMultipleAlert = caseMultipleAlert; }
 
 }

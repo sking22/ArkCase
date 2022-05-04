@@ -44,6 +44,14 @@ angular.module('cases').controller(
 
                     var assocTypeLabel = $translate.instant("cases.comp.people.type.label");
 
+                    ObjectLookupService.getLookupByLookupName('caseMultipleAlertTypes').then(function (caseMultipleAlertTypes) {
+                       if(caseMultipleAlertTypes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        caseMultipleAlertTypes.unshift(clear);
+                        $scope.caseMultipleAlertTypes = caseMultipleAlertTypes;
+                        }
+                    });
+
                     // --------------  mention --------------
                     $scope.params = {
                         emailAddresses: [],
