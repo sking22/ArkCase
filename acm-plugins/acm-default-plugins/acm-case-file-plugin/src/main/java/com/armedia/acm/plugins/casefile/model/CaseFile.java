@@ -507,6 +507,11 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_multiple_alert")
     private String caseMultipleAlert;
 
+    //cm_case_conv_ind_ln
+    @Column(name = "cm_case_conv_ind_ln")
+    private String caseConvictedIndividualLastName;
+
+
     @PrePersist
     protected void beforeInsert()
     {
@@ -1532,5 +1537,16 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     {
         this.caseCourtDocument = caseCourtDocument;
     }
+
+    public String getCaseConvictedIndividualLastName()
+    {
+        return caseConvictedIndividualLastName;
+    }
+
+    public void setCaseConvictedIndividualLastName(String caseConvictedIndividualLastName)
+    {
+        this.caseConvictedIndividualLastName = caseConvictedIndividualLastName;
+    }
+
 
 }

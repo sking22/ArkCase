@@ -828,5 +828,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5035-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_conv_ind_ln" type="VARCHAR(32)"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

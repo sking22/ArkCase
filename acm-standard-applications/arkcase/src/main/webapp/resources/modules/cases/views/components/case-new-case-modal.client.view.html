@@ -85,10 +85,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-6 form-group">
+                        <label>Convicted Individual First Name</label>
+                        <input  type="text" class="input-md form-control" ng-model="casefile.caseConvictedIndividual" >
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Convicted Individual Last Name</label>
+                        <input  type="text" class="input-md form-control" ng-model="casefile.caseConvictedIndividualLastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
                         <label>CMS Analyst</label>
-                        <input type="text" class="input-md form-control" ng-model="casefile.casePrevCMSAnalyst"
-                               placeholder="{{ casefile.casePrevCMSAnalyst }}" >
+                        <input type="text" class="input-md form-control" ng-model="casefile.casePrevCMSAnalyst">
                     </div>
                 </div>
             </div>
