@@ -1513,4 +1513,24 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     }
     public void setCaseMultipleAlert(String caseMultipleAlert) { this.caseMultipleAlert = caseMultipleAlert; }
 
+    public boolean getCaseBoardDocument()
+    {
+        return caseBoardDocument;
+    }
+
+    public void setCaseBoardDocument(boolean caseBoardDocument)
+    {
+        this.caseBoardDocument = caseBoardDocument;
+    }
+
+    public boolean getCaseCourtDocument()
+    {
+        return caseCourtDocument;
+    }
+
+    public void setCaseCourtDocument(boolean caseCourtDocument)
+    {
+        this.caseCourtDocument = caseCourtDocument;
+    }
+
 }
