@@ -241,6 +241,12 @@ angular.module('cases').controller(
                            ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
                            $scope.updateParticipants();
 
+                        }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case") {
+                             //The CMS analyst who is assigned the case
+                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
+                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
+                             $scope.updateParticipants();
+
                         } else if ($scope.changeCaseStatus.status === "CMS Pending- On Hold" ){
                             ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
