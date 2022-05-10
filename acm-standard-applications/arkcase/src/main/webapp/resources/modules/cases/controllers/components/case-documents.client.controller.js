@@ -27,8 +27,9 @@ angular.module('cases').controller(
                 'ModalDialogService',
                 'EcmService',
                 'Websockets.MessageHandler',
+                'Profile.UserInfoService',
                 function($scope, $stateParams, $modal, $q, $timeout, $translate, Util, LocaleService, ConfigService, ObjectService, ObjectLookupService, CaseInfoService, DocTreeService, HelperObjectBrowserService, Authentication, PermissionsService, ObjectModelService, DocTreeExtWebDAV,
-                         DocTreeExtCheckin, CorrespondenceService, DocTreeExtEmail, ModalDialogService, Ecm, messageHandler) {
+                         DocTreeExtCheckin, CorrespondenceService, DocTreeExtEmail, ModalDialogService, Ecm, messageHandler, UserInfoService) {
                     Authentication.queryUserInfo().then(function(userInfo) {
                         $scope.user = userInfo.userId;
                         return userInfo;
@@ -76,6 +77,26 @@ angular.module('cases').controller(
                         $scope.objectInfo = objectInfo;
                         $scope.objectId = objectInfo.id;
                         $scope.assignee = ObjectModelService.getAssignee(objectInfo);
+                        console.log("!!!! $scope.objectInfo: ", $scope.objectInfo);
+                        console.log("!!!! $scope.objectInfo.status: ", $scope.objectInfo.status);
+                        $scope.cmsStatus = ($scope.objectInfo.status.toLowerCase() === 'submitted to cms'
+                                         || $scope.objectInfo.status.toLowerCase() === 'r&r on pending case'
+                                         || $scope.objectInfo.status.toLowerCase() === 'r&r on approved case'
+                                         || $scope.objectInfo.status.toLowerCase() === 'resubmitted to cms');
+                        UserInfoService.getUserInfo().then(function(infoData) {
+                            $scope.currentUserProfile = infoData;
+                            $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+                            console.log("!!!! $scope.isAnalyst: ", $scope.isAnalyst);
+                            console.log("!!!! $scope.cmsStatus: ", $scope.cmsStatus);
+
+                            if($scope.isAnalyst && $scope.cmsStatus){
+                               $scope.noUpload = true;
+                            } else {
+                                $scope.noUpload = false;
+                            }
+
+                        });
+
                     };
 
                     $scope.uploadForm = function(type, folderId, onCloseForm) {
