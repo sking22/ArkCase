@@ -135,20 +135,61 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
         additionalProperties.put(ACM_PARTICIPANTS_LCS, participantsListJson);
 
         //new fields
-        additionalProperties.put("legal_business_name_lcs", in.getLegalBusinessName());
-        additionalProperties.put("provider_lbn_ein_lcs", in.getProviderLbnEin());
-        additionalProperties.put("associate_last_name_lcs", in.getAssociateLastName());
-        additionalProperties.put("associate_middle_name_lcs", in.getAssociateMiddleName());
-        additionalProperties.put("associate_first_name_lcs", in.getAssociateFirstName());
-        additionalProperties.put("associate_legal_business_name_lcs", in.getAssociateLegalBusinessName());
-        additionalProperties.put("associate_enrollment_id_lcs", in.getAssociateEnrollmentId());
-        additionalProperties.put("associate_npi_lcs", in.getAssociateNPI());
-        additionalProperties.put("associate_tin_lcs", in.getAssociateTIN());
-        additionalProperties.put("associate_tin_type_lcs", in.getAssociateTinType());
-        additionalProperties.put("associate_role_lcs", in.getAssociateRole());
-        additionalProperties.put("associate_sanction_code_lcs", in.getAssociateSanctionCode());
-        additionalProperties.put("associate_sanction_date_lcs", in.getAssociateSanctionDate());
-        additionalProperties.put("provider_specialty_lcs", in.getProviderSpecialty());
+        if(in.getLegalBusinessName() != null){
+            additionalProperties.put("legal_business_name_lcs", in.getLegalBusinessName());
+        }
+
+        if(in.getProviderLbnEin() != null){
+            additionalProperties.put("provider_lbn_ein_lcs", in.getProviderLbnEin());
+        }
+
+        if(in.getAssociateLastName() != null){
+            additionalProperties.put("associate_last_name_lcs", in.getAssociateLastName());
+        }
+
+        if(in.getAssociateMiddleName() != null){
+            additionalProperties.put("associate_middle_name_lcs", in.getAssociateMiddleName());
+        }
+
+        if(in.getAssociateFirstName() != null){
+            additionalProperties.put("associate_first_name_lcs", in.getAssociateFirstName());
+        }
+
+        if(in.getAssociateLegalBusinessName() != null){
+            additionalProperties.put("associate_legal_business_name_lcs", in.getAssociateLegalBusinessName());
+        }
+
+        if(in.getAssociateEnrollmentId() != null){
+            additionalProperties.put("associate_enrollment_id_lcs", in.getAssociateEnrollmentId());
+        }
+
+        if(in.getAssociateNPI() != null){
+            additionalProperties.put("associate_npi_lcs", in.getAssociateNPI());
+        }
+
+        if(in.getLegalBusinessName() != null){
+            additionalProperties.put("associate_tin_lcs", in.getAssociateTIN());
+        }
+
+        if(in.getAssociateTinType() != null){
+            additionalProperties.put("associate_tin_type_lcs", in.getAssociateTinType());
+        }
+
+        if(in.getAssociateRole() != null){
+            additionalProperties.put("associate_role_lcs", in.getAssociateRole());
+        }
+
+        if(in.getAssociateSanctionCode() != null){
+            additionalProperties.put("associate_sanction_code_lcs", in.getAssociateSanctionCode());
+        }
+
+        if(in.getAssociateSanctionDate() != null){
+            additionalProperties.put("associate_sanction_date_lcs", in.getAssociateSanctionDate());
+        }
+
+        if(in.getProviderSpecialty() != null){
+            additionalProperties.put("provider_specialty_lcs", in.getProviderSpecialty());
+        }
 
         List<Identification> ids = in.getIdentifications();
         /*for(int i = 0; i < ids.size(); i++){
@@ -157,53 +198,110 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
           /*Identification id = ids.get(i);*/
           //  PersonAssociation personAssociation: in.getPersonAssociations()
             log.error("id.getIdentificationType(): " + id.getIdentificationType());
-            if ( id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
-                additionalProperties.put("provider_pecos_id_lcs", id.getIdentificationID());
-                additionalProperties.put("provider_pecos_id_state_lcs", id.getIdState());
-                additionalProperties.put("provider_pecos_id_status_lcs", id.getIdStatus());
+            if(id.getIdentificationType() != null) {
+                if (id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_pecos_id_lcs", id.getIdentificationID());
+                    }
+                    if (id.getIdState() != null) {
+                        additionalProperties.put("provider_pecos_id_state_lcs", id.getIdState());
+                    }
+                    if (id.getIdStatus() != null) {
+                        additionalProperties.put("provider_pecos_id_status_lcs", id.getIdStatus());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_contractor_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("NPI")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_npi_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_ssn_ein_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("PTAN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_ptan_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("TIN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_tin_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_enrollment_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_license_id_lcs", id.getIdentificationID());
+                    }
+
+                    if (id.getIdStatus() != null) {
+                        additionalProperties.put("provider_license_id_status_lcs", id.getIdStatus());
+                    }
+
+                    if (id.getIdExpirationDate() != null) {
+                        additionalProperties.put("provider_license_id_expiration_lcs", id.getIdExpirationDate());
+                    }
+
+                    if (id.getIdQualifierSanction() != null) {
+                        additionalProperties.put("provider_license_id_qualifier_sanction_lcs", id.getIdQualifierSanction());
+                    }
+
+                    if (id.getIdAlertDate() != null) {
+                        additionalProperties.put("provider_license_id_alert_date_lcs", id.getIdAlertDate());
+                    }
+
+                }
             }
 
-            if ( id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
-                additionalProperties.put("provider_contractor_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("NPI")) {
-                additionalProperties.put("provider_npi_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
-                additionalProperties.put("provider_ssn_ein_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("PTAN")) {
-                additionalProperties.put("provider_ptan_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("TIN")) {
-                additionalProperties.put("provider_tin_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
-                additionalProperties.put("provider_enrollment_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("License Number")) {
-                additionalProperties.put("provider_license_id_lcs", id.getIdentificationID());
-                additionalProperties.put("provider_license_id_status_lcs", id.getIdStatus());
-                additionalProperties.put("provider_license_id_expiration_lcs", id.getIdExpirationDate());
-                additionalProperties.put("provider_license_id_qualifier_sanction_lcs", id.getIdQualifierSanction());
-                additionalProperties.put("provider_license_id_alert_date_lcs", id.getIdAlertDate());
-            }
         }
 
         Identification defId = in.getDefaultIdentification();
-        additionalProperties.put("provider_case_type_id_lcs", defId.getIdCaseType());
-        additionalProperties.put("provider_case_number_id_lcs", defId.getIdCaseNumber());
-        additionalProperties.put("provider_offense_type_id_lcs", defId.getIdOffenseType());
-        additionalProperties.put("provider_conviction_date_id_lcs", defId.getIdConvictionDate());
-        additionalProperties.put("provider_docket_request_date_id_lcs", defId.getIdDocketRequestDate());
-        additionalProperties.put("provider_docket_response_date_id_lcs", defId.getIdDocketResponseDate());
-        additionalProperties.put("provider_docket_status_id_lcs", defId.getIdDocketStatus());
+
+        if(defId.getIdCaseType() != null){
+             additionalProperties.put("provider_case_type_id_lcs", defId.getIdCaseType());
+        }
+
+        if(defId.getIdCaseNumber() != null){
+            additionalProperties.put("provider_case_number_id_lcs", defId.getIdCaseNumber());
+        }
+
+        if(defId.getIdOffenseType() != null){
+            additionalProperties.put("provider_offense_type_id_lcs", defId.getIdOffenseType());
+        }
+
+        if(defId.getIdConvictionDate() != null){
+            additionalProperties.put("provider_conviction_date_id_lcs", defId.getIdConvictionDate());
+        }
+
+        if(defId.getIdDocketRequestDate() != null){
+            additionalProperties.put("provider_docket_request_date_id_lcs", defId.getIdDocketRequestDate());
+        }
+
+        if(defId.getIdDocketResponseDate() != null){
+            additionalProperties.put("provider_docket_response_date_id_lcs", defId.getIdDocketResponseDate());
+        }
+
+        if(defId.getIdDocketStatus() != null){
+            additionalProperties.put("provider_docket_status_id_lcs", defId.getIdDocketStatus());
+        }
 
 
         additionalProperties.put("anonymous_flag_b", in.getAnonymousFlag());
