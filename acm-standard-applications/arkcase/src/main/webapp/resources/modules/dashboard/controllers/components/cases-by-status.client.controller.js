@@ -220,9 +220,19 @@ angular.module('dashboard.cases-by-status').controller('Dashboard.CasesByStatusC
                         value.isDeadline = TaskAlertsService.calculateDeadline(value.dueDate_tdt);
                     }
 
+
+                    if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "CASE_CLOSED"
+                        || value.status_lcs ===  "CMS APPROVED" || value.status_lcs === "AUDIT ASSIGNED"
+                        || value.status_lcs ===  "AUDIT COMPLETED"){
+
+                        value.isOverdue = false;
+                        value.isDeadline = false;
+                    }
+
                     vm.gridOptions.data.push(value);
                 });
             });
+
         }
 
         $scope.saveCase = function (row, selectedUser, selectedGroup) {
