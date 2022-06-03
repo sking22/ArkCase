@@ -199,7 +199,6 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
         }, function(data) {
             vm.gridOptions.data = [];
             vm.gridOptions.totalItems = data.response.numFound;
-
             _.forEach(data.response.docs, function(value) {
                 value.status_lcs = value.status_lcs.toUpperCase();
 
@@ -209,29 +208,21 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
 
                 if (Util.goodValue(value.dueDate_tdt)) {
                     value.dueDate_tdt = UtilDateService.isoToLocalDateTime(value.dueDate_tdt);
-                    if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "CASE_CLOSED"
-                        || value.status_lcs === "AUDIT ASSIGNED" || value.status_lcs ===  "AUDIT COMPLETED") {
-
-                        data.response.docs.getElementById(value.id).style.display = "none";
-
-                    } else if(value.status_lcs ===  "CMS APPROVED") {
-                        value.isOverdue = false;
-                        value.isDeadline = false;
-                    }
-                    else {
-                        //calculate to show alert icons if cases is in overdue or deadline is approaching
-                        value.isOverdue = TaskAlertsService.calculateOverdue(value.dueDate_tdt);
-                        value.isDeadline = TaskAlertsService.calculateDeadline(value.dueDate_tdt);
-                    }
+                     //calculate to show alert icons if cases is in overdue or deadline is approaching
+                    value.isOverdue = TaskAlertsService.calculateOverdue(value.dueDate_tdt);
+                    value.isDeadline = TaskAlertsService.calculateDeadline(value.dueDate_tdt);
                 }
 
-                vm.gridOptions.data.push(value);
-                /*console.log("!!! data: ", data);
-                console.log("!!! value: ", value);
-                console.log("!!! paginationOptions.filters: ", paginationOptions.filters);*/
-
+                if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "AUDIT ASSIGNED" || value.status_lcs ===  "AUDIT COMPLETED") {
+                    vm.gridOptions.totalItems--;
+                } else if(value.status_lcs ===  "CMS APPROVED") {
+                    value.isOverdue = false;
+                    value.isDeadline = false;
+                    vm.gridOptions.data.push(value);
+                } else {
+                    vm.gridOptions.data.push(value);
+                }
             });
-
         });
     }
 } ]);
