@@ -196,7 +196,10 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
             additionalProperties.put(acm_ac, blank);
         }
 
+        AcmUser analyst = getUserDao().quietFindByUserId(in.getCasePrevAnalyst());
         additionalProperties.put("acm_case_analyst_lcs", in.getCasePrevAnalyst());
+        additionalProperties.put("acm_case_analyst_full_name_lcs", analyst.getFirstName() + " " + analyst.getLastName());
+
 
 
         additionalProperties.put("acm_participants_lcs", participantsListJson);
@@ -239,7 +242,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
 
        //cm_case_final_out_admin_act
         additionalProperties.put("case_final_outcome_admin_act_lcs", in.getCaseFinalOutAdminAct());
-        
+
         String action = "No";
         for(ChangeCaseStatus ccs: in.getChangeCaseStatuses()) {
             if(ccs.getStatus().equalsIgnoreCase("Submitted To CMS") ) {

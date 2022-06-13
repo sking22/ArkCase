@@ -86,13 +86,13 @@
                     "name": "dueDate_tdt",
                     "displayName": "dashboard.widgets.myCases.table.header.dueDate",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : 'yyyy-MM-dd' }}</div>"
                 },
                 {
                     "name": "modified_date_tdt",
                     "displayName": "dashboard.widgets.myCases.table.header.modified",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : 'yyyy-MM-dd' }}</div>"
                 }
             ]
         },
@@ -152,8 +152,8 @@
                     "enableSorting": true
                 },
                 {
-                    "name": "acm_case_analyst_lcs",
-                    "field": "acm_case_analyst_lcs",
+                    "name": "acm_case_analyst_full_name_lcs",
+                    "field": "acm_case_analyst_full_name_lcs",
                     "displayName": "Analyst",
                     "enableSorting": true
                 },
@@ -161,13 +161,13 @@
                     "name": "dueDate_tdt",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.dueDate",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : 'yyyy-MM-dd' }}</div>"
                 },
                 {
                     "name": "modified_date_tdt",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.modified",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : 'yyyy-MM-dd' }}</div>"
                 }
             ]
         },
@@ -476,23 +476,22 @@
                 },
                 {
                     "name": "assignee_id_lcs",
-                    "sortField": "assignee_full_name_lcs",
+                    "field": "assignee_full_name_lcs",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.assignee",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<button class='btn-link' ng-click='grid.appScope.userOrGroupSearch(row)'>{{row.entity.assignee_full_name_lcs}}</button>",
                     "enableSorting": true
                 },
                 {
                     "name": "dueDate_tdt",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.dueDate",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : 'yyyy-MM-dd' }}</div>"
                 },
                 {
                     "name": "modified_date_tdt",
                     "displayName": "dashboard.widgets.activeCaseFiles.table.header.modified",
                     "headerCellFilter": "translate",
-                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : ('common.defaultDateTimeUIFormat' | translate) }}</div>"
+                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : 'yyyy-MM-dd' }}</div>"
                 }
             ]
         },
