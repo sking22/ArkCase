@@ -260,6 +260,17 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         return licenseNum;
     }
 
+    //License Number
+    public String getLicenseState(){
+        String idState = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                idState = id.getIdState();
+            }
+        }
+        return idState;
+    }
+
     //Contractor ID/Contractor Name
     public String geContractorID(){
         String contractorID = "";

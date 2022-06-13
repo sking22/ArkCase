@@ -47,6 +47,7 @@ import com.armedia.acm.plugins.businessprocess.dao.BusinessProcessDao;
 import com.armedia.acm.plugins.casefile.dao.CaseFileDao;
 import com.armedia.acm.plugins.casefile.model.CaseFile;
 import com.armedia.acm.plugins.casefile.model.CaseFileConstants;
+import com.armedia.acm.plugins.casefile.model.ChangeCaseStatus;
 import com.armedia.acm.plugins.ecm.service.FileAclSolrUpdateHelper;
 import com.armedia.acm.plugins.person.model.Person;
 import com.armedia.acm.plugins.person.model.PersonAssociation;
@@ -236,10 +237,39 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         additionalProperties.put("case_conv_ind_lcs", in.getCaseConvictedIndividual());
         additionalProperties.put("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
 
+       //cm_case_final_out_admin_act
+        additionalProperties.put("case_final_outcome_admin_act_lcs", in.getCaseFinalOutAdminAct());
+        
+        String action = "No";
+        for(ChangeCaseStatus ccs: in.getChangeCaseStatuses()) {
+            if(ccs.getStatus().equalsIgnoreCase("Submitted To CMS") ) {
+                action = "Yes";
+            }
+        }
+        additionalProperties.put("case_actionable_sub_to_cms_lcs", action);
+
+
         for(PersonAssociation pa: in.getPersonAssociations()) {
             if (pa.getPersonType().equalsIgnoreCase("initiator")) {
                 Person person = pa.getPerson();
                 if(person != null) {
+                    String lbnein = person.getProviderLbnEin();
+                    if ((lbnein != null) && !lbnein.equalsIgnoreCase("na") &&
+                            !lbnein.trim().equalsIgnoreCase("")) {
+                        additionalProperties.put("case_provider_lbn_ein_lcs", lbnein);
+                    }
+
+                    String idState = person.getLicenseState();
+                    if ((idState != null) && !idState.equalsIgnoreCase("na") &&
+                            !idState.trim().equalsIgnoreCase("")) {
+                        additionalProperties.put("case_provider_license_state_lcs", idState);
+                    }
+
+                    Date asd = person.getAssociateSanctionDate();
+                    if ((asd != null)) {
+                        additionalProperties.put("case_provider_sanctioned_date_lcs", asd);
+                    }
+
                     String ssn = person.getSsn();
                     if ((ssn != null) && !ssn.equalsIgnoreCase("na") &&
                             !ssn.trim().equalsIgnoreCase("")) {
