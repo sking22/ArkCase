@@ -839,75 +839,75 @@
                 <constraints nullable="false"/>
             </column>
         </addColumn>
-    </changeSet>-->
-
-    <changeSet id="5004-acms-add-id-fields2" author="sean.king">
-        <addColumn tableName="acm_person">
-            <column name="cm_person_lbn_ein" type="VARCHAR(512)"/>
-        </addColumn>
-        <renameColumn columnDataType="DATE"   newColumnName="cm_id_conv_date" oldColumnName="cm_id_disposition_date" tableName="acm_identification" />
     </changeSet>
+-->
 
-    <changeSet id="5005-acms-modify-id-fields" author="sean.king">
-        <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(128)"/>
+    <!--<changeSet id="5005-acms-modify-id-fields" author="sean.king">
+
         <modifyDataType tableName="acm_identification" columnName="cm_id_state" newDataType="VARCHAR(8)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_docket_status" newDataType="VARCHAR(10)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_case_type" newDataType="VARCHAR(22)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_grace_expiration_days" newDataType="VARCHAR(32)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(35)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_qualifier_sanction" newDataType="VARCHAR(128)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_role_code_type" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_exclusion_type" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_case_type" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_offense_type" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_case_number" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_court_name" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_provider_supplier_type" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_identification" columnName="cm_id_provider_tin_type" newDataType="VARCHAR(64)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_case_number" newDataType="VARCHAR(128)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_court_name" newDataType="VARCHAR(128)"/>
+        <modifyDataType tableName="acm_identification" columnName="cm_id_offense_type" newDataType="VARCHAR(444)"/>
 
-        <modifyDataType tableName="acm_person" columnName="cm_person_legal_business_name" newDataType="VARCHAR(128)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_specialty_type" newDataType="VARCHAR(64)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin_type" newDataType="VARCHAR(4)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_lbn_ein" newDataType="VARCHAR(11)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin" newDataType="VARCHAR(11)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(11)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_specialty_type" newDataType="VARCHAR(50)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_assc_enrollment_id" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_middle_name" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_first_name" newDataType="VARCHAR(64)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_legal_business_name" newDataType="VARCHAR(128)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_enrollment_id" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin_type" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_role" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_sanc_code" newDataType="VARCHAR(64)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_lbn_ein" newDataType="VARCHAR(64)"/>
-
-    </changeSet>
-
-
-    <changeSet id="5006-acms-modify-id-fields" author="sean.king">
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin_type" newDataType="VARCHAR(4)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(10)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_docket_status" newDataType="VARCHAR(10)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_lbn_ein" newDataType="VARCHAR(11)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_case_type" newDataType="VARCHAR(11)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_tin" newDataType="VARCHAR(11)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(30)"/>
-        <modifyDataType tableName="acm_person" columnName="cm_person_specialty_type" newDataType="VARCHAR(50)"/>
+        <modifyDataType tableName="acm_person" columnName="cm_person_legal_business_name" newDataType="VARCHAR(128)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_role" newDataType="VARCHAR(150)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_case_number" newDataType="VARCHAR(128)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_court_name" newDataType="VARCHAR(128)"/>
         <modifyDataType tableName="acm_person" columnName="cm_person_assc_sanc_code" newDataType="VARCHAR(280)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_offense_type" newDataType="VARCHAR(300)"/>
-    </changeSet>
 
-    <changeSet id="5007-acms-modify-id-fields" author="sean.king">
+    </changeSet> -->
 
-        <modifyDataType tableName="acm_person" columnName="cm_person_assc_npi" newDataType="VARCHAR(11)"/>
-        <modifyDataType tableName="acm_identification" columnName="cm_id_status" newDataType="VARCHAR(35)"/>
-
-    </changeSet>
-
-    <changeSet id="5008-acms-modify-id-fields" author="sean.king">
+    <!--<changeSet id="5008-acms-modify-id-fields" author="sean.king">
         <modifyDataType tableName="acm_person" columnName="cm_middle_name" newDataType="VARCHAR(256)"/>
         <modifyDataType tableName="acm_person" columnName="cm_given_name" newDataType="VARCHAR(256)"/>
         <modifyDataType tableName="acm_person" columnName="cm_family_name" newDataType="VARCHAR(256)"/>
         <addColumn tableName="acm_person">
             <column name="cm_person_contractor_name" type="VARCHAR(32)"/>
         </addColumn>
+    </changeSet>-->
+
+    <changeSet id="55-add-person-default-fax" author="aleksandar.acevski">
+        <addColumn tableName="acm_person">
+            <column name="cm_default_fax" type="${fkIdType}"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add-person-anonymous-flag" author="adrijana.maneva">
+        <addColumn tableName="acm_person">
+            <column name="cm_anonymous_flag" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!--<changeSet id="56-identification-add-class-name-column" author="riste.tutureski">
+        <addColumn tableName="acm_identification">
+            <column name="cm_class_name" type="varchar(400)" defaultValue="com.armedia.acm.plugins.person.model.Identification">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>-->
+
+    <changeSet id="57-create-index-on-person-assoc-parent-id" author="bojan.milenkoski">
+        <createIndex tableName="acm_person_assoc" indexName="idx_person_assoc_person_assoc_parent_id">
+            <column name="cm_person_assoc_parent_id"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>
