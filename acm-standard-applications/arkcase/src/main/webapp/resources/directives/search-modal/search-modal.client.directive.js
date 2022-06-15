@@ -247,7 +247,21 @@ angular.module('directives').directive('searchModal', [ '$q', '$translate', '$fi
 
             function successSubSearchResult(data) {
                 updateFacets(data.facet_counts.facet_fields);
+                for(var i=0; i < data.response.docs.length; i++) {
+                    if(data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_JENNIFER_MAXSON@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_ALONNA@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_JACQUELINE_HURST@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_ELIZABETH_MAULDIN@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_VERTRESSE_MICHELLE_PRICE@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_ROSALIND_WEATHERSPOON@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_PHYLLIS_WATER@APVITACMS.COM-GROUP") {
+                        data.response.docs.splice(i, 1);
+                        i--;
+                   }
+                }
+
                 scope.gridOptionsDetail.data = data.response.docs;
+
                 if (scope.gridOptionsDetail.data.length < 1) {
                     scope.showNoData = true;
                 } else {

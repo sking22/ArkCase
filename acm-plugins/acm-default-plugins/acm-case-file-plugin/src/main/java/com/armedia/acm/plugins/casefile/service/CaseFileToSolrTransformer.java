@@ -291,9 +291,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     }
 
                     String casenum = person.getCASENUM();
-                    LOG.error("!!!! - " + casenum);
                     if (!casenum.equalsIgnoreCase("na")) {
-                        LOG.error("!!!!! - " + casenum);
                         additionalProperties.put("case_provider_id_case_number_lcs", casenum);
                     }
 
