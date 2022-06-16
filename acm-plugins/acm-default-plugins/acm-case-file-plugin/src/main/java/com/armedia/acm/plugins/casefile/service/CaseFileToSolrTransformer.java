@@ -290,11 +290,11 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                         additionalProperties.put("case_provider_peid_lcs", peid);
                     }
 
-                    String casenum = person.getCASENUM();
+                    /*String casenum = person.getCASENUM();
                     if (!casenum.equalsIgnoreCase("na")) {
                         additionalProperties.put("case_provider_id_case_number_lcs", casenum);
                     }
-
+*/
                     String enrollId = person.getEnrollmentID();
                     if ((enrollId != null) && !enrollId.equalsIgnoreCase("na")
                             && !enrollId.trim().equalsIgnoreCase("")) {

@@ -304,17 +304,19 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         return proPTAN;
     }
 
-    //PTAN
+  /*  //PTAN
     public String getCASENUM(){
         String caseNum = "";
-        for(Identification id: getIdentifications()) {
-            if(!id.getIdCaseNumber().equalsIgnoreCase("")) {
-                caseNum = id.getIdCaseNumber();
+        if(getIdentifications() != null) {
+            for(Identification id: getIdentifications()) {
+                if(!id.getIdCaseNumber().equalsIgnoreCase("")) {
+                    caseNum = id.getIdCaseNumber();
+                }
             }
         }
         return caseNum;
     }
-
+*/
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "acm_person_postal_address", joinColumns = {
             @JoinColumn(name = "cm_person_id", referencedColumnName = "cm_person_id") }, inverseJoinColumns = {
