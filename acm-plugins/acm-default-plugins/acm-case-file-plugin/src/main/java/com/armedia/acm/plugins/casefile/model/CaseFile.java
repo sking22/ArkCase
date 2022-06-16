@@ -505,7 +505,6 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         this.changeCaseStatuses = changeCaseStatuses;
     }
 
-
     @PrePersist
     protected void beforeInsert()
     {

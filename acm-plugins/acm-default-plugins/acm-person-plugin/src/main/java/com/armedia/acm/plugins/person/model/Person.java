@@ -307,9 +307,12 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     //PTAN
     public String getCASENUM(){
         String caseNum = "";
-        for(Identification id: getIdentifications()) {
-            if(!id.getIdCaseNumber().equalsIgnoreCase("")) {
-                caseNum = id.getIdCaseNumber();
+        if(!getIdentifications().isEmpty()) {
+            for(Identification id: getIdentifications()) {
+                if(id != null && id.getIdCaseNumber() != null) {
+                    caseNum = id.getIdCaseNumber();
+                    return caseNum;
+                }
             }
         }
         return caseNum;

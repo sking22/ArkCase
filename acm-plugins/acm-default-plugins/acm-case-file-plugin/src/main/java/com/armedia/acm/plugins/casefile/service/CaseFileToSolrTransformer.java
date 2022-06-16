@@ -196,11 +196,16 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
             additionalProperties.put(acm_ac, blank);
         }
 
-        AcmUser analyst = getUserDao().quietFindByUserId(in.getCasePrevAnalyst());
-        additionalProperties.put("acm_case_analyst_lcs", in.getCasePrevAnalyst());
-        additionalProperties.put("acm_case_analyst_full_name_lcs", analyst.getFirstName() + " " + analyst.getLastName());
+        if(in.getCasePrevAnalyst() != null){
+            AcmUser analyst = getUserDao().quietFindByUserId(in.getCasePrevAnalyst());
 
+            additionalProperties.put("acm_case_analyst_lcs", in.getCasePrevAnalyst());
 
+            if(analyst.getFirstName() != null && analyst.getLastName() != null){
+                additionalProperties.put("acm_case_analyst_full_name_lcs", analyst.getFirstName() + " " + analyst.getLastName());
+            }
+
+        }
 
         additionalProperties.put("acm_participants_lcs", participantsListJson);
         // The property "assignee_group_id_lcs" is used only for showing/hiding claim/unclaim buttons
@@ -244,13 +249,14 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         additionalProperties.put("case_final_outcome_admin_act_lcs", in.getCaseFinalOutAdminAct());
 
         String action = "No";
-        for(ChangeCaseStatus ccs: in.getChangeCaseStatuses()) {
-            if(ccs.getStatus().equalsIgnoreCase("Submitted To CMS") ) {
-                action = "Yes";
+        if(in.getChangeCaseStatuses() != null){
+            for(ChangeCaseStatus ccs: in.getChangeCaseStatuses()) {
+                if(ccs.getStatus().equalsIgnoreCase("Submitted To CMS") ) {
+                    action = "Yes";
+                }
             }
+            additionalProperties.put("case_actionable_sub_to_cms_lcs", action);
         }
-        additionalProperties.put("case_actionable_sub_to_cms_lcs", action);
-
 
         for(PersonAssociation pa: in.getPersonAssociations()) {
             if (pa.getPersonType().equalsIgnoreCase("initiator")) {
@@ -290,8 +296,13 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                         additionalProperties.put("case_provider_peid_lcs", peid);
                     }
 
-                    String casenum = person.getCASENUM();
-                    if (!casenum.equalsIgnoreCase("na")) {
+                    String casenum = "";
+                    if(person.getCASENUM() != null){
+                        casenum = person.getCASENUM();
+                    }
+
+                    if ((casenum != null) && !casenum.equalsIgnoreCase("na")
+                            && !casenum.trim().equalsIgnoreCase("")) {
                         additionalProperties.put("case_provider_id_case_number_lcs", casenum);
                     }
 
