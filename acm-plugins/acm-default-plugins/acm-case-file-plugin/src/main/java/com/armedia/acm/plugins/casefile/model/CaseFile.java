@@ -488,7 +488,7 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_conv_ind_ln")
     private String caseConvictedIndividualLastName;
 
-    @JoinTable(name = "acm_change_case_status", joinColumns = {
+ /*   @JoinTable(name = "acm_change_case_status", joinColumns = {
             @JoinColumn(name = "cm_case_id", referencedColumnName = "cm_case_id") }, inverseJoinColumns = {
             @JoinColumn(name = "cm_change_case_status_id", referencedColumnName = "cm_change_case_status_id", unique = true) })
     private List<ChangeCaseStatus> changeCaseStatuses = new ArrayList<>();
@@ -504,7 +504,7 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     {
         this.changeCaseStatuses = changeCaseStatuses;
     }
-
+*/
     @PrePersist
     protected void beforeInsert()
     {
