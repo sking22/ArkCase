@@ -248,6 +248,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         //cm_case_final_out_admin_act
         additionalProperties.put("case_final_outcome_admin_act_lcs", in.getCaseFinalOutAdminAct());
 
+/*
         String action = "No";
         if(in.getChangeCaseStatuses() != null){
             for(ChangeCaseStatus ccs: in.getChangeCaseStatuses()) {
@@ -257,6 +258,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
             }
             additionalProperties.put("case_actionable_sub_to_cms_lcs", action);
         }
+*/
 
         for(PersonAssociation pa: in.getPersonAssociations()) {
             if (pa.getPersonType().equalsIgnoreCase("initiator")) {
