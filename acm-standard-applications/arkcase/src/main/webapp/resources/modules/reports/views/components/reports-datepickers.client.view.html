@@ -1,4 +1,5 @@
 <div ng-controller="Reports.DatepickersController" ng-cloak>
+    <label>Case Created Date</label>
     <div ng-show="data.dateSearchType=='DATE_RANGE'">
         <label for="dateFromReports" translate>reports.startDate.label</label> <span class="required-asterisk">*</span>
         <date-time-picker date-picker-id="data.startDate" data="data.startDate" max-date="maxDate" on-date-select="startDateChanged" time-format-disabled="true"></date-time-picker>
