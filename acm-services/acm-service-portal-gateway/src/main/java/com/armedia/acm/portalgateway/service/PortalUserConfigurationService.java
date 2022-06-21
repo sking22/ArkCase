@@ -4,7 +4,7 @@ package com.armedia.acm.portalgateway.service;
  * #%L
  * ACM Service: Portal Gateway Service
  * %%
- * Copyright (C) 2014 - 2021 ArkCase LLC
+ * Copyright (C) 2014 - 2022 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 

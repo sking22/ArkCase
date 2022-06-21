@@ -2,9 +2,9 @@
 
 angular.module('cases').controller(
         'Cases.ChangeStatusController',
-        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService',
-                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService) {
-                    console.log('modalParams: ' + JSON.stringify(modalParams));
+        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService',
+                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService) {
+                    //console.log('modalParams: ' + JSON.stringify(modalParams));
                     $scope.modalParams = modalParams;
                     $scope.currentStatus = modalParams.info.status;
                     $scope.oInfo = modalParams.objectInfo;
@@ -28,6 +28,7 @@ angular.module('cases').controller(
                         creator: null,
                         modified: null,
                         modifier: null,
+                        assignee: null,
                         description: "",
                         changeCaseStatusFlow: $scope.showApprover == 'true'
                     };
@@ -46,11 +47,29 @@ angular.module('cases').controller(
                     });
 
                     ObjectLookupService.getLookupByLookupName("changeCaseStatuses").then(function(caseStatuses) {
-                        $scope.statuses = caseStatuses;
+                        $scope.statuses = [];
                         var defaultChangeCaseStatus = ObjectLookupService.getPrimaryLookup($scope.statuses);
                         if (defaultChangeCaseStatus && !$scope.changeCaseStatus.status) {
                             $scope.changeCaseStatus.status = defaultChangeCaseStatus.key;
                         }
+                        //console.log("!!!! caseStatuses: ", caseStatuses);
+                        UserInfoService.getUserInfo().then(function(infoData) {
+                            $scope.currentUserProfile = infoData;
+                            $scope.isCms = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM";
+                            if($scope.isCms){
+                                for(var i = 0; i < caseStatuses.length; i++){
+                                    if(caseStatuses[i].key === 'CMS Approved'
+                                        || caseStatuses[i].key === 'CMS Approved-Documentation Pending'
+                                        || caseStatuses[i].key === 'CMS Pending- On Hold'
+                                        || caseStatuses[i].key === 'CMS Requested Edits'){
+                                        $scope.statuses.push(caseStatuses[i]);
+                                    }
+                                }
+                            } else {
+                                $scope.statuses = caseStatuses;
+                            }
+                           // console.log("!!!! $scope.statuses: ", $scope.statuses);
+                        });
                     });
 
                     function statusChanged() {
@@ -160,17 +179,32 @@ angular.module('cases').controller(
                         $scope.loading = true;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
                        // $modalInstance.close($scope.changeCaseStatus);
-                        
+
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
-                              $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
-                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
-                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                              $scope.updateParticipants();
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
+                                $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
+                                ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
+                                ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                $scope.updateParticipants();
+                            }
+
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
-                             $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
-                             ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
-                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
-                             $scope.updateParticipants();
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
+                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
+                            }
+                              ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
+                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                              $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "Returned For Revision" || $scope.changeCaseStatus.status === "OPT Case - Non-Actionable"
                                     || $scope.changeCaseStatus.status === "Returned For Revision II" ) {
@@ -188,10 +222,13 @@ angular.module('cases').controller(
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                              $scope.updateParticipants();
-                        } else if ($scope.changeCaseStatus.status === "Submitted to CMS" || $scope.changeCaseStatus.status === "Submitted To CMS II"  ) {
+                        } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
+                                || $scope.changeCaseStatus.status === "Submitted To CMS II"
+                                || $scope.changeCaseStatus.status === "Submitted to CMS-Documentation Pending" ) {
                             //$scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
+                            $scope.oInfo.priority = "CMS";
                             $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "OPT - DEX SENT - Docket Requested") {
@@ -203,7 +240,14 @@ angular.module('cases').controller(
                            //The CMS analyst who is assigned the case
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
+                           $scope.oInfo.priority = "CMS";
                            $scope.updateParticipants();
+
+                        }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case") {
+                             //The CMS analyst who is assigned the case
+                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
+                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
+                             $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "CMS Pending- On Hold" ){
                             ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@apvitacms.com');
@@ -247,26 +291,36 @@ angular.module('cases').controller(
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                             $scope.updateParticipants();
 
-                        } else if ($scope.changeCaseStatus.status === "CMS Approved") {
+                        } else if ($scope.changeCaseStatus.status === "CMS Approved" || $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                            $scope.oInfo.priority = "N/A";
                             $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "CASE_CLOSED") {
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                              $scope.oInfo.priority = "N/A";
                               $scope.updateParticipants();
 
                         }  else if ($scope.changeCaseStatus.status === "Audit Completed" || $scope.changeCaseStatus.status === "Audit N/A") {
                             ObjectModelService.setAssignee($scope.oInfo, 'qacasearchiveuser@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                            $scope.oInfo.priority = "N/A";
                             $scope.updateParticipants();
-                        }
-                        else if ($scope.changeCaseStatus.status === "Audit Assigned") {
+                        } else if ($scope.changeCaseStatus.status === "Audit Assigned") {
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
+                            $scope.oInfo.priority = "N/A";
                             $scope.updateParticipants();
-                        }
+                        } else if ($scope.changeCaseStatus.status === "Case Deleted/Canceled") {
+                              ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
+                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
+                              $scope.updateParticipants();
+                         }
+
+                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
+
 
                         $scope.oInfo.status = $scope.changeCaseStatus.status;
 

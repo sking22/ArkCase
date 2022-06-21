@@ -34,6 +34,25 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 form-group">
+                        <label translate>Due Date</label>
+                            <date-time-picker data="casefile.dueDate"
+                                              property="casefile.dueDate"
+                                              date-picker-id="casefile.dueDate"
+                                              time-format-disabled="false"></date-time-picker>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Multiple Alert</label>
+                        <select class="form-control" ng-model="casefile.caseMultipleAlert"
+                                ng-disabled="disableField">
+                            <option ng-repeat="option in caseMultipleAlertTypes" placeholder="{{casefile.caseMultipleAlert}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
                         <label translate>
                             cases.comp.newCase.caseReportingWeek</label>
                         <input type="text" ng-model="casefile.caseReportingWeek"
@@ -63,6 +82,22 @@
                                           property="casefile.caseReportAlertDate"
                                           date-picker-id="casefile.caseReportAlertDate"
                                           time-format-disabled="true"></date-time-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Convicted Individual First Name</label>
+                        <input  type="text" class="input-md form-control" ng-model="casefile.caseConvictedIndividual" >
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Convicted Individual Last Name</label>
+                        <input  type="text" class="input-md form-control" ng-model="casefile.caseConvictedIndividualLastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>CMS Analyst</label>
+                        <input type="text" class="input-md form-control" ng-model="casefile.casePrevCMSAnalyst">
                     </div>
                 </div>
             </div>

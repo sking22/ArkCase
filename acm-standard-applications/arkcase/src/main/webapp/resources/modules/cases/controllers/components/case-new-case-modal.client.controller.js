@@ -42,6 +42,16 @@ angular.module('cases').controller(
                         return moduleConfig;
                     });
 
+                    var assocTypeLabel = $translate.instant("cases.comp.people.type.label");
+
+                    ObjectLookupService.getLookupByLookupName('caseMultipleAlertTypes').then(function (caseMultipleAlertTypes) {
+                       if(caseMultipleAlertTypes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        caseMultipleAlertTypes.unshift(clear);
+                        $scope.caseMultipleAlertTypes = caseMultipleAlertTypes;
+                        }
+                    });
+
                     // --------------  mention --------------
                     $scope.params = {
                         emailAddresses: [],
@@ -134,6 +144,7 @@ angular.module('cases').controller(
                         params.type = $scope.initiatorType;
                         params.typeEnabled = false;
                         association = new newPersonAssociation();
+                        params.assocTypeLabel = assocTypeLabel;
 
                         var modalInstance = $modal.open({
                             scope: $scope,
@@ -199,7 +210,8 @@ angular.module('cases').controller(
                             showSetPrimary: true,
                             isDefault: false,
                             types: $scope.personTypes,
-                            isFirstPerson: Util.isEmpty(associationFound) ? true : false
+                            isFirstPerson: Util.isEmpty(associationFound) ? true : false,
+                            assocTypeLabel: assocTypeLabel
                         };
 
                         //set this params for editing
@@ -510,5 +522,4 @@ angular.module('cases').controller(
                     $scope.cancelModal = function() {
                         $modalInstance.dismiss();
                     };
-
                 } ]);

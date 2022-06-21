@@ -361,7 +361,7 @@ angular.module('directives').directive(
                                             return false;
                                         }
                                         if ("RECORD" === Util.goodValue(node.data.status)) {
-                                            return false;
+                                            return true;
                                         }
                                         if (DocTree.isTopNode(data.node) || DocTree.isSpecialNode(data.node)) {
                                             return false;
@@ -3252,6 +3252,7 @@ angular.module('directives').directive(
                                                     Ui.dlgConfirm($translate.instant("common.directive.docTree.confirmFileDeletion"), function(result) {
                                                         if (result) {
                                                             DocTree.Op.fileRemove(dfd, node, parent, true);
+                                                            setTimeout(DocTree.refreshTree, 1500);
                                                         }
                                                     });
                                                 } else {

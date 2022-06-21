@@ -240,7 +240,7 @@ angular.module('cases').controller(
                         });
 
                         try {
-                            console.log($scope.objectInfo)
+                            //console.log($scope.objectInfo)
                             SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (value) {
                                 $scope.hasSuggestedCases = value.data.length > 0;
                                 $scope.numberOfSuggestedCases = value.data.length;
@@ -292,16 +292,19 @@ angular.module('cases').controller(
                                 /*if(correctedDueDate < startDate){
                                     $scope.dateInfo.dueDate = $scope.dueDateBeforeChange;
                                     DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
-                                }else {*/
+                                }else {
                                     $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
                                     $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
-                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);
+                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);*/
+
+                                    $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
+                                    $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local();
+                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).format(defaultDateTimePickerFormat);
                                     $scope.dateInfo.dueDate = $scope.dueDate.dueDateInfoUIPicker;
                                     // unbind due date watcher before case save so that when user switch to different case
                                     // watcher won't be fired before landing on that different case
                                     dueDateWatch();
                                     $scope.saveCase();
-                                //}
                             }
                         }else {
                             if (!oldDate) {

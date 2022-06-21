@@ -67,7 +67,7 @@ public class FOIARequestDao extends AcmAbstractDao<FOIARequest>
     {
         return getEm().createNamedQuery(REQUESTS_BY_STATUS, FOIARequest.class).setParameter("requestStatuses", statuses).getResultList();
     }
-    
+
     public List<FOIARequest> getAllRequestsInBillingBefore(LocalDateTime billingEnterDate)
     {
         return getAllRequestsInQueueBefore(PURGE_BILLING_QUEUE, "Billing", "billingEnterDate", billingEnterDate);
@@ -100,6 +100,16 @@ public class FOIARequestDao extends AcmAbstractDao<FOIARequest>
         {
             return null;
         }
+    }
+
+    public List<FOIARequest> findAllHoldRequestsBefore(LocalDateTime holdEnterDate)
+    {
+        String queryText = "SELECT request FROM FOIARequest request"
+                + " WHERE request.queue.name = 'Hold' AND request.holdEnterDate < :holdEnterDate";
+        TypedQuery<FOIARequest> query = getEm().createQuery(queryText, FOIARequest.class);
+        query.setParameter("holdEnterDate", holdEnterDate);
+        List<FOIARequest> requests = query.getResultList();
+        return requests;
     }
 
     public List<FOIARequest> getAllRequestsInHoldBefore(LocalDateTime holdEnterDate)
@@ -368,5 +378,21 @@ public class FOIARequestDao extends AcmAbstractDao<FOIARequest>
         nextRequestQuery.setParameter("createdDate", createdDate);
 
         return nextRequestQuery.getResultList();
+    }
+    public List<PortalFOIARequestStatus> getExternalAnonymousRequests(String portalRequestTrackingId)
+    {
+        String queryText = "SELECT request FROM " + getPersistenceClass().getSimpleName() + " request"
+                + " WHERE request.portalRequestTrackingId = :portalRequestTrackingId";
+
+        TypedQuery<FOIARequest> query = getEm().createQuery(queryText, getPersistenceClass());
+        query.setParameter("portalRequestTrackingId", portalRequestTrackingId);
+        List<FOIARequest> requests = query.getResultList();
+
+        if (requests.isEmpty()) {
+            return new ArrayList<>();
+        }
+        else {
+            return populateRequestStatusList(requests);
+        }
     }
 }

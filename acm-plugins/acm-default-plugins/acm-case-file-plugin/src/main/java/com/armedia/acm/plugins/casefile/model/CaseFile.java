@@ -45,6 +45,7 @@ import com.armedia.acm.plugins.objectassociation.model.AcmChildObjectEntity;
 import com.armedia.acm.plugins.objectassociation.model.ObjectAssociation;
 import com.armedia.acm.plugins.objectassociation.model.ObjectAssociationConstants;
 import com.armedia.acm.plugins.person.model.AcmObjectOriginator;
+import com.armedia.acm.plugins.person.model.Identification;
 import com.armedia.acm.plugins.person.model.OrganizationAssociation;
 import com.armedia.acm.plugins.person.model.PersonAssociation;
 import com.armedia.acm.service.milestone.model.AcmMilestone;
@@ -63,34 +64,10 @@ import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -477,6 +454,57 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date caseDexVerifiedDate;
 
+    //cm_case_req_documentation_date
+    @Column(name = "cm_case_req_documentation_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseReqDocumentationDate;
+
+    //cm_case_documentation_received_date
+    @Column(name = "cm_case_documentation_received_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseDocumentationRecDate;
+
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_selected_for_inline_review")
+    private boolean caseSelectedForInlineReview = false;
+
+    //cm_case_agency_requested
+    @Column(name = "cm_case_agency_requested")
+    private String caseAgencyRequested;
+
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_board_document")
+    private boolean caseBoardDocument = false;
+
+    //cm_case_selected_for_inline_review
+    @Column(name = "cm_case_court_document")
+    private boolean caseCourtDocument = false;
+
+    //cm_case_multiple_alert
+    @Column(name = "cm_case_multiple_alert")
+    private String caseMultipleAlert;
+
+    //cm_case_conv_ind_ln
+    @Column(name = "cm_case_conv_ind_ln")
+    private String caseConvictedIndividualLastName;
+
+ /*   @JoinTable(name = "acm_change_case_status", joinColumns = {
+            @JoinColumn(name = "cm_case_id", referencedColumnName = "cm_case_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "cm_change_case_status_id", referencedColumnName = "cm_change_case_status_id", unique = true) })
+    private List<ChangeCaseStatus> changeCaseStatuses = new ArrayList<>();
+
+
+    @XmlTransient
+    public List<ChangeCaseStatus> getChangeCaseStatuses()
+    {
+        return changeCaseStatuses;
+    }
+
+    public void setChangeCaseStatuses(List<ChangeCaseStatus> changeCaseStatuses)
+    {
+        this.changeCaseStatuses = changeCaseStatuses;
+    }
+*/
     @PrePersist
     protected void beforeInsert()
     {
@@ -1445,5 +1473,73 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseDexVerifiedDate;
     }
     public void setCaseDexVerifiedDate(Date caseDexVerifiedDate) { this.caseDexVerifiedDate = caseDexVerifiedDate; }
+
+    //caseDexVerifiedDate
+    public Date getCaseReqDocumentationDate()
+    {
+        return caseReqDocumentationDate;
+    }
+    public void setCaseReqDocumentationDate(Date caseReqDocumentationDate) { this.caseReqDocumentationDate = caseReqDocumentationDate; }
+
+    //caseDexVerifiedDate
+    public Date getCaseDocumentationRecDate()
+    {
+        return caseDocumentationRecDate;
+    }
+    public void setCaseDocumentationRecDate(Date caseDocumentationRecDate) { this.caseDocumentationRecDate = caseDocumentationRecDate; }
+
+
+    public boolean getCaseSelectedForInlineReview()
+    {
+        return caseSelectedForInlineReview;
+    }
+
+    public void setCaseSelectedForInlineReview(boolean caseSelectedForInlineReview)
+    {
+        this.caseSelectedForInlineReview = caseSelectedForInlineReview;
+    }
+
+    public String getCaseAgencyRequested()
+    {
+        return caseAgencyRequested;
+    }
+    public void setCaseAgencyRequested(String caseAgencyRequested) { this.caseAgencyRequested = caseAgencyRequested; }
+
+    public String getCaseMultipleAlert()
+    {
+        return caseMultipleAlert;
+    }
+    public void setCaseMultipleAlert(String caseMultipleAlert) { this.caseMultipleAlert = caseMultipleAlert; }
+
+    public boolean getCaseBoardDocument()
+    {
+        return caseBoardDocument;
+    }
+
+    public void setCaseBoardDocument(boolean caseBoardDocument)
+    {
+        this.caseBoardDocument = caseBoardDocument;
+    }
+
+    public boolean getCaseCourtDocument()
+    {
+        return caseCourtDocument;
+    }
+
+    public void setCaseCourtDocument(boolean caseCourtDocument)
+    {
+        this.caseCourtDocument = caseCourtDocument;
+    }
+
+    public String getCaseConvictedIndividualLastName()
+    {
+        return caseConvictedIndividualLastName;
+    }
+
+    public void setCaseConvictedIndividualLastName(String caseConvictedIndividualLastName)
+    {
+        this.caseConvictedIndividualLastName = caseConvictedIndividualLastName;
+    }
+
 
 }

@@ -759,6 +759,7 @@
         <modifyDataType tableName="acm_user_action" columnName="cm_user_action_created" newDataType="DATETIME"/>
         <modifyDataType tableName="acm_user_action" columnName="cm_user_action_modified" newDataType="DATETIME"/>
     </changeSet>
+
     <changeSet id="5501-add-user-token" author="ylanka">
         <addColumn tableName="acm_user">
             <column name="cm_mfa_token" type="VARCHAR(10)"/>

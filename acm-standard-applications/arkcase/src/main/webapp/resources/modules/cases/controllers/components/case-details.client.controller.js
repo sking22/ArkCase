@@ -78,15 +78,16 @@ angular.module('cases').controller(
                                  $scope.ContractortID = item.identificationNumber;
                              }
                         });
-
-                        for(var i=0; i< $scope.contractTypes.length; i++) {
-                             for (var key in  $scope.contractTypes[i]) {
-                                 if($scope.contractTypes[i][key]) {
-                                      if($scope.ContractortID === $scope.contractTypes[i][key].toString().substring(0, $scope.contractTypes[i][key].toString().indexOf('-'))) {
-                                          $scope.objectInfo.acmObjectOriginator.person.providerContractorName = $scope.contractTypes[i][key].toString();
-                                      }
+                        if($scope.contractTypes) {
+                            for(var i=0; i< $scope.contractTypes.length; i++) {
+                                 for (var key in  $scope.contractTypes[i]) {
+                                     if($scope.contractTypes[i][key]) {
+                                          if($scope.ContractortID === $scope.contractTypes[i][key].toString().substring(0, $scope.contractTypes[i][key].toString().indexOf('-'))) {
+                                              $scope.objectInfo.acmObjectOriginator.person.providerContractorName = $scope.contractTypes[i][key].toString();
+                                          }
+                                     }
                                  }
-                             }
+                            }
                         }
                      };
 
@@ -100,6 +101,7 @@ angular.module('cases').controller(
                     };
 
                     $scope.saveAll = function() {
+
                         var params = {
                             "info": $scope.objectInfo,
                         };
@@ -124,45 +126,67 @@ angular.module('cases').controller(
                     };
 
                     ObjectLookupService.getLookupByLookupName('states').then(function (states) {
-                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
-                        states.unshift(clear);
-                        $scope.idStates = states;
+                        if(states){
+                            var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                            states.unshift(clear);
+                            $scope.idStates = states;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('notActionReasons').then(function (notActionReasons) {
+                    if(notActionReasons){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         notActionReasons.unshift(clear);
                         $scope.caseNAR = notActionReasons;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('outcomeRevRei').then(function (outcomeRevRei) {
+                      if(outcomeRevRei){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         outcomeRevRei.unshift(clear);
                         $scope.caseORR = outcomeRevRei;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                       if(caseAdminActionsOutcomes){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         caseAdminActionsOutcomes.unshift(clear);
                         $scope.caseAAO = caseAdminActionsOutcomes;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseTerminationTypes').then(function (caseTerminationTypes) {
+                        if(caseTerminationTypes){
                         var clear = { "readonly":null,"description":null,"value":"","key": "","primary":null,"order":0} ;
                         caseTerminationTypes.unshift(clear);
                         $scope.caseTerminationTypes = caseTerminationTypes;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('caseOptCmsDecisionTypes').then(function (caseOptCmsDecisionTypes) {
+                       if(caseOptCmsDecisionTypes){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         caseOptCmsDecisionTypes.unshift(clear);
                         $scope.caseOptCmsDecisionTypes = caseOptCmsDecisionTypes;
+                        }
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('caseMultipleAlertTypes').then(function (caseMultipleAlertTypes) {
+                       if(caseMultipleAlertTypes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        caseMultipleAlertTypes.unshift(clear);
+                        $scope.caseMultipleAlertTypes = caseMultipleAlertTypes;
+                        }
                     });
 
                     ObjectLookupService.getLookupByLookupName('contractTypes').then(function (contractTypes) {
+                      if(contractTypes){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         contractTypes.unshift(clear);
                         $scope.contractTypes = contractTypes;
+                      }
                     });
 
                     $scope.saveDetails = function() {
@@ -261,6 +285,9 @@ angular.module('cases').controller(
 
                         });
 
+                        if(data.acmObjectOriginator.person.providerContractorName == null || data.acmObjectOriginator.person.providerContractorName == '') {
+                           $scope.updateContractName();
+                        }
 
                     };
 

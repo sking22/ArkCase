@@ -78,7 +78,8 @@ public class ScheduledHoldQueuePurger extends AbstractScheduledQueuePurger
     @Override
     protected List<FOIARequest> getAllRequestsInQueueBefore(LocalDateTime date)
     {
-        return getRequestDao().getAllRequestsInHoldBefore(LocalDateTime.now().minusDays(getMaxDaysInQueue()));
+        //!!!! old return getRequestDao().getAllRequestsInHoldBefore(LocalDateTime.now().minusDays(getMaxDaysInQueue()));
+        return getRequestDao().getAllRequestsInHoldBefore(date);
     }
 
     @Override

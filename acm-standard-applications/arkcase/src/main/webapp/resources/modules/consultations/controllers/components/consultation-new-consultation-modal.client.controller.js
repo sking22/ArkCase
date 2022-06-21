@@ -3,8 +3,8 @@
 angular.module('consultations').controller(
     'Consultations.NewConsultationController',
     [ '$scope', '$stateParams', '$q', '$translate', '$modalInstance', 'Consultation.InfoService', 'Object.LookupService', 'MessageService', '$timeout', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Person.InfoService', 'Object.ModelService', 'Object.ParticipantService',
-        'Profile.UserInfoService', 'Mentions.Service', 'Organization.InfoService', '$location', '$anchorScroll',
-        function($scope, $stateParams, $q, $translate, $modalInstance, ConsultationInfoService, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, ObjectService, modalParams, PersonInfoService, ObjectModelService, ObjectParticipantService, UserInfoService, MentionsService, OrganizationInfoService, $location, $anchorScroll) {
+        'Profile.UserInfoService', 'Mentions.Service', 'Organization.InfoService', '$location', '$anchorScroll', 'Admin.ObjectTitleConfigurationService',
+        function($scope, $stateParams, $q, $translate, $modalInstance, ConsultationInfoService, ObjectLookupService, MessageService, $timeout, Util, $modal, ConfigService, ObjectService, modalParams, PersonInfoService, ObjectModelService, ObjectParticipantService, UserInfoService, MentionsService, OrganizationInfoService, $location, $anchorScroll, AdminObjectTitleConfigurationService) {
 
             $scope.modalParams = modalParams;
             $scope.loading = false;
@@ -16,6 +16,7 @@ angular.module('consultations').controller(
             $scope.uploadFiles = [];
             $scope.primaryAddressIndex = 0;
             $scope.config = null;
+            $scope.enableTitle = false
             
             var moduleConfig = ConfigService.getModuleConfig("consultations");
             var prefixNewConsultation = ObjectLookupService.getPersonTitles();
@@ -28,8 +29,9 @@ angular.module('consultations').controller(
             var states = ObjectLookupService.getStates();
             var commonModuleConfig = ConfigService.getModuleConfig("common");
             var positionLookup = ObjectLookupService.getPersonOrganizationRelationTypes();
+            var promiseConfigTitle = AdminObjectTitleConfigurationService.getObjectTitleConfiguration();
 
-            $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig, positionLookup]).then(function (data) {
+            $q.all([moduleConfig, prefixNewConsultation, getCountries, getAddressTypes, canadaProvinces, japanStates, states, personTypesLookup, organizationTypeLookup, commonModuleConfig, positionLookup, promiseConfigTitle]).then(function (data) {
 
                 var moduleConfig = data[0];
                 var prefixes = data[1];
@@ -40,6 +42,7 @@ angular.module('consultations').controller(
                 var usaStates = data[6];
                 var personTypes = data[7];
                 var organizationTypes = data[8];
+                var configTitle = data[11]
                 $scope.commonModuleConfig = data[9];
 
                 $scope.config = moduleConfig;
@@ -73,6 +76,10 @@ angular.module('consultations').controller(
                     externalRequestingAgency: ''
                 };
 
+                if (!Util.isEmpty(configTitle)) {
+                    $scope.enableTitle = configTitle.data.CONSULTATION.enableTitleField;
+                }
+
                 var defaultAddressType = ObjectLookupService.getPrimaryLookup($scope.addressTypes);
                 var defaultCountry = ObjectLookupService.getPrimaryLookup($scope.countries);
 
@@ -88,6 +95,9 @@ angular.module('consultations').controller(
                 });
 
             });
+
+            var assocTypeLabel = $translate.instant("consultations.comp.people.type.label");
+            var assocOrgTypeLabel = $translate.instant("consultations.newConsultation.position.label");
 
             var newPersonAssociation = function() {
                 return {
@@ -208,7 +218,8 @@ angular.module('consultations').controller(
                     isDefault: false,
                     types: $scope.personTypes,
                     type: $scope.personTypes[0].key,
-                    typeEnabled: false
+                    typeEnabled: false,
+                    assocTypeLabel: assocTypeLabel
                 };
 
                 var modalInstance = $modal.open({
@@ -285,7 +296,8 @@ angular.module('consultations').controller(
                     isDefault: false,
                     addNewEnabled: true,
                     types: $scope.organizationTypes,
-                    isFirstOrganization: Util.isEmpty(associationFound) ? true : false
+                    isFirstOrganization: Util.isEmpty(associationFound) ? true : false,
+                    assocTypeLabel: assocOrgTypeLabel
                 };
 
                 var modalInstance = $modal.open({

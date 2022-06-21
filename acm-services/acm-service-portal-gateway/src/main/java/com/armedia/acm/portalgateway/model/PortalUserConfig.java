@@ -4,7 +4,7 @@ package com.armedia.acm.portalgateway.model;
  * #%L
  * ACM Service: Portal Gateway Service
  * %%
- * Copyright (C) 2014 - 2021 ArkCase LLC
+ * Copyright (C) 2014 - 2022 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 
@@ -48,6 +48,9 @@ public class PortalUserConfig implements DynamicApplicationConfig
     @Value("${portal.responseInstallment.maxDownloadAttempts}")
     private Integer maxDownloadAttempts;
 
+    @JsonProperty("portal.id")
+    @Value("${portal.id}")
+    private String portalId;
 
     public Boolean getAuthenticatedMode()
     {
@@ -77,6 +80,14 @@ public class PortalUserConfig implements DynamicApplicationConfig
     public void setMaxDownloadAttempts(Integer maxDownloadAttempts)
     {
         this.maxDownloadAttempts = maxDownloadAttempts;
+    }
+
+    public String getPortalId() {
+        return portalId;
+    }
+
+    public void setPortalId(String portalId) {
+        this.portalId = portalId;
     }
 
 }

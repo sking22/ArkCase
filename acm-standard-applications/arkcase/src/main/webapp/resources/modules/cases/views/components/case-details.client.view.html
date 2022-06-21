@@ -175,11 +175,18 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>Name of Convicted Individual</label>
+                            <label>Convicted Individual First Name</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
                                    placeholder="{{ objectInfo.caseConvictedIndividual }}"
                                    ng-disabled="disableField">
                             <span ng-if="objectInfo.caseConvictedIndividual.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseConvictedIndividual.length}}/64 characters remaining</span>
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label>Convicted Individual Last Name</label>
+                            <input maxlength="{{maxLen32}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualLastName"
+                                   placeholder="{{ objectInfo.caseConvictedIndividualLastName }}"
+                                   ng-disabled="disableField">
+                            <span ng-if="objectInfo.caseConvictedIndividualLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen32 - objectInfo.caseConvictedIndividualLastName.length}}/32 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual's TIN</label>
@@ -188,18 +195,18 @@
                                    ng-disabled="disableField">
                             <span ng-if="objectInfo.caseConvictedIndividualTin.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.caseConvictedIndividualTin.length}}/11 characters remaining</span>
                         </div>
-                        <div class="col-sm-4 form-group">
-                            <label>Federal or State Crime (Case Type)</label>
-                                <input  maxlength="{{maxLen11}}"
-                                        type="text"
-                                        class="input-md form-control"
-                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
-                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType }}"
-                                        ng-disabled="disableField">
-                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length}}/11 characters remaining</span>
-                        </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label>Federal or State Crime (Case Type)</label>
+                            <input  maxlength="{{maxLen11}}"
+                                    type="text"
+                                    class="input-md form-control"
+                                    ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
+                                    placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType }}"
+                                    ng-disabled="disableField">
+                            <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length}}/11 characters remaining</span>
+                        </div>
                         <div class="col-sm-4 form-group">
                             <label>Case Number</label>
                                 <input maxlength="{{maxLen128}}" type="text" class="input-md form-control"
@@ -218,6 +225,9 @@
                                            ng-disabled="disableField">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen300 - objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length}}/300 characters remaining</span>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;" >Conviction Date:</label>
                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
@@ -234,8 +244,6 @@
                                 </date-time-picker>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>10 Years from Conviction Date</label>
                             <input type="text" class="input-md form-control" placeholder="{{ objectInfo.caseTenYearsConvDate }}" disabled>
@@ -250,6 +258,9 @@
                                        ng-disabled="disableField">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length}}/128 characters remaining</span>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Docket Request Date</label>
                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate = NULL">clear</a>
@@ -259,15 +270,13 @@
                             </div>
                             <div style="clear:both;" ng-if="!disableField">
                                 <date-time-picker
-                                      data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
-                                      property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
-                                      date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
-                                      time-format-disabled="true">
+                                        data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                        property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                        date-picker-id="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
+                                        time-format-disabled="true">
                                 </date-time-picker>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Docket Response Date</label>
                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate = NULL">clear</a>
@@ -324,7 +333,7 @@
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateLastName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <label>Sanctioned Associate Legal Business Name</label>
+                        <label>OIG Sanctioned Business Name</label>
                         <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}"
                                ng-disabled="disableField">
@@ -890,13 +899,13 @@
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseHistory">Case History</a>
+                <a>Case History</a>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
-        <div id="collapseHistory" class="panel-collapse collapse">
+        <div class="panel-collapse collapse in">
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4 form-group">
@@ -907,9 +916,70 @@
                                               date-picker-id="objectInfo.caseResubDueDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date Requested Documentation</label>
+                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
+                        <div style="clear:both;">
+                            <date-time-picker data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
+                                              date-picker-id="objectInfo.caseReqDocumentationDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date Documentation Received</label>
+                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                        <div style="clear:both;">
+                            <date-time-picker data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
+                                              date-picker-id="objectInfo.caseDocumentationRecDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Agency Requested</label>
+                        <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseAgencyRequested"
+                               placeholder="{{ objectInfo.caseAgencyRequested }}"
+                               ng-disabled="disableField">
+                        <span ng-if="objectInfo.caseAgencyRequested.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseAgencyRequested.length}}/64 characters remaining</span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Board Documents&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Court Documents&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <br />
+                        <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Selected for In-Line Review&nbsp;&nbsp;</label>
+                        <div style="display:inline;">
+                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Multiple Alert</label>
+                        <select class="form-control" ng-model="objectInfo.caseMultipleAlert"
+                                ng-disabled="disableField">
+                            <option ng-repeat="option in caseMultipleAlertTypes" placeholder="{{objectInfo.caseMultipleAlert}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>CMS Analyst</label>
+                        <input type="text" class="input-md form-control" ng-model="objectInfo.casePrevCMSAnalyst"
+                               placeholder="{{ objectInfo.casePrevCMSAnalyst }}" ng-disabled="true" >
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 

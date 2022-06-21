@@ -76,7 +76,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ldap.AuthenticationException;
-import org.springframework.ldap.InvalidAttributeValueException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
@@ -102,6 +101,7 @@ import gov.foia.model.UserRegistrationRequestRecord;
 import gov.foia.model.UserResetRequestRecord;
 
 import javax.persistence.NonUniqueResultException;
+import javax.naming.directory.InvalidAttributeValueException;
 
 /**
  * @author Lazo Lazarev a.k.a. Lazarius Borg @ zerogravity Jul 12, 2018
@@ -793,8 +793,7 @@ public class FOIAPortalUserServiceProvider implements PortalUserServiceProvider
     @Override
     public UserResetResponse changePassword(String portalUserEmail, String portalUserId, String acmSystemUserId,
             PortalUserCredentials portalUserCredentials)
-            throws PortalUserServiceException
-    {
+            throws PortalUserServiceException, InvalidAttributeValueException {
 
         FOIALdapAuthenticationService foiaLdapAuthenticationService = getFOIALdapAuthenticationService(directoryName);
         if (foiaLdapAuthenticationService == null)
@@ -807,7 +806,12 @@ public class FOIAPortalUserServiceProvider implements PortalUserServiceProvider
             foiaLdapAuthenticationService.getLdapAuthenticateService().changeUserPassword(portalUserId, portalUserCredentials.getPassword(),
                     portalUserCredentials.getNewPassword());
         }
-
+        catch (InvalidAttributeValueException e)
+        {
+            log.debug(String.format("Password policy error for LDAP user %s. Using configured system user %s.", portalUserId,
+                    acmSystemUserId));
+            throw new PortalUserServiceException(String.format("Your password is too young to change"), e);
+        }
         catch (AcmUserActionFailedException e)
         {
             log.debug(String.format("Couldn't update password for LDAP user %s. Using configured system user %s.", portalUserId,
@@ -819,12 +823,6 @@ public class FOIAPortalUserServiceProvider implements PortalUserServiceProvider
             log.debug(String.format("Failed to authenticate! Wrong password for LDAP user %s. Using configured system user %s.",
                     portalUserId, acmSystemUserId));
             return UserResetResponse.invalidCredentials();
-        }
-        catch (InvalidAttributeValueException e)
-        {
-            log.debug(String.format("Password policy error for LDAP user %s. Using configured system user %s.", portalUserId,
-                    acmSystemUserId));
-            throw new PortalUserServiceException(String.format("Password fails quality checking policy for user %s.", portalUserEmail), e);
         }
         catch (Exception e)
         {
@@ -1095,7 +1093,14 @@ public class FOIAPortalUserServiceProvider implements PortalUserServiceProvider
 
         user.setEmail(person.getDefaultEmail().getValue());
 
-        user.setRole(person.getRole());
+        if (StringUtils.isBlank(person.getRole()))
+        {
+            user.setRole(PortalUser.PENDING_USER);
+        }
+        else
+        {
+            user.setRole(person.getRole());
+        }
 
         if (person.getDefaultPicture() != null)
         {
@@ -1162,7 +1167,14 @@ public class FOIAPortalUserServiceProvider implements PortalUserServiceProvider
             person.setDefaultEmail(email);
         }
 
-        person.setRole(user.getRole());
+        if (StringUtils.isBlank(user.getRole()))
+        {
+            person.setRole(PortalUser.PENDING_USER);
+        }
+        else
+        {
+            person.setRole(user.getRole());
+        }
 
         return person;
     }

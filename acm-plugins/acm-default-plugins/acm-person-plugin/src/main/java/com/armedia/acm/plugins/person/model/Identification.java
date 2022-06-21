@@ -90,6 +90,7 @@ public class Identification implements Serializable, AcmEntity, AcmObject
     @Column(name = "cm_modifier")
     private String modifier;
 
+
     @Column(name = "cm_id_status")
     private String idStatus;
 

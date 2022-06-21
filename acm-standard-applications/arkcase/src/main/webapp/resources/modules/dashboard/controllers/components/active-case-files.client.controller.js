@@ -9,7 +9,11 @@
  *
  * Loads cases in the "Active Case Files" widget.
  */
-angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFilesController', [ '$scope', '$translate', 'Authentication', 'Dashboard.DashboardService', 'Task.AlertsService', 'Util.DateService', 'ConfigService', 'params', 'UtilService', function($scope, $translate, Authentication, DashboardService, TaskAlertsService, UtilDateService, ConfigService, params, Util) {
+angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFilesController', [
+ '$scope', '$translate', 'config', 'Authentication', 'Dashboard.DashboardService', 'Task.AlertsService',
+ 'Util.DateService', 'ConfigService', 'params', 'UtilService', '$timeout', 'uiGridConstants',
+ function($scope, $translate, config, Authentication, DashboardService, TaskAlertsService, UtilDateService,
+          ConfigService, params, Util, $timeout, uiGridConstants) {
     var vm = this;
     vm.config = null;
     var userInfo = null;
@@ -22,13 +26,22 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
         $scope.$parent.model.description = "";
     }
 
+    // Timeout id. Used to prevent too frequent filter requests
+    var filterTimeout = null;
+
+    // Be sure that filterTimeout is canceled on destroy
+    $scope.$on('$destroy', function() {
+        if (angular.isDefined(filterTimeout)) {
+            $timeout.cancel(filterTimeout);
+        }
+    });
+
     ConfigService.getComponentConfig("dashboard", "activeCaseFiles").then(function(config) {
         vm.config = config;
         vm.gridOptions.columnDefs = config.columnDefs;
         vm.gridOptions.enableFiltering = config.enableFiltering;
         vm.gridOptions.paginationPageSizes = config.paginationPageSizes;
-        vm.gridOptions.paginationPageSize = config.paginationPageSize;
-        paginationOptions.pageSize = config.paginationPageSize;
+        vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
 
         Authentication.queryUserInfo().then(function(responseUserInfo) {
             userInfo = responseUserInfo;
@@ -46,10 +59,20 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
 
     var paginationOptions = {
         pageNumber: 1,
-        pageSize: 5,
+        pageSize: 25,
         sortBy: 'id',
         sortDir: 'desc'
     };
+
+    //Get the user's defined options from the Config.
+    if (config.paginationPageSize) {
+        paginationOptions.pageSize = 25;
+        //paginationOptions.pageSize = parseInt(config.paginationPageSize);
+    } else {
+        //defaults the dropdown value on edit UI to the default pagination options
+        config.paginationPageSize = "" + paginationOptions.pageSize + "";
+    }
+
     /**
      * @ngdoc method
      * @name openViewer
@@ -81,6 +104,72 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
         rowTemplate: rowTmpl,
         onRegisterApi: function(gridApi) {
             vm.gridApi = gridApi;
+
+            gridApi.core.on.filterChanged($scope, function() {
+                var context = this;
+
+                // Prevent frequent filters requests
+                if (angular.isDefined(filterTimeout)) {
+                    $timeout.cancel(filterTimeout);
+                }
+
+                filterTimeout = $timeout(function() {
+                var filters = [];
+
+                // Find filter
+                _.forEach(context.grid.columns, function(column) {
+                    _.forEach(column.filters, function(columnFilter) {
+                        /*console.log("!!!! column: ", column);
+                        console.log("!!!! columnFilter: ", columnFilter);*/
+
+                        if (!_.isUndefined(columnFilter.term)) {
+                            var filterOption = {
+                                column: column.name
+                            };
+
+                            // Parese date filter and try to create Date object.
+                            // If error happens then don't add it to the filter
+                            /*if (column.name == 'dueDate_tdt' || column.name == 'queue_enter_date_tdt') {
+                                var dateObj = moment(columnFilter.term, $scope.config['dateFormat']);
+                                if (dateObj.isValid()) {
+                                    filterOption.value = dateObj.toDate();
+                                } else {
+                                    return;
+                                }
+                            } else {*/
+
+                            filterOption.value = columnFilter.term
+
+                            if(filterOption.value !== ""){
+                                filters.push(filterOption);
+                            }
+
+                            /*console.log("!!!! filterOption: ", filterOption);*/
+
+                        }
+                    })
+                });
+                paginationOptions.filters = filters;
+                /*console.log("!!!! paginationOptions.filters: ", paginationOptions.filters);*/
+                if(paginationOptions.filters){
+                    if(paginationOptions.filters.length === 0) {
+                        for( var i = 0; i <  vm.gridOptions.paginationPageSizes.length; i++){
+                            if ( vm.gridOptions.paginationPageSizes[i] === vm.gridOptions.totalItems) {
+                                vm.gridOptions.paginationPageSizes.splice(i, 1);
+                            }
+                        }
+                        paginationOptions.pageSize = 25;
+                        vm.gridOptions.paginationPageSize = 25;
+                    } else {
+                        if(!vm.gridOptions.paginationPageSizes.includes(vm.gridOptions.totalItems)) {
+                            paginationOptions.pageSize = vm.gridOptions.totalItems;
+                            vm.gridOptions.paginationPageSizes.push(paginationOptions.pageSize);
+                            vm.gridOptions.paginationPageSize = paginationOptions.pageSize;
+                        }
+                    }
+                }
+            }, 500);
+        });
             gridApi.core.on.sortChanged($scope, function(grid, sortColumns) {
                 if (sortColumns.length == 0) {
                     paginationOptions.sort = null;
@@ -105,23 +194,34 @@ angular.module('dashboard.active-case-files').controller('Dashboard.ActiveCaseFi
             sortBy: paginationOptions.sortBy,
             sortDir: paginationOptions.sortDir,
             startWith: (paginationOptions.pageNumber - 1) * paginationOptions.pageSize,
-            pageSize: paginationOptions.pageSize
+            pageSize: paginationOptions.pageSize,
+            filters: paginationOptions.filters
         }, function(data) {
             vm.gridOptions.data = [];
             vm.gridOptions.totalItems = data.response.numFound;
-
             _.forEach(data.response.docs, function(value) {
                 value.status_lcs = value.status_lcs.toUpperCase();
 
+                if ((userGroupList.includes(value.owning_group_id_lcs)) == true) {
+                    data.response.docs.getElementById(value.id).style.display = "none";
+                }
+
                 if (Util.goodValue(value.dueDate_tdt)) {
                     value.dueDate_tdt = UtilDateService.isoToLocalDateTime(value.dueDate_tdt);
-
-                    //calculate to show alert icons if cases is in overdue or deadline is approaching
+                     //calculate to show alert icons if cases is in overdue or deadline is approaching
                     value.isOverdue = TaskAlertsService.calculateOverdue(value.dueDate_tdt);
                     value.isDeadline = TaskAlertsService.calculateDeadline(value.dueDate_tdt);
                 }
 
-                vm.gridOptions.data.push(value);
+                if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "AUDIT ASSIGNED" || value.status_lcs ===  "AUDIT COMPLETED") {
+                    vm.gridOptions.totalItems--;
+                } else if(value.status_lcs ===  "CMS APPROVED") {
+                    value.isOverdue = false;
+                    value.isDeadline = false;
+                    vm.gridOptions.data.push(value);
+                } else {
+                    vm.gridOptions.data.push(value);
+                }
             });
         });
     }

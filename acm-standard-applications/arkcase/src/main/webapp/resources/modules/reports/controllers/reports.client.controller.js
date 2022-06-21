@@ -47,6 +47,9 @@ angular.module('reports').controller('ReportsController',
             }
 
             $q.all([ promiseServerConfig, promiseReportConfig, promiseModuleConfig, fiscalYearPropertiesPromise ]).then(function(data) {
+                //console.log("!!!!! q.all data : ", data);
+                //console.log("!!!!! q.all data : ", JSON.stringify(data));
+
                 var reportsConfig = data[0];
                 $scope.data.reports = data[1].data;
                 $scope.config = data[2];
@@ -62,7 +65,7 @@ angular.module('reports').controller('ReportsController',
                 $scope.data.reportSelected = null;
                 $scope.data.dateSearchType = null;
 
-                $scope.data.outputType = null
+                $scope.data.outputType = null;
 
                 $scope.showReportParameters = false;
             });
@@ -110,6 +113,9 @@ angular.module('reports').controller('ReportsController',
 
                 var reportUrl = $scope.data.reports[$scope.data.reportSelected];
                 // show report parameters only on prpt reports
+                /*if($scope.data.reportSelected === "ALA_INVOICING"){
+                    $scope.showReportParameters = false;
+                } else */
                 if (reportUrl.indexOf('prpt/viewer', reportUrl.length - 'prpt/viewer'.length) !== -1) {
                     $scope.showReportParameters = true;
                 } else {

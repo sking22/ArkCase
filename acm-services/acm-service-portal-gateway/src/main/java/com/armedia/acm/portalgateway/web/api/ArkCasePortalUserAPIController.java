@@ -4,7 +4,7 @@ package com.armedia.acm.portalgateway.web.api;
  * #%L
  * ACM Service: Portal Gateway Service
  * %%
- * Copyright (C) 2014 - 2021 ArkCase LLC
+ * Copyright (C) 2014 - 2022 ArkCase LLC
  * %%
  * This file is part of the ArkCase software. 
  * 
@@ -26,7 +26,6 @@ package com.armedia.acm.portalgateway.web.api;
  * along with ArkCase. If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
 
 import com.armedia.acm.portalgateway.model.PortalUserConfig;
 import com.armedia.acm.portalgateway.service.PortalUserConfigurationService;

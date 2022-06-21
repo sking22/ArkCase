@@ -33,23 +33,23 @@
             {
                 "desc": "people.tree.filters.iHaveCreated",
                 "name": "my-created",
-                "value": "fq=author_s:${user}"
+                "value": "fq=creator_lcs:${user}"
             },
             {
                 "desc": "people.tree.filters.iHaveCreatedActive",
                 "name": "my-created-active",
-                "value": "fq=author_s:${user} AND status_s:ACTIVE"
+                "value": "fq=creator_lcs:${user} AND status_lcs:ACTIVE"
             },
             {
                 "desc": "people.tree.filters.active",
                 "name": "active",
-                "value": "status_s:ACTIVE",
+                "value": "status_lcs:ACTIVE",
                 "default": true
             },
             {
                 "desc": "people.tree.filters.inActive",
                 "name": "in-active",
-                "value": "status_s:INACTIVE"
+                "value": "status_lcs:INACTIVE"
             },
             {
                 "desc": "people.tree.filters.noFilter",
@@ -286,7 +286,7 @@
                             "displayName": "people.comp.pictures.table.columns.thumbnail",
                             "headerCellFilter": "translate",
                             "enableCellEdit": false,
-                            "cellTemplate": "<center><img ng-src='{{row.entity.object_id_s | personPictureSrc}}' height='50px'></img></center>",
+                            "cellTemplate": "<center><img class='img-thumbnail' ng-src='{{row.entity.object_id_s | personPictureSrc}}'></img></center>",
                             "width": 100
                         },
                         {
@@ -772,7 +772,7 @@
                     "displayName": "people.comp.pictures.table.columns.thumbnail",
                     "headerCellFilter": "translate",
                     "enableCellEdit": false,
-                    "cellTemplate": "<center><img ng-src='{{row.entity.object_id_s | personPictureSrc}}' height='50px'></img></center>",
+                    "cellTemplate": "<center><img class='img-thumbnail' ng-src='{{row.entity.object_id_s | personPictureSrc}}'></img></center>",
                     "width": 100
                 },
                 {

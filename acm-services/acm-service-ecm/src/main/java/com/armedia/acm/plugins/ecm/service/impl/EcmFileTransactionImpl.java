@@ -229,7 +229,7 @@ public class EcmFileTransactionImpl implements EcmFileTransaction
                 activeVersionMimeType);
         return !getAllowedUploadFileTypesConfig().getRestrictFileTypesUpload()
                 || detectedMetadata.getContentType().equals(activeVersionMimeType)
-                || allAllowedUploadFileTypes.contains(detectedMetadata.getContentType().replaceAll("\\.", "-dot-"));
+                || allAllowedUploadFileTypes.contains(detectedMetadata.getContentType().replaceAll("\\.", "__"));
     }
 
     @Override
@@ -334,6 +334,10 @@ public class EcmFileTransactionImpl implements EcmFileTransaction
             if (detectedMetadata.getContentType() != null && detectedMetadata.getContentType().contains(";"))
             {
                 detectedMetadata.setContentType(detectedMetadata.getContentType().split(";")[0]);
+            }
+            if (detectedMetadata.getContentType() == null && file.getContentType() != null)
+            {
+                detectedMetadata.setContentType(file.getContentType());
             }
             if (activeVersionMimeType != null && detectedMetadata != null
                     && isFileTypeUploadAllowed(detectedMetadata, activeVersionMimeType))

@@ -27,6 +27,20 @@ package com.armedia.acm.plugins.person.service;
  * #L%
  */
 
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.ACM_PARTICIPANTS_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.CONTACT_METHOD_SS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.CREATOR_FULL_NAME_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.FIRST_NAME_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.FULL_NAME_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.LAST_NAME_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.MODIFIER_FULL_NAME_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.ORGANIZATION_ID_SS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.PERSON_TITLE_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.POSTAL_ADDRESS_ID_SS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.STATUS_LCS;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.TITLE_PARSEABLE;
+import static com.armedia.acm.services.search.model.solr.SolrAdditionalPropertiesConstants.TITLE_PARSEABLE_LCS;
+
 import com.armedia.acm.plugins.addressable.model.ContactMethod;
 import com.armedia.acm.plugins.addressable.model.PostalAddress;
 import com.armedia.acm.plugins.person.dao.PersonDao;
@@ -34,7 +48,6 @@ import com.armedia.acm.plugins.person.model.*;
 import com.armedia.acm.services.dataaccess.service.SearchAccessControlFields;
 import com.armedia.acm.services.participants.utils.ParticipantUtils;
 import com.armedia.acm.services.search.model.solr.SolrAdvancedSearchDocument;
-import com.armedia.acm.services.search.model.solr.SolrDocument;
 import com.armedia.acm.services.search.service.AcmObjectToSolrDocTransformer;
 import com.armedia.acm.services.users.dao.UserDao;
 import com.armedia.acm.services.users.model.AcmUser;
@@ -45,6 +58,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by armdev on 10/21/14.
@@ -63,135 +77,234 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
     }
 
     @Override
-    public SolrAdvancedSearchDocument toSolrAdvancedSearch(Person person)
+    public SolrAdvancedSearchDocument toSolrAdvancedSearch(Person in)
     {
         SolrAdvancedSearchDocument solrDoc = new SolrAdvancedSearchDocument();
+        log.debug("Creating Solr advanced search document for PERSON.");
 
-        getSearchAccessControlFields().setAccessControlFields(solrDoc, person);
+        String name = in.getGivenName() + " " + in.getFamilyName();
+        mapRequiredProperties(solrDoc, in.getId(), in.getCreator(), in.getCreated(), in.getModifier(), in.getModified(),
+                in.getObjectType(), name);
 
-        solrDoc.setId(person.getId() + "-PERSON");
-        solrDoc.setObject_type_s("PERSON");
-        solrDoc.setObject_id_s(person.getId() + "");
-        solrDoc.setPerson_title_lcs(person.getTitle());
-        solrDoc.setFirst_name_lcs(person.getGivenName());
-        solrDoc.setLast_name_lcs(person.getFamilyName());
+        getSearchAccessControlFields().setAccessControlFields(solrDoc, in);
 
-        solrDoc.setFull_name_lcs(person.getGivenName() + " " + person.getFamilyName());
+        mapAdditionalProperties(in, solrDoc.getAdditionalProperties());
 
-        solrDoc.setCreate_date_tdt(person.getCreated());
-        solrDoc.setCreator_lcs(person.getCreator());
-        solrDoc.setModified_date_tdt(person.getModified());
-        solrDoc.setModifier_lcs(person.getModifier());
+        return solrDoc;
+    }
 
-        solrDoc.setName(person.getGivenName() + " " + person.getFamilyName());
+    @Override
+    public void mapAdditionalProperties(Person in, Map<String, Object> additionalProperties)
+    {
+        additionalProperties.put(PERSON_TITLE_LCS, in.getTitle());
+        additionalProperties.put(FIRST_NAME_LCS, in.getGivenName());
+        additionalProperties.put(LAST_NAME_LCS, in.getFamilyName());
+        additionalProperties.put(FULL_NAME_LCS, in.getGivenName() + " " + in.getFamilyName());
+        additionalProperties.put(TITLE_PARSEABLE, in.getFamilyName() + " " + in.getGivenName());
+        additionalProperties.put(TITLE_PARSEABLE_LCS, in.getFamilyName() + " " + in.getGivenName());
+        additionalProperties.put(STATUS_LCS, in.getStatus());
 
-        solrDoc.setTitle_parseable(person.getFamilyName() + " " + person.getGivenName());
-        solrDoc.setTitle_parseable_lcs(person.getFamilyName() + " " + person.getGivenName());
-        solrDoc.setStatus_lcs(person.getStatus());
+        addContactMethods(in, additionalProperties);
 
-        addContactMethods(person, solrDoc);
+        addOrganizations(in, additionalProperties);
 
-        addOrganizations(person, solrDoc);
+        addAddresses(in, additionalProperties);
 
-        addAddresses(person, solrDoc);
-
-        addAliases(person, solrDoc);
+        addAliases(in, additionalProperties);
 
         /** Additional properties for full names instead of ID's */
-        AcmUser creator = getUserDao().quietFindByUserId(person.getCreator());
+        AcmUser creator = getUserDao().quietFindByUserId(in.getCreator());
         if (creator != null)
         {
-            solrDoc.setAdditionalProperty("creator_full_name_lcs", creator.getFirstName() + " " + creator.getLastName());
+            additionalProperties.put(CREATOR_FULL_NAME_LCS, creator.getFirstName() + " " + creator.getLastName());
         }
 
-        AcmUser modifier = getUserDao().quietFindByUserId(person.getModifier());
+        AcmUser modifier = getUserDao().quietFindByUserId(in.getModifier());
         if (modifier != null)
         {
-            solrDoc.setAdditionalProperty("modifier_full_name_lcs", modifier.getFirstName() + " " + modifier.getLastName());
+            additionalProperties.put(MODIFIER_FULL_NAME_LCS, modifier.getFirstName() + " " + modifier.getLastName());
         }
 
-        solrDoc.setAdditionalProperty("default_organization_s",
-                person.getDefaultOrganization() != null ? person.getDefaultOrganization().getOrganization().getOrganizationValue() : null);
-        solrDoc.setAdditionalProperty("default_phone_s", getDefaultPhone(person));
-        solrDoc.setAdditionalProperty("default_location_s", getDefaultAddress(person));
-        solrDoc.setAdditionalProperty("default_email_lcs", getDefaultEmail(person));
+        additionalProperties.put("default_organization_s",
+                in.getDefaultOrganization() != null ? in.getDefaultOrganization().getOrganization().getOrganizationValue() : null);
+        additionalProperties.put("default_phone_s", getDefaultPhone(in));
+        additionalProperties.put("default_location_s", getDefaultAddress(in));
+        additionalProperties.put("default_email_lcs", getDefaultEmail(in));
 
-        String participantsListJson = ParticipantUtils.createParticipantsListJson(person.getParticipants());
-        solrDoc.setAdditionalProperty("acm_participants_lcs", participantsListJson);
-
+        String participantsListJson = ParticipantUtils.createParticipantsListJson(in.getParticipants());
+        additionalProperties.put(ACM_PARTICIPANTS_LCS, participantsListJson);
 
         //new fields
-        solrDoc.setAdditionalProperty("legal_business_name_lcs", person.getLegalBusinessName());
-        solrDoc.setAdditionalProperty("provider_lbn_ein_lcs", person.getProviderLbnEin());
-        solrDoc.setAdditionalProperty("associate_last_name_lcs", person.getAssociateLastName());
-        solrDoc.setAdditionalProperty("associate_middle_name_lcs", person.getAssociateMiddleName());
-        solrDoc.setAdditionalProperty("associate_first_name_lcs", person.getAssociateFirstName());
-        solrDoc.setAdditionalProperty("associate_legal_business_name_lcs", person.getAssociateLegalBusinessName());
-        solrDoc.setAdditionalProperty("associate_enrollment_id_lcs", person.getAssociateEnrollmentId());
-        solrDoc.setAdditionalProperty("associate_npi_lcs", person.getAssociateNPI());
-        solrDoc.setAdditionalProperty("associate_tin_lcs", person.getAssociateTIN());
-        solrDoc.setAdditionalProperty("associate_tin_type_lcs", person.getAssociateTinType());
-        solrDoc.setAdditionalProperty("associate_role_lcs", person.getAssociateRole());
-        solrDoc.setAdditionalProperty("associate_sanction_code_lcs", person.getAssociateSanctionCode());
-        solrDoc.setAdditionalProperty("associate_sanction_date_lcs", person.getAssociateSanctionDate());
-        solrDoc.setAdditionalProperty("provider_specialty_lcs", person.getProviderSpecialty());
+        if(in.getLegalBusinessName() != null){
+            additionalProperties.put("legal_business_name_lcs", in.getLegalBusinessName());
+        }
 
-        List<Identification> ids = person.getIdentifications();
+        if(in.getProviderLbnEin() != null){
+            additionalProperties.put("provider_lbn_ein_lcs", in.getProviderLbnEin());
+        }
+
+        if(in.getAssociateLastName() != null){
+            additionalProperties.put("associate_last_name_lcs", in.getAssociateLastName());
+        }
+
+        if(in.getAssociateMiddleName() != null){
+            additionalProperties.put("associate_middle_name_lcs", in.getAssociateMiddleName());
+        }
+
+        if(in.getAssociateFirstName() != null){
+            additionalProperties.put("associate_first_name_lcs", in.getAssociateFirstName());
+        }
+
+        if(in.getAssociateLegalBusinessName() != null){
+            additionalProperties.put("associate_legal_business_name_lcs", in.getAssociateLegalBusinessName());
+        }
+
+        if(in.getAssociateEnrollmentId() != null){
+            additionalProperties.put("associate_enrollment_id_lcs", in.getAssociateEnrollmentId());
+        }
+
+        if(in.getAssociateNPI() != null){
+            additionalProperties.put("associate_npi_lcs", in.getAssociateNPI());
+        }
+
+        if(in.getLegalBusinessName() != null){
+            additionalProperties.put("associate_tin_lcs", in.getAssociateTIN());
+        }
+
+        if(in.getAssociateTinType() != null){
+            additionalProperties.put("associate_tin_type_lcs", in.getAssociateTinType());
+        }
+
+        if(in.getAssociateRole() != null){
+            additionalProperties.put("associate_role_lcs", in.getAssociateRole());
+        }
+
+        if(in.getAssociateSanctionCode() != null){
+            additionalProperties.put("associate_sanction_code_lcs", in.getAssociateSanctionCode());
+        }
+
+        if(in.getAssociateSanctionDate() != null){
+            additionalProperties.put("associate_sanction_date_lcs", in.getAssociateSanctionDate());
+        }
+
+        if(in.getProviderSpecialty() != null){
+            additionalProperties.put("provider_specialty_lcs", in.getProviderSpecialty());
+        }
+
+        List<Identification> ids = in.getIdentifications();
         /*for(int i = 0; i < ids.size(); i++){
             Identification id = ids.get(i);*/
         for(Identification id: ids) {
           /*Identification id = ids.get(i);*/
           //  PersonAssociation personAssociation: in.getPersonAssociations()
             log.error("id.getIdentificationType(): " + id.getIdentificationType());
-            if ( id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
-                solrDoc.setAdditionalProperty("provider_pecos_id_lcs", id.getIdentificationID());
-                solrDoc.setAdditionalProperty("provider_pecos_id_state_lcs", id.getIdState());
-                solrDoc.setAdditionalProperty("provider_pecos_id_status_lcs", id.getIdStatus());
+            if(id.getIdentificationType() != null) {
+                if (id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_pecos_id_lcs", id.getIdentificationID());
+                    }
+                    if (id.getIdState() != null) {
+                        additionalProperties.put("provider_pecos_id_state_lcs", id.getIdState());
+                    }
+                    if (id.getIdStatus() != null) {
+                        additionalProperties.put("provider_pecos_id_status_lcs", id.getIdStatus());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_contractor_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("NPI")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_npi_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_ssn_ein_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("PTAN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_ptan_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("TIN")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_tin_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_enrollment_id_lcs", id.getIdentificationID());
+                    }
+                }
+
+                if (id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                    if (id.getIdentificationID() != null) {
+                        additionalProperties.put("provider_license_id_lcs", id.getIdentificationID());
+                    }
+
+                    if (id.getIdStatus() != null) {
+                        additionalProperties.put("provider_license_id_status_lcs", id.getIdStatus());
+                    }
+
+                    if (id.getIdExpirationDate() != null) {
+                        additionalProperties.put("provider_license_id_expiration_lcs", id.getIdExpirationDate());
+                    }
+
+                    if (id.getIdQualifierSanction() != null) {
+                        additionalProperties.put("provider_license_id_qualifier_sanction_lcs", id.getIdQualifierSanction());
+                    }
+
+                    if (id.getIdAlertDate() != null) {
+                        additionalProperties.put("provider_license_id_alert_date_lcs", id.getIdAlertDate());
+                    }
+
+                }
             }
 
-            if ( id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
-                solrDoc.setAdditionalProperty("provider_contractor_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("NPI")) {
-                solrDoc.setAdditionalProperty("provider_npi_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
-                solrDoc.setAdditionalProperty("provider_ssn_ein_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("PTAN")) {
-                solrDoc.setAdditionalProperty("provider_ptan_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("TIN")) {
-                solrDoc.setAdditionalProperty("provider_tin_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
-                solrDoc.setAdditionalProperty("provider_enrollment_id_lcs", id.getIdentificationID());
-            }
-
-            if ( id.getIdentificationType().equalsIgnoreCase("License Number")) {
-                solrDoc.setAdditionalProperty("provider_license_id_lcs", id.getIdentificationID());
-                solrDoc.setAdditionalProperty("provider_license_id_status_lcs", id.getIdStatus());
-                solrDoc.setAdditionalProperty("provider_license_id_expiration_lcs", id.getIdExpirationDate());
-                solrDoc.setAdditionalProperty("provider_license_id_qualifier_sanction_lcs", id.getIdQualifierSanction());
-                solrDoc.setAdditionalProperty("provider_license_id_alert_date_lcs", id.getIdAlertDate());
-            }
         }
 
-        Identification defId = person.getDefaultIdentification();
-        solrDoc.setAdditionalProperty("provider_case_type_id_lcs", defId.getIdCaseType());
-        solrDoc.setAdditionalProperty("provider_case_number_id_lcs", defId.getIdCaseNumber());
-        solrDoc.setAdditionalProperty("provider_offense_type_id_lcs", defId.getIdOffenseType());
-        solrDoc.setAdditionalProperty("provider_conviction_date_id_lcs", defId.getIdConvictionDate());
-        solrDoc.setAdditionalProperty("provider_docket_request_date_id_lcs", defId.getIdDocketRequestDate());
-        solrDoc.setAdditionalProperty("provider_docket_response_date_id_lcs", defId.getIdDocketResponseDate());
-        solrDoc.setAdditionalProperty("provider_docket_status_id_lcs", defId.getIdDocketStatus());
+        Identification defId = in.getDefaultIdentification();
 
-        return solrDoc;
+        if(defId.getIdCaseType() != null){
+             additionalProperties.put("provider_case_type_id_lcs", defId.getIdCaseType());
+        }
+
+        if(defId.getIdCaseNumber() != null){
+            additionalProperties.put("provider_case_number_id_lcs", defId.getIdCaseNumber());
+        }
+
+        if(defId.getIdOffenseType() != null){
+            additionalProperties.put("provider_offense_type_id_lcs", defId.getIdOffenseType());
+        }
+
+        if(defId.getIdConvictionDate() != null){
+            additionalProperties.put("provider_conviction_date_id_lcs", defId.getIdConvictionDate());
+        }
+
+        if(defId.getIdDocketRequestDate() != null){
+            additionalProperties.put("provider_docket_request_date_id_lcs", defId.getIdDocketRequestDate());
+        }
+
+        if(defId.getIdDocketResponseDate() != null){
+            additionalProperties.put("provider_docket_response_date_id_lcs", defId.getIdDocketResponseDate());
+        }
+
+        if(defId.getIdDocketStatus() != null){
+            additionalProperties.put("provider_docket_status_id_lcs", defId.getIdDocketStatus());
+        }
+
+
+        additionalProperties.put("anonymous_flag_b", in.getAnonymousFlag());
     }
 
     private String getDefaultEmail(Person person)
@@ -248,7 +361,7 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
         return sb.toString();
     }
 
-    private void addAddresses(Person person, SolrAdvancedSearchDocument solrDoc)
+    private void addAddresses(Person person, Map<String, Object> additionalProperties)
     {
         List<String> addressIds = new ArrayList<>();
         if (person.getAddresses() != null)
@@ -259,10 +372,10 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
             }
 
         }
-        solrDoc.setPostal_address_id_ss(addressIds);
+        additionalProperties.put(POSTAL_ADDRESS_ID_SS, addressIds);
     }
 
-    private void addOrganizations(Person person, SolrAdvancedSearchDocument solrDoc)
+    private void addOrganizations(Person person, Map<String, Object> additionalProperties)
     {
         List<String> organizationIds = new ArrayList<>();
         if (person.getOrganizations() != null)
@@ -272,10 +385,10 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
                 organizationIds.add(org.getOrganizationId() + "-ORGANIZATION");
             }
         }
-        solrDoc.setOrganization_id_ss(organizationIds);
+        additionalProperties.put(ORGANIZATION_ID_SS, organizationIds);
     }
 
-    private void addContactMethods(Person person, SolrAdvancedSearchDocument solrDoc)
+    private void addContactMethods(Person person, Map<String, Object> additionalProperties)
     {
         List<String> contactMethodIds = new ArrayList<>();
         if (person.getContactMethods() != null)
@@ -285,10 +398,10 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
                 contactMethodIds.add(cm.getId() + "-CONTACT-METHOD");
             }
         }
-        solrDoc.setContact_method_ss(contactMethodIds);
+        additionalProperties.put(CONTACT_METHOD_SS, contactMethodIds);
     }
 
-    private void addAliases(Person person, SolrAdvancedSearchDocument solrDoc)
+    private void addAliases(Person person, Map<String, Object> additionalProperties)
     {
         List<String> aliasIds = new ArrayList<>();
         if (person.getPersonAliases() != null)
@@ -298,92 +411,9 @@ public class PersonToSolrTransformer implements AcmObjectToSolrDocTransformer<Pe
                 aliasIds.add(pa.getId() + "-PERSON-ALIAS");
             }
         }
-        solrDoc.setPerson_alias_ss(aliasIds);
-    }
 
-    @Override
-    public SolrDocument toSolrQuickSearch(Person in)
-    {
-        SolrDocument solrDoc = new SolrDocument();
+        additionalProperties.put("person_alias_ss", aliasIds);
 
-        getSearchAccessControlFields().setAccessControlFields(solrDoc, in);
-
-        solrDoc.setId(in.getId() + "-PERSON");
-        solrDoc.setObject_type_s("PERSON");
-        solrDoc.setName(in.getGivenName() + " " + in.getFamilyName());
-        solrDoc.setObject_id_s(in.getId() + "");
-
-        solrDoc.setCreate_tdt(in.getCreated());
-        solrDoc.setAuthor_s(in.getCreator());
-        solrDoc.setLast_modified_tdt(in.getModified());
-        solrDoc.setModifier_s(in.getModifier());
-
-        solrDoc.setTitle_parseable(in.getFamilyName() + " " + in.getGivenName());
-        solrDoc.setTitle_parseable_lcs(in.getFamilyName() + " " + in.getGivenName());
-        solrDoc.setStatus_s(in.getStatus());
-
-        //new fields
-        solrDoc.setAdditionalProperty("legal_business_name_lcs", in.getLegalBusinessName());
-        solrDoc.setAdditionalProperty("provider_lbn_ein_lcs", in.getProviderLbnEin());
-        solrDoc.setAdditionalProperty("associate_last_name_lcs", in.getAssociateLastName());
-        solrDoc.setAdditionalProperty("associate_middle_name_lcs", in.getAssociateMiddleName());
-        solrDoc.setAdditionalProperty("associate_first_name_lcs", in.getAssociateFirstName());
-        solrDoc.setAdditionalProperty("associate_legal_business_name_lcs", in.getAssociateLegalBusinessName());
-        solrDoc.setAdditionalProperty("associate_enrollment_id_lcs", in.getAssociateEnrollmentId());
-        solrDoc.setAdditionalProperty("associate_npi_lcs", in.getAssociateNPI());
-        solrDoc.setAdditionalProperty("associate_tin_lcs", in.getAssociateTIN());
-        solrDoc.setAdditionalProperty("associate_tin_type_lcs", in.getAssociateTinType());
-        solrDoc.setAdditionalProperty("associate_role_lcs", in.getAssociateRole());
-        solrDoc.setAdditionalProperty("associate_sanction_code_lcs", in.getAssociateSanctionCode());
-        solrDoc.setAdditionalProperty("associate_sanction_date_lcs", in.getAssociateSanctionDate());
-        solrDoc.setAdditionalProperty("provider_specialty_lcs", in.getProviderSpecialty());
-
-       List<Identification> ids = in.getIdentifications();
-        /*for(int i = 0; i < ids.size(); i++){
-            Identification id = ids.get(i);*/
-        for(Identification id: ids) {
-            log.error("idtest: " + id.getIdentificationType());
-            if ( id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
-                solrDoc.setAdditionalProperty("provider_pecos_id_lcs", id.getIdentificationID());
-                solrDoc.setAdditionalProperty("provider_pecos_id_state_lcs", id.getIdState());
-                solrDoc.setAdditionalProperty("provider_pecos_id_status_lcs", id.getIdStatus());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {
-                solrDoc.setAdditionalProperty("provider_contractor_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("NPI")) {
-                solrDoc.setAdditionalProperty("provider_npi_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("SSN/EIN")) {
-                solrDoc.setAdditionalProperty("provider_ssn_ein_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("PTAN")) {
-                solrDoc.setAdditionalProperty("provider_ptan_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("TIN")) {
-                solrDoc.setAdditionalProperty("provider_tin_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("Enrollment ID")) {
-                solrDoc.setAdditionalProperty("provider_enrollment_id_lcs", id.getIdentificationID());
-            }
-            if ( id.getIdentificationType().equalsIgnoreCase("License Number")) {
-                solrDoc.setAdditionalProperty("provider_license_id_lcs", id.getIdentificationID());
-                solrDoc.setAdditionalProperty("provider_license_id_status_lcs", id.getIdStatus());
-                solrDoc.setAdditionalProperty("provider_license_id_expiration_lcs", id.getIdExpirationDate());
-                solrDoc.setAdditionalProperty("provider_license_id_qualifier_sanction_lcs", id.getIdQualifierSanction());
-                solrDoc.setAdditionalProperty("provider_license_id_alert_date_lcs", id.getIdAlertDate());
-            }
-        }
-        Identification defId = in.getDefaultIdentification();
-        solrDoc.setAdditionalProperty("provider_case_type_id_lcs", defId.getIdCaseType());
-        solrDoc.setAdditionalProperty("provider_case_number_id_lcs", defId.getIdCaseNumber());
-        solrDoc.setAdditionalProperty("provider_offense_type_id_lcs", defId.getIdOffenseType());
-        solrDoc.setAdditionalProperty("provider_conviction_date_id_lcs", defId.getIdConvictionDate());
-        solrDoc.setAdditionalProperty("provider_docket_request_date_id_lcs", defId.getIdDocketRequestDate());
-        solrDoc.setAdditionalProperty("provider_docket_response_date_id_lcs", defId.getIdDocketResponseDate());
-        solrDoc.setAdditionalProperty("provider_docket_status_id_lcs", defId.getIdDocketStatus());
-
-        return solrDoc;
     }
 
     @Override
