@@ -26,8 +26,10 @@ angular.module('cases').controller(
             '$filter',
             'SuggestedObjectsService',
             'LookupService',
+            'Helper.NoteService',
+            'Object.NoteService',
             function ($scope, $state, $stateParams, $translate, $modal, Util, UtilDateService, ConfigService, ObjectLookupService, CaseLookupService, CaseInfoService, ObjectModelService, MessageService, ObjectService, ObjectParticipantService, SearchService, SearchQueryBuilder,
-                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService, LookupService) {
+                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService, LookupService, HelperNoteService, ObjectNoteService) {
 
                 new HelperObjectBrowserService.Component({
                     scope: $scope,
@@ -287,6 +289,74 @@ angular.module('cases').controller(
                     $scope.updateDueDate = function(data, oldDate) {
                         if (!Util.isEmpty(data)) {
                             if (UtilDateService.compareDatesForUpdate(data, $scope.objectInfo.dueDate)) {
+                                 var noteHelper = new HelperNoteService.Note();
+                            var modalScope = {
+                                notesInit: '=',
+                                config: '=',
+                                mentionInfo: '='
+                            }
+
+                             modalScope.notesInit = {
+                                   noteTitle: $translate.instant("cases.comp.notes.title"),
+                                   objectType: ObjectService.ObjectTypes.CASE_FILE,
+                                   currentObjectId: $stateParams.id,
+                                   parentTitle: "",
+                                   noteType: "GENERAL"
+                               };
+
+                           var info = modalScope.notesInit;
+                           var note = noteHelper.createNote(info.currentObjectId, info.objectType, info.parentTitle, info.tag, $scope.userId, info.noteType);
+
+
+                                modalScope.note = note || {};
+                                modalScope.isEdit = false;
+
+                               /* // --------------  mention --------------
+                                scope.params = {
+                                    emailAddresses: [],
+                                    usersMentioned: []
+                                };*/
+
+                                var modalInstance = $modal.open({
+                                    scope: modalScope,
+                                    animation: true,
+                                    templateUrl: '../../../../directives/core-notes/core-notes.modal.client.view.html',
+                                    controller: function($scope, $modalInstance) {
+                                        $scope.onClickOk = function() {
+                                            $modalInstance.close({
+                                                note: $scope.note,
+                                                isEdit: $scope.isEdit
+                                            });
+                                        };
+                                        $scope.onClickCancel = function() {
+                                            $modalInstance.dismiss('cancel');
+                                        }
+                                    },
+                                    size: 'md',
+                                    backdrop: 'static'
+                                });
+
+                                modalInstance.result.then(function(data) {
+                                    ObjectNoteService.saveNote(data.note).then(function(note) {
+                                        /*if (scope.mentionInfo) {
+                                            var url = "/home.html#!/viewer/" + scope.mentionInfo.fileId + "/" + scope.mentionInfo.containerObjectId + "/" + scope.mentionInfo.containerObjectType + "/" + encodeURIComponent(scope.mentionInfo.fileName) + "/" + scope.mentionInfo.fileId;
+                                            MentionsService.sendEmailToMentionedUsersWithUrl(scope.params.emailAddresses, scope.params.usersMentioned, scope.mentionInfo.containerObjectType, scope.mentionInfo.containerObjectId, url, note.note);
+                                        } else {
+                                            var noteParentType = "";
+                                            if (note.type == "REJECT_COMMENT") {
+                                                noteParentType = "TASK_REJECT_COMMENT"
+                                            } else if (note.type == "REJECT_COMMENT") {
+                                                noteParentType = "TASK_REJECT_COMMENT"
+                                            } else {
+                                                noteParentType = note.parentType;
+                                            }
+                                            MentionsService.sendEmailToMentionedUsers(scope.params.emailAddresses, scope.params.usersMentioned, "NOTE", noteParentType, note.parentId, note.note);
+                                        }
+                                        scope.retrieveGridData();*/
+                                    }, function() {
+                                    });
+                                });
+
                                 var correctedDueDate = new Date(data);
                                 var startDate = new Date($scope.objectInfo.created);
                                 /*if(correctedDueDate < startDate){
