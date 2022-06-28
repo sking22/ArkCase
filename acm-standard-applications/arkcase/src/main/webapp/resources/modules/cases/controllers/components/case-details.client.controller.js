@@ -31,13 +31,31 @@ angular.module('cases').controller(
                             onObjectInfoRetrieved(objectInfo);
                             UserInfoService.getUserInfo().then(function(infoData) {
                                 $scope.currentUserProfile = infoData;
-                                $scope.disableField = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
+
+                                if ($scope.currentUserProfile.groups.includes("ALA_ANALYST_READ_ONLY@APVITACMS.COM")
+                                    && $scope.currentUserProfile.groups.includes("ALA_ANALYST@APVITACMS.COM") ){
+                                     $scope.isAnalyst = true;
+                                } else {
+                                    $scope.isAnalyst = false;
+                                }
+
+                                $scope.disableField = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
                                                       ($scope.objectInfo.status === "CASE_CLOSED"
-                                                    || $scope.objectInfo.status === "Audit Assigned"
-                                                    || $scope.objectInfo.status === "Audit N/A"
-                                                    || $scope.objectInfo.status === "Audit Completed");
-                                $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
-                                $scope.disableDexVer = $scope.disableField || $scope.isAnalyst;
+                                                        || $scope.objectInfo.status === "Audit Assigned"
+                                                        || $scope.objectInfo.status === "Audit N/A"
+                                                        || $scope.objectInfo.status === "Audit Completed"))
+                                                    || ($scope.isAnalyst &&
+                                                             ($scope.objectInfo.status === "CASE_CLOSED"
+                                                           || $scope.objectInfo.status === "Ready For Review"
+                                                           || $scope.objectInfo.status === "Ready For Review II"
+                                                           || $scope.objectInfo.status === "Case Deleted/Canceled"
+                                                           || $scope.objectInfo.status === "Audit Assigned"
+                                                           || $scope.objectInfo.status === "Audit N/A"
+                                                           || $scope.objectInfo.status === "Audit Completed"));
+
+                               // $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+
+                               // $scope.disableDexVer = $scope.disableField || $scope.isAnalyst;
                             });
                         }
                     });

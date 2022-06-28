@@ -254,7 +254,8 @@ angular.module('directives').directive('searchModal', [ '$q', '$translate', '$fi
                     || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_ELIZABETH_MAULDIN@APVITACMS.COM-GROUP"
                     || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_VERTRESSE_MICHELLE_PRICE@APVITACMS.COM-GROUP"
                     || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_ROSALIND_WEATHERSPOON@APVITACMS.COM-GROUP"
-                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_PHYLLIS_WATER@APVITACMS.COM-GROUP") {
+                    || data.response.docs[i].id.toUpperCase() === "ACMS_REPORTS_PHYLLIS_WATER@APVITACMS.COM-GROUP"
+                    || data.response.docs[i].id.toUpperCase() === "ALA_ANALYST_READ_ONLY@APVITACMS.COM-GROUP") {
                         data.response.docs.splice(i, 1);
                         i--;
                    }

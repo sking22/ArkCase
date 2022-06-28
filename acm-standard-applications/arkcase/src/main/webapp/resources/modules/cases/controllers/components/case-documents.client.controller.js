@@ -83,14 +83,33 @@ angular.module('cases').controller(
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on pending case'
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on approved case'
                                          || $scope.objectInfo.status.toLowerCase() === 'resubmitted to cms');
+
+                        $scope.superStatus = ($scope.objectInfo.status === "CASE_CLOSED"
+                                           || $scope.objectInfo.status.toLowerCase() === "ready for review"
+                                           || $scope.objectInfo.status.toLowerCase() === "ready for review ii"
+                                           || $scope.objectInfo.status.toLowerCase() === "case deleted/canceled"
+                                           || $scope.objectInfo.status.toLowerCase() === "audit assigned"
+                                           || $scope.objectInfo.status.toLowerCase() === "audit n/a"
+                                           || $scope.objectInfo.status.toLowerCase() === "audit completed");
+
                         UserInfoService.getUserInfo().then(function(infoData) {
                             $scope.currentUserProfile = infoData;
-                            $scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+                            //$scope.isAnalyst = $scope.currentUserProfile.groups[0] === "ALA_ANALYST@APVITACMS.COM";
+
+                             if ($scope.currentUserProfile.groups.includes("ALA_ANALYST_READ_ONLY@APVITACMS.COM")
+                                && $scope.currentUserProfile.groups.includes("ALA_ANALYST@APVITACMS.COM") ){
+                                 $scope.isAnalyst = true;
+                             } else {
+                                $scope.isAnalyst = false;
+                             }
+
                             console.log("!!!! $scope.isAnalyst: ", $scope.isAnalyst);
                             console.log("!!!! $scope.cmsStatus: ", $scope.cmsStatus);
 
                             if($scope.isAnalyst && $scope.cmsStatus){
                                $scope.noUpload = true;
+                            } else if ($scope.isAnalyst && $scope.superStatus) {
+                                $scope.noUpload = true;
                             } else {
                                 $scope.noUpload = false;
                             }

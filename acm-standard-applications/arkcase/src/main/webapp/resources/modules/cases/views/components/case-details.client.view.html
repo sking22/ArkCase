@@ -4,7 +4,7 @@
                 <h4 class="panel-title">
                     <a>Provider Information</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -114,7 +114,7 @@
                     <div class="row">
                         <div class="col-sm-4 form-check">
                             <label>Contractor Name</label>
-                            <select class="form-control" ng-model="objectInfo.acmObjectOriginator.person.providerContractorName" >
+                            <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.acmObjectOriginator.person.providerContractorName" >
                                 <option ng-repeat="option in contractTypes" placeholder="{{ objectInfo.acmObjectOriginator.person.providerContractorName }}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
@@ -167,7 +167,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCriminal">Criminal Action</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -311,7 +311,7 @@
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseSanction">Sanction Action</a>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -401,7 +401,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseLicense">License Action</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -516,7 +516,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpt">OPT Medicaid Action</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -626,15 +626,19 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">DEX Verified Date</label>
-                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
                             <!--<div style="clear:both;" ng-if="disableDexVer">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>-->
-                            <div style="clear:both;">
-                                <date-time-picker data="objectInfo.caseDexVerifiedDate" property="objectInfo.caseDexVerifiedDate"
-                                                  date-picker-id="objectInfo.caseDexVerifiedDate" time-format-disabled="true"></date-time-picker>
-                            </div>
+                            <div style="clear:both;" ng-if="disableField">
+                               <input type="text" class="input-md form-control"
+                                      placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                           </div>
+                                <div style="clear:both;" ng-if="!disableField" >
+                                    <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
+                                    <date-time-picker data="objectInfo.caseDexVerifiedDate" property="objectInfo.caseDexVerifiedDate"
+                                                      date-picker-id="objectInfo.caseDexVerifiedDate" time-format-disabled="true"></date-time-picker>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -642,14 +646,12 @@
         </div>
 
 
-
-
         <div class="panel panel-success panel-grid">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseRevise">Revise & Reissue Revocation</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -726,7 +728,7 @@
             <h4 class="panel-title">
                 <a>Not Actionable Reason</a>
                 <div class="pull-right">
-                    <button  class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -751,7 +753,7 @@
             <h4 class="panel-title">
                 <a>Recommended Outcome</a>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -760,7 +762,7 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Recommended Outcome of Admin Actions</label>
-                        <select class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
+                        <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
                             <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseAdminActionsOutcome}}" value="{{option.key}}">
                                 {{option.value | translate}}
                             </option>
@@ -801,7 +803,7 @@
                 <h4 class="panel-title">
                     <a>Final Outcome</a>
                     <div class="pull-right">
-                        <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -811,7 +813,7 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Final Outcome of Admin Actions</label>
-                            <select class="form-control" ng-model="objectInfo.caseFinalOutAdminAct" >
+                            <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.caseFinalOutAdminAct" >
                                 <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseFinalOutAdminAct}}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
@@ -822,7 +824,7 @@
                         </div>
                         <div class="col-sm-4 form-check">
                             <label>OPT CMS Decision</label>
-                            <select class="form-control" ng-model="objectInfo.caseOptCmsDecision" >
+                            <select  ng-disabled="disableField" class="form-control" ng-model="objectInfo.caseOptCmsDecision" >
                                 <option ng-repeat="option in caseOptCmsDecisionTypes" placeholder="{{objectInfo.caseOptCmsDecision}}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
@@ -833,7 +835,7 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Authorities Cited in Final Letter</label>
-                            <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevAuthCitedActionLetter"
+                            <input ng-disabled="disableField" maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevAuthCitedActionLetter"
                                    placeholder="{{ objectInfo.caseRevAuthCitedActionLetter }}" >
                             <span ng-if="objectInfo.caseRevAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRevAuthCitedActionLetter.length}}/40 characters remaining</span>
                         </div>
@@ -849,7 +851,7 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Length of Re-Enrollment Bar</label>
-                            <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseLengthReEnrollBar"
+                            <input  ng-disabled="disableField" maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseLengthReEnrollBar"
                                    placeholder="{{ objectInfo.caseLengthReEnrollBar }}" >
                             <span ng-if="objectInfo.caseLengthReEnrollBar.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseLengthReEnrollBar.length}}/10 characters remaining</span>
                         </div>
@@ -866,7 +868,7 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label>Effective Date</label>
-                            <input maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
+                            <input  ng-disabled="disableField" maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRevEffActionDate"
                                    placeholder="{{ objectInfo.caseRevEffActionDate }}" >
                             <span ng-if="objectInfo.caseRevEffActionDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen30 - objectInfo.caseRevEffActionDate.length}}/30 characters remaining</span>
                         </div>
@@ -882,9 +884,13 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Action Date</label>
-                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
-                            <div style="clear:both;">
-                                <date-time-picker data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
+                            <div style="clear:both;" ng-if="disableField">
+                                <input type="text" class="input-md form-control"
+                                       placeholder="{{ objectInfo.caseFinalOutActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                            </div>
+                            <div style="clear:both;" ng-if="!disableField && !isAnalyst" >
+                                <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
+                                <date-time-picker property="objectInfo.caseFinalOutActionDate"
                                               date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
                         </div>
@@ -901,7 +907,7 @@
             <h4 class="panel-title">
                 <a>Case History</a>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -910,25 +916,37 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Resubmission Due Date</label>
-                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
-                        <div style="clear:both;">
-                            <date-time-picker data="objectInfo.caseResubDueDate" property="objectInfo.caseResubDueDate"
+                        <div style="clear:both;" ng-if="disableField">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseResubDueDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField" >
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                            <date-time-picker  ng-disabled="disableField" data="objectInfo.caseResubDueDate" property="objectInfo.caseResubDueDate"
                                               date-picker-id="objectInfo.caseResubDueDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Date Requested Documentation</label>
-                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
-                        <div style="clear:both;">
-                            <date-time-picker data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
+                        <div style="clear:both;" ng-if="disableField">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseReqDocumentationDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField" >
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
+                            <date-time-picker ng-disabled="disableField" data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
                                               date-picker-id="objectInfo.caseReqDocumentationDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Date Documentation Received</label>
-                        <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
-                        <div style="clear:both;">
-                            <date-time-picker data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
+                        <div style="clear:both;" ng-if="disableField">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseDocumentationRecDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField" >
+                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                            <date-time-picker  ng-disabled="disableField" data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
                                               date-picker-id="objectInfo.caseDocumentationRecDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
@@ -945,14 +963,14 @@
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Board Documents&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
+                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Court Documents&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
+                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
                         </div>
                     </div>
                 </div>
@@ -961,7 +979,7 @@
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Selected for In-Line Review&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
+                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
@@ -989,7 +1007,7 @@
             <div class="panel-title">
                 <span translate>cases.comp.details.caseSummary.title</span>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs" ng-click="saveDetailsSummary()" ><i class="fa fa-lg fa-save"></i></button>
+                    <button ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveDetailsSummary()" ><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
         </div>
@@ -1003,7 +1021,7 @@
             <div class="panel-title">
                 <span translate>cases.comp.details.title</span>
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
+                    <button ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
         </div>
