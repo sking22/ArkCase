@@ -33,7 +33,13 @@ angular.module('reports').controller('Reports.DatepickersController', [ '$scope'
         }
         
         var dateSearchTypeValue = _.get($scope.reportsParameters, $scope.data.reportSelected);
-        
+
+        if($scope.data.reportSelected === "DESHISTORY_REPORT"){
+            $scope.dateSelectLabel = "Change Case Status Date";
+        } else {
+            $scope.dateSelectLabel = "Case Created Date";
+        }
+
         // reset start and end date
         $scope.data.startDate = new Date();
         $scope.data.endDate = new Date();
