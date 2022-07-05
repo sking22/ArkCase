@@ -26,8 +26,10 @@ angular.module('cases').controller(
             '$filter',
             'SuggestedObjectsService',
             'LookupService',
+            'Helper.NoteService',
+            'Object.NoteService',
             function ($scope, $state, $stateParams, $translate, $modal, Util, UtilDateService, ConfigService, ObjectLookupService, CaseLookupService, CaseInfoService, ObjectModelService, MessageService, ObjectService, ObjectParticipantService, SearchService, SearchQueryBuilder,
-                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService, LookupService) {
+                      HelperObjectBrowserService, HelperUiGridService, DialogService, $filter, SuggestedObjectsService, LookupService, HelperNoteService, ObjectNoteService) {
 
                 new HelperObjectBrowserService.Component({
                     scope: $scope,
@@ -287,24 +289,108 @@ angular.module('cases').controller(
                     $scope.updateDueDate = function(data, oldDate) {
                         if (!Util.isEmpty(data)) {
                             if (UtilDateService.compareDatesForUpdate(data, $scope.objectInfo.dueDate)) {
-                                var correctedDueDate = new Date(data);
-                                var startDate = new Date($scope.objectInfo.created);
-                                /*if(correctedDueDate < startDate){
-                                    $scope.dateInfo.dueDate = $scope.dueDateBeforeChange;
-                                    DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
-                                }else {
-                                    $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
-                                    $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
-                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);*/
 
-                                    $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
-                                    $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local();
-                                    $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).format(defaultDateTimePickerFormat);
-                                    $scope.dateInfo.dueDate = $scope.dueDate.dueDateInfoUIPicker;
-                                    // unbind due date watcher before case save so that when user switch to different case
-                                    // watcher won't be fired before landing on that different case
-                                    dueDateWatch();
-                                    $scope.saveCase();
+                             /*  var scope = {
+                                      notesInit: '=',
+                                      config: '=',
+                                      mentionInfo: '='
+                                  };*/
+
+                               var modalScope = $scope.$new();
+                              modalScope.note = note || {};
+                              modalScope.isEdit = false;
+
+                                var noteHelper = new HelperNoteService.Note();
+                                $scope.notesInit = {
+                                     noteTitle: $translate.instant("cases.comp.notes.title"),
+                                     objectType: ObjectService.ObjectTypes.CASE_FILE,
+                                     currentObjectId: $stateParams.id,
+                                     parentTitle: "",
+                                     noteType: "GENERAL"
+                                 };
+
+                                 var info = $scope.notesInit;
+                                 var note = noteHelper.createNote(info.currentObjectId, info.objectType, info.parentTitle, info.tag, $scope.userId, info.noteType);
+
+                                var note_modalInstance = $modal.open({
+                                    scope: modalScope,
+                                    animation: true,
+                                    templateUrl: 'directives/core-notes/core-notes.modal.client.view.html',
+                                    controller: function($scope, $modalInstance) {
+                                        $scope.onClickOk = function() {
+                                            $modalInstance.close({
+                                                note: $scope.note,
+                                                isEdit: $scope.isEdit
+                                            });
+                                        };
+                                        $scope.onClickCancel = function() {
+                                            $modalInstance.dismiss('cancel');
+                                        }
+                                    },
+                                    size: 'md',
+                                    backdrop: 'static'
+                                });
+                                modalInstance.result.then(function(data) {
+                                   ObjectNoteService.saveNote(data.note).then(function(note) {
+                                   if (scope.mentionInfo) {
+                                      //  var url = "/home.html#!/viewer/" + scope.mentionInfo.fileId + "/" + scope.mentionInfo.containerObjectId + "/" + scope.mentionInfo.containerObjectType + "/" + encodeURIComponent(scope.mentionInfo.fileName) + "/" + scope.mentionInfo.fileId;
+                                     //   MentionsService.sendEmailToMentionedUsersWithUrl(scope.params.emailAddresses, scope.params.usersMentioned, scope.mentionInfo.containerObjectType, scope.mentionInfo.containerObjectId, url, note.note);
+                                    } else {
+                                        var noteParentType = "";
+                                        if (note.type == "REJECT_COMMENT") {
+                                            noteParentType = "TASK_REJECT_COMMENT"
+                                        } else if (note.type == "REJECT_COMMENT") {
+                                            noteParentType = "TASK_REJECT_COMMENT"
+                                        } else {
+                                            noteParentType = note.parentType;
+                                        }
+                                      //  MentionsService.sendEmailToMentionedUsers(scope.params.emailAddresses, scope.params.usersMentioned, "NOTE", noteParentType, note.parentId, note.note);
+                                    }
+                                //   scope.retrieveGridData();
+                                    }, function() {
+                                          var correctedDueDate = new Date(data);
+                                            var startDate = new Date($scope.objectInfo.created);
+                                            /*if(correctedDueDate < startDate){
+                                                $scope.dateInfo.dueDate = $scope.dueDateBeforeChange;
+                                                DialogService.alert($translate.instant("cases.comp.info.alertMessage ") + $filter("date")(startDate, $translate.instant('common.defaultDateTimeUIFormat')));
+                                            }else {
+                                                $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
+                                                $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local(true);
+                                                $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).local(true).format(defaultDateTimePickerFormat);*/
+
+                                                $scope.objectInfo.dueDate = moment.utc(correctedDueDate).format();
+                                                $scope.dueDate.dueDateInfo = moment.utc($scope.objectInfo.dueDate).local();
+                                                $scope.dueDate.dueDateInfoUIPicker = moment($scope.objectInfo.dueDate).format(defaultDateTimePickerFormat);
+                                                $scope.dateInfo.dueDate = $scope.dueDate.dueDateInfoUIPicker;
+                                                // unbind due date watcher before case save so that when user switch to different case
+                                                // watcher won't be fired before landing on that different case
+                                                dueDateWatch();
+                                                $scope.saveCase();
+
+
+                                    });
+                                });
+
+/*
+                                var modalInstance = $modal.open({
+                                    scope: {
+                                        notesInit: '=',
+                                        config: '=',
+                                        mentionInfo: '='
+                                    },
+                                    animation: true,
+                                    templateUrl: 'modules/cases/views/components/cases-notes.modal.client.view.html',
+                                    controller: 'Cases.NotesModalController',
+                                    size: 'md',
+                                    backdrop: 'static'
+                                });
+
+                                modalInstance.result.then(function(note) {
+                                        console.log("!!!! note: ", note);
+
+                                });*/
+
+
                             }
                         }else {
                             if (!oldDate) {
@@ -334,11 +420,11 @@ angular.module('cases').controller(
                         if (newValue && !moment(newValue).isSame(moment(oldValue)) && $scope.dueDate.isOpen) {
                             $scope.updateDueDate(newValue);
                         }
-                    }
+                    };
 
                     // register watcher when user open date picker
                     $scope.registerWatcher = function () {
                         dueDateWatch = $scope.$watch('dueDate.dueDateInfo', dueDateChangeFn, true);
-                    }
+                    };
 
                 } ]);
