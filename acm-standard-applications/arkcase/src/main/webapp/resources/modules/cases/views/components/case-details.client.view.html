@@ -4,7 +4,7 @@
                 <h4 class="panel-title">
                     <a>Provider Information</a>
                     <div class="pull-right">
-                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -18,7 +18,7 @@
                                     <input maxlength="{{maxLen11}}" type="text" class="input-md form-control"
                                            ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField" >
+                                           ng-disabled="disableField || disableFieldCMS" >
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - id.identificationNumber.length}}/11 characters remaining</span>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                                 <div ng-if="id.identificationType === 'NPI' ">
                                     <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - id.identificationNumber.length}}/10 characters remaining</span>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                 <div ng-if="id.identificationType === 'PTAN' ">
                                     <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
                                     <input maxlength="{{maxLen16}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen16 - id.identificationNumber.length}}/16 characters remaining</span>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID'">
                                     <select class="form-control" ng-model="id.idState"
-                                            ng-disabled="disableField">
+                                            ng-disabled="disableField || disableFieldCMS">
                                         <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
                                             {{option.value | translate}}
                                         </option>
@@ -78,7 +78,7 @@
                                 <div ng-if="id.identificationType === 'PECOS Enrollment ID' ">
                                     <input maxlength="{{maxLen35}}" type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.idStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen35 - id.idStatus.length}}/35 characters remaining</span>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                 <div ng-if="id.identificationType === 'Contractor ID/Contractor Name' ">
                                     <input ng-change="updateContractName()" maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - id.identificationNumber.length}}/64 characters remaining</span>
                                 </div>
                             </div>
@@ -100,21 +100,21 @@
                             <label>Specialty</label>
                             <input maxlength="{{maxLen50}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerSpecialty"
                                    placeholder="{{  objectInfo.acmObjectOriginator.person.providerSpecialty }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.providerSpecialty.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen50 - objectInfo.acmObjectOriginator.person.providerSpecialty.length}}/50 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Taxonomy</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseTaxonomy"
                                    placeholder="{{ objectInfo.caseTaxonomy }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseTaxonomy.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseTaxonomy.length}}/64 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-check">
                             <label>Contractor Name</label>
-                            <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.acmObjectOriginator.person.providerContractorName" >
+                            <select ng-disabled="disableField || disableFieldCMS" class="form-control" ng-model="objectInfo.acmObjectOriginator.person.providerContractorName" >
                                 <option ng-repeat="option in contractTypes" placeholder="{{ objectInfo.acmObjectOriginator.person.providerContractorName }}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
@@ -124,14 +124,14 @@
                             <label>Legal Business Name</label>
                             <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.legalBusinessName"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.legalBusinessName }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.legalBusinessName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.legalBusinessName.length}}/128 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Legal Business Name EIN</label>
                             <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.providerLbnEin"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.providerLbnEin }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.providerLbnEin.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.providerLbnEin.length}}/11 characters remaining</span>
                         </div>
                     </div>
@@ -140,16 +140,16 @@
                             <label>Application Type</label>
                             <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseApplicationType"
                                    placeholder="{{ objectInfo.caseApplicationType }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseApplicationType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseApplicationType.length}}/10 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Report Alert Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReportAlertDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReportAlertDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control" placeholder="{{ objectInfo.caseReportAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField" >
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS" >
                                 <date-time-picker
                                         data="objectInfo.caseReportAlertDate"
                                         property="objectInfo.caseReportAlertDate"
@@ -167,7 +167,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseCriminal">Criminal Action</a>
                     <div class="pull-right">
-                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -178,21 +178,21 @@
                             <label>Convicted Individual First Name</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividual"
                                    placeholder="{{ objectInfo.caseConvictedIndividual }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseConvictedIndividual.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseConvictedIndividual.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual Last Name</label>
                             <input maxlength="{{maxLen32}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualLastName"
                                    placeholder="{{ objectInfo.caseConvictedIndividualLastName }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseConvictedIndividualLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen32 - objectInfo.caseConvictedIndividualLastName.length}}/32 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Convicted Individual's TIN</label>
                             <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.caseConvictedIndividualTin"
                                    placeholder="{{ objectInfo.caseConvictedIndividualTin }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseConvictedIndividualTin.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.caseConvictedIndividualTin.length}}/11 characters remaining</span>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                                     class="input-md form-control"
                                     ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType"
                                     placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType }}"
-                                    ng-disabled="disableField">
+                                    ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseType.length}}/11 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
@@ -212,7 +212,7 @@
                                 <input maxlength="{{maxLen128}}" type="text" class="input-md form-control"
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber }}"
-                                       ng-disabled="disableField">
+                                       ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCaseNumber.length}}/128 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
@@ -222,7 +222,7 @@
                                            class="input-md form-control"
                                            ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType"
                                            placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen300 - objectInfo.acmObjectOriginator.person.defaultIdentification.idOffenseType.length}}/300 characters remaining</span>
                         </div>
 
@@ -230,12 +230,12 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;" >Conviction Date:</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
-                            <div  ng-if="disableField" style="clear:both;">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
+                            <div  ng-if="disableField || disableFieldCMS" style="clear:both;">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker
                                         data="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
                                         property="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate"
@@ -255,7 +255,7 @@
                                        class="input-md form-control"
                                        ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName }}"
-                                       ng-disabled="disableField">
+                                       ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.defaultIdentification.idCourtName.length}}/128 characters remaining</span>
                         </div>
 
@@ -263,12 +263,12 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Docket Request Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker
                                         data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
                                         property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketRequestDate"
@@ -279,12 +279,12 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Docket Response Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker
                                       data="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
                                       property="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketResponseDate"
@@ -298,7 +298,7 @@
                                 <input  maxlength="{{maxLen10}}" type="text" class="input-md form-control"
                                         ng-model="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus"
                                         placeholder="{{ objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus }}"
-                                        ng-disabled="disableField">
+                                        ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.defaultIdentification.idDocketStatus.length}}/10 characters remaining</span>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseSanction">Sanction Action</a>
                 <div class="pull-right">
-                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -322,21 +322,21 @@
                         <label>Sanctioned Associate First Name</label>
                         <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateFirstName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateFirstName }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateFirstName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateFirstName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Last Name</label>
                         <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLastName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLastName }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateLastName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.acmObjectOriginator.person.associateLastName.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>OIG Sanctioned Business Name</label>
                         <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateLegalBusinessName"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateLegalBusinessName }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.acmObjectOriginator.person.associateLegalBusinessName.length}}/128 characters remaining</span>
                     </div>
                 </div>
@@ -345,21 +345,21 @@
                         <label>Sanctioned Associate NPI</label>
                         <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateNPI"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateNPI }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateNPI.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.acmObjectOriginator.person.associateNPI.length}}/10 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate TIN</label>
                         <input maxlength="{{maxLen11}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTIN"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTIN }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateTIN.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen11 - objectInfo.acmObjectOriginator.person.associateTIN.length}}/11 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate TIN Type</label>
                         <input maxlength="{{maxLen4}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateTinType"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateTinType }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateTinType.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen4 - objectInfo.acmObjectOriginator.person.associateTinType.length}}/4 characters remaining</span>
                     </div>
                 </div>
@@ -368,24 +368,24 @@
                         <label >Exclusion Type/Sanction Code</label>
                         <input maxlength="{{maxLen280}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateSanctionCode"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionCode }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateSanctionCode.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen280 - objectInfo.acmObjectOriginator.person.associateSanctionCode.length}}/280 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sanctioned Associate Role in Affiliated Enrollment</label>
                         <input maxlength="{{maxLen150}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateRole"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateRole }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.acmObjectOriginator.person.associateRole.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen150 - objectInfo.acmObjectOriginator.person.associateRole.length}}/150 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Sanctioned Date</label>
-                        <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.associateSanctionDate = NULL">clear</a>
-                        <div style="clear:both;" ng-if="disableField">
+                        <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.associateSanctionDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div style="clear:both;" ng-if="!disableField">
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                             <date-time-picker data="objectInfo.acmObjectOriginator.person.associateSanctionDate" property="objectInfo.acmObjectOriginator.person.associateSanctionDate"
                             date-picker-id="objectInfo.acmObjectOriginator.person.associateSanctionDate" time-format-disabled="true"></date-time-picker>
                         </div>
@@ -401,7 +401,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseLicense">License Action</a>
                     <div class="pull-right">
-                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -414,7 +414,7 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input maxlength="{{maxLen20}}" type="text" class="input-md form-control" ng-model="id.identificationNumber"
                                            placeholder="{{ id.identificationNumber }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.identificationNumber.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen20 - id.identificationNumber.length}}/20 characters remaining</span>
                                 </div>
                             </div>
@@ -425,7 +425,7 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input maxlength="{{maxLen20}}" type="text" class="input-md form-control" ng-model="id.idStatus"
                                            placeholder="{{ id.idStatus }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.idStatus.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen20 - id.idStatus.length}}/20 characters remaining</span>
                                 </div>
                             </div>
@@ -434,12 +434,12 @@
                             <label style="display:inline; float:left;">License Expiration Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number' ">
-                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idExpirationDate = NULL">clear</a>
-                                    <div style="clear:both;"  ng-if="disableField">
+                                    <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="id.idExpirationDate = NULL">clear</a>
+                                    <div style="clear:both;"  ng-if="disableField || disableFieldCMS">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idExpirationDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div style="clear:both;"  ng-if="!disableField">
+                                    <div style="clear:both;"  ng-if="!disableField && !disableFieldCMS">
                                         <date-time-picker
                                                           data="id.idExpirationDate"
                                                           property="id.idExpirationDate"
@@ -458,7 +458,7 @@
                                 <div ng-if="id.identificationType === 'License Number' ">
                                     <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="id.idQualifierSanction"
                                            placeholder="{{ id.idQualifierSanction }}"
-                                           ng-disabled="disableField">
+                                           ng-disabled="disableField || disableFieldCMS">
                                     <span ng-if="id.idQualifierSanction.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - id.idQualifierSanction.length}}/128 characters remaining</span>
                                 </div>
                             </div>
@@ -467,12 +467,12 @@
                             <label style="display:inline; float:left;">License Alert Date</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number'">
-                                    <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="id.idAlertDate = NULL">clear</a>
-                                    <div style="clear:both;" ng-if="disableField">
+                                    <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="id.idAlertDate = NULL">clear</a>
+                                    <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                         <input type="text" class="input-md form-control"
                                                placeholder="{{ id.idAlertDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                                     </div>
-                                    <div style="clear:both;" ng-if="!disableField">
+                                    <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                         <date-time-picker
                                                           data="id.idAlertDate"
                                                           property="id.idAlertDate"
@@ -487,7 +487,7 @@
                             <label>Reporting Week</label>
                             <input maxlength="{{maxLen25}}" type="text" class="input-md form-control" ng-model="objectInfo.caseReportingWeek"
                                    placeholder="{{ objectInfo.caseReportingWeek }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseReportingWeek.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen25 - objectInfo.caseReportingWeek.length}}/25 characters remaining</span>
                         </div>
                     </div>
@@ -497,7 +497,7 @@
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'License Number'">
                                     <select class="form-control" ng-model="id.idState"
-                                            ng-disabled="disableField">
+                                            ng-disabled="disableField || disableFieldCMS">
                                         <option ng-repeat="option in idStates" placeholder="{{id.idState}}" value="{{option.key}}">
                                             {{option.value | translate}}
                                         </option>
@@ -516,7 +516,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOpt">OPT Medicaid Action</a>
                     <div class="pull-right">
-                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -527,13 +527,13 @@
                             <label>State Medicaid Agency</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseStateMedicaidAgency"
                                    placeholder="{{ objectInfo.caseStateMedicaidAgency }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseStateMedicaidAgency.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseStateMedicaidAgency.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Type</label>
                                 <select class="form-control" ng-model="objectInfo.caseTerminationType"
-                                        ng-disabled="disableField">
+                                        ng-disabled="disableField || disableFieldCMS">
                                     <option ng-repeat="option in caseTerminationTypes" placeholder="{{objectInfo.caseTerminationType}}" value="{{option.key}}">
                                         {{option.value | translate}}
                                     </option>
@@ -541,12 +541,12 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Termination Effective Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseTerminationEffDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseTerminationEffDate" property="objectInfo.caseTerminationEffDate"
                                               date-picker-id="objectInfo.caseTerminationEffDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -557,29 +557,29 @@
                             <label>Enrollment Bar Expiration Date</label>
                             <input maxlength="{{maxLen15}}" type="text" class="input-md form-control" ng-model="objectInfo.caseEnrollmentBarExpDate"
                                    placeholder="{{ objectInfo.caseEnrollmentBarExpDate }}"
-                                   ng-disabled="disableField" >
+                                   ng-disabled="disableField || disableFieldCMS" >
                             <span ng-if="objectInfo.caseEnrollmentBarExpDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen15 - objectInfo.caseEnrollmentBarExpDate.length}}/15 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReinsTerminationEffDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReinsTerminationEffDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseReinsTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
                                               date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true" ></date-time-picker>
                             </div>
                         </div>
                          <div class="col-sm-4 form-group">
                              <label style="display:inline; float:left;">Rescinded Termination Effective Date</label>
-                             <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRecindTerminationEffDate = NULL">clear</a>
-                             <div style="clear:both;" ng-if="disableField">
+                             <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRecindTerminationEffDate = NULL">clear</a>
+                             <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                  <input type="text" class="input-md form-control"
                                         placeholder="{{ objectInfo.caseRecindTerminationEffDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                              </div>
-                             <div style="clear:both;" ng-if="!disableField">
+                             <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseRecindTerminationEffDate" property="objectInfo.caseRecindTerminationEffDate"
                                                date-picker-id="objectInfo.caseRecindTerminationEffDate" time-format-disabled="true"></date-time-picker>
                              </div>
@@ -590,33 +590,33 @@
                             <label>Appeals Period Expired?</label>
                             <input maxlength="{{maxLen5}}" type="text" class="input-md form-control" ng-model="objectInfo.caseAppealsPeriodExpired"
                                    placeholder="{{ objectInfo.caseAppealsPeriodExpired }}"
-                                   ng-disabled="disableField" >
+                                   ng-disabled="disableField || disableFieldCMS" >
                             <span ng-if="objectInfo.caseAppealsPeriodExpired.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen5 - objectInfo.caseAppealsPeriodExpired.length}}/5 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Termination Reason</label>
                             <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseTerminationReason"
                                    placeholder="{{ objectInfo.caseTerminationReason }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseTerminationReason.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseTerminationReason.length}}/64 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Correspondence Address</label>
                             <input maxlength="{{maxLen128}}" type="text" class="input-md form-control" ng-model="objectInfo.caseCorrespondenceAddress"
                                    placeholder="{{ objectInfo.caseCorrespondenceAddress }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseCorrespondenceAddress.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen128 - objectInfo.caseCorrespondenceAddress.length}}/128 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">CMS Assign Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCmsAssignDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCmsAssignDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseCmsAssignDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseCmsAssignDate" property="objectInfo.caseCmsAssignDate"
                                               date-picker-id="objectInfo.caseCmsAssignDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -630,12 +630,12 @@
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>-->
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                <input type="text" class="input-md form-control"
                                       placeholder="{{ objectInfo.caseDexVerifiedDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                            </div>
-                                <div style="clear:both;" ng-if="!disableField" >
-                                    <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseDexVerifiedDate = NULL">clear</a>
+                                <div style="clear:both;" ng-if="!disableField && !disableFieldCMS" >
                                     <date-time-picker data="objectInfo.caseDexVerifiedDate" property="objectInfo.caseDexVerifiedDate"
                                                       date-picker-id="objectInfo.caseDexVerifiedDate" time-format-disabled="true"></date-time-picker>
                                 </div>
@@ -651,7 +651,7 @@
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseRevise">Revise & Reissue Revocation</a>
                     <div class="pull-right">
-                        <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                        <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                     </div>
                 </h4>
             </div>
@@ -662,17 +662,17 @@
                             <label>Original Revocation Authorities</label>
                             <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseOrigRevAuth"
                                    placeholder="{{ objectInfo.caseOrigRevAuth }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseOrigRevAuth.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseOrigRevAuth.length}}/40 characters remaining</span>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Date of Original Revocation Letter</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseOrigRevLetterDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseOrigRevLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseOrigRevLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseOrigRevLetterDate" property="objectInfo.caseOrigRevLetterDate"
                                               date-picker-id="objectInfo.caseOrigRevLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -681,26 +681,26 @@
                             <label>Revise & Reissue Eligible (Y/N)</label>
                             <input maxlength="{{maxLen5}}" type="text" class="input-md form-control" ng-model="objectInfo.caseReviseReissueEl"
                                    placeholder="{{ objectInfo.caseReviseReissueEl }}"
-                                   ng-disabled="disableField">
+                                   ng-disabled="disableField || disableFieldCMS">
                             <span ng-if="objectInfo.caseReviseReissueEl.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen5 - objectInfo.caseReviseReissueEl.length}}/5 characters remaining</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Effective Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEffectiveLetterDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseEffectiveLetterDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseEffectiveLetterDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseEffectiveLetterDate" property="objectInfo.caseEffectiveLetterDate"
                                               date-picker-id="objectInfo.caseEffectiveLetterDate" time-format-disabled="true"></date-time-picker>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label>Outcome of Revise & Reissue</label>
-                            <select class="form-control" ng-model="objectInfo.caseReviseReissueOutcome"  ng-disabled="disableField">
+                            <select class="form-control" ng-model="objectInfo.caseReviseReissueOutcome"  ng-disabled="disableField || disableFieldCMS">
                                 <option ng-repeat="option in caseORR" placeholder="{{objectInfo.caseReviseReissueOutcome}}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
@@ -708,12 +708,12 @@
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline;">Action Date</label>
-                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRevreiActionDate = NULL">clear</a>
-                            <div style="clear:both;" ng-if="disableField">
+                            <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseRevreiActionDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseRevreiActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField">
+                            <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseRevreiActionDate" property="objectInfo.caseRevreiActionDate"
                                               date-picker-id="objectInfo.caseRevreiActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -728,7 +728,7 @@
             <h4 class="panel-title">
                 <a>Not Actionable Reason</a>
                 <div class="pull-right">
-                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -737,7 +737,7 @@
                 <div class="row">
                     <div class="col-sm-8 form-check">
                         <select class="form-control" ng-model="objectInfo.caseNotActionableReason"
-                                ng-disabled="disableField">
+                                ng-disabled="disableField || disableFieldCMS">
                             <option ng-repeat="option in caseNAR" placeholder="{{objectInfo.caseNotActionableReason}}" value="{{option.key}}">
                                 {{option.value | translate}}
                             </option>
@@ -753,7 +753,7 @@
             <h4 class="panel-title">
                 <a>Recommended Outcome</a>
                 <div class="pull-right">
-                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -762,7 +762,7 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Recommended Outcome of Admin Actions</label>
-                        <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
+                        <select ng-disabled="disableField || disableFieldCMS" class="form-control" ng-model="objectInfo.caseAdminActionsOutcome" >
                             <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseAdminActionsOutcome}}" value="{{option.key}}">
                                 {{option.value | translate}}
                             </option>
@@ -773,7 +773,7 @@
                         <label>Recommended Length of Enrollment Bar</label>
                         <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecLengthEnrollBar"
                                placeholder="{{ objectInfo.caseRecLengthEnrollBar }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseRecLengthEnrollBar.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseRecLengthEnrollBar.length}}/10 characters remaining</span>
                     </div>
                 </div>
@@ -782,14 +782,14 @@
                         <label>Recommended Authorities Cited in Action Letter</label>
                         <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecAuthCitedActionLetter"
                                placeholder="{{ objectInfo.caseRecAuthCitedActionLetter }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseRecAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRecAuthCitedActionLetter.length}}/40 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Recommended Effective Date</label>
                         <input maxlength="{{maxLen30}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecEffDate"
                                placeholder="{{ objectInfo.caseRecEffDate }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseRecEffDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen30 - objectInfo.caseRecEffDate.length}}/30 characters remaining</span>
                     </div>
 
@@ -884,12 +884,12 @@
                     <div class="row">
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Action Date</label>
+                            <a ng-if="!disableField" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
                             <div style="clear:both;" ng-if="disableField">
                                 <input type="text" class="input-md form-control"
                                        placeholder="{{ objectInfo.caseFinalOutActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
-                            <div style="clear:both;" ng-if="!disableField && !isAnalyst" >
-                                <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseFinalOutActionDate = NULL">clear</a>
+                            <div style="clear:both;" ng-if="!disableField" >
                                 <date-time-picker property="objectInfo.caseFinalOutActionDate"
                                               date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
@@ -907,7 +907,7 @@
             <h4 class="panel-title">
                 <a>Case History</a>
                 <div class="pull-right">
-                    <button  ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                    <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </h4>
         </div>
@@ -916,37 +916,37 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Resubmission Due Date</label>
-                        <div style="clear:both;" ng-if="disableField">
+                        <a ng-if="!disableField && !disableFieldCMS"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.caseResubDueDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div style="clear:both;" ng-if="!disableField" >
-                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
-                            <date-time-picker  ng-disabled="disableField" data="objectInfo.caseResubDueDate" property="objectInfo.caseResubDueDate"
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS" >
+                            <date-time-picker  ng-disabled="disableField || disableFieldCMS" data="objectInfo.caseResubDueDate" property="objectInfo.caseResubDueDate"
                                               date-picker-id="objectInfo.caseResubDueDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Date Requested Documentation</label>
-                        <div style="clear:both;" ng-if="disableField">
+                        <a ng-if="!disableField && !disableFieldCMS"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.caseReqDocumentationDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div style="clear:both;" ng-if="!disableField" >
-                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseReqDocumentationDate = NULL">clear</a>
-                            <date-time-picker ng-disabled="disableField" data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS" >
+                            <date-time-picker ng-disabled="disableField || disableFieldCMS" data="objectInfo.caseReqDocumentationDate" property="objectInfo.caseReqDocumentationDate"
                                               date-picker-id="objectInfo.caseReqDocumentationDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Date Documentation Received</label>
-                        <div style="clear:both;" ng-if="disableField">
+                        <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS">
                             <input type="text" class="input-md form-control"
                                    placeholder="{{ objectInfo.caseDocumentationRecDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                         </div>
-                        <div style="clear:both;" ng-if="!disableField" >
-                            <a style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseResubDueDate = NULL">clear</a>
-                            <date-time-picker  ng-disabled="disableField" data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS" >
+                            <date-time-picker  ng-disabled="disableField || disableFieldCMS" data="objectInfo.caseDocumentationRecDate" property="objectInfo.caseDocumentationRecDate"
                                               date-picker-id="objectInfo.caseDocumentationRecDate" time-format-disabled="true"></date-time-picker>
                         </div>
                     </div>
@@ -956,21 +956,21 @@
                         <label>Agency Requested</label>
                         <input maxlength="{{maxLen64}}" type="text" class="input-md form-control" ng-model="objectInfo.caseAgencyRequested"
                                placeholder="{{ objectInfo.caseAgencyRequested }}"
-                               ng-disabled="disableField">
+                               ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseAgencyRequested.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen64 - objectInfo.caseAgencyRequested.length}}/64 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Board Documents&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
+                            <input ng-disabled="disableField || disableFieldCMS" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseBoardDocument">
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Court Documents&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
+                            <input ng-disabled="disableField || disableFieldCMS" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseCourtDocument">
                         </div>
                     </div>
                 </div>
@@ -979,13 +979,13 @@
                         <br />
                         <label style="display:inline;float:left;font-weight:bold;font-size: 14px;">Selected for In-Line Review&nbsp;&nbsp;</label>
                         <div style="display:inline;">
-                            <input ng-disabled="disableField" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
+                            <input ng-disabled="disableField || disableFieldCMS" style="margin-top:1px;" type="checkbox" ng-model="objectInfo.caseSelectedForInlineReview">
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Multiple Alert</label>
                         <select class="form-control" ng-model="objectInfo.caseMultipleAlert"
-                                ng-disabled="disableField">
+                                ng-disabled="disableField || disableFieldCMS">
                             <option ng-repeat="option in caseMultipleAlertTypes" placeholder="{{objectInfo.caseMultipleAlert}}" value="{{option.key}}">
                                 {{option.value | translate}}
                             </option>
@@ -1007,13 +1007,13 @@
             <div class="panel-title">
                 <span translate>cases.comp.details.caseSummary.title</span>
                 <div class="pull-right">
-                    <button ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveDetailsSummary()" ><i class="fa fa-lg fa-save"></i></button>
+                    <button ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveDetailsSummary()" ><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
         </div>
         <div>
             <textarea rows=5 ng-model="objectInfo.caseDetailsSummary" class="input-md form-control"
-                      ng-disabled="disableField"></textarea>
+                      ng-disabled="disableField || disableFieldCMS"></textarea>
         </div>
     </div>
     <div class="panel panel-success panel-grid">
@@ -1021,12 +1021,12 @@
             <div class="panel-title">
                 <span translate>cases.comp.details.title</span>
                 <div class="pull-right">
-                    <button ng-disabled="disableField" class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
+                    <button ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveDetails()"><i class="fa fa-lg fa-save"></i></button>
                 </div>
             </div>
         </div>
         <div class="panel-body remove-margin-bottom-from-summernote">
-            <div ng-if="disableField">
+            <div ng-if="disableField || disableFieldCMS">
                 <textarea rows=5 ng-model="objectInfo.details" class="input-md form-control" disabled></textarea>
             </div>
             <div ng-if="currentUserProfile.groups[0] !== 'CMS@APVITACMS.COM' && objectInfo.status !== 'CASE_CLOSED'">

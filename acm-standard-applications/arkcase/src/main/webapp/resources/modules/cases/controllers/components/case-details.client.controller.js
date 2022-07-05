@@ -39,12 +39,13 @@ angular.module('cases').controller(
                                     $scope.isAnalyst = false;
                                 }
 
-                                $scope.disableField = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
-                                                      ($scope.objectInfo.status === "CASE_CLOSED"
-                                                        || $scope.objectInfo.status === "Audit Assigned"
-                                                        || $scope.objectInfo.status === "Audit N/A"
-                                                        || $scope.objectInfo.status === "Audit Completed"))
-                                                    || ($scope.isAnalyst &&
+                                $scope.disableFieldCMS  = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
+                                                            ($scope.objectInfo.status === "CASE_CLOSED"
+                                                              || $scope.objectInfo.status === "Audit Assigned"
+                                                              || $scope.objectInfo.status === "Audit N/A"
+                                                              || $scope.objectInfo.status === "Audit Completed"));
+
+                                $scope.disableField =  ($scope.isAnalyst &&
                                                              ($scope.objectInfo.status === "CASE_CLOSED"
                                                            || $scope.objectInfo.status === "Ready For Review"
                                                            || $scope.objectInfo.status === "Ready For Review II"
