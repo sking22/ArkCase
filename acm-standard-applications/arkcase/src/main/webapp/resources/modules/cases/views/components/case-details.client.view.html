@@ -890,7 +890,7 @@
                                        placeholder="{{ objectInfo.caseFinalOutActionDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
                             </div>
                             <div style="clear:both;" ng-if="!disableField" >
-                                <date-time-picker property="objectInfo.caseFinalOutActionDate"
+                                <date-time-picker property="objectInfo.caseFinalOutActionDate"  data="objectInfo.caseFinalOutActionDate" property="objectInfo.caseFinalOutActionDate"
                                               date-picker-id="objectInfo.caseFinalOutActionDate" time-format-disabled="true"></date-time-picker>
                             </div>
                         </div>

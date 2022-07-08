@@ -21,12 +21,13 @@ angular.module('cases').controller(
         'Admin.FormWorkflowsLinkService',
         'Object.NoteService',
         'Helper.NoteService',
-        function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectNoteService, HelperNoteService) {
+        '$config',
+        function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectNoteService, HelperNoteService, $config) {
 
 
 
-             modalScope.note = note || {};
-             modalScope.isEdit = false;
+            /* modalScope.note = note || {};
+             modalScope.isEdit = false;*/
 
             $scope.onClickOk = function() {
                console.log('!!!! before savenote ');
@@ -68,7 +69,15 @@ angular.module('cases').controller(
                 $modalInstance.close(caseInfo);
             });
 */
-
+       /* $scope.onClickOk = function() {
+            $modalInstance.close({
+                note: $scope.note,
+                isEdit: $scope.isEdit
+            });
+        };*/
+        $scope.onClickCancel = function() {
+            $modalInstance.dismiss('cancel');
+        }
 
 
         } ]);
