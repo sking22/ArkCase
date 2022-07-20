@@ -88,22 +88,23 @@
             </div>
         </div>
 
-       <!-- <div class="panel panel-default">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion45" href="#collapseDesc" translate>cases.comp.change.status.description.label</a>
+                    <a data-toggle="collapse" data-parent="#accordion45" href="#collapseDesc" translate>Note - Description of Status Change </a>
                 </h4>
             </div>
             <div id="collapseDesc" class="panel-collapse">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12 form-group">
-                            <summernote config="options" ng-model="changeCaseStatus.description"></summernote>
+                            <mention-textarea ng-model="note.note" params="params" ></mention-textarea>
+                        <!--    <summernote config="options" ng-model="changeCaseStatus.description" required></summernote>-->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
     </div>
     <div class="modal-footer">

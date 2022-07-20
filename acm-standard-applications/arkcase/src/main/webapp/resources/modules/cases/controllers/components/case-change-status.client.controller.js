@@ -2,9 +2,9 @@
 
 angular.module('cases').controller(
         'Cases.ChangeStatusController',
-        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService',
-                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService) {
-                    //console.log('modalParams: ' + JSON.stringify(modalParams));
+        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService','Helper.NoteService', 'Object.NoteService', 'Authentication',
+                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService,  HelperNoteService, ObjectNoteService, Authentication) {
+
                     $scope.modalParams = modalParams;
                     $scope.currentStatus = modalParams.info.status;
                     $scope.oInfo = modalParams.objectInfo;
@@ -33,6 +33,35 @@ angular.module('cases').controller(
                         changeCaseStatusFlow: $scope.showApprover == 'true'
                     };
 
+                    $scope.note = {};
+                    $scope.note.note = "";
+
+                    ConfigService.getComponentConfig("cases", "notes").then(function (config) {
+                     $scope.notesInit = {
+                            objectType: ObjectService.ObjectTypes.CASE_FILE,
+                            currentObjectId: $stateParams.id
+                         };
+                     });
+
+                      var noteHelper = new HelperNoteService.Note();
+                     $scope.notesInit = {
+                          noteTitle: $translate.instant("cases.comp.notes.title"),
+                          objectType: ObjectService.ObjectTypes.CASE_FILE,
+                          currentObjectId: $stateParams.id,
+                          parentTitle: "",
+                          noteType: "GENERAL"
+                     };
+
+                     //var userId = "";
+                      Authentication.queryUserInfo().then(function(userInfo) {
+                          var userId = userInfo.userId;
+                          var info = $scope.notesInit;
+                          $scope.note = noteHelper.createNote(info.currentObjectId, info.objectType, $scope.oInfo.caseNumber, info.tag, userId );
+
+                         return userInfo;
+                     });
+
+
                     var participantTypeApprover = 'approver';
                     var participantTypeOwningGroup = "owning group";
 
@@ -52,7 +81,6 @@ angular.module('cases').controller(
                         if (defaultChangeCaseStatus && !$scope.changeCaseStatus.status) {
                             $scope.changeCaseStatus.status = defaultChangeCaseStatus.key;
                         }
-                        //console.log("!!!! caseStatuses: ", caseStatuses);
                         UserInfoService.getUserInfo().then(function(infoData) {
                             $scope.currentUserProfile = infoData;
                             $scope.isCms = $scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM";
@@ -68,7 +96,6 @@ angular.module('cases').controller(
                             } else {
                                 $scope.statuses = caseStatuses;
                             }
-                           // console.log("!!!! $scope.statuses: ", $scope.statuses);
                         });
                     });
 
@@ -282,9 +309,7 @@ angular.module('cases').controller(
                                  }
                                  counter++;
                             }
-
                             var result = newDate.setDate(newDate.getDate() + counter);
-
                             $scope.oInfo.caseResubDueDate = newDate;
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
@@ -317,25 +342,22 @@ angular.module('cases').controller(
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                               $scope.updateParticipants();
-                         }
+                        }
 
-                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
-
-
+                        $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
                         $scope.oInfo.status = $scope.changeCaseStatus.status;
-
 
                         
                         CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
                             MessageService.info(data.info);
-                          /* if($scope.changeCaseStatus.changeCaseStatusFlow){
-                                $scope.changeCaseStatus.status = 'IN APPROVAL';
-                            }*/
                             var caseInfo = Util.omitNg($scope.oInfo);
                             CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
-                               // $scope.refresh();
-                                //return caseInfo;
+                                ObjectNoteService.saveNote($scope.note).then(function(note) {
+
+                                }, function() {
+
+                                });
                                 $modalInstance.close(caseInfo);
                             });
 

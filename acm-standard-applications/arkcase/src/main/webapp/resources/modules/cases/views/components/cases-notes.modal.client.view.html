@@ -1,12 +1,35 @@
 <div class="modal-header">
     <h3>
-        <span translate>common.directive.coreNotes.modal.addNote</span>
+        <span translate>Change Due Date</span>
     </h3>
 </div>
 <div class="modal-body">
+    <div class="row" style="margin-bottom:1.5em;">
+        <div class="col-md-6">
+
+            <div class="h4 font-bold popup-move-on-left">
+                <!--  format="MM/DD/YYYY h:mmA"
+                      ng-click="registerWatcher()"
+                      -->
+                <a href="javascript:;"
+                   ng-click="registerWatcher_modal()"
+                   moment-picker="dueDate.dueDateInfoUIPicker"
+                   ng-model="dueDate.dueDateInfo"
+                   format="MM/DD/YYYY"
+                   start-view="month"
+                   auto-close="true"
+                   is-open="dueDate.isOpen"
+                   permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">
+                    {{ (dateInfo.dueDate | date: ('common.defaultDateTimeUIFormat' | translate)) || ('common.value.unknown' | translate) }}
+                </a>
+            </div>
+            <small class="text-muted"><span translate>cases.comp.info.dueDate.label</span></small>
+        </div>
+    </div>
+
     <form name="notesForm">
         <div>
-            <label><span translate>common.directive.coreNotes.modal.notes.label</span><span
+            <label><span translate>Note - Reason for Due Date Change</span><span
                     class="required-asterisk">*</span></label>
             <mention-textarea ng-model="note.note" params="params" required="true"></mention-textarea>
         </div>
@@ -16,7 +39,7 @@
     <button class="btn btn-secondary" ng-click="onClickCancel()">
         <span translate>common.directive.coreNotes.modal.btnCancel.text</span>
     </button>
-    <button class="btn btn-primary" ng-click="onClickOk()" ng-disabled="notesForm.$invalid">
+    <button class="btn btn-primary" ng-click="onClickOk()" ng-disabled="notesForm.$invalid || disableOk">
         <span translate>common.directive.coreNotes.modal.btnOk.text</span>
     </button>
 </div>
