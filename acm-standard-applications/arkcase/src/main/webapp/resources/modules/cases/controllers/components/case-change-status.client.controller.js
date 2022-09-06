@@ -347,21 +347,92 @@ angular.module('cases').controller(
                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
                         $scope.oInfo.status = $scope.changeCaseStatus.status;
 
-                        
-                        CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
-                            MessageService.info(data.info);
-                            var caseInfo = Util.omitNg($scope.oInfo);
-                            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                                //success
-                                ObjectNoteService.saveNote($scope.note).then(function(note) {
 
-                                }, function() {
 
+                        if(($scope.oInfo.caseAdminActionsOutcome !== 'OTH' && $scope.oInfo.caseAdminActionsOutcome !== '' && $scope.oInfo.caseAdminActionsOutcome)
+                            && ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II")){
+
+                            CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                MessageService.info(data.info);
+                             }).then(function(data){
+                                var caseInfo = Util.omitNg($scope.oInfo);
+                                CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+                                    //success
+                                    if($scope.note.note) {
+                                        ObjectNoteService.saveNote($scope.note).then(function(note) {
+
+                                       });
+                                    }
+                                  //  $modalInstance.close(caseInfo);
+                                }).then(function(data){
+                                   if($scope.oInfo.caseAdminActionsOutcome === "CRPL" || $scope.oInfo.caseAdminActionsOutcome === "RO"
+                                     || $scope.oInfo.caseAdminActionsOutcome === "PLO" || $scope.oInfo.caseAdminActionsOutcome === "RCCC"
+                                     || $scope.oInfo.caseAdminActionsOutcome === "DEAC" || $scope.oInfo.caseAdminActionsOutcome === "PTRTD"
+                                     || $scope.oInfo.caseAdminActionsOutcome === "DNPTRTD") {
+                                        // console.log("!!!! s2cms");
+                                         $scope.changeCaseStatus.status = 'Submitted to CMS';
+                                         ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@apvitacms.com');
+                                         ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
+                                         $scope.oInfo.priority = "CMS";
+                                     } else if($scope.oInfo.caseAdminActionsOutcome=== "NA"){
+                                       //   console.log("!!!! n-optc na");
+                                        $scope.changeCaseStatus.status = 'NON-OPT Case - Non-Actionable';
+                                        //assign to system
+                                        ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
+                                        ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                     } else if($scope.oInfo.caseAdminActionsOutcome === "CRFISMA" || $scope.oInfo.caseAdminActionsOutcome === "PTDNRTD"
+                                              || $scope.oInfo.caseAdminActionsOutcome === "DNPT") {
+                                          //     console.log("!!!! optc na");
+                                               $scope.changeCaseStatus.status = 'OPT Case - Non-Actionable';
+                                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
+                                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                     }
+                                     $scope.updateParticipants();
+                                     $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
+                                     $scope.oInfo.status = $scope.changeCaseStatus.status;
+
+                                     /* console.log("!!!! $scope.oInfo.caseAdminActionsOutcome: ", $scope.oInfo.caseAdminActionsOutcome);
+                                       console.log("!!!! $scope.changeCaseStatus.status: ", $scope.changeCaseStatus.status);
+                                       console.log("!!!! ");*/
+
+                                     var caseInfo = Util.omitNg($scope.oInfo);
+                                     CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                        MessageService.info(data.info);
+                                       // console.log("!!!! 2-2");
+                                     }).then(function(data) {
+                                           var caseInfo = Util.omitNg($scope.oInfo);
+                                         //  console.log("!!!! 3-3-1");
+
+                                           CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+                                               console.log("!!!! ");
+                                          }).then(function(data){
+                                            $modalInstance.close(caseInfo);
+                                          });
+                                        });
                                 });
-                                $modalInstance.close(caseInfo);
-                            });
 
-                        });
+                             }).then(function(data){
+
+                             });
+
+                        } else {
+                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                MessageService.info(data.info);
+                                var caseInfo = Util.omitNg($scope.oInfo);
+                                CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+                                    //success
+                                    if($scope.note.note) {
+                                        ObjectNoteService.saveNote($scope.note).then(function(note) {
+
+                                        }, function() {
+
+                                        });
+                                    }
+                                    $modalInstance.close(caseInfo);
+                                });
+
+                             });
+                        }
 
                     }
 
