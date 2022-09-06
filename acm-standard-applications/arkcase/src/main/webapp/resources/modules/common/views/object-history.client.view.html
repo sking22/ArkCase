@@ -16,14 +16,14 @@
     <div>
         <span ng-if='row.entity.parentObjectType'>
             <span ng-if="row.entity.objectType != 'DISPOSITION_REASON'">
-                <span>{{('common.objectTypes.'+row.entity.parentObjectType) | translate}} {{'common.objectHistory.client.label.updated' | translate}} - {{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + " " + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}</span>
+                <span title="{{('common.objectTypes.'+row.entity.parentObjectType) | translate}} {{'common.objectHistory.client.label.updated' | translate}} - {{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + ' ' + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}">{{('common.objectTypes.'+row.entity.parentObjectType) | translate}} {{'common.objectHistory.client.label.updated' | translate}} - {{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + " " + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}</span>
                 <span ng-if='row.entity.objectType != grid.appScope.ObjectTypes.FOLDER'>
                     <a href ng-click='grid.appScope.onClickObjLink($event, row.entity)'>{{row.entity.objectId}}({{('common.objectTypes.' + row.entity.objectType) | translate}})</a>
                 </span>
             </span>
             <span ng-if="row.entity.objectType == 'DISPOSITION_REASON'">{{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + " " + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}</span>
         </span>
-        <span ng-if='!row.entity.parentObjectType'>{{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + " " + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}</span>
+        <span title="{{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + ' ' + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}" ng-if='!row.entity.parentObjectType'>{{row.entity.eventDescription ? ('eventType.'+row.entity.fullEventType | translate) + " " + row.entity.eventDescription : ('eventType.'+row.entity.fullEventType | translate)}}</span>
     </div>
 </script>
 <script type="text/ng-template" id="historyEventDetailsCellTemplateId">

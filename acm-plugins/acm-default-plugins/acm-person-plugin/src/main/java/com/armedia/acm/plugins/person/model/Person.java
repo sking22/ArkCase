@@ -239,6 +239,26 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         return peid;
     }
 
+    public String getPecosEnrollmentState(){
+        String pestate = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
+                pestate = id.getIdState();
+            }
+        }
+        return pestate;
+    }
+
+    public String getPecosEnrollmentStatus(){
+        String pestatus = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("PECOS Enrollment ID")) {
+                pestatus = id.getIdStatus();
+            }
+        }
+        return pestatus;
+    }
+
     public String getEnrollmentID(){
         String enrollId = "";
         for(Identification id: getIdentifications()) {
@@ -260,7 +280,52 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
         return licenseNum;
     }
 
-    //License Number
+    //License Status
+    public String getLicenseStatus(){
+        String status = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                status = id.getIdStatus();
+            }
+        }
+        return status;
+    }
+
+
+    //License Status
+    public Date getLicenseExpirationDate(){
+        Date exDate = null;
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                exDate = id.getIdExpirationDate();
+            }
+        }
+        return exDate;
+    }
+
+    //idAlertDate
+    public Date getLicenseAlertDate(){
+        Date alertDate = null;
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                alertDate = id.getIdAlertDate();
+            }
+        }
+        return alertDate;
+    }
+
+    //QualifierSanction
+    public String getLicenseQualifierSanction(){
+        String qs = "";
+        for(Identification id: getIdentifications()) {
+            if(id.getIdentificationType().equalsIgnoreCase("License Number")) {
+                qs = id.getIdQualifierSanction();
+            }
+        }
+        return qs;
+    }
+
+    //License State
     public String getLicenseState(){
         String idState = "";
         for(Identification id: getIdentifications()) {
@@ -272,7 +337,7 @@ public class Person implements Serializable, AcmEntity, AcmObject, AcmContainerE
     }
 
     //Contractor ID/Contractor Name
-    public String geContractorID(){
+    public String getContractorID(){
         String contractorID = "";
         for(Identification id: getIdentifications()) {
             if(id.getIdentificationType().equalsIgnoreCase("Contractor ID/Contractor Name")) {

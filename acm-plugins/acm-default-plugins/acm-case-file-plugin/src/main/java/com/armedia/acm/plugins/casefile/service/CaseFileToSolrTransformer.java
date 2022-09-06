@@ -318,7 +318,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                         additionalProperties.put("case_provider_licenseNum_lcs", licenseNum);
                     }
 
-                    String contractorID = person.geContractorID();
+                    String contractorID = person.getContractorID();
                     if ((contractorID != null) && !contractorID.equalsIgnoreCase("na")
                             && !contractorID.trim().equalsIgnoreCase("")) {
                         additionalProperties.put("case_provider_contractorID_lcs", contractorID);

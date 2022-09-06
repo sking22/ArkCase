@@ -19,7 +19,8 @@ angular.module('cases').controller(
         'Case.InfoService',
         'Object.ParticipantService',
         'Admin.FormWorkflowsLinkService',
-        function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService) {
+        'Mentions.Service',
+        function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, MentionsService) {
 
 
             console.log('modalParams: ' + JSON.stringify(modalParams));
@@ -27,7 +28,8 @@ angular.module('cases').controller(
 
             var caseInfo = Util.omitNg($scope.modalParams.info);
             CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                MessageService.info("Case Details Saved.");
+             //   MentionsService.sendEmailToMentionedUsers($scope.paramsSummernote.emailAddresses, $scope.paramsSummernote.usersMentioned, ObjectService.ObjectTypes.CASE_FILE, "DETAILS", caseInfo.id, caseInfo.details);
+                MessageService.info($translate.instant("Case Details Saved."));
                 $modalInstance.close(caseInfo);
             });
 

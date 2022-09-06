@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label>SSN/EIN </label>
+                            <label>SSN/EIN</label>
                             <div ng-repeat="id in objectInfo.acmObjectOriginator.person.identifications">
                                 <div ng-if="id.identificationType === 'SSN/EIN' ">
                                     <input maxlength="{{maxLen11}}" type="text" class="input-md form-control"
@@ -229,7 +229,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 form-group">
-                            <label style="display:inline; float:left;" >Conviction Date:</label>
+                            <label style="display:inline; float:left;">Conviction Date</label>
                             <a ng-if="!disableField && !disableFieldCMS" style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.acmObjectOriginator.person.defaultIdentification.idConvictionDate = NULL">clear</a>
                             <div  ng-if="disableField || disableFieldCMS" style="clear:both;">
                                 <input type="text" class="input-md form-control"
@@ -365,7 +365,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label >Exclusion Type/Sanction Code</label>
+                        <label>Exclusion Type/Sanction Code</label>
                         <input maxlength="{{maxLen280}}" type="text" class="input-md form-control" ng-model="objectInfo.acmObjectOriginator.person.associateSanctionCode"
                                placeholder="{{ objectInfo.acmObjectOriginator.person.associateSanctionCode }}"
                                ng-disabled="disableField || disableFieldCMS">
