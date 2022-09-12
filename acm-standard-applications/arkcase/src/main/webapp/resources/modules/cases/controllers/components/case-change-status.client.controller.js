@@ -347,8 +347,6 @@ angular.module('cases').controller(
                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
                         $scope.oInfo.status = $scope.changeCaseStatus.status;
 
-
-
                         if(($scope.oInfo.caseAdminActionsOutcome !== 'OTH' && $scope.oInfo.caseAdminActionsOutcome !== '' && $scope.oInfo.caseAdminActionsOutcome)
                             && ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II")){
 
@@ -410,7 +408,6 @@ angular.module('cases').controller(
                                           });
                                         });
                                 });
-
                              }).then(function(data){
 
                              });
