@@ -334,7 +334,8 @@ angular.module('cases').controller(
                                $scope.invalidRecindDate = false;
                            }
 
-                           if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()) {
+                           if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
+                            || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'm/d/YYYY',true).isValid()) {
                                //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
                                //console.log("!!! testDate", $scope.testDate);
                                //YYYY-MM-DD
@@ -343,11 +344,19 @@ angular.module('cases').controller(
                                console.log("!!! m.length", String(m).length);
                               if(String(m).length === 1){
                                  var mm = "0" + String(m);
+                              } else {
+                                 var mm = m;
                               }
                               console.log("!!! m: ", m);
                               var d = moment(test).get('date');
+                               console.log("!!! d.length", String(d).length);
+                                 if(String(d).length === 1){
+                                    var dd = "0" + String(d);
+                                 } else {
+                                   var dd = d;
+                                 }
                               var y = moment(test).get('year');
-                              $scope.testDate = y + "-" + mm + "-" + d;
+                              $scope.testDate = y + "-" + mm + "-" + dd;
                               console.log("!!! $scope.testDate", $scope.testDate);
 
                                console.log("!!! >", ($scope.objectInfo.caseTerminationEffDate > $scope.testDate));
@@ -370,7 +379,6 @@ angular.module('cases').controller(
                              } else {
                                    $scope.invalidEbarDateInvalid = true;
                              }
-
                        });
 
                        $scope.$watch('objectInfo.caseReinsTerminationEffDate', function () {
@@ -402,9 +410,10 @@ angular.module('cases').controller(
                       $scope.$watch('objectInfo.caseEnrollmentBarExpDate', function () {
                          console.log("!!! caseEnrollmentBarExpDate", $scope.objectInfo.caseEnrollmentBarExpDate);
                          console.log("!!! caseEnrollmentBarExpDate", $scope.objectInfo.caseTerminationEffDate);
-                         console.log("!!! valid? ", moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid());
-
-                          if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()) {
+                         console.log("!!! valid 1? ", moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid());
+                         console.log("!!! valid 2? ", moment($scope.objectInfo.caseEnrollmentBarExpDate, 'm/d/YYYY',true).isValid());
+                          if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
+                             || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'm/d/YYYY',true).isValid()) {
                                 //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
                                 //console.log("!!! testDate", $scope.testDate);
                                 //YYYY-MM-DD
@@ -413,11 +422,19 @@ angular.module('cases').controller(
                                 console.log("!!! m.length", String(m).length);
                                if(String(m).length === 1){
                                   var mm = "0" + String(m);
+                               } else {
+                                  var mm = m;
                                }
                                console.log("!!! m: ", m);
                                var d = moment(test).get('date');
+                                console.log("!!! d.length", String(d).length);
+                                  if(String(d).length === 1){
+                                     var dd = "0" + String(d);
+                                  } else {
+                                    var dd = d;
+                                  }
                                var y = moment(test).get('year');
-                               $scope.testDate = y + "-" + mm + "-" + d;
+                               $scope.testDate = y + "-" + mm + "-" + dd;
                                console.log("!!! $scope.testDate", $scope.testDate);
 
                                 console.log("!!! >", ($scope.objectInfo.caseTerminationEffDate > $scope.testDate));
