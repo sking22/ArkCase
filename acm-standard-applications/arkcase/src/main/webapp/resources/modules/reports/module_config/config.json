@@ -34,7 +34,14 @@
             "id": "caseStates",
             "resetCaseStateValues": [
                 "COMPLAINT_DISPOSITION_COUNT",
-                "ALA_INVOICING"
+                "ALA_INVOICING",
+                "INLINE_REVIEW_REPORT"
+            ]
+        },
+        {
+            "id": "dateStatus",
+            "resetDate": [
+                "INLINE_REVIEW_REPORT"
             ]
         }
     ]

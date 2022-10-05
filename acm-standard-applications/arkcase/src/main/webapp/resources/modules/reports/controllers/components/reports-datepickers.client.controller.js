@@ -49,5 +49,16 @@ angular.module('reports').controller('Reports.DatepickersController', [ '$scope'
         } else {
             $scope.data.dateSearchType = dateSearchTypeValue;
         }
+        //for the only one date selection for specific Reports
+        if($scope.config.resetDate.indexOf($scope.data.reportSelected)){
+
+            $scope.data.dateWithoutRange=true;
+            $scope.data.twoDate= false;
+        }
+        else{
+
+            $scope.data.dateWithoutRange=false;
+            $scope.data.twoDate= true;
+        }
     };
 } ]);
