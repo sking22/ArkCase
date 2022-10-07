@@ -50,15 +50,10 @@ angular.module('reports').controller('Reports.DatepickersController', [ '$scope'
             $scope.data.dateSearchType = dateSearchTypeValue;
         }
         //for the only one date selection for specific Reports
-        if($scope.config.resetDate.indexOf($scope.data.reportSelected)){
+        if($scope.data.reportSelected === "INLINE_REVIEW_REPORT"){
+            $scope.dateSelectLabel = "Due Date";
+            $scope.data.dateSearchType = 'INLINE_REVIEW_REPORT';
 
-            $scope.data.dateWithoutRange=true;
-            $scope.data.twoDate= false;
-        }
-        else{
-
-            $scope.data.dateWithoutRange=false;
-            $scope.data.twoDate= true;
         }
     };
 } ]);
