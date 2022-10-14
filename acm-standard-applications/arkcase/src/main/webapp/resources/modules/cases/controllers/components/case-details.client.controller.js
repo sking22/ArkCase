@@ -311,65 +311,69 @@ angular.module('cases').controller(
 
                     };
 
-                       $scope.$watch('objectInfo.caseTerminationEffDate', function () {
-                           //called any time $scope.caseTerminationEffDate changes
-                           console.log('!!! caseReinsTerminationEffDate: ', $scope.objectInfo.caseReinsTerminationEffDate);
-                           if($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseReinsTerminationEffDate){
-                               $scope.invalidReinsDate = true;
-                               //$scope.objectInfo.caseReinsTerminationEffDate = null;
-                           } else if(!$scope.objectInfo.caseReinsTerminationEffDate) {
-                               $scope.invalidReinsDate = false;
-                           } else {
-                               $scope.invalidReinsDate = false;
-                           }
+                    $scope.$watchGroup(['objectInfo.caseTerminationEffDate','objectInfo.caseReinsTerminationEffDate',
+                    'objectInfo.caseRecindTerminationEffDate', 'objectInfo.caseEnrollmentBarExpDate'], function () {
 
-                           //called any time $scope.caseTerminationEffDate changes
-                           console.log('!!! caseRecindTerminationEffDate: ', $scope.objectInfo.caseRecindTerminationEffDate);
-                           if($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseRecindTerminationEffDate){
-                               $scope.invalidRecindDate = true;
-                               //$scope.objectInfo.caseRecindTerminationEffDate = null;
-                           } else if(!$scope.objectInfo.caseRecindTerminationEffDate) {
-                               $scope.invalidRecindDate = false;
-                           } else {
-                               $scope.invalidRecindDate = false;
-                           }
+                       //called any time $scope.caseTerminationEffDate changes
+                       if(($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseReinsTerminationEffDate)
+                            && $scope.objectInfo.caseReinsTerminationEffDate){
+                           $scope.invalidReinsDate = true;
+                       } else if(!$scope.objectInfo.caseReinsTerminationEffDate) {
+                           $scope.invalidReinsDate = false;
+                       } else {
+                           $scope.invalidReinsDate = false;
+                       }
 
-                           if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
-                            || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'M/D/YYYY',true).isValid()) {
-                               //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
-                               //console.log("!!! testDate", $scope.testDate);
-                               //YYYY-MM-DD
-                              var test = moment.utc(new Date($scope.objectInfo.caseEnrollmentBarExpDate));
-                              var m = moment(test).get('month') + 1;
-                               console.log("!!! m.length", String(m).length);
-                              if(String(m).length === 1){
-                                 var mm = "0" + String(m);
-                              } else {
-                                var mm = m;
-                              }
+                       //called any time $scope.caseTerminationEffDate changes
+                       if(($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseRecindTerminationEffDate)
+                          && $scope.objectInfo.caseRecindTerminationEffDate){
+                           $scope.invalidRecindDate = true;
+                           //$scope.objectInfo.caseRecindTerminationEffDate = null;
+                       } else if(!$scope.objectInfo.caseRecindTerminationEffDate) {
+                           $scope.invalidRecindDate = false;
+                       } else {
+                           $scope.invalidRecindDate = false;
+                       }
 
-                              console.log("!!! mm: ", mm);
-                              var d = moment(test).get('date');
-                              if(String(d).length === 1){
-                                    var dd = "0" + String(d);
-                              } else {
-                                 var dd = d;
-                               }
+                       if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
+                        || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'm/d/YYYY',true).isValid()) {
+                           //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
+                           //console.log("!!! testDate", $scope.testDate);
+                           //YYYY-MM-DD
+                          var test = moment.utc(new Date($scope.objectInfo.caseEnrollmentBarExpDate));
+                          var m = moment(test).get('month') + 1;
+                          if(String(m).length === 1){
+                             var mm = "0" + String(m);
+                          } else {
+                             var mm = m;
+                          }
+                          console.log("!!! m: ", m);
+                          var d = moment(test).get('date');
+                             if(String(d).length === 1){
+                                var dd = "0" + String(d);
+                             } else {
+                               var dd = d;
+                             }
+                          var y = moment(test).get('year');
+                          $scope.testDate = y + "-" + mm + "-" + dd;
 
-                              var y = moment(test).get('year');
+                           console.log("!!! >", ($scope.objectInfo.caseTerminationEffDate > $scope.testDate));
+                           if ($scope.objectInfo.caseTerminationEffDate > $scope.testDate) {
+                                $scope.invalidEbarDate = true;
+                                //$scope.objectInfo.caseEnrollmentBarExpDate = null;
+                                $scope.invalidEbarDateInvalid = false;
+                            } else {
+                                $scope.invalidEbarDate = false;
+                                $scope.invalidEbarDateInvalid = false;
+                            }
 
-                              $scope.testDate = y + "-" + mm + "-" + dd;
-                              console.log("!!! $scope.testDate", $scope.testDate);
-
-                               console.log("!!! >=", ($scope.objectInfo.caseTerminationEffDate >= $scope.testDate));
-                               if ($scope.objectInfo.caseTerminationEffDate >= $scope.testDate) {
-                                    $scope.invalidEbarDate = true;
-                                    //$scope.objectInfo.caseEnrollmentBarExpDate = null;
-                                    $scope.invalidEbarDateInvalid = false;
-                                } else {
-                                    $scope.invalidEbarDate = false;
-                                    $scope.invalidEbarDateInvalid = false;
-                                }
+                           if ($scope.objectInfo.caseRecindTerminationEffDate > $scope.testDate) {
+                                $scope.invalidEbarRecindDate = true;
+                                $scope.invalidEbarDateInvalid = false;
+                            } else {
+                                $scope.invalidEbarRecindDate = false;
+                                $scope.invalidEbarDateInvalid = false;
+                            }
 
                          } else if ($scope.objectInfo.caseEnrollmentBarExpDate.toUpperCase() === "INDEFINITE") {
                             $scope.invalidEbarDate = false;
@@ -381,89 +385,9 @@ angular.module('cases').controller(
                          } else {
                                $scope.invalidEbarDateInvalid = true;
                          }
-
-                       });
-
-                       $scope.$watch('objectInfo.caseReinsTerminationEffDate', function () {
-                            //called any time $scope.caseTerminationEffDate changes
-                            console.log('!!! caseReinsTerminationEffDate: ', $scope.objectInfo.caseReinsTerminationEffDate);
-                            if($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseReinsTerminationEffDate){
-                                $scope.invalidReinsDate = true;
-                                //$scope.objectInfo.caseReinsTerminationEffDate = null;
-                            } else if(!$scope.objectInfo.caseReinsTerminationEffDate) {
-                                $scope.invalidReinsDate = false;
-                            } else {
-                                $scope.invalidReinsDate = false;
-                            }
-                       });
-
-                       $scope.$watch('objectInfo.caseRecindTerminationEffDate', function () {
-                           //called any time $scope.caseTerminationEffDate changes
-                           console.log('!!! caseRecindTerminationEffDate: ', $scope.objectInfo.caseRecindTerminationEffDate);
-                           if($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseRecindTerminationEffDate){
-                               $scope.invalidRecindDate = true;
-                               //$scope.objectInfo.caseRecindTerminationEffDate = null;
-                           } else if(!$scope.objectInfo.caseRecindTerminationEffDate) {
-                               $scope.invalidRecindDate = false;
-                           } else {
-                               $scope.invalidRecindDate = false;
-                           }
-                      });
-
-                      $scope.$watch('objectInfo.caseEnrollmentBarExpDate', function () {
-                         console.log("!!! caseEnrollmentBarExpDate", $scope.objectInfo.caseEnrollmentBarExpDate);
-                         console.log("!!! caseEnrollmentBarExpDate", $scope.objectInfo.caseTerminationEffDate);
-                         console.log("!!! valid? ", moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid());
-
-                          if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
-                             || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'M/D/YYYY',true).isValid()) {
-                                //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
-                                //console.log("!!! testDate", $scope.testDate);
-                                //YYYY-MM-DD
-                               var test = moment.utc(new Date($scope.objectInfo.caseEnrollmentBarExpDate));
-                               var m = moment(test).get('month') + 1;
-                                console.log("!!! m.length", String(m).length);
-                               if(String(m).length === 1){
-                                  var mm = "0" + String(m);
-                               } else {
-                                 var mm = m;
-                               }
-
-                               console.log("!!! mm: ", mm);
-                               var d = moment(test).get('date');
-                               if(String(d).length === 1){
-                                     var dd = "0" + String(d);
-                               } else {
-                                  var dd = d;
-                                }
-
-                               var y = moment(test).get('year');
-
-                               $scope.testDate = y + "-" + mm + "-" + dd;
-                               console.log("!!! $scope.testDate", $scope.testDate);
-
-                                console.log("!!! >=", ($scope.objectInfo.caseTerminationEffDate >= $scope.testDate));
-                                if ($scope.objectInfo.caseTerminationEffDate >= $scope.testDate) {
-                                     $scope.invalidEbarDate = true;
-                                     //$scope.objectInfo.caseEnrollmentBarExpDate = null;
-                                     $scope.invalidEbarDateInvalid = false;
-                                 } else {
-                                     $scope.invalidEbarDate = false;
-                                     $scope.invalidEbarDateInvalid = false;
-                                 }
-
-                          } else if ($scope.objectInfo.caseEnrollmentBarExpDate.toUpperCase() === "INDEFINITE") {
-                             $scope.invalidEbarDate = false;
-                             $scope.invalidEbarDateInvalid = false;
-
-                          } else if (!$scope.objectInfo.caseEnrollmentBarExpDate) {
-                                $scope.invalidEbarDate = false;
-                                $scope.invalidEbarDateInvalid = false;
-                          } else {
-                                $scope.invalidEbarDateInvalid = true;
-                          }
-                    });
-
+                   });
 
 
                 } ]);
+
+

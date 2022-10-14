@@ -559,8 +559,9 @@
                                    placeholder="{{ objectInfo.caseEnrollmentBarExpDate }}"
                                    ng-disabled="disableField || disableFieldCMS" >
                             <span ng-if="objectInfo.caseEnrollmentBarExpDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen15 - objectInfo.caseEnrollmentBarExpDate.length}}/15 characters remaining</span>
-                            <div ng-if="invalidEbarDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Enrollment Bar Expiration Date should not be before Termination Effective Date</div>
-                            <div ng-if="invalidEbarDateInvalid" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Enrollment Bar Expiration Date invalid date</div>
+                            <div ng-if="invalidEbarDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Enrollment Bar Expiration Date should be after Termination Effective Date</div>
+                            <div ng-if="invalidEbarRecindDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Enrollment Bar Expiration Date should be after Rescinded Termination Effective Date</div>
+                            <div ng-if="invalidEbarDateInvalid" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Invalid date format (must be MM/DD/YYYY, M/D/YYYY, or INDEFINITE)</div>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">Reinstated Termination Effective Date</label>
@@ -572,7 +573,7 @@
                             <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
                                               date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true" ></date-time-picker>
-                                <div ng-if="invalidReinsDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Reinstated Termination Effective Date should not be before Termination Effective Date</div>
+                                <div ng-if="invalidReinsDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Reinstated Termination Effective Date should after Termination Effective Date</div>
                             </div>
 
                         </div>
@@ -586,7 +587,7 @@
                              <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseRecindTerminationEffDate" property="objectInfo.caseRecindTerminationEffDate"
                                                date-picker-id="objectInfo.caseRecindTerminationEffDate" time-format-disabled="true"></date-time-picker>
-                                 <div ng-if="invalidRecindDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Rescinded Termination Effective Date should not be before Termination Effective Date</div>
+                                 <div ng-if="invalidRecindDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Rescinded Termination Effective Date should be after Termination Effective Date</div>
                              </div>
                          </div>
                     </div>
