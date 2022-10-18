@@ -6,4 +6,11 @@
             class="form-control input-sm">
         <option value="" translate>reports.selectState.placeholder</option>
     </select>
+
+        <label for="caseType" translate ng-if="caseTypeInlineReport"> {{caseTypeLabel}} </label>
+        <select id="caseType" ng-model="casefile.caseType" class="form-control input-md" ng-if="caseTypeInlineReport">
+            <option ng-repeat="option in caseCategory" value="{{option.key}}">
+                {{option.value | translate}}
+            </option>
+        </select>
 </div>

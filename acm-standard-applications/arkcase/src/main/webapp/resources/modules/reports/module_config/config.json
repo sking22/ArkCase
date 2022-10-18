@@ -37,12 +37,6 @@
                 "ALA_INVOICING",
                 "INLINE_REVIEW_REPORT"
             ]
-        },
-        {
-            "id": "dateStatus",
-            "resetDate": [
-                "INLINE_REVIEW_REPORT"
-            ]
         }
     ]
 }

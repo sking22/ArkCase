@@ -7,11 +7,12 @@
 
         <label for="dateToReports" translate>reports.endDate.label</label > <span class="required-asterisk">*</span>
         <date-time-picker date-picker-id="data.endDate" data="data.endDate" min-date="minDate" time-format-disabled="true" ></date-time-picker>
-        
+
     </div>
 
     <div ng-show="data.dateSearchType=='INLINE_REVIEW_REPORT'">
-        <date-time-picker date-picker-id="data.fullDate" data="data.fullDate" time-format-disabled="true" ></date-time-picker>
+        <label for="dateToReports" translate>{{ dateSelectLabel2 }}</label > <span class="required-asterisk">*</span>
+        <date-time-picker date-picker-id="data.endDate" data="data.endDate" time-format-disabled="true" ></date-time-picker>
     </div>
 
     <div ng-show="data.dateSearchType=='FISCAL_YEAR'">
