@@ -488,6 +488,10 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_conv_ind_ln")
     private String caseConvictedIndividualLastName;
 
+    //cm_case_special_proj
+    @Column(name = "cm_case_special_proj")
+    private String caseSpecialProject;
+
  /*   @JoinTable(name = "acm_change_case_status", joinColumns = {
             @JoinColumn(name = "cm_case_id", referencedColumnName = "cm_case_id") }, inverseJoinColumns = {
             @JoinColumn(name = "cm_change_case_status_id", referencedColumnName = "cm_change_case_status_id", unique = true) })
@@ -1539,6 +1543,16 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public void setCaseConvictedIndividualLastName(String caseConvictedIndividualLastName)
     {
         this.caseConvictedIndividualLastName = caseConvictedIndividualLastName;
+    }
+
+    public String getCaseSpecialProject()
+{
+    return caseSpecialProject;
+}
+
+    public void setCaseSpecialProject(String caseSpecialProject)
+    {
+        this.caseSpecialProject = caseSpecialProject;
     }
 
 

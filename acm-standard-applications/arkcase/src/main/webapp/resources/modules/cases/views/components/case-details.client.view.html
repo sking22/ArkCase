@@ -1002,6 +1002,15 @@
                         <input type="text" class="input-md form-control" ng-model="objectInfo.casePrevCMSAnalyst"
                                placeholder="{{ objectInfo.casePrevCMSAnalyst }}" ng-disabled="true" >
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Special Project</label>
+                        <select class="form-control" ng-model="objectInfo.caseSpecialProject"
+                                ng-disabled="disableField || disableFieldCMS">
+                            <option ng-repeat="option in caseSpecialProjectTypes" placeholder="{{objectInfo.caseSpecialProject}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

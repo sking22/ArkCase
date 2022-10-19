@@ -52,6 +52,14 @@ angular.module('cases').controller(
                         }
                     });
 
+                    ObjectLookupService.getLookupByLookupName('caseSpecialProjectTypes').then(function (caseSpecialProjectTypes) {
+                       if(caseSpecialProjectTypes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        caseSpecialProjectTypes.unshift(clear);
+                        $scope.caseSpecialProjectTypes = caseSpecialProjectTypes;
+                        }
+                    });
+
                     // --------------  mention --------------
                     $scope.params = {
                         emailAddresses: [],

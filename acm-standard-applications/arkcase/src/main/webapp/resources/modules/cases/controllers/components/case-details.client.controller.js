@@ -201,6 +201,14 @@ angular.module('cases').controller(
                         }
                     });
 
+                    ObjectLookupService.getLookupByLookupName('caseSpecialProjectTypes').then(function (caseSpecialProjectTypes) {
+                       if(caseSpecialProjectTypes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        caseSpecialProjectTypes.unshift(clear);
+                        $scope.caseSpecialProjectTypes = caseSpecialProjectTypes;
+                        }
+                    });
+
                     ObjectLookupService.getLookupByLookupName('contractTypes').then(function (contractTypes) {
                       if(contractTypes){
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
