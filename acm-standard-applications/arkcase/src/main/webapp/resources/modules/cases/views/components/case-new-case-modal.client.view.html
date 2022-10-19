@@ -99,6 +99,15 @@
                         <label>CMS Analyst</label>
                         <input type="text" class="input-md form-control" ng-model="casefile.casePrevCMSAnalyst">
                     </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Special Project</label>
+                        <select class="form-control" ng-model="casefile.caseSpecialProject"
+                                ng-disabled="disableField">
+                            <option ng-repeat="option in caseSpecialProjectTypes" placeholder="{{casefile.caseSpecialProject}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

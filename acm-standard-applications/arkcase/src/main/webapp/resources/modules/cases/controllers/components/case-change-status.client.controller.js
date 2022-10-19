@@ -353,11 +353,13 @@ angular.module('cases').controller(
                             var caseInfo = Util.omitNg($scope.oInfo);
                             CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
-                                ObjectNoteService.saveNote($scope.note).then(function(note) {
+                                if($scope.note.note){
+                                    ObjectNoteService.saveNote($scope.note).then(function(note) {
 
-                                }, function() {
+                                    }, function() {
 
-                                });
+                                    });
+                                }
                                 $modalInstance.close(caseInfo);
                             });
 
