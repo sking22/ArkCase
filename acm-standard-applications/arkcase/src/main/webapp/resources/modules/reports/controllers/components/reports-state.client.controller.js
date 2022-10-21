@@ -1,20 +1,12 @@
 'use strict';
 
 angular.module('reports').controller('Reports.StateController', [ '$scope', 'ConfigService', 'Object.LookupService', function($scope, ConfigService, ObjectLookupService) {
-//the case type for inline report
+           =//the case type for inline report
          $scope.caseTypeInlineReport = false;
          $scope.caseTypeLabel= "Case Type";
-//        $scope.$watchCollection('data.reportSelected', function() {
-//                if($scope.data.reportSelected === "INLINE_REVIEW_REPORT"){
-//                                 $scope.caseTypeInlineReport = true;
-//                   }
-//                else{
-//                 $scope.caseTypeInlineReport = false;
-//                }
-//        });
-    // This configuration can be moved to ~/.arkcase/acm/acm-reports-parameters.json
-        ConfigService.getComponentConfig("reports", "caseStates").then(function(config) {
 
+        // This configuration can be moved to ~/.arkcase/acm/acm-reports-parameters.json
+        ConfigService.getComponentConfig("reports", "caseStates").then(function(config) {
 
         $scope.config = config;
         $scope.$watchCollection('data.reportSelected', function(newValue, oldValue) {
@@ -38,9 +30,10 @@ angular.module('reports').controller('Reports.StateController', [ '$scope', 'Con
 
     //gets the case type
     ObjectLookupService.getCaseFileTypes().then(function(caseTypes) {
-                        $scope.caseCategory = caseTypes;
-                        $scope.casefile.caseType = ObjectLookupService.getPrimaryLookup($scope.caseCategory);
-     });
+        $scope.caseCategory = caseTypes;
+        $scope.casefile.caseType = ObjectLookupService.getPrimaryLookup($scope.caseCategory);
+    });
+
     ObjectLookupService.getLookupByLookupName("reportStates").then(function(reportStates) {
         $scope.reportStates = reportStates;
         $scope.data.stateSelected = ObjectLookupService.getPrimaryLookup($scope.reportStates);
