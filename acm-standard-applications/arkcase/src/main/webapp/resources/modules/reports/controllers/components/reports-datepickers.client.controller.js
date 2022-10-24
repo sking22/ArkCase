@@ -49,5 +49,12 @@ angular.module('reports').controller('Reports.DatepickersController', [ '$scope'
         } else {
             $scope.data.dateSearchType = dateSearchTypeValue;
         }
+        //for the only one date selection for specific Reports
+        if($scope.data.reportSelected === "INLINE_REVIEW_REPORT"){
+            $scope.dateSelectLabel = "";
+            $scope.dateSelectLabel2 = "Due Date";
+            $scope.data.dateSearchType = 'INLINE_REVIEW_REPORT';
+
+        }
     };
 } ]);
