@@ -35,7 +35,8 @@
             "resetCaseStateValues": [
                 "COMPLAINT_DISPOSITION_COUNT",
                 "ALA_INVOICING",
-                "INLINE_REVIEW_REPORT"
+                "INLINE_REVIEW_REPORT",
+                "MONTHLY_RECONCILIATION_REPORT"
             ]
         }
     ]
