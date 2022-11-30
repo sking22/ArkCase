@@ -172,6 +172,81 @@
             ]
         },
         {
+            "id": "readyReviewCases",
+            "title": "dashboard.comp.readyReviewCases.title",
+            "configurable": true,
+            "enableFiltering": true,
+            "paginationPageSizes": [
+                5,
+                10,
+                25,
+                50,
+                100
+            ],
+            "paginationPageSize": 25,
+            "columnDefs": [
+                {
+                    "field": "alerts",
+                    "displayName": "",
+                    "cellTemplate": "<div><a ng-if=\"row.entity.isOverdue\" tooltip=\"{{'dashboard.widgets.readyReviewCases.table.overdue.tooltip' | translate}}\" tooltip-append-to-body=\"true\" tooltip-class=\"tooltip-overdue\"><i class=\"fa fa-exclamation-circle icon-overdue\"></i></a><a ng-if=\"row.entity.isDeadline\" tooltip=\"{{'dashboard.widgets.readyReviewCases.table.deadline.tooltip' | translate}}\" tooltip-append-to-body=\"true\" tooltip-class=\"tooltip-due-soon\"><i class=\"fa fa-exclamation-triangle icon-due-soon\"></i></a></div>",
+                    "width": 40,
+                    "enableSorting": false,
+                    "enableColumnMenu": false
+                },
+                {
+                    "name": "title_parseable",
+                    "sortField": "title_parseable_lcs",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.title",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true,
+                    "cellTemplate": "<a data-ui-sref=\"cases.main({id: row.entity.object_id_s})\">{{COL_FIELD}}<\/a>"
+                },
+                {
+                    "name": "case_provider_first_last_name_lcs",
+                    "field": "case_provider_first_last_name_lcs",
+                    "displayName": "Provider Name",
+                    "enableSorting": true
+                },
+                {
+                    "name": "priority_lcs",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.priority",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
+                    "name": "status_lcs",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.status",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
+                    "name": "assignee_id_lcs",
+                    "field": "assignee_full_name_lcs",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.assignee",
+                    "headerCellFilter": "translate",
+                    "enableSorting": true
+                },
+                {
+                    "name": "acm_case_analyst_full_name_lcs",
+                    "field": "acm_case_analyst_full_name_lcs",
+                    "displayName": "Analyst",
+                    "enableSorting": true
+                },
+                {
+                    "name": "dueDate_tdt",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.dueDate",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div>{{ row.entity.dueDate_tdt | date : 'yyyy-MM-dd' }}</div>"
+                },
+                {
+                    "name": "modified_date_tdt",
+                    "displayName": "dashboard.widgets.readyReviewCases.table.header.modified",
+                    "headerCellFilter": "translate",
+                    "cellTemplate": "<div>{{ row.entity.modified_date_tdt | date : 'yyyy-MM-dd' }}</div>"
+                }
+            ]
+        },
+        {
             "id": "myConsultations",
             "title": "dashboard.comp.myConsultations.title",
             "configurable": true,
