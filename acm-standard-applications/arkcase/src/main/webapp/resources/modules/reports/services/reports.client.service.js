@@ -54,6 +54,9 @@ angular.module('reports').factory('Reports.BuildUrl', [ '$sce', 'Util.DateServic
             if (params.stateSelected) {
                 reportUrl += (reportUrl.indexOf("?") == -1 ? "?" : "&") + "status=" + params.stateSelected;
             }
+            if (params.caseType) {
+                reportUrl += (reportUrl.indexOf("?") == -1 ? "?" : "&") + "caseType=" + params.caseType;
+            }
 
             var outputType = _.get(params.outputType, params.reportSelected);
             if(!Util.isEmpty(outputType) && !xmlReport){

@@ -188,7 +188,7 @@ angular.module('dashboard.ready-review-cases').controller('Dashboard.ReadyReview
     };
 
     function getPage() {
-        DashboardService.queryActiveCaseFiles({
+        DashboardService.queryReadyReviewFiles({
             userId: userInfo.userId,
             userGroupList: userGroupList,
             sortBy: paginationOptions.sortBy,
@@ -202,20 +202,14 @@ angular.module('dashboard.ready-review-cases').controller('Dashboard.ReadyReview
             _.forEach(data.response.docs, function(value) {
                 value.status_lcs = value.status_lcs.toUpperCase();
 
-                if ((userGroupList.includes(value.owning_group_id_lcs)) == true) {
-                    data.response.docs.getElementById(value.id).style.display = "none";
-                }
-
                 if (Util.goodValue(value.dueDate_tdt)) {
                     value.dueDate_tdt = UtilDateService.isoToLocalDateTime(value.dueDate_tdt);
                      //calculate to show alert icons if cases is in overdue or deadline is approaching
                     value.isOverdue = TaskAlertsService.calculateOverdue(value.dueDate_tdt);
                     value.isDeadline = TaskAlertsService.calculateDeadline(value.dueDate_tdt);
                 }
-                //  CHECK TO SEE IF THE CASE'S STATUS IS 'READY FOR REVIEW' Then display the records
-                if(value.status_lcs === "READY FOR REVIEW") {
-                    vm.gridOptions.data.push(value);
-                }
+               
+                 vm.gridOptions.data.push(value);
             });
         });
     }
