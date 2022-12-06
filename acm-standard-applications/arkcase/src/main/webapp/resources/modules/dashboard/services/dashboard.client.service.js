@@ -50,7 +50,7 @@ angular.module('dashboard').factory('Dashboard.DashboardService',
                     isArray: false,
                     data: ''
                 },
-            queryWorkflowReport: {
+                queryWorkflowReport: {
                     method: 'GET',
                     url: 'api/v1/plugin/task/businessProcessTasks?start=:startWith&n=:pageSize&s=:sortBy :sortDir',
                     isArray: false,
@@ -74,6 +74,12 @@ angular.module('dashboard').factory('Dashboard.DashboardService',
                     isArray: false,
                     data: ''
                 },
+                queryReadyReviewFiles : {
+                    method: 'GET',
+                    url: 'api/v1/plugin/search/advancedSearch?fq=object_type_s:CASE_FILE&q=status_lcs:\"Ready For Review\"+OR+status_lcs:\"Ready For Review II\"&start=:startWith&n=:pageSize&s=:sortBy :sortDir',
+                    isArray: false,
+                    data: ''
+                  },
                 queryMyConsultations: {
                     method: 'GET',
                     url: 'api/v1/plugin/search/advancedSearch?q=(assignee_id_lcs\\::userId+' + 'OR+(assignee_id_lcs\\:""+AND+assignee_group_id_lcs\\::userGroupList))+' + 'AND+object_type_s\\:CONSULTATION+' + 'AND+NOT+status_lcs\\:CLOSED+AND+NOT+status_lcs\\:DELETED&start=:startWith&n=:pageSize&s=:sortBy :sortDir',
