@@ -60,6 +60,9 @@ angular.module('reports').factory(
                                 reportUrl += "&status=" + params.stateSelected;
                             }
 
+                            if (params.caseType) {
+                                reportUrl += "&caseType=" + params.caseType;
+                            }
                             if (xmlReport) {
                                 var xmlReportUri = params.reports[params.reportSelected];
                                 xmlReportUri = xmlReportUri.substring(0, xmlReportUri.indexOf('viewer')) + 'report';

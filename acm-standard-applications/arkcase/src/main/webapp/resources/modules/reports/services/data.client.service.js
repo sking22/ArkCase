@@ -4,6 +4,7 @@ angular.module('reports').factory('Reports.Data', [ function() {
     var data = {
         reportSelected: '',
         caseStateSelected: '',
+        caseType: '',
         endDate: new Date(),
         startDate: new Date()
     };
