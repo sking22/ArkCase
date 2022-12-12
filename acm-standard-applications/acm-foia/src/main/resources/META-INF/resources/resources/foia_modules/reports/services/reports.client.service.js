@@ -61,6 +61,9 @@ angular.module('reports').factory(
                                 reportUrl += "&status=" + params.stateSelected;
                             }
 
+                            if (params.caseType) {
+                               reportUrl += "&caseType=" + params.caseType;
+                            }
                             var outputType = _.get(params.outputType, params.reportSelected);
                             if(!Util.isEmpty(outputType) && !xmlReport){
                                 reportUrl += "&output-target=" + outputType;

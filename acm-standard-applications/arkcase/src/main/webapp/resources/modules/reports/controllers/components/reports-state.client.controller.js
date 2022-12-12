@@ -12,12 +12,12 @@ angular.module('reports').controller('Reports.StateController', [ '$scope', 'Con
         $scope.$watchCollection('data.reportSelected', function(newValue, oldValue) {
              if($scope.data.reportSelected === "INLINE_REVIEW_REPORT"){
                      $scope.caseTypeInlineReport = true;
-                      }
+             }
              else{
                      $scope.caseTypeInlineReport = false;
-                       }
+             }
             if (newValue) {
-           console.log("this should be the report selected" + newValue)
+                 console.log("this should be the report selected" + newValue)
                 $scope.data.reportSelected = newValue;
                 if ($scope.config.resetCaseStateValues.indexOf($scope.data.reportSelected) > -1) {
                     $scope.data.caseStateSelected = '';
@@ -31,10 +31,9 @@ angular.module('reports').controller('Reports.StateController', [ '$scope', 'Con
     //gets the case type
     ObjectLookupService.getCaseFileTypes().then(function(caseTypes) {
                         $scope.caseCategory = caseTypes;
-                        $scope.casefile.caseType = ObjectLookupService.getPrimaryLookup($scope.caseCategory);
-                        console.log("This is the Case Type :" + $scope.casefile.caseType);
-                        console.log("**************************************************");
+                        $scope.data.caseType = ObjectLookupService.getPrimaryLookup($scope.caseCategory);
      });
+
     ObjectLookupService.getLookupByLookupName("reportStates").then(function(reportStates) {
         $scope.reportStates = reportStates;
         $scope.data.stateSelected = ObjectLookupService.getPrimaryLookup($scope.reportStates);
