@@ -508,6 +508,13 @@
             }
         },
         {
+            "id": "associateBotBtn",
+            "title": "dashboard.comp.associateBotBtn.title",
+            "configurable": true,
+            "redirectSettings": {
+            }
+        },
+        {
             "id": "casesByStatus",
             "title": "dashboard.comp.casesByStatus.title",
             "configurable": true,
