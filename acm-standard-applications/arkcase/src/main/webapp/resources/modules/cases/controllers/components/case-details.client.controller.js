@@ -342,7 +342,8 @@ angular.module('cases').controller(
                        } else {
                            $scope.invalidRecindDate = false;
                        }
-                   if($scope.objectInfo.caseEnrollmentBarExpDate !==null){
+
+                   if($scope.objectInfo.caseEnrollmentBarExpDate !== null) {
                        if(moment($scope.objectInfo.caseEnrollmentBarExpDate, 'MM/DD/YYYY',true).isValid()
                         || moment($scope.objectInfo.caseEnrollmentBarExpDate, 'm/d/YYYY',true).isValid()) {
                            //$scope.testDate = new Date($scope.objectInfo.caseEnrollmentBarExpDate);
