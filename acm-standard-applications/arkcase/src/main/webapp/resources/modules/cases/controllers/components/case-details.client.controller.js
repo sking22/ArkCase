@@ -323,7 +323,7 @@ angular.module('cases').controller(
                     'objectInfo.caseRecindTerminationEffDate', 'objectInfo.caseEnrollmentBarExpDate'], function () {
 
                        //called any time $scope.caseTerminationEffDate changes
-                       if(($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseReinsTerminationEffDate)
+                       if(($scope.objectInfo.caseTerminationEffDate > $scope.objectInfo.caseReinsTerminationEffDate)
                             && $scope.objectInfo.caseReinsTerminationEffDate){
                            $scope.invalidReinsDate = true;
                        } else if(!$scope.objectInfo.caseReinsTerminationEffDate) {
@@ -333,7 +333,7 @@ angular.module('cases').controller(
                        }
 
                        //called any time $scope.caseTerminationEffDate changes
-                       if(($scope.objectInfo.caseTerminationEffDate >= $scope.objectInfo.caseRecindTerminationEffDate)
+                       if(($scope.objectInfo.caseTerminationEffDate > $scope.objectInfo.caseRecindTerminationEffDate)
                           && $scope.objectInfo.caseRecindTerminationEffDate){
                            $scope.invalidRecindDate = true;
                            //$scope.objectInfo.caseRecindTerminationEffDate = null;
