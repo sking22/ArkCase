@@ -246,8 +246,8 @@ angular.module('cases').controller(
                            $scope.updateParticipants();
                         }
                         else  if ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II" ) {
-                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
-                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                             ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
+                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                              $scope.updateParticipants();
                         } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
                                 || $scope.changeCaseStatus.status === "Submitted To CMS II"
