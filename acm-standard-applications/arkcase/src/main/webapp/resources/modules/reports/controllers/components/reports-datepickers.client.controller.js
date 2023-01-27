@@ -49,6 +49,13 @@ angular.module('reports').controller('Reports.DatepickersController', [ '$scope'
         } else {
             $scope.data.dateSearchType = dateSearchTypeValue;
         }
+        // if certain reports get selected remove the date ranges
+        if($scope.data.reportSelected === "DES_TRACKING_REPORT"){
+             $scope.dateSelectLabel = "";
+             $scope.data.dateSearchType = false;
+        } else {
+             $scope.data.dateSearchType = 'DATE_RANGE';
+        }
         //for the only one date selection for specific Reports
         if($scope.data.reportSelected === "INLINE_REVIEW_REPORT"){
             $scope.dateSelectLabel = "";
