@@ -339,7 +339,10 @@ angular.module('cases').controller(
                            //$scope.objectInfo.caseRecindTerminationEffDate = null;
                        } else if(!$scope.objectInfo.caseRecindTerminationEffDate) {
                            $scope.invalidRecindDate = false;
-                       } else {
+                       } else if($scope.objectInfo.caseTerminationEffDate == $scope.objectInfo.caseRecindTerminationEffDate){
+                           $scope.invalidRecindDate = false;
+                       }
+                       else {
                            $scope.invalidRecindDate = false;
                        }
                    if($scope.objectInfo.caseEnrollmentBarExpDate !==null){
