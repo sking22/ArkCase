@@ -5,7 +5,7 @@ angular.module('dashboard.associate-bot').controller('Dashboard.AssociateBotBtn'
                 $scope.count = "click the button";
                 //function for calling the associate bot
                 $scope.runBotFunc = function() {
-                  $http.get('http://localhost:8080/callBatch')
+                  $http.get('http://18.253.42.219:8080/callBatch')
                       .then(function(response) {
                         // Success callback
                         console.log('Endpoint called successfully');
