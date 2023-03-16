@@ -270,7 +270,7 @@ angular.module('cases').controller(
                            $scope.oInfo.priority = "CMS";
                            $scope.updateParticipants();
 
-                        }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case" || $scope.changeCaseStatus.status === "Submitted to CMS - ORR (Original Recommendation Revised)") {
+                        }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case" || $scope.changeCaseStatus.status === "Submitted to CMS - ORR (Original Recommendation Retracted)") {
                              //The CMS analyst who is assigned the case
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
