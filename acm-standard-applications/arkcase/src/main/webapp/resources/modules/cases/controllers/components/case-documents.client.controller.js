@@ -81,6 +81,7 @@ angular.module('cases').controller(
                         console.log("!!!! $scope.objectInfo.status: ", $scope.objectInfo.status);
                         $scope.cmsStatus = ($scope.objectInfo.status.toLowerCase() === 'submitted to cms'
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on pending case'
+                                         || $scope.objectInfo.status.toLowerCase() === 'submitted to cms - orr (original recommendation retracted)'
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on approved case'
                                          || $scope.objectInfo.status.toLowerCase() === 'resubmitted to cms');
 
