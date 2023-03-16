@@ -272,6 +272,7 @@ angular.module('cases').controller(
 
                         }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case" || $scope.changeCaseStatus.status === "Submitted to CMS - ORR (Original Recommendation Retracted)") {
                              //The CMS analyst who is assigned the case
+                             console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
                              $scope.updateParticipants();
