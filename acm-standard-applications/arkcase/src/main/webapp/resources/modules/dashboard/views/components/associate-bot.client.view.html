@@ -1,11 +1,11 @@
 <div>
         <div class="panel-body">
             <div>
-                <p class="text-center h2">{{count}}</p>
+                <p style="text-align:left;font-size:20px;margin:15px">{{associateBotInfoText}}</p>
             </div>
             <div class="row">
                 <div class="col-sm-6">
-                    <button class="btn btn-sm btn-primary" ng-click="runBotFunc()">
+                    <button class="btn btn-sm btn-primary" ng-click="runBotFunc()" ng-disabled="btnDisabled">
                         <span translate>Run The Bot</span>
                     </button>
                 </div>
