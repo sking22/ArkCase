@@ -51,7 +51,7 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
             }
             return true;
         }
-        var getSactionAssociateFullName = function() {
+        var getSanctionAssociateFullName = function() {
             var firstName = $scope.objectInfo.acmObjectOriginator.person.associateLastName;
             var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName;
             var fullName = '', comma = '';
@@ -71,7 +71,7 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
             var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
 
             var sanctionAssociateLegalBusiness = $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
-            var sanctionAssociateFullName = getSactionAssociateFullName();
+            var sanctionAssociateFullName = getSanctionAssociateFullName();
             var convictName = $scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName; // $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
             var convictTin = $scope.objectInfo.caseConvictedIndividualTin; //
             var legalBusinessName = $scope.objectInfo.acmObjectOriginator.person.legalBusinessName;
