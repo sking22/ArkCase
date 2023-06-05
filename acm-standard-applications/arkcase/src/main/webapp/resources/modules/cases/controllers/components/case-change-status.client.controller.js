@@ -217,7 +217,9 @@ angular.module('cases').controller(
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                                $scope.updateParticipants();
+                              //  $scope.updateParticipants();
+                              addParticipantInChangeCase('assignee',$scope.oInfo.casePrevAnalyst);
+                              addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
                             }
 
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
@@ -231,24 +233,32 @@ angular.module('cases').controller(
                             }
                               ObjectModelService.setAssignee($scope.oInfo, 'supervisor@apvitacms.com');
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
-                              $scope.updateParticipants();
+                              //$scope.updateParticipants();
+                              addParticipantInChangeCase('assignee','supervisor@apvitacms.com');
+                              addParticipantInChangeCase('owning group','ALA_SUPERVISOR@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "Returned For Revision" || $scope.changeCaseStatus.status === "OPT Case - Non-Actionable"
                                     || $scope.changeCaseStatus.status === "Returned For Revision II" ) {
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                             $scope.updateParticipants();
+                             //$scope.updateParticipants();
+                             addParticipantInChangeCase('assignee',$scope.oInfo.casePrevAnalyst);
+                             addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
 
                         } else if ( $scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable" ) {
                            //assign to system
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                           $scope.updateParticipants();
+                           //$scope.updateParticipants();
+                           addParticipantInChangeCase('assignee',$scope.oInfo.casePrevAnalyst);
+                           addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
                         }
                         else  if ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II" ) {
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                             $scope.updateParticipants();
+                            // $scope.updateParticipants();
+                            addParticipantInChangeCase('assignee',$scope.oInfo.casePrevAnalyst);
+                            addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
                         } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
                                 || $scope.changeCaseStatus.status === "Submitted To CMS II"
                                 || $scope.changeCaseStatus.status === "Submitted to CMS-Documentation Pending" ) {
@@ -256,30 +266,40 @@ angular.module('cases').controller(
                             ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
                             $scope.oInfo.priority = "CMS";
-                            $scope.updateParticipants();
+                           // $scope.updateParticipants();
+                           addParticipantInChangeCase('assignee','cmsassignmentuser@apvitacms.com');
+                           addParticipantInChangeCase('owning group','CMS@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "OPT - DEX SENT - Docket Requested") {
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                           $scope.updateParticipants();
+                          // $scope.updateParticipants();
+                          addParticipantInChangeCase('assignee', $scope.oInfo.casePrevAnalyst);
+                          addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "Resubmitted To CMS") {
                            //The CMS analyst who is assigned the case
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
                            $scope.oInfo.priority = "CMS";
-                           $scope.updateParticipants();
+                           //$scope.updateParticipants();
+                            addParticipantInChangeCase('assignee',$scope.oInfo.casePrevCMSAnalyst);
+                            addParticipantInChangeCase('owning group','CMS@APVITACMS.COM');
 
                         }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case") {
                              //The CMS analyst who is assigned the case
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
-                             $scope.updateParticipants();
+                             //$scope.updateParticipants();
+                            addParticipantInChangeCase('assignee',$scope.oInfo.casePrevCMSAnalyst);
+                            addParticipantInChangeCase('owning group','CMS@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "CMS Pending- On Hold" ){
                             ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@APVITACMS.COM');
-                            $scope.updateParticipants();
+                            //$scope.updateParticipants();
+                             addParticipantInChangeCase('assignee','cms_testaccount@apvitacms.com');
+                             addParticipantInChangeCase('owning group','CMS@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "CMS Requested Edits") {
 
@@ -314,34 +334,47 @@ angular.module('cases').controller(
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
-                            $scope.updateParticipants();
+                           // $scope.updateParticipants();
+                            addParticipantInChangeCase('assignee', $scope.oInfo.casePrevAnalyst);
+                            addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "CMS Approved" || $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
+                           // $scope.updateParticipants();
+                           addParticipantInChangeCase('assignee',$scope.oInfo.casePrevAnalyst);
+                           addParticipantInChangeCase('owning group','ALA_ANALYST@APVITACMS.COM');
 
                         } else if ($scope.changeCaseStatus.status === "CASE_CLOSED") {
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                               $scope.oInfo.priority = "N/A";
-                              $scope.updateParticipants();
+                              //$scope.updateParticipants();
+                              addParticipantInChangeCase('assignee','qaassignmentuser@apvitacms.com');
+                              addParticipantInChangeCase('owning group','ALA_SUPERVISOR@APVITACMS.COM');
 
                         }  else if ($scope.changeCaseStatus.status === "Audit Completed" || $scope.changeCaseStatus.status === "Audit N/A") {
                             ObjectModelService.setAssignee($scope.oInfo, 'qacasearchiveuser@apvitacms.com');
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
+                            //$scope.updateParticipants();
+                             addParticipantInChangeCase('assignee','qacasearchiveuser@apvitacms.com');
+                            addParticipantInChangeCase('owning group','ALA_SUPERVISOR@APVITACMS.COM');
+
                         } else if ($scope.changeCaseStatus.status === "Audit Assigned") {
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_QA_ANALYST@APVITACMS.COM');
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
+                            //$scope.updateParticipants();
+                            addParticipantInChangeCase('owning group','ALA_QA_ANALYST@APVITACMS.COM');
+
                         } else if ($scope.changeCaseStatus.status === "Case Deleted/Canceled") {
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@apvitacms.com');
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@APVITACMS.COM');
-                              $scope.updateParticipants();
+                              //$scope.updateParticipants();
+                               addParticipantInChangeCase('assignee','qaassignmentuser@apvitacms.com');
+                               addParticipantInChangeCase('owning group','ALA_SUPERVISOR@APVITACMS.COM');
                         }
 
                         $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
