@@ -234,9 +234,62 @@ angular.module('cases').controller(
                             $scope.assignees = options;
                             return approvers;
                         });
+                        var isNullOrEmpty = function(s) {
+                                    if((s != undefined) && (s != null) && (s != '')) {
+                                        return false;
+                                    }
+                                    return true;
+                         }
+                        function removeAndCharacter(value) {
+                                   if(isNullOrEmpty(value)){
+                                        return null;
+                                   } else {
+                                         if (value.includes('&')) {
+                                                    value = value.replace(/&/g, '');
+                                                    console.log("removing all & characters");
+                                         } else {
+                                                    console.log("No & character");
+                                                  }
 
+                                                  if (value.includes('%')) {
+                                                    value = value.replace(/%/g, '');
+                                                    console.log("removing all % characters");
+                                                  } else {
+                                                    console.log("No % character");
+                                         }
+                                           return value;
+                                        }
+
+                        }
+                        var getSactionAssociateFullName = function() {
+                              var firstName = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.associateLastName);
+                              var lastName = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.associateFirstName);
+                              var fullName = '', comma = '';
+                              if(!isNullOrEmpty(firstName)) {
+                                            fullName += firstName;
+                                            comma = ' ';
+                               }
+                              if(!isNullOrEmpty(lastName)) {
+                                            fullName += (comma + lastName);
+                              }
+                               return fullName.trim();
+                        }
                         try {
-                            SuggestedObjectsService.getSimilarCases($scope.objectInfo.acmObjectOriginator.person.ssn, $scope.objectInfo.acmObjectOriginator.person.npi, $scope.objectInfo.id).then(function (value) {
+
+                             var sanctionAssociatedTin = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.associateTIN);
+                             var sanctionAssociatedNpi = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.associateNPI);
+                             var sanctionAssociateLegalBusiness = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName);
+                             var sanctionAssociateFullName = getSactionAssociateFullName();
+                             var convictName = removeAndCharacter($scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName); // $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
+                             var convictTin = removeAndCharacter($scope.objectInfo.caseConvictedIndividualTin); //
+                             var legalBusinessName = removeAndCharacter($scope.objectInfo.acmObjectOriginator.person.legalBusinessName);
+
+                            SuggestedObjectsService.getSimilarCases(
+                                      $scope.objectInfo.acmObjectOriginator.person.ssn,
+                                      $scope.objectInfo.acmObjectOriginator.person.npi,
+                                      $scope.objectInfo.id, sanctionAssociatedTin, sanctionAssociatedNpi, sanctionAssociateLegalBusiness,
+                                      sanctionAssociateFullName, convictName, convictTin, legalBusinessName
+                            ).then(function (value) {
                                 $scope.hasSuggestedCases = value.data.length > 0;
                                 $scope.numberOfSuggestedCases = value.data.length;
                             });

@@ -301,9 +301,6 @@
                 "icon": "fa fa-bell-o",
                 "components": [
                     "history"
-                ],
-                "requiredPrivileges": [
-                    "splitCaseFilePrivilege"
                 ]
             },
             {
