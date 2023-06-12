@@ -243,7 +243,7 @@ angular.module('cases').controller(
 
                         var getSanctionAssociateFullName = function() {
                               var firstName = $scope.objectInfo.acmObjectOriginator.person.associateLastName;
-                              var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName)
+                              var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName;
                               var fullName = '', comma = '';
                               if(!isNullOrEmpty(firstName)) {
                                             fullName += firstName;

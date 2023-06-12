@@ -101,8 +101,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String providerLegalBusiness = request.getProviderLegalBusiness();
         String sanctionAssociateFullName = request.getSanctionAssociateFullName();
 
-        log.warn("!!!! - providerLegalBusiness: " + providerLegalBusiness);
-
         log.debug(String.format("Finding similar objects by ssn to [%s] and npi [%s], of type CASE_FILE", ssn, npi));
         if((ssn != null) && (!ssn.isEmpty()) && (!ssn.equalsIgnoreCase("na")) && (!ssn.equalsIgnoreCase("--")) ) {
             ssn = encodedWord(ssn, false).toString();
@@ -147,12 +145,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         }
 
         if((providerLegalBusiness != null) && (!providerLegalBusiness.isEmpty()) && (!providerLegalBusiness.equalsIgnoreCase("na"))  && (!providerLegalBusiness.equalsIgnoreCase("--"))) {
-            //providerLegalBusiness = providerLegalBusiness.replace("&","\\&");
-          //  providerLegalBusiness = titleToWordsQuery(providerLegalBusiness, true);
-            log.warn("!!!! - providerLegalBusiness2: " + providerLegalBusiness);
-            log.warn("!!!! - providerLegalBusiness2 encodeWord: " + encodedWord(providerLegalBusiness, false));
             providerLegalBusiness = encodedWord(providerLegalBusiness, false).toString();
-
             String prefix = (hasValues)?" OR ":"(";
             query.append(prefix + "case_provider_legal_business_lcs:" +  providerLegalBusiness);
             hasValues = true;
@@ -201,15 +194,8 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
                 query.append(" AND -object_id_s:").append(objectId);
             }
 
-            log.warn("!!!! - query: " + query);
-           // String newquery = query.toString().replaceAll("&","&");
-          //  log.warn("!!!! - newquery: " + newquery);
-
             String results = getExecuteSolrQuery().getResultsByPredefinedQuery(auth, SolrCore.ADVANCED_SEARCH, query.toString(),
                     0, MAX_SIMILAR_OBJECTS, "", true, "", false, false, "catch_all");
-
-            log.warn("!!!! - results: " + results);
-
 
             SearchResults searchResults = new SearchResults();
             JSONArray docFiles = searchResults.getDocuments(results);
@@ -414,19 +400,23 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         String output = currentMatches;
         if(objectDocFile.has(solrKey)) {
             String responseValue = objectDocFile.getString(solrKey);
-            if(responseValue != null && requestValue != null){
-                log.warn("!!!! - responseValue: " + responseValue);
-                log.warn("!!!! - requestValue: " + requestValue);
-            }
-         //   requestValue = requestValue.replaceAll("%26","&amp;");
+
             if (
                 (responseValue != null)
                 && (!responseValue.trim().isEmpty())
                 && (responseValue.equalsIgnoreCase(requestValue))
                 && (!responseValue.equalsIgnoreCase("na"))
                 && (!responseValue.equalsIgnoreCase("--"))
+                && (!requestValue.equalsIgnoreCase("na"))
+                && (!requestValue.equalsIgnoreCase("--"))
             ) {
                 output += ("<br><b>"+header+"</b>: " + requestValue);
+            } else if((responseValue != null) && (requestValue != null)
+                    && (!requestValue.equalsIgnoreCase("na"))
+                    && (!requestValue.equalsIgnoreCase("--")) ) {
+                if(  responseValue.replaceAll("^0+", "").equalsIgnoreCase(requestValue.replaceAll("^0+", ""))){
+                     output += ("<br><b>"+header+"</b>: " + requestValue);
+                }
             }
         }
         return output;
@@ -434,15 +424,77 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
 
     private SuggestedObject populateCaseSuggestedObject(JSONObject objectDocFile, CaseSuggestionsRequest request) throws ParseException
     {
-        String ssn = request.getSsn();
-        String npi = request.getNpi();
-        String associateTin = request.getSanctionAssociatedTin();
-        String associateNpi = request.getSanctionAssociatedNpi();
-        String convictFullName = request.getConvictName();
-        String convictTin = request.getConvictTin();
-        String sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
-        String providerLegalBusiness = request.getProviderLegalBusiness();
-        String sanctionAssociateFullName = request.getSanctionAssociateFullName();
+        String ssn = "";
+        if(request.getSsn() != null){
+            if(!request.getSsn().equalsIgnoreCase("--")
+                    || !request.getSsn().equalsIgnoreCase("na")){
+                 ssn = request.getSsn();
+            }
+        }
+
+        String npi = "";
+        if(request.getNpi() != null) {
+            if (!request.getNpi().equalsIgnoreCase("--")
+                    || !request.getNpi().equalsIgnoreCase("na")) {
+                npi = request.getNpi();
+            }
+        }
+
+        String associateTin = "";
+        if(request.getSanctionAssociatedTin() != null) {
+            if (!request.getSanctionAssociatedTin().equalsIgnoreCase("--")
+                    || !request.getSanctionAssociatedTin().equalsIgnoreCase("na")) {
+                associateTin = request.getSanctionAssociatedTin();
+            }
+        }
+
+        String associateNpi = "";
+        if(request.getSanctionAssociatedNpi() != null) {
+            if (!request.getSanctionAssociatedNpi().equalsIgnoreCase("--")
+                    || !request.getSanctionAssociatedNpi().equalsIgnoreCase("na")) {
+                associateNpi = request.getSanctionAssociatedNpi();
+            }
+        }
+
+        String convictFullName = "";
+        if(request.getConvictName() != null) {
+            if (!request.getConvictName().equalsIgnoreCase("--")
+                    || !request.getConvictName().equalsIgnoreCase("na")) {
+                convictFullName = request.getConvictName();
+            }
+        }
+
+        String convictTin = "";
+        if(request.getConvictTin() != null) {
+            if (!request.getConvictTin().equalsIgnoreCase("--")
+                    || !request.getConvictTin().equalsIgnoreCase("na")) {
+                convictTin = request.getConvictTin();
+            }
+        }
+
+        String sanctionAssociateLegalBusiness = "";
+        if(request.getSanctionAssociateLegalBusiness() != null) {
+            if (!request.getSanctionAssociateLegalBusiness().equalsIgnoreCase("--")
+                    || !request.getSanctionAssociateLegalBusiness().equalsIgnoreCase("na")) {
+                sanctionAssociateLegalBusiness = request.getSanctionAssociateLegalBusiness();
+            }
+        }
+
+        String providerLegalBusiness = "";
+        if(request.getProviderLegalBusiness() != null) {
+            if (!request.getProviderLegalBusiness().equalsIgnoreCase("--")
+                    || !request.getProviderLegalBusiness().equalsIgnoreCase("na")) {
+                providerLegalBusiness = request.getProviderLegalBusiness();
+            }
+        }
+
+        String sanctionAssociateFullName = "";
+        if(request.getSanctionAssociateFullName() != null) {
+            if (!request.getSanctionAssociateFullName().equalsIgnoreCase("--")
+                    || !request.getSanctionAssociateFullName().equalsIgnoreCase("na")) {
+                sanctionAssociateFullName = request.getSanctionAssociateFullName();
+            }
+        }
 
         SuggestedObject suggestedObject = new SuggestedObject();
 
@@ -539,7 +591,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             }
         }
 
-
         matches = this.updateMatches(objectDocFile, "case_provider_ssn_lcs", ssn, "Provider SSN", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_npi_lcs", npi, "Provider NPI", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_legal_business_lcs", providerLegalBusiness, "Provider Legal Business", matches);
@@ -550,7 +601,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         matches = this.updateMatches(objectDocFile, "case_provider_associated_tin_lcs", associateTin, "Sanction Associate Tin", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_associated_legal_business_lcs", sanctionAssociateLegalBusiness, "Sanction Associate Legal Business", matches);
 
-        log.warn("!!!! - matches: " + matches);
         suggestedObject.setMatches(matches);
 
         if (!objectDocFile.isNull("description_no_html_tags_parseable"))
