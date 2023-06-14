@@ -51,9 +51,10 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
             }
             return true;
         }
+
         var getSanctionAssociateFullName = function() {
-            var firstName = $scope.objectInfo.acmObjectOriginator.person.associateLastName;
-            var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName;
+             var firstName = $scope.objectInfo.acmObjectOriginator.person.associateLastName;
+             var lastName = $scope.objectInfo.acmObjectOriginator.person.associateFirstName;
             var fullName = '', comma = '';
             if(!isNullOrEmpty(firstName)) {
                 fullName += firstName;
@@ -67,14 +68,21 @@ angular.module('cases').controller('Cases.SuggestedCasesController', ['$scope', 
 
         function retrieveGridData(){
             console.log($scope.objectInfo);
+
             var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
             var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
-
             var sanctionAssociateLegalBusiness = $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
             var sanctionAssociateFullName = getSanctionAssociateFullName();
-            var convictName = $scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName; // $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
+
+            if(isNullOrEmpty($scope.objectInfo.caseConvictedIndividual) || isNullOrEmpty($scope.objectInfo.caseConvictedIndividualLastName)){
+                var convictName = null;
+            } else {
+                var convictName = $scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName;
+            }
+
             var convictTin = $scope.objectInfo.caseConvictedIndividualTin; //
             var legalBusinessName = $scope.objectInfo.acmObjectOriginator.person.legalBusinessName;
+
             SuggestedObjectsService.getSimilarCases(
                 $scope.objectInfo.acmObjectOriginator.person.ssn,
                 $scope.objectInfo.acmObjectOriginator.person.npi,

@@ -242,7 +242,7 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
         additionalProperties.put("case_rev_auth_cited_action_letter_lcs", in.getCaseRevAuthCitedActionLetter());
         additionalProperties.put("case_taxonomy_lcs", in.getCaseTaxonomy());
         additionalProperties.put("case_application_type_lcs", in.getCaseApplicationType());
-        additionalProperties.put("case_conv_ind_lcs", in.getCaseConvictedIndividual());
+        additionalProperties.put("case_conv_ind_lcs", in.getCaseConvictedIndividual() + " " + in.getCaseConvictedIndividualLastName());
         additionalProperties.put("case_convicted_ind_tin_lcs", in.getCaseConvictedIndividualTin());
 
        //cm_case_final_out_admin_act

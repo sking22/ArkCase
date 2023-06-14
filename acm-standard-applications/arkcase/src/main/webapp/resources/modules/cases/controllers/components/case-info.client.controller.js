@@ -255,13 +255,21 @@ angular.module('cases').controller(
                                return fullName.trim();
                         }
                         try {
-                             var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
-                             var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
-                             var sanctionAssociateLegalBusiness = $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
-                             var sanctionAssociateFullName = getSanctionAssociateFullName();
-                             var convictName = $scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName;
-                             var convictTin = $scope.objectInfo.caseConvictedIndividualTin;
-                             var legalBusinessName = $scope.objectInfo.acmObjectOriginator.person.legalBusinessName;
+
+                            var sanctionAssociatedTin = $scope.objectInfo.acmObjectOriginator.person.associateTIN;
+                            var sanctionAssociatedNpi = $scope.objectInfo.acmObjectOriginator.person.associateNPI;
+                            var sanctionAssociateLegalBusiness = $scope.objectInfo.acmObjectOriginator.person.associateLegalBusinessName;
+                            var sanctionAssociateFullName = getSanctionAssociateFullName();
+
+                            if(isNullOrEmpty($scope.objectInfo.caseConvictedIndividual) || isNullOrEmpty($scope.objectInfo.caseConvictedIndividualLastName)){
+                                var convictName = null;
+                            } else {
+                                var convictName = $scope.objectInfo.caseConvictedIndividual + " " + $scope.objectInfo.caseConvictedIndividualLastName;
+                            }
+
+                            var convictTin = $scope.objectInfo.caseConvictedIndividualTin;
+                            var legalBusinessName = $scope.objectInfo.acmObjectOriginator.person.legalBusinessName;
+
                             SuggestedObjectsService.getSimilarCases(
                                 $scope.objectInfo.acmObjectOriginator.person.ssn,
                                 $scope.objectInfo.acmObjectOriginator.person.npi,
