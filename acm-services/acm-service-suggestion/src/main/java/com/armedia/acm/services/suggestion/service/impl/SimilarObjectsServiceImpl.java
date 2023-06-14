@@ -411,8 +411,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
                 && (!requestValue.equalsIgnoreCase("--"))
             ){
                 if(requestValue  != null  && (!requestValue.trim().isEmpty()) ){
-                    log.warn("responseValue : " + responseValue);
-                    log.warn("requestValue : " + requestValue);
                     output += ("<br><b>"+header+"</b>: " + requestValue);
                 }
             } else if (
