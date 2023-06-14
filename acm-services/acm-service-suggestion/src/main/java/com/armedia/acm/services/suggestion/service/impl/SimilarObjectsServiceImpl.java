@@ -409,12 +409,18 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
                 && (!responseValue.equalsIgnoreCase("--"))
                 && (!requestValue.equalsIgnoreCase("na"))
                 && (!requestValue.equalsIgnoreCase("--"))
-            ) {
-                output += ("<br><b>"+header+"</b>: " + requestValue);
-            } else if((responseValue != null) && (requestValue != null)
+            ){
+                if(requestValue  != null  && (!requestValue.trim().isEmpty()) ){
+                    log.warn("responseValue : " + responseValue);
+                    log.warn("requestValue : " + requestValue);
+                    output += ("<br><b>"+header+"</b>: " + requestValue);
+                }
+            } else if (
+                    (responseValue != null) && (requestValue != null)
                     && (!requestValue.equalsIgnoreCase("na"))
-                    && (!requestValue.equalsIgnoreCase("--")) ) {
-                if(  responseValue.replaceAll("^0+", "").equalsIgnoreCase(requestValue.replaceAll("^0+", ""))){
+                    && (!requestValue.equalsIgnoreCase("--"))) {
+
+                if(  responseValue.replaceAll("^0+", "").equalsIgnoreCase(requestValue.replaceAll("^0+", ""))) {
                      output += ("<br><b>"+header+"</b>: " + requestValue);
                 }
             }
@@ -522,10 +528,6 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
             }
         }
 
-
-
-        //
-        //
         if(objectDocFile.has("case_provider_legal_business_lcs")) {
             String providerLegalBusinessName = objectDocFile.getString("case_provider_legal_business_lcs");
             if((providerLegalBusinessName != null) && (!providerLegalBusinessName.trim().isEmpty())
@@ -594,7 +596,7 @@ public class SimilarObjectsServiceImpl implements SimilarObjectsService
         matches = this.updateMatches(objectDocFile, "case_provider_ssn_lcs", ssn, "Provider SSN", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_npi_lcs", npi, "Provider NPI", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_legal_business_lcs", providerLegalBusiness, "Provider Legal Business", matches);
-        matches = this.updateMatches(objectDocFile, "case_conv_ind_lcs", convictFullName, "Convict Full", matches);
+        matches = this.updateMatches(objectDocFile, "case_conv_ind_lcs", convictFullName, "Convict Full Name", matches);
         matches = this.updateMatches(objectDocFile, "case_convicted_ind_tin_lcs", convictTin, "Convict Tin", matches);
         matches = this.updateMatches(objectDocFile, "case_associate_full_name_lcs", sanctionAssociateFullName, "Sanction Associate Full Name", matches);
         matches = this.updateMatches(objectDocFile, "case_provider_associated_npi_lcs", associateNpi, "Sanction Associate NPI", matches);
