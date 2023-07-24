@@ -913,4 +913,10 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="5009-acms-add-id_fields" author="sean.king">
+        <addColumn tableName="acm_identification">
+            <column name="cm_id_conv_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

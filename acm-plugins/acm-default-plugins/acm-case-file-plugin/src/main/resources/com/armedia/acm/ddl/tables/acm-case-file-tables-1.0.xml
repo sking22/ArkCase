@@ -732,7 +732,7 @@
         <modifyDataType tableName="acm_case_file" columnName="cm_case_enrollment_bar_exp_date" newDataType="VARCHAR(32)"/>
     </changeSet>
 
-    <!--<changeSet id="5024-acms-modify-case-fields" author="sean.king">
+    <changeSet id="5024-acms-modify-case-fields" author="sean.king">
         <modifyDataType tableName="acm_case_file" columnName="cm_case_opt_cms_decision" newDataType="VARCHAR(8)"/>
         <modifyDataType tableName="acm_case_file" columnName="cm_case_not_actionable_reason" newDataType="VARCHAR(8)"/>
         <modifyDataType tableName="acm_case_file" columnName="cm_case_admin_actions_outcome" newDataType="VARCHAR(8)"/>
@@ -743,9 +743,9 @@
     <changeSet id="5025-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_case_file">
             <column name="cm_case_final_out_admin_act" type="VARCHAR(8)"/>
-            <column name="cm_case_rec_length_enroll_bar" type="VARCHAR(64)"/>
-            <column name="cm_case_rec_auth_cited_action_letter" type="VARCHAR(64)"/>
-            <column name="cm_case_rec_eff_date" type="VARCHAR(64)"/>
+            <column name="cm_case_rec_length_enroll_bar" type="VARCHAR(10)"/>
+            <column name="cm_case_rec_auth_cited_action_letter" type="VARCHAR(40)"/>
+            <column name="cm_case_rec_eff_date" type="VARCHAR(30)"/>
         </addColumn>
     </changeSet>
 
@@ -773,7 +773,7 @@
         <modifyDataType tableName="acm_case_file" columnName="cm_case_revise_reissue_outcome" newDataType="VARCHAR(33)"/>
 
 
-    </changeSet>-->
+    </changeSet>
 
     <changeSet id="5028-acms-add-case-fields" author="sean.king">
         <addColumn tableName="acm_case_file">

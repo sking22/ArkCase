@@ -16,7 +16,7 @@ angular.module('cases').controller(
                     $scope.cancelModal = cancelModal;
                     //Objects
                     $scope.showCaseCloseStatus = false;
-                    $scope.showApprover= modalParams.showApprover;
+                    $scope.showApprover = false;//modalParams.showApprover;
                     $scope.changeCaseStatus = {
                         caseId: modalParams.info.caseId,
                         status: "",
@@ -171,13 +171,40 @@ angular.module('cases').controller(
 
                     };
 
-                    $scope.updateParticipants = function() {
+                    $scope.updateParticipants = function(participantType, participantLdapId) {
+                       console.log("!!! b4 $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
+                       console.log("!!! b4 $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                         var len = $scope.oInfo.participants.length;
                         for (var i = 0; i < len; i++) {
-                            if($scope.oInfo.participants[i].participantType =='assignee' || $scope.oInfo.participants[i].participantType =='owning group'){
+                            if($scope.oInfo.participants[i].participantType == 'assignee' || $scope.oInfo.participants[i].participantType == 'owning group'){
                                 $scope.oInfo.participants[i].replaceChildrenParticipant = true;
                             }
                         }
+                        $scope.changeCaseStatus.participants = $scope.oInfo.participants;
+                         console.log("!!! after $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
+                         console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
+/*
+                        var newParticipant = {};
+                        newParticipant.className = $scope.participantsConfig.className;
+                        newParticipant.participantType = participantType;
+                        newParticipant.participantLdapId = participantLdapId;
+
+                        if (ObjectParticipantService.validateParticipants([newParticipant], true)) {
+                            var participantExists = false;
+                            _.forEach($scope.changeCaseStatus.participants, function (participant) {
+                                if(participant.participantType == participantType){
+                                    participantExists = true;
+                                    participant.participantLdapId = newParticipant.participantLdapId;
+                                    participant.replaceChildrenParticipant = true;
+                                    console.log("!!! after $scope.oInfo.participants: " + $scope.oInfo.participants);
+                                    console.log("!!! after $scope.changeCaseStatus.participants: " + $scope.changeCaseStatus.participants);
+                                    return false;
+                                }
+                            });
+                            if(!participantExists){
+                                $scope.changeCaseStatus.participants.push(newParticipant);
+                            }
+                        }*/
                     }
 
                     function addParticipantInChangeCase(participantType, participantLdapId){
@@ -207,16 +234,19 @@ angular.module('cases').controller(
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
                        // $modalInstance.close($scope.changeCaseStatus);
 
+                        var domain = $translate.instant("cases.comp.change.status.domain");
+
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@apvitacms.com'
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@apvitacms.com'
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@apvitacms.com'
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@apvitacms.com'
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@apvitacms.com'
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@apvitacms.com') {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain)
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain)
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser'.concat(domain)
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
+                                console.log("!!! domain: " + domain);
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
-                                ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@APVITACMS.COM');
+                                ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
                                 $scope.updateParticipants();
                             }
 
@@ -352,7 +382,17 @@ angular.module('cases').controller(
                         CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
                             MessageService.info(data.info);
                             var caseInfo = Util.omitNg($scope.oInfo);
-                            CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
+
+                            if($scope.note.note){
+                                ObjectNoteService.saveNote($scope.note).then(function(note) {
+
+                                }, function() {
+
+                                });
+                            }
+                            $modalInstance.close(caseInfo);
+
+                            /*CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
                                 //success
                                 if($scope.note.note){
                                     ObjectNoteService.saveNote($scope.note).then(function(note) {
@@ -362,7 +402,7 @@ angular.module('cases').controller(
                                     });
                                 }
                                 $modalInstance.close(caseInfo);
-                            });
+                            });*/
 
                         });
 
