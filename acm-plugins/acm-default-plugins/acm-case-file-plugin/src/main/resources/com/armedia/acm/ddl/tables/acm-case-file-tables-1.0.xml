@@ -759,4 +759,11 @@
             <column name="cm_case_special_proj" type="VARCHAR(4)"/>
         </addColumn>
     </changeSet>
+    <changeSet id="5037-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_felony_criminal_conviction" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

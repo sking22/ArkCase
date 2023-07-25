@@ -476,6 +476,10 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_board_document")
     private boolean caseBoardDocument = false;
 
+    //cm_case_felony_criminal_conviction
+    @Column(name = "cm_case_felony_criminal_conviction")
+    private boolean felonyCriminalConviction = false;
+
     //cm_case_selected_for_inline_review
     @Column(name = "cm_case_court_document")
     private boolean caseCourtDocument = false;
@@ -1523,6 +1527,16 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public void setCaseBoardDocument(boolean caseBoardDocument)
     {
         this.caseBoardDocument = caseBoardDocument;
+    }
+
+    public boolean getFelonyCriminalConviction()
+    {
+        return felonyCriminalConviction;
+    }
+
+    public void setFelonyCriminalConviction(boolean felonyCriminalConviction)
+    {
+        this.felonyCriminalConviction = felonyCriminalConviction;
     }
 
     public boolean getCaseCourtDocument()
