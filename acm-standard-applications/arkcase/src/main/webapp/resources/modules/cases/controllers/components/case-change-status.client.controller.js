@@ -2,8 +2,8 @@
 
 angular.module('cases').controller(
         'Cases.ChangeStatusController',
-        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService','Helper.NoteService', 'Object.NoteService', 'Authentication',
-                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService,  HelperNoteService, ObjectNoteService, Authentication) {
+        [ '$scope', '$http', '$stateParams', '$translate', '$modalInstance', 'Complaint.InfoService', '$state', 'Object.LookupService', 'MessageService', 'UtilService', '$modal', 'ConfigService', 'ObjectService', 'modalParams', 'Case.InfoService', 'Object.ParticipantService','Admin.FormWorkflowsLinkService', 'Object.ModelService', 'Profile.UserInfoService','Helper.NoteService', 'Object.NoteService', 'Authentication', '$q',
+                function($scope, $http, $stateParams, $translate, $modalInstance, ComplaintInfoService, $state, ObjectLookupService, MessageService, Util, $modal, ConfigService, ObjectService, modalParams, CaseInfoService, ObjectParticipantService, AdminFormWorkflowsLinkService, ObjectModelService, UserInfoService,  HelperNoteService, ObjectNoteService, Authentication, $q) {
 
                     $scope.modalParams = modalParams;
                     $scope.currentStatus = modalParams.info.status;
@@ -172,39 +172,38 @@ angular.module('cases').controller(
                     };
 
                     $scope.updateParticipants = function(participantType, participantLdapId) {
+                       console.log("!!! participantLdapId: " + participantLdapId);
                        console.log("!!! b4 $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
                        console.log("!!! b4 $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                         var len = $scope.oInfo.participants.length;
                         for (var i = 0; i < len; i++) {
-                            if($scope.oInfo.participants[i].participantType == 'assignee' || $scope.oInfo.participants[i].participantType == 'owning group'){
+	                    if($scope.oInfo.participants[i].participantType =='assignee' || $scope.oInfo.participants[i].participantType =='owning group'){
                                 $scope.oInfo.participants[i].replaceChildrenParticipant = true;
-                            }
+                             }
                         }
-                        $scope.changeCaseStatus.participants = $scope.oInfo.participants;
-                         console.log("!!! after $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
-                         console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
-/*
-                        var newParticipant = {};
+
+                          var newParticipant = {};
                         newParticipant.className = $scope.participantsConfig.className;
                         newParticipant.participantType = participantType;
                         newParticipant.participantLdapId = participantLdapId;
 
                         if (ObjectParticipantService.validateParticipants([newParticipant], true)) {
                             var participantExists = false;
-                            _.forEach($scope.changeCaseStatus.participants, function (participant) {
+                            _.forEach($scope.oInfo.participants, function (participant) {
                                 if(participant.participantType == participantType){
                                     participantExists = true;
                                     participant.participantLdapId = newParticipant.participantLdapId;
                                     participant.replaceChildrenParticipant = true;
-                                    console.log("!!! after $scope.oInfo.participants: " + $scope.oInfo.participants);
-                                    console.log("!!! after $scope.changeCaseStatus.participants: " + $scope.changeCaseStatus.participants);
                                     return false;
                                 }
                             });
                             if(!participantExists){
-                                $scope.changeCaseStatus.participants.push(newParticipant);
+                                $scope.oInfo.participants.push(newParticipant);
                             }
-                        }*/
+                        }
+                        
+                         console.log("!!! after $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
+                         console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                     }
 
                     function addParticipantInChangeCase(participantType, participantLdapId){
@@ -232,8 +231,6 @@ angular.module('cases').controller(
                     function save() {
                         $scope.loading = true;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
-                       // $modalInstance.close($scope.changeCaseStatus);
-
                         var domain = $translate.instant("cases.comp.change.status.domain");
 
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
@@ -247,7 +244,7 @@ angular.module('cases').controller(
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
-                                $scope.updateParticipants();
+
                             }
 
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
@@ -261,65 +258,58 @@ angular.module('cases').controller(
                             }
                               ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
-                              $scope.updateParticipants();
 
-                        } else if ($scope.changeCaseStatus.status === "Returned For Revision" || $scope.changeCaseStatus.status === "OPT Case - Non-Actionable"
+                        }
+                         else if ($scope.changeCaseStatus.status === "Returned For Revision" || $scope.changeCaseStatus.status === "OPT Case - Non-Actionable"
                                     || $scope.changeCaseStatus.status === "Returned For Revision II" ) {
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
-                             $scope.updateParticipants();
 
                         } else if ( $scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable" ) {
                            //assign to system
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
-                           $scope.updateParticipants();
+
                         }
                         else  if ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II" ) {
                              ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain));
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
-                             $scope.updateParticipants();
+
                         } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
                                 || $scope.changeCaseStatus.status === "Submitted To CMS II"
                                 || $scope.changeCaseStatus.status === "Submitted to CMS-Documentation Pending" ) {
-                            //$scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@'.concat(domain));
-                            ObjectModelService.setGroup($scope.oInfo, 'CMS@.concat(domain));
+                            ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
                             $scope.oInfo.priority = "CMS";
-                            $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "OPT - DEX SENT - Docket Requested") {
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
-                           $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "Resubmitted To CMS") {
                            //The CMS analyst who is assigned the case
                            ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
                            ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
                            $scope.oInfo.priority = "CMS";
-                           $scope.updateParticipants();
 
                         }  else if ($scope.changeCaseStatus.status === "R&R On Pending Case" || $scope.changeCaseStatus.status === "R&R On Approved Case" || $scope.changeCaseStatus.status === "Submitted to CMS - ORR (Original Recommendation Retracted)") {
                              //The CMS analyst who is assigned the case
                              console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                              ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevCMSAnalyst);
-                             ObjectModelService.setGroup($scope.oInfo, 'CMS@.'concat(domain));
-                             $scope.updateParticipants();
+                             ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
 
                         } else if ($scope.changeCaseStatus.status === "CMS Pending- On Hold" ){
                             ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@'.concat(domain));
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
-                            $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "CMS Requested Edits") {
-
+                            var numberOfDaysToAdd = 0;
                             var holidays = ["12/31", "1/17", "2/21", "5/30", "6/20","7/4", "9/15", "10/10", "11/11", "11/24", "12/25"];
 
                             if($scope.oInfo.caseType === "OPT" || $scope.oInfo.caseType === "MED"){
-                                var numberOfDaysToAdd = 3;
+                                 numberOfDaysToAdd = 3;
                             } else {
-                                var numberOfDaysToAdd = 5;
+                                 numberOfDaysToAdd = 5;
                             }
                             var newDate = new Date();
                             var Sunday = 0;
@@ -345,66 +335,43 @@ angular.module('cases').controller(
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
-                            $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "CMS Approved" || $scope.changeCaseStatus.status === "CMS Approved-Documentation Pending") {
                             $scope.oInfo.casePrevCMSAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
 
                         } else if ($scope.changeCaseStatus.status === "CASE_CLOSED") {
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@'.concat(domain));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                               $scope.oInfo.priority = "N/A";
-                              $scope.updateParticipants();
 
                         }  else if ($scope.changeCaseStatus.status === "Audit Completed" || $scope.changeCaseStatus.status === "Audit N/A") {
                             ObjectModelService.setAssignee($scope.oInfo, 'qacasearchiveuser@'.concat(domain));
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
+
                         } else if ($scope.changeCaseStatus.status === "Audit Assigned") {
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_QA_ANALYST@'.concat(domain));
                             $scope.oInfo.priority = "N/A";
-                            $scope.updateParticipants();
+
                         } else if ($scope.changeCaseStatus.status === "Case Deleted/Canceled") {
                               ObjectModelService.setAssignee($scope.oInfo, 'canceleddeletedcaseu@'.concat(domain));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
-                              $scope.updateParticipants();
                         }
 
-                        $scope.changeCaseStatus.assignee = ObjectModelService.getAssignee($scope.oInfo);
-                        $scope.oInfo.status = $scope.changeCaseStatus.status;
 
-                        
-                        CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
-                            MessageService.info(data.info);
-                            var caseInfo = Util.omitNg($scope.oInfo);
+                    $scope.updateParticipants('asignee',ObjectModelService.getAssignee($scope.oInfo));
+                    $scope.updateParticipants('owning group',ObjectModelService.getGroup($scope.oInfo));
 
-                            if($scope.note.note){
-                                ObjectNoteService.saveNote($scope.note).then(function(note) {
+                    $scope.oInfo.status = $scope.changeCaseStatus.status;
 
-                                }, function() {
-
-                                });
-                            }
-                            $modalInstance.close(caseInfo);
-
-                            /*CaseInfoService.saveCaseInfo(caseInfo).then(function(caseInfo) {
-                                //success
-                                if($scope.note.note){
-                                    ObjectNoteService.saveNote($scope.note).then(function(note) {
-
-                                    }, function() {
-
-                                    });
-                                }
-                                $modalInstance.close(caseInfo);
-                            });*/
-
+			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
+                            //success
+                             $modalInstance.close();
                         });
+
 
                     }
 
@@ -413,4 +380,6 @@ angular.module('cases').controller(
                     }
 
                 } ]);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+
+
