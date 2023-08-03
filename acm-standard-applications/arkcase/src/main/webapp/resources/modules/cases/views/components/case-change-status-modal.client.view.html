@@ -39,7 +39,13 @@
                                 <span class="h4 font-bold" translate="cases.comp.change.status.information.status.current" />
                                 <span class="h4 font-bold">{{": " + currentStatus}}</span>
                             </div>
-                        <!--</div>-->
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="displayCMSanalystErrorMessage">
+                                <span class="h6 font-bold" style="color:red;">
+                                    Previous CMS Analyst is missing. This case must be moved into Submitted to CMS, Submitted To CMS II, or Submitted to CMS-Documentation Pending. <br />
+                                    A supervisor will then assign the case to a CMS Analyst. <br />
+                                    The CMS Analyst will then move the case to CMS Approved, CMS Requested Edits or CMS Approved-Documentation Pending.<br />
+                                </span>
+                            </div>
                     </div>
                     <div class="row form-group" ng-if="showCaseCloseStatus">
                         <div class="col-sm-6">
@@ -113,7 +119,7 @@
         </button>
         <button type="submit" ng-disabled="changeCaseFileStateForm.$invalid || loading" class="btn btn-primary btn-sm" data-toggle="tooltip"
                 id="saveButton" data-title="Save">
-            <i class="{{loadingIcon}}"></i>
+            <i ng-show="loading" class="{{loadingIcon}}"></i>
             <span translate>cases.comp.change.status.button.save</span>
         </button>
     </div>
