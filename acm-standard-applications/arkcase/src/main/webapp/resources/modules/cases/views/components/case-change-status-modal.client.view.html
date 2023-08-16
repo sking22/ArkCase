@@ -39,6 +39,18 @@
                                 <span class="h4 font-bold" translate="cases.comp.change.status.information.status.current" />
                                 <span class="h4 font-bold">{{": " + currentStatus}}</span>
                             </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px">
+                                <span ng-if="!!oInfo.casePrevAnalyst" class="h4 font-bold">Saved ALA Analyst:
+                                    <user-full-name userId="oInfo.casePrevAnalyst"  />
+                                </span>
+                                <span ng-if="!oInfo.casePrevAnalyst" class="h4 font-bold">Saved ALA Analyst: None</span>
+                            </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px">
+                                <span ng-if="!!oInfo.casePrevCMSAnalyst" class="h4 font-bold">Saved CMS Analyst:
+                                     <user-full-name userId="oInfo.casePrevCMSAnalyst"  />
+                                </span>
+                                <span ng-if="!oInfo.casePrevCMSAnalyst" class="h4 font-bold">Saved CMS Analyst: None</span>
+                            </div>
                             <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="displayCMSanalystErrorMessage">
                                 <span class="h6 font-bold" style="color:red;">
                                     Previous CMS Analyst is missing. This case must be moved into Submitted to CMS, Submitted To CMS II, or Submitted to CMS-Documentation Pending. <br />
