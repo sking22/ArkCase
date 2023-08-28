@@ -378,7 +378,7 @@ angular.module('cases').controller(
                     $scope.oInfo.status = $scope.changeCaseStatus.status;
 
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
-			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
+			           CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
                             //success
                              $modalInstance.close();
                         });
