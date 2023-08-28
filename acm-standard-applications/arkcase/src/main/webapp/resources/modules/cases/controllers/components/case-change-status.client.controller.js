@@ -371,7 +371,6 @@ angular.module('cases').controller(
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                         }
 
-
                     $scope.updateParticipants('asignee',ObjectModelService.getAssignee($scope.oInfo));
                     $scope.updateParticipants('owning group',ObjectModelService.getGroup($scope.oInfo));
 
@@ -380,6 +379,8 @@ angular.module('cases').controller(
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
 			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
                             //success
+                            CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                               });
                              $modalInstance.close();
                         });
 
@@ -399,6 +400,3 @@ angular.module('cases').controller(
                     }
 
                 } ]);
-
-
-
