@@ -200,9 +200,12 @@ angular.module('cases').controller(
                             if(!participantExists){
                                 $scope.oInfo.participants.push(newParticipant);
                             }
+                            if ($scope.changeCaseStatus.participants.length === 0) {
+                                $scope.changeCaseStatus.participants.push(newParticipant);
+                            }
                         }
 
-                         console.log("!!! after $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
+
                          console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                     }
 
@@ -380,7 +383,9 @@ angular.module('cases').controller(
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
 			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
                             //success
+
                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                             console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
                                });
                              $modalInstance.close();
                         });
