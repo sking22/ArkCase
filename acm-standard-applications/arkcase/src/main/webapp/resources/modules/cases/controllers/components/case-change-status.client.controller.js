@@ -172,9 +172,9 @@ angular.module('cases').controller(
                     };
 
                     $scope.updateParticipants = function(participantType, participantLdapId) {
-                       console.log("!!! participantLdapId: " + participantLdapId);
-                       console.log("!!! b4 $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
-                       console.log("!!! b4 $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
+                       //console.log("!!! participantLdapId: " + participantLdapId);
+                       //console.log("!!! b4 $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
+                       //console.log("!!! b4 $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                         var len = $scope.oInfo.participants.length;
                         for (var i = 0; i < len; i++) {
 	                    if($scope.oInfo.participants[i].participantType =='assignee' || $scope.oInfo.participants[i].participantType =='owning group'){
@@ -206,7 +206,7 @@ angular.module('cases').controller(
                         }
 
 
-                         console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
+                       //  console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                     }
 
                     function addParticipantInChangeCase(participantType, participantLdapId){
@@ -244,7 +244,7 @@ angular.module('cases').controller(
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
-                                console.log("!!! domain: " + domain);
+                               // console.log("!!! domain: " + domain);
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
                                 ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
@@ -285,7 +285,7 @@ angular.module('cases').controller(
                         }
                          else if ($scope.changeCaseStatus.status === "Resubmitted To CMS") {
                            //The CMS analyst who is assigned the case
-                           console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
+                          // console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                            //$scope.oInfo.casePrevCMSAnalyst
 
                            if($scope.oInfo.casePrevCMSAnalyst === null || $scope.oInfo.casePrevCMSAnalyst === "") {
@@ -302,7 +302,7 @@ angular.module('cases').controller(
                                     || $scope.changeCaseStatus.status === "R&R On Approved Case"
                                     || $scope.changeCaseStatus.status === "Submitted to CMS - ORR (Original Recommendation Retracted)") {
                              //The CMS analyst who is assigned the case
-                             console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
+                            // console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                               if($scope.oInfo.casePrevCMSAnalyst === null || $scope.oInfo.casePrevCMSAnalyst === "") {
                                    $scope.loading = false;
                                    $scope.displayCMSanalystErrorMessage = true;
@@ -384,7 +384,7 @@ angular.module('cases').controller(
                             //success
 
                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
-                             console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
+                           //  console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
                                });
                              $modalInstance.close();
                         });
