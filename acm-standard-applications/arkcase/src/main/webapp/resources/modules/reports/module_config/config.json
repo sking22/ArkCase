@@ -27,7 +27,8 @@
             "configurable": true,
             "resetCaseStateValue": [
                 "COMPLAINT_DISPOSITION_COUNT",
-                "ALA_INVOICING"
+                "ALA_INVOICING",
+                "PECOSFELONY_CONVICTION_NOT_ACTIONABLE_CASES_REPORT"
             ]
         },
         {
@@ -36,7 +37,8 @@
                 "COMPLAINT_DISPOSITION_COUNT",
                 "ALA_INVOICING",
                 "INLINE_REVIEW_REPORT",
-                "MONTHLY_RECONCILIATION_REPORT"
+                "MONTHLY_RECONCILIATION_REPORT",
+                "PECOSFELONY_CONVICTION_NOT_ACTIONABLE_CASES_REPORT"
             ]
         }
     ]
