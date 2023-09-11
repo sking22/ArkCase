@@ -232,6 +232,7 @@ angular.module('cases').controller(
                     }
 
                     function save() {
+                        var current_assignee = ObjectModelService.getAssignee($scope.oInfo);
                         $scope.loading = true;
                         $scope.displayCMSanalystErrorMessage = false;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
@@ -260,7 +261,7 @@ angular.module('cases').controller(
                             && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
                                  $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             }
-                              ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain));
+                              ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain.toLowerCase()));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
 
                         }
@@ -374,20 +375,29 @@ angular.module('cases').controller(
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                         }
 
-                    $scope.updateParticipants('asignee',ObjectModelService.getAssignee($scope.oInfo));
+                    $scope.updateParticipants('assignee',ObjectModelService.getAssignee($scope.oInfo));
                     $scope.updateParticipants('owning group',ObjectModelService.getGroup($scope.oInfo));
 
                     $scope.oInfo.status = $scope.changeCaseStatus.status;
 
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
-			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
-                            //success
-
+                        if(current_assignee ===  ObjectModelService.getAssignee($scope.oInfo)) {
                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
-                             console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
-                               });
-                             $modalInstance.close();
-                        });
+                                    console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
+                                    $modalInstance.close();
+                            });
+
+                        } else {
+                             CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
+                                //success
+
+                                CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                 console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
+                                   });
+                                 $modalInstance.close();
+                            });
+                        }
+
 
                          if($scope.note.note) {
                             ObjectNoteService.saveNote($scope.note).then(function(note) {
