@@ -172,9 +172,6 @@ angular.module('cases').controller(
                     };
 
                     $scope.updateParticipants = function(participantType, participantLdapId) {
-                       console.log("!!! participantLdapId: " + participantLdapId);
-                       console.log("!!! b4 $scope.oInfo.participants: " + JSON.stringify($scope.oInfo.participants));
-                       console.log("!!! b4 $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                         var len = $scope.oInfo.participants.length;
                         for (var i = 0; i < len; i++) {
 	                    if($scope.oInfo.participants[i].participantType =='assignee' || $scope.oInfo.participants[i].participantType =='owning group'){
@@ -194,6 +191,7 @@ angular.module('cases').controller(
                                     participantExists = true;
                                     participant.participantLdapId = newParticipant.participantLdapId;
                                     participant.replaceChildrenParticipant = true;
+
                                     return false;
                                 }
                             });
@@ -201,12 +199,9 @@ angular.module('cases').controller(
                                 $scope.oInfo.participants.push(newParticipant);
                             }
                             if ($scope.changeCaseStatus.participants.length === 0) {
-                                $scope.changeCaseStatus.participants.push(newParticipant);
+                                 $scope.changeCaseStatus.participants.push(newParticipant);
                             }
                         }
-
-
-                         console.log("!!! after $scope.changeCaseStatus.participants: " + JSON.stringify($scope.changeCaseStatus.participants));
                     }
 
                     function addParticipantInChangeCase(participantType, participantLdapId){
@@ -273,13 +268,13 @@ angular.module('cases').controller(
 
                         }
                         else  if ($scope.changeCaseStatus.status === "Review Approved" || $scope.changeCaseStatus.status === "Review Approved II" ) {
-                             ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain));
+                             ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain.toLowerCase()));
                              ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
 
                         } else if ($scope.changeCaseStatus.status === "Submitted to CMS"
                                 || $scope.changeCaseStatus.status === "Submitted To CMS II"
                                 || $scope.changeCaseStatus.status === "Submitted to CMS-Documentation Pending" ) {
-                            ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@'.concat(domain));
+                            ObjectModelService.setAssignee($scope.oInfo, 'cmsassignmentuser@'.concat(domain.toLowerCase()));
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
                             $scope.oInfo.priority = "CMS";
 
@@ -313,7 +308,7 @@ angular.module('cases').controller(
                               }
 
                         } else if ($scope.changeCaseStatus.status === "CMS Pending- On Hold" ){
-                            ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@'.concat(domain));
+                            ObjectModelService.setAssignee($scope.oInfo, 'cms_testaccount@'.concat(domain.toLowerCase()));
                             ObjectModelService.setGroup($scope.oInfo, 'CMS@'.concat(domain));
 
                         } else if ($scope.changeCaseStatus.status === "CMS Requested Edits") {
@@ -357,12 +352,12 @@ angular.module('cases').controller(
                             $scope.oInfo.priority = "N/A";
 
                         } else if ($scope.changeCaseStatus.status === "CASE_CLOSED") {
-                              ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@'.concat(domain));
+                              ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@'.concat(domain.toLowerCase()));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                               $scope.oInfo.priority = "N/A";
 
                         }  else if ($scope.changeCaseStatus.status === "Audit Completed" || $scope.changeCaseStatus.status === "Audit N/A") {
-                            ObjectModelService.setAssignee($scope.oInfo, 'qacasearchiveuser@'.concat(domain));
+                            ObjectModelService.setAssignee($scope.oInfo, 'qacasearchiveuser@'.concat(domain.toLowerCase()));
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                             $scope.oInfo.priority = "N/A";
 
@@ -371,7 +366,7 @@ angular.module('cases').controller(
                             $scope.oInfo.priority = "N/A";
 
                         } else if ($scope.changeCaseStatus.status === "Case Deleted/Canceled") {
-                              ObjectModelService.setAssignee($scope.oInfo, 'canceleddeletedcaseu@'.concat(domain));
+                              ObjectModelService.setAssignee($scope.oInfo, 'canceleddeletedcaseu@'.concat(domain.toLowerCase()));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                         }
 
@@ -397,7 +392,6 @@ angular.module('cases').controller(
                                  $modalInstance.close();
                             });
                         }
-
 
                          if($scope.note.note) {
                             ObjectNoteService.saveNote($scope.note).then(function(note) {
