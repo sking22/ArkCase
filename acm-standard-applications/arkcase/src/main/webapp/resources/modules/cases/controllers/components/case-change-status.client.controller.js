@@ -228,18 +228,19 @@ angular.module('cases').controller(
 
                     function save() {
                         var current_assignee = ObjectModelService.getAssignee($scope.oInfo);
+                        var prev_analyst = $scope.oInfo.casePrevAnalyst;
                         $scope.loading = true;
                         $scope.displayCMSanalystErrorMessage = false;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
                         var domain = $translate.instant("cases.comp.change.status.domain");
 
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain.toLowerCase())) {
                                 console.log("!!! domain: " + domain);
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
@@ -248,12 +249,12 @@ angular.module('cases').controller(
                             }
 
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain.toLowerCase())) {
                                  $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             }
                               ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain.toLowerCase()));
@@ -370,29 +371,29 @@ angular.module('cases').controller(
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                         }
 
-
                     $scope.updateParticipants('assignee',ObjectModelService.getAssignee($scope.oInfo));
                     $scope.updateParticipants('owning group',ObjectModelService.getGroup($scope.oInfo));
 
                     $scope.oInfo.status = $scope.changeCaseStatus.status;
 
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
-                        if(current_assignee === ObjectModelService.getAssignee($scope.oInfo)){
-                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data)
-                             {
-                                 $modalInstance.close();
-                             });
+                        if((current_assignee ===  ObjectModelService.getAssignee($scope.oInfo)) && (prev_analyst === $scope.oInfo.casePrevAnalyst)) {
+                            CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                    console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
+                                    $modalInstance.close();
+                            });
 
                         } else {
-			            CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
-                            //success
+                             CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
+                                //success
 
-                            CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
+                                 console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
+                                   });
+                                 $modalInstance.close();
+                            });
+                        }
 
-                               });
-                             $modalInstance.close();
-                        });
-                      }
                          if($scope.note.note) {
                             ObjectNoteService.saveNote($scope.note).then(function(note) {
 
