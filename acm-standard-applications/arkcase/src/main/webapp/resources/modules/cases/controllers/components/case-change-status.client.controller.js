@@ -228,6 +228,7 @@ angular.module('cases').controller(
 
                     function save() {
                         var current_assignee = ObjectModelService.getAssignee($scope.oInfo);
+                        var prev_analyst = $scope.oInfo.casePrevAnalyst;
                         $scope.loading = true;
                         $scope.displayCMSanalystErrorMessage = false;
                         $scope.loadingIcon = "fa fa-circle-o-notch fa-spin";
@@ -376,7 +377,7 @@ angular.module('cases').controller(
                     $scope.oInfo.status = $scope.changeCaseStatus.status;
 
                     if( $scope.loading === true && $scope.displayCMSanalystErrorMessage === false){
-                        if(current_assignee ===  ObjectModelService.getAssignee($scope.oInfo)) {
+                        if((current_assignee ===  ObjectModelService.getAssignee($scope.oInfo)) && (prev_analyst === $scope.oInfo.casePrevAnalyst)) {
                             CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
                                     console.log("!!!!!!! change case file  " + JSON.stringify($scope.changeCaseStatus))
                                     $modalInstance.close();
