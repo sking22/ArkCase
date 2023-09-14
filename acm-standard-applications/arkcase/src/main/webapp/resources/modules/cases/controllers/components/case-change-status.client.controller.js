@@ -385,9 +385,8 @@ angular.module('cases').controller(
                              CaseInfoService.saveCaseInfo(Util.omitNg($scope.oInfo)).then(function(data) {
                                 //success
                                 CaseInfoService.changeCaseFileState('change_case_status', $scope.changeCaseStatus).then(function(data) {
-
+                                    $modalInstance.close();
                                 });
-                                 $modalInstance.close();
                             });
                         }
 
