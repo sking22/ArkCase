@@ -235,12 +235,12 @@ angular.module('cases').controller(
                         var domain = $translate.instant("cases.comp.change.status.domain");
 
                         if ($scope.changeCaseStatus.status === "Assigned" || $scope.changeCaseStatus.status === "In Process" || $scope.changeCaseStatus.status === "Documentation Requested" ) {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain.toLowerCase())) {
                                 console.log("!!! domain: " + domain);
                                 $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                                 ObjectModelService.setAssignee($scope.oInfo, $scope.oInfo.casePrevAnalyst);
@@ -249,12 +249,12 @@ angular.module('cases').controller(
                             }
 
                         } else if ($scope.changeCaseStatus.status === "Ready For Review" || $scope.changeCaseStatus.status === "Ready For Review II") {
-                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain)
-                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain)) {
+                            if(ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'analysttest@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'supervisor@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cmsassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'cms_testaccount@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qaassignmentuser@'.concat(domain.toLowerCase())
+                            && ObjectModelService.getAssignee($scope.oInfo).toLowerCase() !== 'qacasearchiveuser@'.concat(domain.toLowerCase())) {
                                  $scope.oInfo.casePrevAnalyst = ObjectModelService.getAssignee($scope.oInfo);
                             }
                               ObjectModelService.setAssignee($scope.oInfo, 'supervisor@'.concat(domain.toLowerCase()));
