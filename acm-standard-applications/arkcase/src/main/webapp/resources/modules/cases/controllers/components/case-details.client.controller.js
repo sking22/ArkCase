@@ -40,6 +40,9 @@ angular.module('cases').controller(
                                     $scope.isAnalyst = false;
                                 }
 
+                                $scope.disableBilling  = !($scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
+                                console.log("!!!! " + $scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
+
                                 $scope.disableFieldCMS  = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
                                                             ($scope.objectInfo.status === "CASE_CLOSED"
                                                               || $scope.objectInfo.status === "Audit Assigned"

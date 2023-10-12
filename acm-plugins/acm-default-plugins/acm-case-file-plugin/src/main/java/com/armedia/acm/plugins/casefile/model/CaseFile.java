@@ -496,6 +496,16 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_special_proj")
     private String caseSpecialProject;
 
+    //cm_case_cgs_bill_date
+    @Column(name = "cm_case_cgs_bill_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseCgsBillDate;
+
+    //cm_case_apv_bill_date
+    @Column(name = "cm_case_apv_bill_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseApvBillDate;
+
  /*   @JoinTable(name = "acm_change_case_status", joinColumns = {
             @JoinColumn(name = "cm_case_id", referencedColumnName = "cm_case_id") }, inverseJoinColumns = {
             @JoinColumn(name = "cm_change_case_status_id", referencedColumnName = "cm_change_case_status_id", unique = true) })
@@ -1563,11 +1573,19 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
 {
     return caseSpecialProject;
 }
-
     public void setCaseSpecialProject(String caseSpecialProject)
     {
         this.caseSpecialProject = caseSpecialProject;
     }
+
+    public Date getCaseCgsBillDate()
+    {
+        return caseCgsBillDate;
+    }
+    public void setCaseCgsBillDate(Date caseCgsBillDate) { this.caseCgsBillDate = caseCgsBillDate; }
+
+    public Date getCaseApvBillDate() { return caseApvBillDate; }
+    public void setCaseApvBillDate(Date caseApvBillDate) { this.caseApvBillDate = caseApvBillDate; }
 
 
 }

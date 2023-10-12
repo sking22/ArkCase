@@ -1024,6 +1024,48 @@
         </div>
     </div>
 
+    <div class="panel panel-success panel-grid">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a>Case Billing</a>
+                <div class="pull-right">
+                    <button  ng-disabled="disableField || disableFieldCMS" class="btn btn-default btn-xs" ng-click="saveAll()"><i class="fa fa-lg fa-save"></i></button>
+                </div>
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date APV Billed CMS</label>
+                        <a ng-if="!disableField && !disableFieldCMS && !disableBilling"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseApvBillDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS || disableBilling">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseApvBillDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS && !disableBilling" >
+                            <date-time-picker ng-disabled="disableField || disableFieldCMS || disableBilling" data="objectInfo.caseApvBillDate" property="objectInfo.caseApvBillDate"
+                                              date-picker-id="objectInfo.caseApvBillDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">Date CGS Billed APV</label>
+                        <a ng-if="!disableField && !disableFieldCMS && !disableBilling"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCgsBillDate = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS || disableBilling">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseCgsBillDate.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS && !disableBilling" >
+                            <date-time-picker  ng-disabled="disableField || disableFieldCMS || disableBilling" data="objectInfo.caseCgsBillDate" property="objectInfo.caseCgsBillDate"
+                                               date-picker-id="objectInfo.caseCgsBillDate" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="panel panel-success panel-grid">
         <div class="panel-heading">
