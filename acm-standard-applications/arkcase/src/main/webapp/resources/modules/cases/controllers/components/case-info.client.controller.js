@@ -91,6 +91,11 @@ angular.module('cases').controller(
                         return caseStatuses;
                     });
 
+                    ObjectLookupService.getLookupByLookupName("caseSpecialProjectTypes").then(function(caseSpecialProjectTypes) {
+                        $scope.caseSpecialProjectTypes = caseSpecialProjectTypes;
+                        return caseSpecialProjectTypes;
+                    });
+
                     $scope.userOrGroupSearch = function() {
                         var assigneUserName = _.find($scope.userFullNames, function(user) {
                             return user.id === $scope.assignee
@@ -288,6 +293,8 @@ angular.module('cases').controller(
                                 return casefileType;
                             }
                         });
+
+
                     };
 
                     // Updates the ArkCase database when the user changes a case attribute
