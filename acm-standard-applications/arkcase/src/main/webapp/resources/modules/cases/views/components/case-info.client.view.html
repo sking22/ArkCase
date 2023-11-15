@@ -4,12 +4,12 @@
             <div class="col-xs-6">
                 <h4>
                     <a href="#" editable-text="objectInfo.title" onaftersave="saveCase()" permission="editCaseOwningGroup"
-                            permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable" e-required>
+                       permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable" e-required>
                         {{objectInfo.title || 'common.value.unknown' | translate}}
                     </a>
                     <a ng-href="#" editable-select="objectInfo.status" onaftersave="saveCase()" permission="editCaseStatus"
-                            permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
-                            e-ng-options="c.key as (c.value | translate) for c in caseStatuses">
+                       permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
+                       e-ng-options="c.key as (c.value | translate) for c in caseStatuses">
                         ({{ (objectInfo.status | translateData: 'core.lookups.changeCase.statuses' : lang) || ('common.value.unknown' |
                         translate) }})
                     </a>
@@ -29,8 +29,8 @@
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold">
                     <a href="#" editable-select="objectInfo.caseType" onaftersave="saveCase()" permission="editCaseOwningGroup"
-                            permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
-                            e-ng-options="c.key as (c.value | translate) for c in caseTypes">
+                       permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
+                       e-ng-options="c.key as (c.value | translate) for c in caseTypes">
                         {{ (objectInfo.caseType | translateData: 'core.lookups.categories' : lang) || ('common.value.unknown' | translate)
                         }}</a>
                 </div>
@@ -48,16 +48,14 @@
             </div>
             <!-- Provider Name -->
             <div class="col-xs-12 col-md-3">
-                <div class="h4 font-bold">
                     <div class="h4 font-bold">{{providerFullName}}</div>
                     <small class="text-muted"><span translate>cases.comp.info.providerName.label</span></small>
-                </div>
             </div>
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold">
                     <a href="#" editable-select="objectInfo.priority" onaftersave="saveCase()" permission="editCaseOwningGroup"
-                            permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
-                            e-ng-options="p.key as (p.key | translateData: 'core.lookups.priorities' : lang) for p in priorities">
+                       permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable"
+                       e-ng-options="p.key as (p.key | translateData: 'core.lookups.priorities' : lang) for p in priorities">
                         {{ (objectInfo.priority | translateData: 'core.lookups.priorities' : lang) || ('common.value.unknown' | translate)
                         }}</a>
                 </div>
@@ -67,24 +65,27 @@
         <div class="row">
             <!-- ANALYST -->
             <div class="col-xs-12 col-md-3">
-                <div class="h4 font-bold">
-                    <div class="h4 font-bold">{{ analystFullName }}</div>
+                <div class="h4 font-bold">{{ analystFullName }}</div>
                     <small class="text-muted"><span>Analyst</span></small>
-                </div>
             </div>
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold">
                     <a href="javascript:;" class="editable-click no-outline" ng-click="userOrGroupSearch()"
-                            permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo"
-                            permission-action="disable">
+                       permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo"
+                       permission-action="disable">
                         {{owningGroup || 'common.value.unknown' | translate}}</a>
                 </div>
                 <small class="text-muted"><span translate>cases.comp.info.owningGroup.label</span></small>
             </div>
             <div class="col-xs-12 col-md-3">
-                <div ng-if="legalBusinessName !== null" class="h4 font-bold">
+                <div ng-if="legalBusinessName !== null">
                     <div class="h4 font-bold">{{ legalBusinessName }}</div>
                     <small class="text-muted"><span translate>common.newPerson.legalBusinessName</span></small>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                    <div class="h4 font-bold">{{objectInfo.modified | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
+                    <small class="text-muted"><span>Case Last Updated</span></small>
                 </div>
             </div>
 
@@ -96,10 +97,8 @@
             </div>
             <!-- Assigned Date -->
             <div class="col-xs-12 col-md-3">
-                <div class="h4 font-bold">
-                    <div class="h4 font-bold">{{objectInfo.modified | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
-                    <small class="text-muted"><span translate>cases.comp.info.assignedDate.label</span></small>
-                </div>
+                <div class="h4 font-bold">{{assigned_Date | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
+                <small class="text-muted"><span translate>cases.comp.info.assignedDate.label</span></small>
             </div>
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold popup-move-on-left">
@@ -125,11 +124,11 @@
                         <!-- <a href="#" editable-combodate="dueDateInfo" e-template="MM/DD/YYYY h:mmA"
                             e-min-year="{{minYear}}" e-max-year="{{maxYear}}" e-minute-step="1" onaftersave="updateDueDate($data, dateInfo.dueDate)"
                             permission="editCaseOwningGroup" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">-->
-                       <!--min-date="minDate"
-                       start-view="month"
-                       auto-close="true"
-                       is-open="dueDate.isOpen"
-                       permission="editCase" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">-->
+                        <!--min-date="minDate"
+                        start-view="month"
+                        auto-close="true"
+                        is-open="dueDate.isOpen"
+                        permission="editCase" permission-object-type="CASE_FILE" permission-properties="objectInfo" permission-action="disable">-->
 
                         {{ (dateInfo.dueDate | date: ('common.defaultDateTimeUIFormat' | translate)) || ('common.value.unknown' | translate) }}
                     </a>
@@ -141,6 +140,8 @@
                 <div class="h4 font-bold">{{ formatDate(objectInfo.caseResubDueDate) | date:"MM/dd/yyyy" }}</div>
                 <small class="text-muted"><span>Resubmission Due Date</span></small>
             </div>
+        </div>
+        <div class="row">
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold">
                     <a href="#" editable-select="objectInfo.caseSpecialProject" onaftersave="saveCase()" permission="editCaseOwningGroup"
@@ -149,13 +150,10 @@
                         {{ (objectInfo.caseSpecialProject | translateData: 'core.lookups.categories' : lang) || ('N/A' | translate)
                         }}</a>
                 </div>
-                <small class="text-muted"><span translate>Special Project</span></small>
+                <small class="text-muted"><span>Special Project</span></small>
             </div>
         </div>
-<!--        <div class="row">-->
 
-<!--        </div>-->
-
-        </div>
     </div>
+</div>
 </div>
