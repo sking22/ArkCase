@@ -87,6 +87,12 @@
                     <small class="text-muted"><span translate>common.newPerson.legalBusinessName</span></small>
                 </div>
             </div>
+            <div class="col-xs-12 col-md-3">
+                <div class="h4 font-bold">
+                    <div class="h4 font-bold">{{objectInfo.modified | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
+                    <small class="text-muted"><span>Case Last Updated</span></small>
+                </div>
+            </div>
 
         </div>
         <div class="row">
@@ -97,7 +103,7 @@
             <!-- Assigned Date -->
             <div class="col-xs-12 col-md-3">
                 <div class="h4 font-bold">
-                    <div class="h4 font-bold">{{objectInfo.modified | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
+                    <div class="h4 font-bold">{{assigned_Date | date: ('common.defaultDateTimeUIFormat' | translate)}}</div>
                     <small class="text-muted"><span translate>cases.comp.info.assignedDate.label</span></small>
                 </div>
             </div>
@@ -151,7 +157,7 @@
                         {{ (objectInfo.caseSpecialProject | translateData: 'core.lookups.categories' : lang) || ('N/A' | translate)
                         }}</a>
                 </div>
-                <small class="text-muted"><span translate>Special Project</span></small>
+                <small class="text-muted"><span>Special Project</span></small>
             </div>
         </div>
 

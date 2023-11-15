@@ -201,6 +201,15 @@ angular.module('cases').controller(
                         // angularJS returns an unbind function that will kill the $watch() listener when its called.
                         dueDateWatch();
 
+                        $scope.assigned_Date = '';
+                        var len = $scope.objectInfo.participants.length;
+                         for (var i = 0; i < len; i++) {
+                          if($scope.objectInfo.participants[i].participantType === 'assignee'){
+                            $scope.assigned_Date = $scope.objectInfo.participants[i].modified;
+                          }
+                        }
+                        console.log('!!! $scope.assigned_Date: ' + $scope.assigned_Date);
+
                         if ($scope.objectInfo.casePrevAnalyst) {
                             LookupService.getUserFullName($scope.objectInfo.casePrevAnalyst).then(function(userName) {
                                 $scope.analystFullName = userName;
@@ -314,12 +323,15 @@ angular.module('cases').controller(
                         }
                         return promiseSaveInfo;
                     };
+
                     $scope.updateOwningGroup = function() {
                         ObjectModelService.setGroup($scope.objectInfo, $scope.owningGroup);
                     };
+
                     $scope.updateAssignee = function() {
                         ObjectModelService.setAssignee($scope.objectInfo, $scope.assignee);
                     };
+
                     $scope.updateDueDate = function(data, oldDate) {
                         if (!Util.isEmpty(data)) {
                             if (UtilDateService.compareDatesForUpdate(data, $scope.objectInfo.dueDate)) {
