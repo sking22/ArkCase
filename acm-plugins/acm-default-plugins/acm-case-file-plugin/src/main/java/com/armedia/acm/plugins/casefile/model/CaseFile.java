@@ -506,6 +506,10 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date  caseApvBillDate;
 
+    //cm_case_sub_not_actionable_reason
+    @Column(name = "cm_case_sub_not_actionable_reason")
+    private String caseSubNotActionableReason;
+
  /*   @JoinTable(name = "acm_change_case_status", joinColumns = {
             @JoinColumn(name = "cm_case_id", referencedColumnName = "cm_case_id") }, inverseJoinColumns = {
             @JoinColumn(name = "cm_change_case_status_id", referencedColumnName = "cm_change_case_status_id", unique = true) })
@@ -1407,6 +1411,13 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
         return caseNotActionableReason;
     }
     public void setCaseNotActionableReason(String caseNotActionableReason) { this.caseNotActionableReason = caseNotActionableReason; }
+
+    public String getCaseSubNotActionableReason()
+    {
+        return caseSubNotActionableReason;
+    }
+    public void setCaseSubNotActionableReason(String caseSubNotActionableReason) { this.caseSubNotActionableReason = caseSubNotActionableReason; }
+
 
     public String getCaseTenYearsConvDate()
     {

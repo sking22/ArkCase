@@ -750,6 +750,18 @@
                         </select>
                     </div>
                 </div>
+                <div class="row" style="margin-top:2em;" ng-if="objectInfo.caseNotActionableReason == 'NFC'">
+                    <div class="col-sm-4 form-check">
+                        <label>Sub Not Actionable Reason</label>
+                        <select class="form-control" ng-model="objectInfo.caseSubNotActionableReason"
+                                ng-disabled="disableField || disableFieldCMS">
+                            <option ng-repeat="option in caseSNAR" placeholder="{{objectInfo.caseSubNotActionableReason}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
