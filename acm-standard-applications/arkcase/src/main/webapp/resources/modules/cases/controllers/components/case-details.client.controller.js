@@ -124,6 +124,9 @@ angular.module('cases').controller(
                     };
 
                     $scope.saveAll = function() {
+                        if($scope.objectInfo.caseNotActionableReason !== 'NFC') {
+                            $scope.objectInfo.caseSubNotActionableReason = null;
+                        }
 
                         var params = {
                             "info": $scope.objectInfo,
@@ -161,6 +164,14 @@ angular.module('cases').controller(
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         notActionReasons.unshift(clear);
                         $scope.caseNAR = notActionReasons;
+                        }
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('subNotActionReasons').then(function (subNotActionReasons) {
+                    if(subNotActionReasons){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        subNotActionReasons.unshift(clear);
+                        $scope.caseSNAR = subNotActionReasons;
                         }
                     });
 
