@@ -573,7 +573,7 @@
                             <div style="clear:both;" ng-if="!disableField && !disableFieldCMS">
                                 <date-time-picker data="objectInfo.caseReinsTerminationEffDate" property="objectInfo.caseReinsTerminationEffDate"
                                               date-picker-id="objectInfo.caseReinsTerminationEffDate" time-format-disabled="true" ></date-time-picker>
-                                <div ng-if="invalidReinsDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Reinstated Termination Effective Date should after Termination Effective Date</div>
+                                <div ng-if="invalidReinsDate" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Reinstated Termination Effective Date should be after Termination Effective Date</div>
                             </div>
 
                         </div>
@@ -759,6 +759,7 @@
                                 {{option.value | translate}}
                             </option>
                         </select>
+                        <div ng-if="objectInfo.caseNotActionableReason == 'NFC' &&  !objectInfo.caseSubNotActionableReason" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Select a Sub Not Actionable Reason</div>
                     </div>
                 </div>
 
