@@ -79,6 +79,8 @@ angular.module('cases').controller(
                         $scope.assignee = ObjectModelService.getAssignee(objectInfo);
                         console.log("!!!! $scope.objectInfo: ", $scope.objectInfo);
                         console.log("!!!! $scope.objectInfo.status: ", $scope.objectInfo.status);
+                        $scope.downloadFolderId = $scope.objectInfo.container.attachmentFolder.id;
+                        console.log("!!!!  $scope.downloadFolderId: ", $scope.downloadFolderId);
                         $scope.cmsStatus = ($scope.objectInfo.status.toLowerCase() === 'submitted to cms'
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on pending case'
                                          || $scope.objectInfo.status.toLowerCase() === 'submitted to cms - orr (original recommendation retracted)'
