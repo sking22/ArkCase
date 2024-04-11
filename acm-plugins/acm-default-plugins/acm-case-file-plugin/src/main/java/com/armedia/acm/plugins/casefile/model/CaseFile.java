@@ -506,6 +506,11 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Temporal(TemporalType.TIMESTAMP)
     private Date  caseApvBillDate;
 
+    //cm_case_apv_bill_date2
+    @Column(name = "cm_case_apv_bill_date2")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date  caseApvBillDate2;
+
     //cm_case_sub_not_actionable_reason
     @Column(name = "cm_case_sub_not_actionable_reason")
     private String caseSubNotActionableReason;
@@ -1598,5 +1603,7 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     public Date getCaseApvBillDate() { return caseApvBillDate; }
     public void setCaseApvBillDate(Date caseApvBillDate) { this.caseApvBillDate = caseApvBillDate; }
 
+    public Date getCaseApvBillDate2() { return caseApvBillDate2; }
+    public void setCaseApvBillDate2(Date caseApvBillDate2) { this.caseApvBillDate2 = caseApvBillDate2; }
 
 }

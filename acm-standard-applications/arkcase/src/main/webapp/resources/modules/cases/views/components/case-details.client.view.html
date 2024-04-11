@@ -1062,6 +1062,18 @@
                         </div>
                     </div>
                     <div class="col-sm-4 form-group">
+                        <label style="display:inline; float:left;">2nd Date APV Billed CMS</label>
+                        <a ng-if="!disableField && !disableFieldCMS && !disableBilling"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseApvBillDate2 = NULL">clear</a>
+                        <div style="clear:both;" ng-if="disableField || disableFieldCMS || disableBilling">
+                            <input type="text" class="input-md form-control"
+                                   placeholder="{{ objectInfo.caseApvBillDate2.split('T')[0] | date : 'MM/dd/yyyy' }}" disabled>
+                        </div>
+                        <div style="clear:both;" ng-if="!disableField && !disableFieldCMS && !disableBilling" >
+                            <date-time-picker ng-disabled="disableField || disableFieldCMS || disableBilling" data="objectInfo.caseApvBillDate2" property="objectInfo.caseApvBillDate2"
+                                              date-picker-id="objectInfo.caseApvBillDate2" time-format-disabled="true"></date-time-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
                         <label style="display:inline; float:left;">Date CGS Billed APV</label>
                         <a ng-if="!disableField && !disableFieldCMS && !disableBilling"  style="display:inline;float:right;cursor:pointer;" ng-click="objectInfo.caseCgsBillDate = NULL">clear</a>
                         <div style="clear:both;" ng-if="disableField || disableFieldCMS || disableBilling">

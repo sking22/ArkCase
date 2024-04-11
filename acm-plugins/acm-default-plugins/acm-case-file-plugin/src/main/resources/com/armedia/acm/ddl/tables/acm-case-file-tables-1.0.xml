@@ -873,4 +873,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="5043-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_apv_bill_date2" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
