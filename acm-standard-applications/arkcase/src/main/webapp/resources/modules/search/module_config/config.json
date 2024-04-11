@@ -48,6 +48,11 @@
                     "headerCellFilter": "translate"
                 },
                 {
+                    "name": "case_assignee_lcs",
+                    "displayName": "Assignee",
+                    "headerCellFilter": "translate"
+                },
+                {
                     "name": "case_provider_legal_business_lcs",
                     "displayName": "search.comp.grid.columns.legalbusinessname",
                     "headerCellFilter": "translate"

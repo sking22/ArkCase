@@ -365,6 +365,8 @@ public class CaseFileToSolrTransformer implements AcmObjectToSolrDocTransformer<
                     if ((legalBusinessName != null) && !legalBusinessName.trim().equalsIgnoreCase("")) {
                         additionalProperties.put("case_provider_legal_business_lcs", legalBusinessName);
                     }
+                    additionalProperties.put("case_assignee_lcs", assignee.getFirstName() + " " + assignee.getLastName());
+
                     String associatedTin = person.getAssociateTIN();
                     if ((associatedTin != null) && !associatedTin.trim().equalsIgnoreCase("")) {
                         additionalProperties.put("case_provider_associated_tin_lcs", associatedTin);
