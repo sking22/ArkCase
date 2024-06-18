@@ -762,6 +762,18 @@
                         <div ng-if="objectInfo.caseNotActionableReason == 'NFC' &&  !objectInfo.caseSubNotActionableReason" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Select a Sub Not Actionable Reason</div>
                     </div>
                 </div>
+                <div class="row" style="margin-top:2em;" ng-if="objectInfo.caseNotActionableReason == 'DEA'">
+                    <div class="col-sm-8 form-check">
+                        <label>Sub Not Actionable Reason</label>
+                        <select class="form-control" ng-model="objectInfo.caseSubNotActionableReason"
+                                ng-disabled="disableField || disableFieldCMS">
+                            <option ng-repeat="option in caseSNARND" placeholder="{{objectInfo.caseSubNotActionableReason}}" value="{{option.key}}">
+                                {{option.value | translate}}
+                            </option>
+                        </select>
+                        <div ng-if="objectInfo.caseNotActionableReason == 'DEA' &&  !objectInfo.caseSubNotActionableReason" style="color:red;font-size:0.8em;float:right;display:block;clear:both;">Select a Sub Not Actionable Reason</div>
+                    </div>
+                </div>
 
             </div>
         </div>

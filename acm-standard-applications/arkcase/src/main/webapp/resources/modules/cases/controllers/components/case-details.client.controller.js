@@ -41,7 +41,7 @@ angular.module('cases').controller(
                                 }
 
                                 $scope.disableBilling  = !($scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
-                                console.log("!!!! " + $scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
+                               // console.log("!!!! " + $scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
 
                                 $scope.disableFieldCMS  = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
                                                             ($scope.objectInfo.status === "CASE_CLOSED"
@@ -124,7 +124,7 @@ angular.module('cases').controller(
                     };
 
                     $scope.saveAll = function() {
-                        if($scope.objectInfo.caseNotActionableReason !== 'NFC') {
+                        if($scope.objectInfo.caseNotActionableReason == 'NFC' && $scope.objectInfo.caseNotActionableReason == 'DEA') {
                             $scope.objectInfo.caseSubNotActionableReason = null;
                         }
 
@@ -172,6 +172,14 @@ angular.module('cases').controller(
                         var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                         subNotActionReasons.unshift(clear);
                         $scope.caseSNAR = subNotActionReasons;
+                        }
+                    });
+
+                    ObjectLookupService.getLookupByLookupName('subNotActionReasonsNotDEA').then(function (subNotActionReasonsNotDEA) {
+                    if(subNotActionReasonsNotDEA){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                        subNotActionReasonsNotDEA.unshift(clear);
+                        $scope.caseSNARND = subNotActionReasonsNotDEA;
                         }
                     });
 
@@ -373,7 +381,7 @@ angular.module('cases').controller(
                           } else {
                              var mm = m;
                           }
-                          console.log("!!! m: ", m);
+                         // console.log("!!! m: ", m);
                           var d = moment(test).get('date');
                              if(String(d).length === 1){
                                 var dd = "0" + String(d);
@@ -383,7 +391,7 @@ angular.module('cases').controller(
                           var y = moment(test).get('year');
                           $scope.testDate = y + "-" + mm + "-" + dd;
 
-                           console.log("!!! >", ($scope.objectInfo.caseTerminationEffDate > $scope.testDate));
+                           //console.log("!!! >", ($scope.objectInfo.caseTerminationEffDate > $scope.testDate));
                            if ($scope.objectInfo.caseTerminationEffDate > $scope.testDate) {
                                 $scope.invalidEbarDate = true;
                                 //$scope.objectInfo.caseEnrollmentBarExpDate = null;
