@@ -296,7 +296,7 @@ angular.module('cases').controller(
                             $scope.oInfo.priority = "CMS";
 
                         }
-                         else if ($scope.changeCaseStatus.status === "Resubmitted To CMS") {
+                         else if ($scope.changeCaseStatus.status === "Resubmitted To CMS" || $scope.changeCaseStatus.status === "Resubmitted To CMS - Documentation Pending") {
                            //The CMS analyst who is assigned the case
                           // console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                            //$scope.oInfo.casePrevCMSAnalyst
