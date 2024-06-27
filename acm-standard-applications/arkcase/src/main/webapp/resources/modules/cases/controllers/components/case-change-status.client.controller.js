@@ -99,6 +99,15 @@ angular.module('cases').controller(
                                         if(caseStatuses[i].value === 'NON-OPT Case - Non-Actionable'){
                                              caseStatuses.splice(i, 1);
                                         }
+                                        if(caseStatuses[i].value === 'Documentation Requested'){
+                                             caseStatuses.splice(i, 1);
+                                        }
+                                    }
+                                } else if ($scope.oInfo.caseType === 'MED') {
+                                    for(var i = 0; i < caseStatuses.length; i++){
+                                        if(caseStatuses[i].value === 'Documentation Requested'){
+                                             caseStatuses.splice(i, 1);
+                                        }
                                     }
                                 } else if ($scope.oInfo.caseType !== 'OPT') {
                                      for(var i = 0; i < caseStatuses.length; i++){
@@ -296,7 +305,8 @@ angular.module('cases').controller(
                             $scope.oInfo.priority = "CMS";
 
                         }
-                         else if ($scope.changeCaseStatus.status === "Resubmitted To CMS" || $scope.changeCaseStatus.status === "Resubmitted To CMS - Documentation Pending") {
+                         else if ($scope.changeCaseStatus.status === "Resubmitted To CMS"
+                               || $scope.changeCaseStatus.status === "Resubmitted To CMS - Documentation Pending") {
                            //The CMS analyst who is assigned the case
                           // console.log("casePrevCMSAnalyst: " + $scope.oInfo.casePrevCMSAnalyst);
                            //$scope.oInfo.casePrevCMSAnalyst
