@@ -102,6 +102,15 @@ angular.module('cases').controller(
                                         if(caseStatuses[i].value === 'Documentation Requested'){
                                              caseStatuses.splice(i, 1);
                                         }
+                                        if(caseStatuses[i].value === 'CMS Approved-Documentation Pending'){
+                                             caseStatuses.splice(i, 1);
+                                        }
+                                        if(caseStatuses[i].value === 'Submitted to CMS-Documentation Pending'){
+                                             caseStatuses.splice(i, 1);
+                                        }
+                                        if(caseStatuses[i].value === 'Resubmitted To CMS - Documentation Pending'){
+                                             caseStatuses.splice(i, 1);
+                                        }
                                     }
                                 } else if ($scope.oInfo.caseType === 'MED') {
                                     for(var i = 0; i < caseStatuses.length; i++){
