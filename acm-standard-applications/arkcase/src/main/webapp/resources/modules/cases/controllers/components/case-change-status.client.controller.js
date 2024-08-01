@@ -95,7 +95,7 @@ angular.module('cases').controller(
                                 }
                             } else {
                                 if($scope.oInfo.caseType === 'OPT') {
-                                    for(var i = 0; i < caseStatuses.length; i++){
+                                    for(var i = 0; i < caseStatuses.length; i++){ß
                                         if(caseStatuses[i].value === 'NON-OPT Case - Non-Actionable'){
                                              caseStatuses.splice(i, 1);
                                         }
@@ -112,12 +112,6 @@ angular.module('cases').controller(
                                              caseStatuses.splice(i, 1);
                                         }
                                     }
-                                } else if ($scope.oInfo.caseType === 'MED') {
-                                    for(var i = 0; i < caseStatuses.length; i++){
-                                        if(caseStatuses[i].value === 'Documentation Requested'){
-                                             caseStatuses.splice(i, 1);
-                                        }
-                                    }
                                 } else if ($scope.oInfo.caseType !== 'OPT') {
                                      for(var i = 0; i < caseStatuses.length; i++){
                                          if(caseStatuses[i].value === 'OPT - DEX SENT - Docket Requested'){
@@ -125,6 +119,13 @@ angular.module('cases').controller(
                                          }
                                          if(caseStatuses[i].value === 'OPT Case - Non-Actionable'){
                                                caseStatuses.splice(i, 1);
+                                         }
+                                     }
+                                      if ($scope.oInfo.caseType === 'MED') {
+                                         for(var i = 0; i < caseStatuses.length; i++){
+                                             if(caseStatuses[i].value === 'Documentation Requested'){
+                                                  caseStatuses.splice(i, 1);
+                                             }
                                          }
                                      }
                                 }
