@@ -95,7 +95,7 @@ angular.module('cases').controller(
                                 }
                             } else {
                                 if($scope.oInfo.caseType === 'OPT') {
-                                    for(var i = 0; i < caseStatuses.length; i++){ß
+                                    for(var i = 0; i < caseStatuses.length; i++){
                                         if(caseStatuses[i].value === 'NON-OPT Case - Non-Actionable'){
                                              caseStatuses.splice(i, 1);
                                         }
