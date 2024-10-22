@@ -64,6 +64,11 @@
                 },
                 {
                     "name": "case_admin_actions_outcome_lcs",
+                    "displayName": "Recommended Outcome of Admin Actions",
+                    "headerCellFilter": "translate"
+                },
+                {
+                    "name": "case_final_outcome_admin_act_lcs",
                     "displayName": "search.comp.grid.columns.adminactionslcs",
                     "headerCellFilter": "translate"
                 }
