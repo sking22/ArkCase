@@ -58,6 +58,26 @@
                                     The CMS Analyst will then move the case to CMS Approved, CMS Requested Edits or CMS Approved-Documentation Pending.<br />
                                 </span>
                             </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="disableSave1">
+                                <span class="h6 font-bold" style="color:red;">
+                                   {{ disableMessage1 }} <br />
+                                </span>
+                            </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="disableSave2">
+                                <span class="h6 font-bold" style="color:red;">
+                                    {{ disableMessage2 }} <br />
+                                </span>
+                            </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="disableSave3">
+                                <span class="h6 font-bold" style="color:red;">
+                                    {{ disableMessage3 }} <br />
+                                </span>
+                            </div>
+                            <div class="col-sm-8" style="text-align: left; padding-top: 25px" ng-show="disableSave4">
+                                <span class="h6 font-bold" style="color:red;">
+                                    {{ disableMessage4 }} <br />
+                                </span>
+                            </div>
                     </div>
                     <div class="row form-group" ng-if="showCaseCloseStatus">
                         <div class="col-sm-6">
@@ -129,7 +149,7 @@
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-title="Cancel" ng-click="cancelModal()">
             <span translate>cases.comp.change.status.button.cancel</span>
         </button>
-        <button type="submit" ng-disabled="changeCaseFileStateForm.$invalid || loading" class="btn btn-primary btn-sm" data-toggle="tooltip"
+        <button type="submit" ng-disabled="changeCaseFileStateForm.$invalid || loading || disableSave" class="btn btn-primary btn-sm" data-toggle="tooltip"
                 id="saveButton" data-title="Save">
             <i ng-show="loading" class="{{loadingIcon}}"></i>
             <span translate>cases.comp.change.status.button.save</span>

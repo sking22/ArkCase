@@ -43,7 +43,7 @@ angular.module('directives').directive('dateTimePicker', ['moment', 'Util.DateSe
 
                 }
                 $scope.minYear = 1900;
-                $scope.maxYear = moment.utc($scope.dateInPicker).year() + 5;
+                $scope.maxYear = moment.utc($scope.dateInPicker).year() + 40;
             };
 
             $scope.setDate($scope.data);

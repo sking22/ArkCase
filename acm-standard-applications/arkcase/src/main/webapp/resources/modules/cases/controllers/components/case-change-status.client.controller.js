@@ -137,6 +137,51 @@ angular.module('cases').controller(
 
                     function statusChanged() {
                         $scope.showCaseCloseStatus = $scope.changeCaseStatus.status === "CLOSED";
+                        $scope.disableSave = false;
+                        $scope.disableSave1 = false;
+                        $scope.disableSave2 = false;
+                        $scope.disableSave3 = false;
+                        $scope.disableSave4 = false;
+                        /*console.log("!!! $scope.oInfo.caseNotActionableReason: ", $scope.oInfo.caseNotActionableReason);
+                        console.log("!!! $scope.oInfo.caseAdminActionsOutcome: ", $scope.oInfo.caseAdminActionsOutcome);
+                        console.log("!!! $scope.oInfo.caseFinalOutAdminAct: ", $scope.oInfo.caseFinalOutAdminAct);
+                        console.log("!!! $scope.oInfo.caseFinalOutActionDate: ", $scope.oInfo.caseFinalOutActionDate);
+                        console.log("!!! $scope.changeCaseStatus.status: ", $scope.changeCaseStatus.status);*/
+
+                        if($scope.oInfo.caseType !== "OPT" &&
+                          ($scope.changeCaseStatus.status === "Audit Completed"
+                          || $scope.changeCaseStatus.status === "Audit Assigned"
+                          || $scope.changeCaseStatus.status === "Audit N/A"
+                          || $scope.changeCaseStatus.status === "CASE_CLOSED")){
+                           //console.log("!!! 1");
+                           if($scope.oInfo.caseAdminActionsOutcome === "NA"){
+                               if($scope.oInfo.caseNotActionableReason === null || $scope.oInfo.caseNotActionableReason === "" || $scope.oInfo.caseNotActionableReason === "undefined"){
+                                   //console.log("!!! 2");
+                                   $scope.disableMessage1 = "Not Actionable Reason must be entered to move case into " + $scope.changeCaseStatus.status + " status.";
+                                   $scope.disableSave1 = true;
+                                   $scope.disableSave = true;
+                               }
+                           }
+
+                          if($scope.oInfo.caseAdminActionsOutcome ===  null || $scope.oInfo.caseAdminActionsOutcome ===  ""){
+                             //console.log("!!! 3");
+                             $scope.disableMessage2 = "Recommended Outcome of Admin Actions must be entered to move case into " + $scope.changeCaseStatus.status + " status. ";
+                             $scope.disableSave2 = true;
+                             $scope.disableSave = true;
+                          }
+                          if($scope.oInfo.caseFinalOutAdminAct === null || $scope.oInfo.caseFinalOutAdminAct === "" || $scope.oInfo.caseFinalOutAdminAct === "undefined"){
+                               //console.log("!!! 4");
+                               $scope.disableMessage3 = "Final Outcome of Admin Actions must be entered to move case into " + $scope.changeCaseStatus.status + " status.";
+                               $scope.disableSave3 = true;
+                               $scope.disableSave = true;
+                          }
+                           if( $scope.oInfo.caseFinalOutActionDate === null || $scope.oInfo.caseFinalOutActionDate === "" || $scope.oInfo.caseFinalOutActionDate === "undefined"){
+                               //console.log("!!! 5");
+                               $scope.disableMessage4 = "Action Date must be entered to move case into " + $scope.changeCaseStatus.status + " status.";
+                               $scope.disableSave4 = true;
+                               $scope.disableSave = true;
+                            }
+                          }
                     }
 
                     // ---------------------------            approver         --------------------------------------
