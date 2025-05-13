@@ -194,6 +194,7 @@ angular.module('cases').controller(
                     var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                     caseAdminActionsOutcomes.unshift(clear);
                     $scope.caseAAO = caseAdminActionsOutcomes;
+
                 }
             });
 
