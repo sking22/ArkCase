@@ -799,22 +799,12 @@
                             </option>
                         </select>
                     </div>
-
                     <div class="col-sm-4 form-group">
                         <label>Recommended Length of Enrollment Bar</label>
                         <input maxlength="{{maxLen10}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecLengthEnrollBar"
                                placeholder="{{ objectInfo.caseRecLengthEnrollBar }}"
                                ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseRecLengthEnrollBar.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen10 - objectInfo.caseRecLengthEnrollBar.length}}/10 characters remaining</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 form-group">
-                        <label>Recommended Authorities Cited in Action Letter</label>
-                        <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecAuthCitedActionLetter"
-                               placeholder="{{ objectInfo.caseRecAuthCitedActionLetter }}"
-                               ng-disabled="disableField || disableFieldCMS">
-                        <span ng-if="objectInfo.caseRecAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRecAuthCitedActionLetter.length}}/40 characters remaining</span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Recommended Effective Date</label>
@@ -823,7 +813,49 @@
                                ng-disabled="disableField || disableFieldCMS">
                         <span ng-if="objectInfo.caseRecEffDate.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen30 - objectInfo.caseRecEffDate.length}}/30 characters remaining</span>
                     </div>
-
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Type of Submission</label>
+                        <input  ng-if="objectInfo.caseAdminActionsOutcome == 'CRPL'
+                                ||  objectInfo.caseAdminActionsOutcome == 'RO'
+                                ||  objectInfo.caseAdminActionsOutcome == 'RCCC'
+                                ||  objectInfo.caseAdminActionsOutcome == 'CRFISMA'
+                                ||  objectInfo.caseAdminActionsOutcome == 'PTRTD'
+                                ||  objectInfo.caseAdminActionsOutcome == 'DNPTRTD'"
+                                type="text" class="input-md form-control"
+                                placeholder="Revocation"
+                                ng-disabled="true">
+                        <input  ng-if="objectInfo.caseAdminActionsOutcome == 'NA'
+                                   ||  objectInfo.caseAdminActionsOutcome == 'PFCC'
+                                   ||  objectInfo.caseAdminActionsOutcome == 'PTDNRTD'
+                                   ||  objectInfo.caseAdminActionsOutcome == 'DNPT' "
+                                type="text" class="input-md form-control"
+                                placeholder="NA"
+                                ng-disabled="true">
+                        <input  ng-if="objectInfo.caseAdminActionsOutcome == 'PLO'
+                                   ||  objectInfo.caseAdminActionsOutcome == 'OTH' "
+                                type="text" class="input-md form-control"
+                                placeholder="Preclusion List Only"
+                                ng-disabled="true">
+                        <input  ng-if="objectInfo.caseAdminActionsOutcome == 'DEAC'"
+                                type="text" class="input-md form-control"
+                                placeholder="Deactivation"
+                                ng-disabled="true">
+                        <input  ng-if="objectInfo.caseAdminActionsOutcome == null
+                                      || objectInfo.caseAdminActionsOutcome == undefined
+                                      || objectInfo.caseAdminActionsOutcome == '' "
+                                type="text" class="input-md form-control"
+                                placeholder=""
+                                ng-disabled="true">
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Recommended Authorities Cited in Action Letter</label>
+                        <input maxlength="{{maxLen40}}" type="text" class="input-md form-control" ng-model="objectInfo.caseRecAuthCitedActionLetter"
+                               placeholder="{{ objectInfo.caseRecAuthCitedActionLetter }}"
+                               ng-disabled="disableField || disableFieldCMS">
+                        <span ng-if="objectInfo.caseRecAuthCitedActionLetter.length > 0" style="color:#606060;font-size:0.8em;float:right;">{{maxLen40 - objectInfo.caseRecAuthCitedActionLetter.length}}/40 characters remaining</span>
+                    </div>
                 </div>
                 <!--<div class="row">
                     <div class="col-sm-4 form-group">

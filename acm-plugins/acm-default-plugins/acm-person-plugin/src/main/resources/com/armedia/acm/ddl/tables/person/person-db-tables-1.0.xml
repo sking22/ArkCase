@@ -510,7 +510,7 @@
         <addPrimaryKey tableName="acm_person_identification" columnNames="cm_person_id, cm_identification_id"/>
         <!-- copy all relations from acm_identification into relational table-->
         <sql>INSERT INTO acm_person_identification (cm_person_id, cm_identification_id) SELECT cm_person,
-            cm_identification_id FROM acm_identification
+                                                                                               cm_identification_id FROM acm_identification
         </sql>
         <!-- drop person column from acm_identification-->
         <dropColumn tableName="acm_identification" columnName="cm_person"/>
@@ -521,13 +521,13 @@
                       columnDataType="${fkIdType}"/>
         <sql>
             ALTER TABLE acm_identification
-            CHANGE cm_person_id_created cm_created TIMESTAMP default CURRENT_TIMESTAMP;
+                CHANGE cm_person_id_created cm_created TIMESTAMP default CURRENT_TIMESTAMP;
         </sql>
         <renameColumn tableName="acm_identification" oldColumnName="cm_person_id_creator" newColumnName="cm_creator"
                       columnDataType="VARCHAR(1024)"/>
         <sql>
             ALTER TABLE acm_identification
-            CHANGE cm_person_id_modified cm_modified TIMESTAMP default CURRENT_TIMESTAMP;
+                CHANGE cm_person_id_modified cm_modified TIMESTAMP default CURRENT_TIMESTAMP;
         </sql>
         <renameColumn tableName="acm_identification" oldColumnName="cm_person_id_modifier" newColumnName="cm_modifier"
                       columnDataType="VARCHAR(1024)"/>
@@ -548,7 +548,7 @@
         <addPrimaryKey tableName="acm_person_identification" columnNames="cm_person_id, cm_identification_id"/>
         <!-- copy all relations from acm_identification into relational table-->
         <sql>INSERT INTO acm_person_identification (cm_person_id, cm_identification_id) SELECT cm_person,
-            cm_identification_id FROM acm_identification
+                                                                                               cm_identification_id FROM acm_identification
         </sql>
         <!-- drop person column from acm_identification-->
         <dropForeignKeyConstraint baseTableName="acm_identification" constraintName="fk_person_person_id"/>
@@ -594,7 +594,7 @@
     <changeSet id="30-7-rename-person-identification-mssql" author="riste.tutureski" dbms="mssql">
         <!-- copy all relations from acm_identification into relational table-->
         <sql>INSERT INTO acm_person_identification (cm_person_id, cm_identification_id) SELECT cm_person,
-            cm_identification_id FROM acm_identification
+                                                                                               cm_identification_id FROM acm_identification
         </sql>
     </changeSet>
     <changeSet id="30-8-rename-person-identification-mssql" author="riste.tutureski" dbms="mssql">
