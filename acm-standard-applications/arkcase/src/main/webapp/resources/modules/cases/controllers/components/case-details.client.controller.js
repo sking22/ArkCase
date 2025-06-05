@@ -130,7 +130,7 @@ angular.module('cases').controller(
                     $scope.objectInfo.caseTenYearsConvDate = null;
                 }
 
-                if($scope.objectInfo.caseNotActionableReason !== 'NFC') {
+                if($scope.objectInfo.caseNotActionableReason == 'NFC' && $scope.objectInfo.caseNotActionableReason == 'DEA') {
                     $scope.objectInfo.caseSubNotActionableReason = null;
                 }
 
@@ -178,6 +178,14 @@ angular.module('cases').controller(
                     var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
                     subNotActionReasons.unshift(clear);
                     $scope.caseSNAR = subNotActionReasons;
+                }
+            });
+
+            ObjectLookupService.getLookupByLookupName('subNotActionReasonsNotDEA').then(function (subNotActionReasonsNotDEA) {
+            if(subNotActionReasonsNotDEA){
+                var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                subNotActionReasonsNotDEA.unshift(clear);
+                $scope.caseSNARND = subNotActionReasonsNotDEA;
                 }
             });
 
