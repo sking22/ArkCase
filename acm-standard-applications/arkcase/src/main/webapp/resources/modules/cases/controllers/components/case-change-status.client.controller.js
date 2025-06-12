@@ -156,7 +156,8 @@ angular.module('cases').controller(
                         && ($scope.changeCaseStatus.status === "Audit Completed"
                               || $scope.changeCaseStatus.status === "Audit Assigned"
                               || $scope.changeCaseStatus.status === "Audit N/A"
-                              || $scope.changeCaseStatus.status === "CASE_CLOSED")){
+                              || $scope.changeCaseStatus.status === "CASE_CLOSED"
+                              || $scope.changeCaseStatus.status === "CCMD")){
 
 
                             //Recommended Outcome of Admin Actions - caseAdminActionsOutcome
@@ -221,9 +222,9 @@ angular.module('cases').controller(
 
                               }
 
-                              else if($scope.oInfo.caseType !== "OPT" && ($scope.changeCaseStatus.status === "CMS Approved"
-                                       || $scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable"
-                                       || $scope.changeCaseStatus.status === "CMS Requested Edits")){
+                      else if($scope.oInfo.caseType !== "OPT" && ($scope.changeCaseStatus.status === "CMS Approved"
+                               || $scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable"
+                               || $scope.changeCaseStatus.status === "CMS Requested Edits")){
 
 
                             //Recommended Outcome of Admin Actions - caseAdminActionsOutcome
@@ -239,7 +240,7 @@ angular.module('cases').controller(
                             }
 
 
-                            if($scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable"){
+                            /*if($scope.changeCaseStatus.status === "NON-OPT Case - Non-Actionable"){*/
                                            //Not Actionable - NA
                                             if($scope.oInfo.caseFinalOutAdminAct === "NA"){
                                                //Authorities Cited in Final Letter - caseRevAuthCitedActionLetter
@@ -267,7 +268,7 @@ angular.module('cases').controller(
                                                     $scope.disableMessages.push("OPT CMS Decision must be blank");
                                                }
                                             }
-                                         }
+                                    /*     }*/
 
 
                                         //Final Outcome of Admin Actions - caseFinalOutAdminAct
