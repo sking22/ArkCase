@@ -221,7 +221,7 @@ angular.module('dashboard.cases-by-status').controller('Dashboard.CasesByStatusC
                     }
 
 
-                    if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "CASE_CLOSED"
+                    if(value.status_lcs === "AUDIT N/A" || value.status_lcs === "CASE_CLOSED" ||  value.status_lcs === "Case Closed – MAC Deactivation Referral"
                         || value.status_lcs ===  "CMS APPROVED" || value.status_lcs === "AUDIT ASSIGNED"
                         || value.status_lcs ===  "AUDIT COMPLETED"){
 

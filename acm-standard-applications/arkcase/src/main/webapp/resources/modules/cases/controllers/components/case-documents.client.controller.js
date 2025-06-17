@@ -87,7 +87,7 @@ angular.module('cases').controller(
                                          || $scope.objectInfo.status.toLowerCase() === 'r&r on approved case'
                                          || $scope.objectInfo.status.toLowerCase() === 'resubmitted to cms');
 
-                        $scope.superStatus = ($scope.objectInfo.status === "CASE_CLOSED"
+                        $scope.superStatus = ($scope.objectInfo.status === "CASE_CLOSED" || $scope.objectInfo.status === "Case Closed – MAC Deactivation Referral"
                                            || $scope.objectInfo.status.toLowerCase() === "ready for review"
                                            || $scope.objectInfo.status.toLowerCase() === "ready for review ii"
                                            || $scope.objectInfo.status.toLowerCase() === "case deleted/canceled"

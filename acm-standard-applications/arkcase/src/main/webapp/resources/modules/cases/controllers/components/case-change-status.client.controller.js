@@ -94,7 +94,24 @@ angular.module('cases').controller(
                                     }
                                 }
                             } else {
-                                if($scope.oInfo.caseType === 'OPT') {
+                                 if($scope.oInfo.caseType === 'NLM' || $scope.oInfo.caseType === 'LCM') {
+                                     if($scope.oInfo.caseAdminActionsOutcome !== 'DEAC'){
+                                         for(var i = 0; i < caseStatuses.length; i++){
+                                            if(caseStatuses[i].value === 'Case Closed – MAC Deactivation Referral'){
+                                              caseStatuses.splice(i, 1);
+                                            }
+                                          }
+                                     }
+
+                                 } else {
+                                    for(var i = 0; i < caseStatuses.length; i++){
+                                         if(caseStatuses[i].value === 'Case Closed – MAC Deactivation Referral'){
+                                           caseStatuses.splice(i, 1);
+                                         }
+                                     }
+                                 }
+
+                                  if($scope.oInfo.caseType === 'OPT') {
                                     for(var i = 0; i < caseStatuses.length; i++){
                                         if(caseStatuses[i].value === 'NON-OPT Case - Non-Actionable'){
                                              caseStatuses.splice(i, 1);
@@ -121,14 +138,16 @@ angular.module('cases').controller(
                                                caseStatuses.splice(i, 1);
                                          }
                                      }
-                                      if ($scope.oInfo.caseType === 'MED') {
+                                     if ($scope.oInfo.caseType === 'MED') {
                                          for(var i = 0; i < caseStatuses.length; i++){
                                              if(caseStatuses[i].value === 'Documentation Requested'){
                                                   caseStatuses.splice(i, 1);
                                              }
                                          }
                                      }
+
                                 }
+
                                // console.log("!!!!! ", caseStatuses);
                                 $scope.statuses = caseStatuses;
                             }
@@ -152,7 +171,8 @@ angular.module('cases').controller(
                           ($scope.changeCaseStatus.status === "Audit Completed"
                           || $scope.changeCaseStatus.status === "Audit Assigned"
                           || $scope.changeCaseStatus.status === "Audit N/A"
-                          || $scope.changeCaseStatus.status === "CASE_CLOSED")){
+                          || $scope.changeCaseStatus.status === "CASE_CLOSED"
+                          || $scope.changeCaseStatus.status === "Case Closed – MAC Deactivation Referral")){
                            //console.log("!!! 1");
                            if($scope.oInfo.caseAdminActionsOutcome === "NA"){
                                if($scope.oInfo.caseNotActionableReason === null || $scope.oInfo.caseNotActionableReason === "" || $scope.oInfo.caseNotActionableReason === "undefined"){
@@ -433,7 +453,7 @@ angular.module('cases').controller(
                             ObjectModelService.setGroup($scope.oInfo, 'ALA_ANALYST@'.concat(domain));
                             $scope.oInfo.priority = "N/A";
 
-                        } else if ($scope.changeCaseStatus.status === "CASE_CLOSED") {
+                        } else if ($scope.changeCaseStatus.status === "CASE_CLOSED" || $scope.changeCaseStatus.status === "Case Closed – MAC Deactivation Referral") {
                               ObjectModelService.setAssignee($scope.oInfo, 'qaassignmentuser@'.concat(domain.toLowerCase()));
                               ObjectModelService.setGroup($scope.oInfo, 'ALA_SUPERVISOR@'.concat(domain));
                               $scope.oInfo.priority = "N/A";

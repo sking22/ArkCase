@@ -132,7 +132,7 @@ angular.module('cases').controller(
                             $scope.hideChangeStatus = ($scope.isAnalyst &&
                                 ($scope.objectInfo.status.toLowerCase() === "submitted to cms"
                               || $scope.objectInfo.status.toLowerCase() === "submitted to cms-documentation pending"
-                              || $scope.objectInfo.status === "CASE_CLOSED"
+                              || $scope.objectInfo.status === "CASE_CLOSED" || $scope.objectInfo.status === "Case Closed – MAC Deactivation Referral"
                               || $scope.objectInfo.status === "Ready For Review"
                               || $scope.objectInfo.status === "Ready For Review II"
                               || $scope.objectInfo.status === "Case Deleted/Canceled"
@@ -140,7 +140,7 @@ angular.module('cases').controller(
                               || $scope.objectInfo.status === "Audit N/A"
                               || $scope.objectInfo.status === "Audit Completed")) ||
                             ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
-                              ($scope.objectInfo.status === "CASE_CLOSED"
+                              ($scope.objectInfo.status === "CASE_CLOSED"  || $scope.objectInfo.status === "Case Closed – MAC Deactivation Referral"
                                 || $scope.objectInfo.status === "Audit Assigned"
                                 || $scope.objectInfo.status === "Audit N/A"
                                 || $scope.objectInfo.status === "Audit Completed"));

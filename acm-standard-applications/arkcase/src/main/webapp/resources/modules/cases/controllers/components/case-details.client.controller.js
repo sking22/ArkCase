@@ -44,13 +44,13 @@ angular.module('cases').controller(
                         console.log("!!!! " + $scope.currentUserProfile.groups.includes("ALA_SUPERVISOR@APVITACMS.COM"));
 
                         $scope.disableFieldCMS  = ($scope.currentUserProfile.groups[0] === "CMS@APVITACMS.COM" &&
-                            ($scope.objectInfo.status === "CASE_CLOSED"
+                            ($scope.objectInfo.status === "CASE_CLOSED"  || $scope.objectInfo.status === "Case Closed – MAC Deactivation Referral"
                                 || $scope.objectInfo.status === "Audit Assigned"
                                 || $scope.objectInfo.status === "Audit N/A"
                                 || $scope.objectInfo.status === "Audit Completed"));
 
                         $scope.disableField =  ($scope.isAnalyst &&
-                            ($scope.objectInfo.status === "CASE_CLOSED"
+                            ($scope.objectInfo.status === "CASE_CLOSED"  || $scope.objectInfo.status === "Case Closed – MAC Deactivation Referral"
                                 || $scope.objectInfo.status === "Ready For Review"
                                 || $scope.objectInfo.status === "Ready For Review II"
                                 || $scope.objectInfo.status === "Case Deleted/Canceled"
@@ -130,7 +130,7 @@ angular.module('cases').controller(
                     $scope.objectInfo.caseTenYearsConvDate = null;
                 }
 
-                if($scope.objectInfo.caseNotActionableReason !== 'NFC') {
+                if($scope.objectInfo.caseNotActionableReason == 'NFC' && $scope.objectInfo.caseNotActionableReason == 'DEA') {
                     $scope.objectInfo.caseSubNotActionableReason = null;
                 }
 
@@ -180,6 +180,15 @@ angular.module('cases').controller(
                     $scope.caseSNAR = subNotActionReasons;
                 }
             });
+
+            ObjectLookupService.getLookupByLookupName('subNotActionReasonsNotDEA').then(function (subNotActionReasonsNotDEA) {
+            if(subNotActionReasonsNotDEA){
+                var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
+                subNotActionReasonsNotDEA.unshift(clear);
+                $scope.caseSNARND = subNotActionReasonsNotDEA;
+                }
+            });
+
 
             ObjectLookupService.getLookupByLookupName('outcomeRevRei').then(function (outcomeRevRei) {
                 if(outcomeRevRei){
