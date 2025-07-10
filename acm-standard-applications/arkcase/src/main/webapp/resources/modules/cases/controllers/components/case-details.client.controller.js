@@ -189,7 +189,6 @@ angular.module('cases').controller(
                 }
             });
 
-
             ObjectLookupService.getLookupByLookupName('outcomeRevRei').then(function (outcomeRevRei) {
                 if(outcomeRevRei){
                     var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
