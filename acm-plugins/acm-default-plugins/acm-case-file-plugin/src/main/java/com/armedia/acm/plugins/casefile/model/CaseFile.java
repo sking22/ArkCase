@@ -298,6 +298,10 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     @Column(name = "cm_case_termination_type")
     private String caseTerminationType;
 
+    //cm_case_exclprec_type
+    @Column(name = "cm_case_exclprec_type")
+    private String caseExclPrec;
+
     //cm_case_termination_eff_date
     @Column(name = "cm_case_termination_eff_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -1265,13 +1269,14 @@ public class CaseFile implements Serializable, AcmAssignedObject, AcmEntity,
     }
     public void setCaseTerminationType(String caseTerminationType) { this.caseTerminationType = caseTerminationType; }
 
+    public String getCaseExclPrec() { return caseExclPrec; }
+    public void setCaseExclPrec(String caseExclPrec) { this.caseExclPrec = caseExclPrec; }
+
     public Date getCaseTerminationEffDate()
     {
         return caseTerminationEffDate;
     }
     public void setCaseTerminationEffDate(Date caseTerminationEffDate) { this.caseTerminationEffDate = caseTerminationEffDate; }
-
-
 
     public String getCaseEnrollmentBarExpDate()
     {

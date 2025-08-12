@@ -628,7 +628,13 @@
                             </div>
                         </div>
                         <div class="col-sm-4 form-group">
-
+                            <label>Exclusion/Preclusion</label>
+                            <select class="form-control" ng-model="objectInfo.caseExclPrec"
+                                    ng-disabled="disableField || disableFieldCMS">
+                                <option ng-repeat="option in caseExcPre" placeholder="{{objectInfo.caseExclPrec}}" value="{{option.key}}">
+                                    {{option.value | translate}}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-sm-4 form-group">
                             <label style="display:inline; float:left;">DEX Verified Date</label>
@@ -885,7 +891,7 @@
                         <div class="col-sm-4 form-group">
                             <label>Final Outcome of Admin Actions</label>
                             <select ng-disabled="disableField" class="form-control" ng-model="objectInfo.caseFinalOutAdminAct" >
-                                <option ng-repeat="option in caseAAO" placeholder="{{objectInfo.caseFinalOutAdminAct}}" value="{{option.key}}">
+                                <option ng-repeat="option in caseFinalAAO" placeholder="{{objectInfo.caseFinalOutAdminAct}}" value="{{option.key}}">
                                     {{option.value | translate}}
                                 </option>
                             </select>

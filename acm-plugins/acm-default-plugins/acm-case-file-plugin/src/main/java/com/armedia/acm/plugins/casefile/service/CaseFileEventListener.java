@@ -212,6 +212,14 @@ public class CaseFileEventListener implements ApplicationListener<AcmObjectHisto
                             detailsChangeDescription += "Termination Type changed from " + caseTerminationType + " to " + updatedCaseTerminationType + ", ";
                         }
 
+                        String updatedCasExclPrecType = updatedCaseFile.getCaseExclPrec();
+                        String caseExclPrecType = existing.getCaseExclPrec();
+
+                        if (!Objects.equals(updatedCasExclPrecType, caseExclPrecType)) {
+                            detailsChangeDescription += "Exclusion/Preclusion Type changed from " + caseExclPrecType + " to " + updatedCasExclPrecType + ", ";
+                        }
+
+
                         Date updatedCaseTerminationEffDate = updatedCaseFile.getCaseTerminationEffDate();
                         Date caseTerminationEffDate = existing.getCaseTerminationEffDate();
 

@@ -197,20 +197,21 @@ angular.module('cases').controller(
                 }
             });
 
-            ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
-                if(caseAdminActionsOutcomes){
-                    var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0} ;
-                    caseAdminActionsOutcomes.unshift(clear);
-                    $scope.caseAAO = caseAdminActionsOutcomes;
 
-                }
-            });
 
             ObjectLookupService.getLookupByLookupName('caseTerminationTypes').then(function (caseTerminationTypes) {
                 if(caseTerminationTypes){
                     var clear = { "readonly":null,"description":null,"value":"","key": "","primary":null,"order":0} ;
                     caseTerminationTypes.unshift(clear);
                     $scope.caseTerminationTypes = caseTerminationTypes;
+                }
+            });
+
+            ObjectLookupService.getLookupByLookupName('caseExclPrec').then(function (caseExclPrec) {
+                if(caseExclPrec){
+                    var clear = { "readonly":null,"description":null,"value":"","key": "","primary":null,"order":0} ;
+                    caseExclPrec.unshift(clear);
+                    $scope.caseExcPre = caseExclPrec;
                 }
             });
 
@@ -346,7 +347,43 @@ angular.module('cases').controller(
                     $scope.updateContractName();
                 }
 
+                ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                    if(caseAdminActionsOutcomes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0};
+                      /*   console.log("!!!!!!!!!");
+                        console.log("!!! caseAdminActionsOutcomes ", caseAdminActionsOutcomes);
+                         console.log("!!! $scope.objectInfo ", $scope.objectInfo);
+                        console.log("!!! $scope ", $scope);
+                        console.log("!!! case trpe ", $scope.caseFileType);
+                         console.log("!!!!!!!!!");*/
+
+                        if($scope.caseFileType === 'OPT'){
+                          for(var i = 0; i < caseAdminActionsOutcomes.length; i++){
+                          /*  console.log("!!! $scope.caseFileType", $scope.caseFileType);
+                            console.log("!!! caseAdminActionsOutcomes[i].key", caseAdminActionsOutcomes[i].key);*/
+                            if(caseAdminActionsOutcomes[i].key === 'NA'){
+                              caseAdminActionsOutcomes.splice(i, 1);
+                            }
+                          }
+                        }
+
+                         caseAdminActionsOutcomes.unshift(clear);
+                         $scope.caseAAO = caseAdminActionsOutcomes;
+
+                    }
+                });
+
+                ObjectLookupService.getLookupByLookupName('caseAdminActionsOutcomes').then(function (caseAdminActionsOutcomes) {
+                    if(caseAdminActionsOutcomes){
+                        var clear = { "readonly":null,"description":null,"value":"","key":"","primary":null,"order":0};
+                        caseAdminActionsOutcomes.unshift(clear);
+                        $scope.caseFinalAAO = caseAdminActionsOutcomes;
+                    }
+                });
+
             };
+
+
 
             $scope.$watchGroup(['objectInfo.caseTerminationEffDate','objectInfo.caseReinsTerminationEffDate',
                 'objectInfo.caseRecindTerminationEffDate', 'objectInfo.caseEnrollmentBarExpDate'], function () {

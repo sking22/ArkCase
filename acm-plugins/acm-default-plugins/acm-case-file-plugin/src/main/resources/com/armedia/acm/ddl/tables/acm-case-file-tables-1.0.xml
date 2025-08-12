@@ -782,4 +782,9 @@
             <column name="cm_case_apv_bill_date2" type="DATE"/>
         </addColumn>
     </changeSet>
+    <changeSet id="5044-acms-add-case-fields" author="sean.king">
+        <addColumn tableName="acm_case_file">
+            <column name="cm_case_exclprec_type" type="VARCHAR(10)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
